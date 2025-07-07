@@ -29,5 +29,4 @@ export const endPoints = {
   getBaseModelFilterAndSortOptions: `${apiHost}/baseModel/filters-and-sort-options`,
   collections: `${apiHost}/collections`,
   history: `${apiHost}/history`,
-  newsroom: `${apiHost}/newsroom`,
 }

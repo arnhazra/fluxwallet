@@ -105,9 +105,3 @@ export type Article = {
   publishedAt?: Date | null
   content?: string | null
 }
-
-export type FindNewsResponse = {
-  status?: string | null
-  totalResults?: number | null
-  articles?: Article[] | null
-}

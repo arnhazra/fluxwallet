@@ -1,7 +1,7 @@
-export const brandName = "Wela.io"
+export const brandName = "Welaio"
 
 export const uiConstants = {
-  homeHeader: "AI for everyone.",
+  homeHeader: "Wealth management redefined.",
   homeIntro1:
     "We believe research will eventually lead to AGI i.e. Artificial General Intelligence, a system that can solve human-level problems",
   connectionErrorMessage: "Connection Error",

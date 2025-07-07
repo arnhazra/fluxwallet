@@ -3,7 +3,6 @@ import { ApiReferenceModule } from "./apireference/apireference.module"
 import { APIKeyModule } from "./apikey/apikey.module"
 import { SubscriptionModule } from "./subscription/subscription.module"
 import { UserModule } from "./user/user.module"
-import { ModelsModule } from "./models/models.module"
 import { config } from "src/config"
 import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { ActivityModule } from "./activity/activity.module"
@@ -19,7 +18,6 @@ import { EmailModule } from "./email/email.module"
     APIKeyModule,
     SubscriptionModule,
     UserModule,
-    ModelsModule,
     TokenModule,
     EmailModule,
   ],
