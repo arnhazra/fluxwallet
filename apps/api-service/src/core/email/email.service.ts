@@ -44,7 +44,6 @@ export class EmailService {
         html: body,
       })
     } catch (error) {
-      console.log(error)
       throw new BadRequestException()
     }
   }

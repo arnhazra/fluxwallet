@@ -8,7 +8,7 @@ import {
   Request,
   Param,
   Body,
-  Query,
+  Put,
 } from "@nestjs/common"
 import { PortfolioService } from "./portfolio.service"
 import { statusMessages } from "@/shared/constants/status-messages"
@@ -47,7 +47,7 @@ export class PortfolioController {
   }
 
   @UseGuards(TokenGuard)
-  @Get(":id")
+  @Get("/:portfolioId")
   async findPortfolioById(
     @Request() request: ModRequest,
     @Param() params: any
@@ -59,6 +59,24 @@ export class PortfolioController {
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @UseGuards(TokenGuard)
+  @Put(":portfolioId")
+  async updatePortfolioById(
+    @Body() requestBody: CreatePortfolioRequestDto,
+    @Param() params: any,
+    @Request() request: ModRequest
+  ) {
+    try {
+      return await this.service.updatePortfolioById(
+        request.user.userId,
+        params.portfolioId,
+        requestBody
+      )
+    } catch (error) {
+      throw error
     }
   }
 

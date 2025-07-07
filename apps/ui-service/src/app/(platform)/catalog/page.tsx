@@ -126,8 +126,6 @@ export default function Page() {
     }
   )
 
-  console.log(models.data)
-
   const renderModels = models.data?.pages.flat().map((model, idx, arr) => {
     if (idx === arr.length - 1) {
       return (

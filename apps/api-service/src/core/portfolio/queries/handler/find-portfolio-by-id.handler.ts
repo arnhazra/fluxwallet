@@ -10,9 +10,10 @@ export class FindPortfolioByIdQueryHandler
   constructor(private readonly repository: PortfolioRepository) {}
 
   async execute(query: FindPortfolioByIdQuery) {
-    const { portfolioId } = query
+    const { portfolioId, userId } = query
     return await this.repository.findOne({
       _id: objectId(portfolioId),
+      userId: objectId(userId),
     })
   }
 }

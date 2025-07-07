@@ -1,3 +1,6 @@
 export class FindPortfolioByIdQuery {
-  constructor(public readonly portfolioId: string) {}
+  constructor(
+    public readonly userId: string,
+    public readonly portfolioId: string
+  ) {}
 }

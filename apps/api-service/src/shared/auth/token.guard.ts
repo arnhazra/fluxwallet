@@ -98,7 +98,6 @@ export class TokenGuard implements CanActivate {
           return true
         }
       } else {
-        console.log(error)
         throw new UnauthorizedException(statusMessages.unauthorized)
       }
     }

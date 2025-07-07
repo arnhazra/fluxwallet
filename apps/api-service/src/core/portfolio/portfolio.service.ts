@@ -7,6 +7,7 @@ import { Portfolio } from "./schemas/portfolio.schema"
 import { DeletePortfolioCommand } from "./commands/impl/delete-portfolio.command"
 import { CreatePortfolioCommand } from "./commands/impl/create-portfolio.command"
 import { CreatePortfolioRequestDto } from "./dto/request/create-portfolio.request.dto"
+import { UpdatePortfolioCommand } from "./commands/impl/update-portfolio.command"
 
 @Injectable()
 export class PortfolioService {
@@ -40,14 +41,23 @@ export class PortfolioService {
 
   async findPortfolioById(reqUserId: string, portfolioId: string) {
     try {
-      const portfolio = await this.queryBus.execute<
-        FindPortfolioByIdQuery,
-        Portfolio
-      >(new FindPortfolioByIdQuery(portfolioId))
-      if (portfolio.userId.toString() !== reqUserId) {
-        throw new BadRequestException(statusMessages.connectionError)
-      }
-      return portfolio
+      return await this.queryBus.execute<FindPortfolioByIdQuery, Portfolio>(
+        new FindPortfolioByIdQuery(reqUserId, portfolioId)
+      )
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async updatePortfolioById(
+    userId: string,
+    portfolioId: string,
+    requestBody: CreatePortfolioRequestDto
+  ) {
+    try {
+      return await this.commandBus.execute<UpdatePortfolioCommand, Portfolio>(
+        new UpdatePortfolioCommand(userId, portfolioId, requestBody)
+      )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
@@ -58,7 +68,7 @@ export class PortfolioService {
       const { userId } = await this.queryBus.execute<
         FindPortfolioByIdQuery,
         Portfolio
-      >(new FindPortfolioByIdQuery(portfolioId))
+      >(new FindPortfolioByIdQuery(reqUserId, portfolioId))
       if (userId.toString() === reqUserId) {
         await this.commandBus.execute(new DeletePortfolioCommand(portfolioId))
         return { success: true }

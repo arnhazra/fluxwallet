@@ -10,6 +10,7 @@ import { DeletePortfolioCommandHandler } from "./commands/handler/delete-portfol
 import { FindAllPortfolioQueryHandler } from "./queries/handler/find-all-portfolios.handler"
 import { FindPortfolioByIdQueryHandler } from "./queries/handler/find-portfolio-by-id.handler"
 import { EntityModule } from "@/shared/entity/entity.module"
+import { UpdatePortfolioCommandHandler } from "./commands/handler/update-portfolio.handler"
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
     PortfolioService,
     PortfolioRepository,
     CreatePortfolioCommandHandler,
+    UpdatePortfolioCommandHandler,
     DeletePortfolioCommandHandler,
     FindAllPortfolioQueryHandler,
     FindPortfolioByIdQueryHandler,
