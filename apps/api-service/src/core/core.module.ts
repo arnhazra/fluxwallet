@@ -9,6 +9,7 @@ import { ActivityModule } from "./activity/activity.module"
 import { TokenModule } from "./token/token.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { EmailModule } from "./email/email.module"
+import { PortfolioModule } from "./portfolio/portfolio.module"
 
 @Module({
   imports: [
@@ -20,6 +21,7 @@ import { EmailModule } from "./email/email.module"
     UserModule,
     TokenModule,
     EmailModule,
+    PortfolioModule,
   ],
 })
 export class CoreModule {}
