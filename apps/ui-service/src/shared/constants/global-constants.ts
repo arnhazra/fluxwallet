@@ -1,9 +1,9 @@
 export const brandName = "Welaio"
 
 export const uiConstants = {
-  homeHeader: "Wealth management redefined.",
+  homeHeader: "Invest for future",
   homeIntro1:
-    "We believe research will eventually lead to AGI i.e. Artificial General Intelligence, a system that can solve human-level problems",
+    "Our Wealth Management platform offers a range of investment strategies, from highly-customized advice to our easy-to-use online investing platform, for however you like to invest.",
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Credentials",
   errorMessage: "Not Found",
@@ -21,7 +21,7 @@ export const uiConstants = {
   openSourceHeader: `${brandName} is open source and powered by open source software.`,
   safetyHeader: `We teach our AI good behavior so it can be both capable and aligned with human values. At every stage of the model training we apply methods to imbue the principles, policies and human values as suggested in the Model Spec⁠ and our safety policy taxonomies, minimizing harmful or biased outputs from the model.`,
   pricingHeader: `Preferred access to the latest AI models & more usage. Unlock all features including extensive AI usage for your application.`,
-  pricingTitle: `${brandName} Pro Subscription`,
+  pricingTitle: `${brandName} Pricing`,
   privacyPolicyStatement: `By using ${brandName}, you agree to our Terms of Service and Privacy Policy`,
   verifyEmailStatement: `Please verify your auth by entering the OTP we sent to your email`,
   apiKeyCreated: "API Key created",
