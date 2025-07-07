@@ -1,4 +1,4 @@
-export const brandName = "Welaio"
+export const brandName = "Wela.io"
 
 export const uiConstants = {
   homeHeader: "AI for everyone.",

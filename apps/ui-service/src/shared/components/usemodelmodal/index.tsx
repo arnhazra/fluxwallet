@@ -6,7 +6,7 @@ import {
   DialogTrigger,
 } from "@/shared/components/ui/dialog"
 import { Badge } from "@/shared/components/ui/badge"
-import { X, MessageCircle, Code, DraftingCompass, Key } from "lucide-react"
+import { X, MessageCircle, Code, BadgeEuro, Key } from "lucide-react"
 import { useContext, useState } from "react"
 import { DialogTitle } from "@radix-ui/react-dialog"
 import { APIReference, BaseModel } from "@/shared/types"
@@ -148,7 +148,7 @@ export default function UseThisModelModal({
                   <div className="flex items-center justify-between mb-3">
                     <div className="flex items-center gap-2">
                       <div className="w-7 h-7 bg-primary rounded-full flex items-center justify-center">
-                        <DraftingCompass className="h-3 w-3 text-white" />
+                        <BadgeEuro className="h-3 w-3 text-white" />
                       </div>
                       <span className="text-white font-medium text-sm">
                         {brandName} API Key
