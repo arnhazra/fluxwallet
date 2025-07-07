@@ -1,0 +1,16 @@
+export enum EventsUnion {
+  SetToken = "setToken",
+  GetToken = "getToken",
+  DeleteToken = "deleteToken",
+  SendEmail = "sendEmail",
+  CreateActivity = "createActivity",
+  GetUserDetails = "getUserDetails",
+  UpdateUserDetails = "updateUserDetails",
+  GetSubscriptionDetails = "getSubscriptionDetails",
+  GetAPIKeyDetails = "getAPIKeyDetails",
+  GetBaseModelDetails = "getBaseModelDetails",
+  GetThreadCount = "getThreadCount",
+  CreateHistory = "createHistory",
+  CreateAPIKey = "createAPIKey",
+  GetAPIKeys = "getAPIKeys",
+}
