@@ -1,16 +1,16 @@
 import { Module } from "@nestjs/common"
-import { ChatService } from "./chat.service"
-import { ChatController } from "./chat.controller"
+import { IntelligenceService } from "./intelligence.service"
+import { IntelligenceController } from "./intelligence.controller"
 import { CqrsModule } from "@nestjs/cqrs"
 import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { Thread, ThreadSchema } from "./schemas/thread.schema"
 import { CreateThreadCommandHandler } from "./commands/handler/create-thread.handler"
-import { ChatRepository } from "./chat.repository"
+import { IntelligenceRepository } from "./intelligence.repository"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { FetchThreadByIdQueryHandler } from "./queries/handler/fetch-thread-by-id.handler"
 import { GetUsageByUserIdQueryHandler } from "./queries/handler/get-usage-by-user-id.handler"
 import { HttpModule } from "@nestjs/axios"
-import { ChatStrategy } from "./chat.strategy"
+import { IntelligenceStrategy } from "./intelligence.strategy"
 
 @Module({
   imports: [
@@ -21,14 +21,14 @@ import { ChatStrategy } from "./chat.strategy"
       DbConnectionMap.Primary
     ),
   ],
-  controllers: [ChatController],
+  controllers: [IntelligenceController],
   providers: [
-    ChatService,
-    ChatRepository,
-    ChatStrategy,
+    IntelligenceService,
+    IntelligenceRepository,
+    IntelligenceStrategy,
     CreateThreadCommandHandler,
     FetchThreadByIdQueryHandler,
     GetUsageByUserIdQueryHandler,
   ],
 })
-export class ChatModule {}
+export class IntelligenceModule {}

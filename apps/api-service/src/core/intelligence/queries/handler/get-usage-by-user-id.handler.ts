@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
-import { ChatRepository } from "../../chat.repository"
+import { IntelligenceRepository } from "../../intelligence.repository"
 import { GetUsageByUserIdQuery } from "../impl/get-usage-by-user-id.query"
 import objectId from "@/shared/utils/convert-objectid"
 
@@ -7,7 +7,7 @@ import objectId from "@/shared/utils/convert-objectid"
 export class GetUsageByUserIdQueryHandler
   implements IQueryHandler<GetUsageByUserIdQuery>
 {
-  constructor(private readonly repository: ChatRepository) {}
+  constructor(private readonly repository: IntelligenceRepository) {}
 
   async execute(query: GetUsageByUserIdQuery) {
     const { userId } = query

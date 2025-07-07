@@ -8,14 +8,17 @@ import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import { GetUsageByUserIdQuery } from "./queries/impl/get-usage-by-user-id.query"
-import { ChatStrategy, ChatStrategyType } from "./chat.strategy"
+import {
+  IntelligenceStrategy,
+  IntelligenceStrategyType,
+} from "./intelligence.strategy"
 
 @Injectable()
-export class ChatService {
+export class IntelligenceService {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-    private readonly chatStrategy: ChatStrategy
+    private readonly strategy: IntelligenceStrategy
   ) {}
 
   async getThreadById(threadId: string, isFirstMessage: boolean) {
@@ -62,7 +65,7 @@ export class ChatService {
         !aiGenerationDto.threadId
       )
 
-      const args: ChatStrategyType = {
+      const args: IntelligenceStrategyType = {
         genericName: "openai/gpt-4.1",
         temperature: 1.0,
         topP: 1.0,
@@ -71,7 +74,7 @@ export class ChatService {
         threadId,
       }
 
-      const { response } = await this.chatStrategy.azureStrategy(args)
+      const { response } = await this.strategy.azureStrategy(args)
       await this.commandBus.execute<CreateThreadCommand, Thread>(
         new CreateThreadCommand(userId, threadId, prompt, response)
       )

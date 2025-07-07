@@ -6,7 +6,7 @@ import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { MemorySaver } from "@langchain/langgraph"
 
-export interface ChatStrategyType {
+export interface IntelligenceStrategyType {
   genericName: string
   temperature: number
   topP: number
@@ -16,8 +16,11 @@ export interface ChatStrategyType {
 }
 
 @Injectable()
-export class ChatStrategy {
-  private async runAgent(llm: LanguageModelLike, args: ChatStrategyType) {
+export class IntelligenceStrategy {
+  private async runAgent(
+    llm: LanguageModelLike,
+    args: IntelligenceStrategyType
+  ) {
     const { thread, prompt, threadId } = args
     const memory = new MemorySaver()
 
@@ -46,7 +49,7 @@ export class ChatStrategy {
     return messages[messages.length - 1]?.content.toString()
   }
 
-  private buildAzureLLM(opts: ChatStrategyType) {
+  private buildAzureLLM(opts: IntelligenceStrategyType) {
     return new ChatOpenAI({
       model: opts.genericName,
       temperature: opts.temperature,
@@ -59,7 +62,7 @@ export class ChatStrategy {
     })
   }
 
-  async azureStrategy(args: ChatStrategyType) {
+  async azureStrategy(args: IntelligenceStrategyType) {
     const llm = this.buildAzureLLM(args)
     const response = await this.runAgent(llm, args)
     return { response }

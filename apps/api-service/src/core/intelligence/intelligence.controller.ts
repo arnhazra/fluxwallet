@@ -7,14 +7,14 @@ import {
   Get,
   Param,
 } from "@nestjs/common"
-import { ChatService } from "./chat.service"
+import { IntelligenceService } from "./intelligence.service"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 import { TokenGuard } from "@/shared/auth/token.guard"
 
-@Controller("chat")
-export class ChatController {
-  constructor(private readonly service: ChatService) {}
+@Controller("intelligence")
+export class IntelligenceController {
+  constructor(private readonly service: IntelligenceService) {}
 
   @UseGuards(TokenGuard)
   @Post()
