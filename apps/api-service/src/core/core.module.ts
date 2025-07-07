@@ -10,6 +10,7 @@ import { TokenModule } from "./token/token.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { EmailModule } from "./email/email.module"
 import { PortfolioModule } from "./portfolio/portfolio.module"
+import { AssetModule } from "./asset/asset.module"
 
 @Module({
   imports: [
@@ -22,6 +23,7 @@ import { PortfolioModule } from "./portfolio/portfolio.module"
     TokenModule,
     EmailModule,
     PortfolioModule,
+    AssetModule,
   ],
 })
 export class CoreModule {}

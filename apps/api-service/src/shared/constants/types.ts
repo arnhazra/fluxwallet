@@ -8,15 +8,16 @@ export enum InstitutionType {
 export enum AssetType {
   FD = "FD",
   RD = "RD",
-  GOLD = "GOLD",
-  EQUITY = "EQUITY",
   MUTUAL_FUND = "MUTUAL_FUND",
+  SIP = "SIP",
+  LUMPSUM = "LUMPSUM",
+  METAL = "METAL",
+  PROPERTY = "PROPERTY",
   BOND = "BOND",
   EPF = "EPF",
   PPF = "PPF",
   CASH = "CASH",
-  PROPERTY = "PROPERTY",
-  SIP = "SIP",
+  EQUITY = "EQUITY",
   OTHER = "OTHER",
 }
 
