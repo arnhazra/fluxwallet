@@ -9,7 +9,6 @@ import {
 } from "@nestjs/common"
 import { ChatService } from "./chat.service"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
-import { APIKeyGuard } from "@/shared/auth/apikey.guard"
 import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 import { TokenGuard } from "@/shared/auth/token.guard"
 
@@ -17,7 +16,7 @@ import { TokenGuard } from "@/shared/auth/token.guard"
 export class ChatController {
   constructor(private readonly service: ChatService) {}
 
-  @UseGuards(APIKeyGuard)
+  @UseGuards(TokenGuard)
   @Post()
   async generateRecommendation(
     @Request() request: ModRequest,
@@ -26,8 +25,7 @@ export class ChatController {
     try {
       return await this.service.generateRecommendation(
         aiGenerationDto,
-        request.user.userId,
-        request.user.isSubscriptionActive
+        request.user.userId
       )
     } catch (error) {
       throw error

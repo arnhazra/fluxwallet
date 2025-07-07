@@ -13,13 +13,12 @@ export interface ChatStrategyType {
   thread: Thread[]
   prompt: string
   threadId: string
-  canSearchWeb: boolean
 }
 
 @Injectable()
 export class ChatStrategy {
   private async runAgent(llm: LanguageModelLike, args: ChatStrategyType) {
-    const { thread, prompt, threadId, canSearchWeb } = args
+    const { thread, prompt, threadId } = args
     const memory = new MemorySaver()
 
     const agent = createReactAgent({

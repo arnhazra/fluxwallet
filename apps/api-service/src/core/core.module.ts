@@ -11,6 +11,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
 import { EmailModule } from "./email/email.module"
 import { PortfolioModule } from "./portfolio/portfolio.module"
 import { AssetModule } from "./asset/asset.module"
+import { ChatModule } from "./chat/chat.module"
 
 @Module({
   imports: [
@@ -24,6 +25,7 @@ import { AssetModule } from "./asset/asset.module"
     EmailModule,
     PortfolioModule,
     AssetModule,
+    ChatModule,
   ],
 })
 export class CoreModule {}
