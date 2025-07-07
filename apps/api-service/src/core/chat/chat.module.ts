@@ -18,7 +18,7 @@ import { ChatStrategy } from "./chat.strategy"
     CqrsModule,
     EntityModule.forFeature(
       [{ name: Thread.name, schema: ThreadSchema }],
-      DbConnectionMap.Replica
+      DbConnectionMap.Primary
     ),
   ],
   controllers: [ChatController],

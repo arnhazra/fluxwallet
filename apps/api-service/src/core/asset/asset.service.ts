@@ -22,7 +22,6 @@ export class AssetService {
         new CreateAssetCommand(userId, requestBody)
       )
     } catch (error) {
-      console.log(error)
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

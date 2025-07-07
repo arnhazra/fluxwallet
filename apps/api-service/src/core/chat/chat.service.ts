@@ -77,7 +77,6 @@ export class ChatService {
       )
       return { response, threadId }
     } catch (error) {
-      console.log(error)
       throw error
     }
   }

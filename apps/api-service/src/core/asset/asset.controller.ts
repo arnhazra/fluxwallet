@@ -29,7 +29,6 @@ export class AssetController {
     try {
       return await this.service.createAsset(request.user.userId, requestBody)
     } catch (error) {
-      console.log(error)
       throw error
     }
   }

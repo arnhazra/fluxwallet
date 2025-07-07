@@ -8,7 +8,7 @@ import { EntityRepository } from "@/shared/entity/entity.repository"
 @Injectable()
 export class ChatRepository extends EntityRepository<Thread> {
   constructor(
-    @InjectModel(Thread.name, DbConnectionMap.Replica)
+    @InjectModel(Thread.name, DbConnectionMap.Primary)
     private threadModel: Model<Thread>
   ) {
     super(threadModel)
