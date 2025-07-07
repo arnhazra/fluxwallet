@@ -2,12 +2,7 @@ import { Injectable } from "@nestjs/common"
 import { Thread } from "./schemas/thread.schema"
 import { config } from "@/config"
 import { ChatOpenAI } from "@langchain/openai"
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
-import { ChatGroq } from "@langchain/groq"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
-import { getTodayTool } from "./tools/date.tool"
-import { searchTool } from "./tools/search.tool"
-import { weatherTool } from "./tools/weather.tool"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { MemorySaver } from "@langchain/langgraph"
 
@@ -26,15 +21,10 @@ export class ChatStrategy {
   private async runAgent(llm: LanguageModelLike, args: ChatStrategyType) {
     const { thread, prompt, threadId, canSearchWeb } = args
     const memory = new MemorySaver()
-    const tools = [getTodayTool, weatherTool]
-
-    if (canSearchWeb) {
-      tools.push(searchTool)
-    }
 
     const agent = createReactAgent({
       llm,
-      tools,
+      tools: [],
       checkpointSaver: memory,
     })
 
@@ -70,38 +60,8 @@ export class ChatStrategy {
     })
   }
 
-  private buildGoogleLLM(opts: ChatStrategyType) {
-    return new ChatGoogleGenerativeAI({
-      model: opts.genericName,
-      temperature: opts.temperature,
-      topP: opts.topP,
-      apiKey: config.GCP_API_KEY,
-    })
-  }
-
-  private buildGroqLLM(opts: ChatStrategyType) {
-    return new ChatGroq({
-      model: opts.genericName,
-      temperature: opts.temperature,
-      topP: opts.topP,
-      apiKey: config.GROQ_API_KEY,
-    })
-  }
-
   async azureStrategy(args: ChatStrategyType) {
     const llm = this.buildAzureLLM(args)
-    const response = await this.runAgent(llm, args)
-    return { response }
-  }
-
-  async googleStrategy(args: ChatStrategyType) {
-    const llm = this.buildGoogleLLM(args)
-    const response = await this.runAgent(llm, args)
-    return { response }
-  }
-
-  async groqStrategy(args: ChatStrategyType) {
-    const llm = this.buildGroqLLM(args)
     const response = await this.runAgent(llm, args)
     return { response }
   }

@@ -13,7 +13,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
     CqrsModule,
     EntityModule.forFeature(
       [{ name: ApiReference.name, schema: ApiReferenceSchema }],
-      DbConnectionMap.Core
+      DbConnectionMap.Primary
     ),
   ],
   controllers: [ApiReferenceController],

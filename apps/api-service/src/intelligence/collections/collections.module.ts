@@ -16,7 +16,7 @@ import { FindIfCollectedQueryHandler } from "./queries/handler/find-if-collected
     CqrsModule,
     EntityModule.forFeature(
       [{ name: Collection.name, schema: CollectionSchema }],
-      DbConnectionMap.Intelligence
+      DbConnectionMap.Replica
     ),
   ],
   controllers: [CollectionsController],

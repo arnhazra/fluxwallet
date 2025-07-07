@@ -9,12 +9,11 @@ import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { ActivityModule } from "./activity/activity.module"
 import { TokenModule } from "./token/token.module"
 import { EntityModule } from "@/shared/entity/entity.module"
-import { NewsRoomModule } from "./newsroom/newsroom.module"
-import { EmailModule } from './email/email.module';
+import { EmailModule } from "./email/email.module"
 
 @Module({
   imports: [
-    EntityModule.forRoot(config.CORE_DATABASE_URI, DbConnectionMap.Core),
+    EntityModule.forRoot(config.PRIMARY_DATABASE_URI, DbConnectionMap.Primary),
     ApiReferenceModule,
     ActivityModule,
     APIKeyModule,
@@ -22,7 +21,6 @@ import { EmailModule } from './email/email.module';
     UserModule,
     ModelsModule,
     TokenModule,
-    NewsRoomModule,
     EmailModule,
   ],
 })

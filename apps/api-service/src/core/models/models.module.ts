@@ -13,7 +13,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
     CqrsModule,
     EntityModule.forFeature(
       [{ name: Model.name, schema: ModelSchema }],
-      DbConnectionMap.Core
+      DbConnectionMap.Primary
     ),
   ],
   controllers: [ModelsController],

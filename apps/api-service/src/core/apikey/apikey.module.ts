@@ -17,7 +17,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
     CqrsModule,
     EntityModule.forFeature(
       [{ name: APIKey.name, schema: APIKeySchema }],
-      DbConnectionMap.Core
+      DbConnectionMap.Primary
     ),
   ],
   controllers: [APIKeyController],

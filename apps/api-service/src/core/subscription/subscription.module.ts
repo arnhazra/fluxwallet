@@ -14,7 +14,7 @@ import { DbConnectionMap } from "src/shared/utils/db-connection.map"
     CqrsModule,
     EntityModule.forFeature(
       [{ name: Subscription.name, schema: SubscriptionSchema }],
-      DbConnectionMap.Core
+      DbConnectionMap.Primary
     ),
   ],
   controllers: [SubscriptionController],

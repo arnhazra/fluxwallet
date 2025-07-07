@@ -11,7 +11,7 @@ import objectId from "src/shared/utils/convert-objectid"
 @Injectable()
 export class UserRepository extends EntityRepository<User> {
   constructor(
-    @InjectModel(User.name, DbConnectionMap.Core)
+    @InjectModel(User.name, DbConnectionMap.Primary)
     private userModel: Model<User>
   ) {
     super(userModel)

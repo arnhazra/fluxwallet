@@ -9,10 +9,7 @@ import { HistoryModule } from "./history/history.module"
 
 @Module({
   imports: [
-    EntityModule.forRoot(
-      config.INTELLIGENCE_DATABASE_URI,
-      DbConnectionMap.Intelligence
-    ),
+    EntityModule.forRoot(config.REPLICA_DATABASE_URI, DbConnectionMap.Replica),
     BaseModelModule,
     ChatModule,
     CollectionsModule,

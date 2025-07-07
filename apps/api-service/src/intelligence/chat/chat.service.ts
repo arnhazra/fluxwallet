@@ -104,7 +104,7 @@ export class ChatService {
       }
 
       if (bModel.deployment === "Google Cloud") {
-        const { response } = await this.chatStrategy.googleStrategy(args)
+        const { response } = await this.chatStrategy.azureStrategy(args)
         await this.commandBus.execute<CreateThreadCommand, Thread>(
           new CreateThreadCommand(userId, threadId, prompt, response)
         )
@@ -116,7 +116,7 @@ export class ChatService {
         )
         return { response, threadId }
       } else if (bModel.deployment === "Groq Cloud") {
-        const { response } = await this.chatStrategy.groqStrategy(args)
+        const { response } = await this.chatStrategy.azureStrategy(args)
         await this.commandBus.execute<CreateThreadCommand, Thread>(
           new CreateThreadCommand(userId, threadId, prompt, response)
         )

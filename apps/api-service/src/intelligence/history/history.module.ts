@@ -14,7 +14,7 @@ import { CreateHistoryCommandHandler } from "./commands/handler/create-history.h
     CqrsModule,
     EntityModule.forFeature(
       [{ name: History.name, schema: HistorySchema }],
-      DbConnectionMap.Intelligence
+      DbConnectionMap.Replica
     ),
   ],
   controllers: [HistoryController],
