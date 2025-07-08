@@ -30,8 +30,10 @@ export default function Page() {
 
   const assets = useQuery<Asset[]>({
     queryKey: ["get-assets", selectedPortfolio?._id ?? ""],
-    queryUrl: endPoints.asset,
+    queryUrl: `${endPoints.asset}/portfolio/${selectedPortfolio?._id ?? ""}`,
     method: HTTPMethods.GET,
+    suspense: false,
+    enabled: !!selectedPortfolio?._id,
   })
 
   useEffect(() => {
@@ -53,7 +55,7 @@ export default function Page() {
   })
 
   const renderAssets = assets?.data?.map((asset) => {
-    return <AssetCard asset={asset} />
+    return <AssetCard asset={asset} key={asset._id} />
   })
 
   return (

@@ -35,7 +35,10 @@ import { format } from "date-fns"
 import { cn } from "@/shared/lib/utils"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { AssetType, RecurringFrequency } from "@/shared/types"
+import { AssetType, Portfolio, RecurringFrequency } from "@/shared/types"
+import useQuery from "@/shared/hooks/use-query"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
 
 interface AssetFormData {
   portfolioId: string
@@ -80,10 +83,16 @@ const frequencyLabels = {
 
 export default function AssetForm() {
   const [formData, setFormData] = useState<AssetFormData>({
-    portfolioId: "686bf33951e6833a80196d28",
+    portfolioId: "",
     assetType: "",
     assetName: "",
     identifier: "",
+  })
+
+  const portfolios = useQuery<Portfolio[]>({
+    queryKey: ["get-portfolios-build-asset"],
+    queryUrl: endPoints.portfolio,
+    method: HTTPMethods.GET,
   })
 
   const handleInputChange = (field: keyof AssetFormData, value: any) => {
@@ -99,28 +108,6 @@ export default function AssetForm() {
       timeout: FETCH_TIMEOUT,
       json: formData,
     })
-  }
-
-  const getAssetIcon = (assetType: AssetType) => {
-    switch (assetType) {
-      case AssetType.FD:
-      case AssetType.RD:
-        return <Building className="h-4 w-4" />
-      case AssetType.MUTUAL_FUND:
-      case AssetType.SIP:
-      case AssetType.LUMPSUM:
-        return <TrendingUp className="h-4 w-4" />
-      case AssetType.METAL:
-        return <Coins className="h-4 w-4" />
-      case AssetType.PROPERTY:
-        return <Building className="h-4 w-4" />
-      case AssetType.CASH:
-      case AssetType.EPF:
-      case AssetType.PPF:
-        return <DollarSign className="h-4 w-4" />
-      default:
-        return <DollarSign className="h-4 w-4" />
-    }
   }
 
   // Field visibility logic based on asset type
@@ -193,6 +180,28 @@ export default function AssetForm() {
             {/* Common Fields */}
 
             <div className="space-y-2">
+              <Label htmlFor="assetType">Select Portfolio</Label>
+              <Select
+                value={formData.portfolioId}
+                onValueChange={(value) =>
+                  handleInputChange("portfolioId", value)
+                }
+                required
+              >
+                <SelectTrigger>
+                  <SelectValue placeholder="Select Portfolio" />
+                </SelectTrigger>
+                <SelectContent>
+                  {portfolios.data?.map((portfolio) => (
+                    <SelectItem key={portfolio._id} value={portfolio._id}>
+                      {portfolio.portfolioName}
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
+            </div>
+
+            <div className="space-y-2">
               <Label htmlFor="assetType">Asset Type</Label>
               <Select
                 value={formData.assetType}
@@ -205,10 +214,7 @@ export default function AssetForm() {
                 <SelectContent>
                   {Object.entries(assetTypeLabels).map(([value, label]) => (
                     <SelectItem key={value} value={value}>
-                      <div className="flex items-center gap-2">
-                        {getAssetIcon(value as AssetType)}
-                        {label}
-                      </div>
+                      <div className="flex items-center gap-2">{label}</div>
                     </SelectItem>
                   ))}
                 </SelectContent>
@@ -271,10 +277,13 @@ export default function AssetForm() {
                         <Calendar
                           mode="single"
                           selected={formData.startDate}
+                          captionLayout="dropdown"
+                          startMonth={new Date(2000, 0)}
+                          endMonth={new Date()}
+                          disabled={(date) => date > new Date()}
                           onSelect={(date) =>
                             handleInputChange("startDate", date)
                           }
-                          initialFocus
                         />
                       </PopoverContent>
                     </Popover>
@@ -300,6 +309,16 @@ export default function AssetForm() {
                         <Calendar
                           mode="single"
                           selected={formData.maturityDate}
+                          captionLayout={
+                            formData.startDate ? "dropdown" : "label"
+                          }
+                          startMonth={new Date(formData.startDate ?? 2000)}
+                          endMonth={new Date(2100, 0)}
+                          disabled={(date) =>
+                            formData.startDate
+                              ? date < formData.startDate
+                              : false
+                          }
                           onSelect={(date) =>
                             handleInputChange("maturityDate", date)
                           }

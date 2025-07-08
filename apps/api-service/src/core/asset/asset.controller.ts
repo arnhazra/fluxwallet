@@ -34,10 +34,16 @@ export class AssetController {
   }
 
   @UseGuards(TokenGuard)
-  @Get()
-  async findMyAssets(@Request() request: ModRequest) {
+  @Get("portfolio/:portfolioId")
+  async findMyAssetsByPortfolioId(
+    @Request() request: ModRequest,
+    @Param() params: any
+  ) {
     try {
-      return await this.service.findMyAssets(request.user.userId)
+      return await this.service.findMyAssetsByPortfolioId(
+        request.user.userId,
+        params.portfolioId
+      )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

@@ -32,10 +32,10 @@ export class AssetService {
     }
   }
 
-  async findMyAssets(userId: string) {
+  async findMyAssetsByPortfolioId(userId: string, portfolioId: string) {
     try {
       return await this.queryBus.execute<FindAllAssetQuery, Asset[]>(
-        new FindAllAssetQuery(userId)
+        new FindAllAssetQuery(userId, portfolioId)
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)

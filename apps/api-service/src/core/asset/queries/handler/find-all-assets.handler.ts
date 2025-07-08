@@ -10,9 +10,10 @@ export class FindAllAssetQueryHandler
   constructor(private readonly repository: AssetRepository) {}
 
   async execute(query: FindAllAssetQuery) {
-    const { userId } = query
+    const { userId, portfolioId } = query
     return await this.repository.find({
       userId: objectId(userId),
+      portfolioId: objectId(portfolioId),
     })
   }
 }
