@@ -54,10 +54,10 @@ export class Asset extends Document {
   currentValuation?: number // EPF, PPF, CASH
 
   @Prop()
-  units?: number // EQUITY
+  units?: number // EQUITY, CRYPTO
 
   @Prop()
-  unitPurchasePrice?: number // EQUITY
+  unitPurchasePrice?: number // EQUITY, CRYPTO
 }
 
 export const AssetSchema = SchemaFactory.createForClass(Asset)

@@ -18,6 +18,7 @@ export enum AssetType {
   PPF = "PPF",
   CASH = "CASH",
   EQUITY = "EQUITY",
+  CRYPTO = "CRYPTO",
   OTHER = "OTHER",
 }
 

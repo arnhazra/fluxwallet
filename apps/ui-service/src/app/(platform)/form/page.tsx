@@ -49,6 +49,7 @@ enum AssetType {
   PPF = "PPF",
   CASH = "CASH",
   EQUITY = "EQUITY",
+  CRYPTO = "CRYPTO",
   OTHER = "OTHER",
 }
 
@@ -89,6 +90,7 @@ const assetTypeLabels = {
   [AssetType.PPF]: "Public Provident Fund",
   [AssetType.CASH]: "Cash/Savings",
   [AssetType.EQUITY]: "Equity/Stocks",
+  [AssetType.CRYPTO]: "Crypto",
   [AssetType.OTHER]: "Other Assets",
 }
 
@@ -190,7 +192,11 @@ export default function AssetForm() {
       formData.assetType as AssetType
     )
 
-  const showEquityFields = formData.assetType === AssetType.EQUITY
+  const showEquityFields =
+    formData.assetType &&
+    [AssetType.EQUITY, AssetType.CRYPTO].includes(
+      formData.assetType as AssetType
+    )
 
   return (
     <div className="max-w-4xl mx-auto p-6">

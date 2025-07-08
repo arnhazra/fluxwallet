@@ -93,11 +93,11 @@ export class CreateAssetRequestDto {
   @IsNumber()
   currentValuation?: number
 
-  @ValidateIf((o) => [AssetType.EQUITY].includes(o.assetType))
+  @ValidateIf((o) => [AssetType.EQUITY, AssetType.CRYPTO].includes(o.assetType))
   @IsNumber()
   units?: number
 
-  @ValidateIf((o) => [AssetType.EQUITY].includes(o.assetType))
+  @ValidateIf((o) => [AssetType.EQUITY, AssetType.CRYPTO].includes(o.assetType))
   @IsNumber()
   unitPurchasePrice?: number
 }

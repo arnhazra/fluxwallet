@@ -152,6 +152,9 @@ export class AssetService {
         case AssetType.EQUITY:
           return asset.units * asset.unitPurchasePrice
 
+        case AssetType.CRYPTO:
+          return asset.units * asset.unitPurchasePrice
+
         default:
           return 0
       }
