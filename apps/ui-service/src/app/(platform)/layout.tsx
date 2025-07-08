@@ -13,7 +13,7 @@ import Loading from "../loading"
 import { useQuery } from "@tanstack/react-query"
 import { Bell } from "lucide-react"
 import { usePathname } from "next/navigation"
-import Header from "@/shared/components/header"
+import Sidebar from "@/shared/components/sidebar"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(AppContext)
@@ -71,7 +71,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     <div
       className={`min-h-screen w-full ${pathName.includes("/playground") ? "fixed" : ""}`}
     >
-      <Header />
+      <Sidebar />
       <div className="flex min-h-screen w-full flex-col">
         <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
           <div className="p-4 sm:px-6 sm:py-0">{children}</div>

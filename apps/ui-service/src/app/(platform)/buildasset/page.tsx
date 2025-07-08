@@ -35,30 +35,7 @@ import { format } from "date-fns"
 import { cn } from "@/shared/lib/utils"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-
-enum AssetType {
-  FD = "FD",
-  RD = "RD",
-  MUTUAL_FUND = "MUTUAL_FUND",
-  SIP = "SIP",
-  LUMPSUM = "LUMPSUM",
-  METAL = "METAL",
-  PROPERTY = "PROPERTY",
-  BOND = "BOND",
-  EPF = "EPF",
-  PPF = "PPF",
-  CASH = "CASH",
-  EQUITY = "EQUITY",
-  CRYPTO = "CRYPTO",
-  OTHER = "OTHER",
-}
-
-enum RecurringFrequency {
-  MONTHLY = "MONTHLY",
-  QUARTERLY = "QUARTERLY",
-  HALF_YEARLY = "HALF_YEARLY",
-  YEARLY = "YEARLY",
-}
+import { AssetType, RecurringFrequency } from "@/shared/types"
 
 interface AssetFormData {
   portfolioId: string
@@ -88,8 +65,8 @@ const assetTypeLabels = {
   [AssetType.BOND]: "Bonds",
   [AssetType.EPF]: "Employee Provident Fund",
   [AssetType.PPF]: "Public Provident Fund",
-  [AssetType.CASH]: "Cash/Savings",
-  [AssetType.EQUITY]: "Equity/Stocks",
+  [AssetType.CASH]: "Cash",
+  [AssetType.EQUITY]: "Equity",
   [AssetType.CRYPTO]: "Crypto",
   [AssetType.OTHER]: "Other Assets",
 }
