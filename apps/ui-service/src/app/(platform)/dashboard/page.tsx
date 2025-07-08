@@ -3,8 +3,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
 import { useEffect, useState } from "react"
-import { Portfolio } from "@/shared/types"
-import { Badge } from "@/shared/components/ui/badge"
+import { Asset, Portfolio } from "@/shared/types"
 import SectionPanel from "@/shared/components/sectionpanel"
 import { Building, Edit, Filter, Trash } from "lucide-react"
 import {
@@ -16,12 +15,7 @@ import {
 } from "@/shared/components/ui/dropdown-menu"
 import { Button } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
-
-export interface FindModelRequestState {
-  selectedFilter: string
-  selectedSortOption: string
-  offset: number
-}
+import { AssetCard } from "@/shared/components/assetcard"
 
 export default function Page() {
   const [selectedPortfolio, setSelectedPortfolio] = useState<Portfolio | null>(
@@ -31,6 +25,12 @@ export default function Page() {
   const portfolios = useQuery<Portfolio[]>({
     queryKey: ["get-portfolios"],
     queryUrl: endPoints.portfolio,
+    method: HTTPMethods.GET,
+  })
+
+  const assets = useQuery<Asset[]>({
+    queryKey: ["get-assets", selectedPortfolio?._id ?? ""],
+    queryUrl: endPoints.asset,
     method: HTTPMethods.GET,
   })
 
@@ -50,6 +50,10 @@ export default function Page() {
         {portfolio.portfolioName}
       </DropdownMenuCheckboxItem>
     )
+  })
+
+  const renderAssets = assets?.data?.map((asset) => {
+    return <AssetCard asset={asset} />
   })
 
   return (
@@ -100,7 +104,9 @@ export default function Page() {
             </Button>,
           ]}
         />
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 py-4"></div>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 py-4">
+          {renderAssets}
+        </div>
       </section>
     </div>
   )

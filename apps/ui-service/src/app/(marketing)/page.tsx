@@ -11,7 +11,7 @@ import { buttonVariants } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
 import Loading from "../loading"
 import useQuery from "@/shared/hooks/use-query"
-import { BaseModelCard } from "@/shared/components/modelcard"
+import { BaseModelCard } from "@/shared/components/assetcard"
 import { ShareCard, TeachCard, TestCard } from "@/shared/components/safetycard"
 
 export default function Page() {

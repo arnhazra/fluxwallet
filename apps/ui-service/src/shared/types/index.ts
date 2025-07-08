@@ -269,3 +269,22 @@ export type Portfolio = {
   baseCurrency: Currency
   createdAt: string
 }
+
+export type Asset = {
+  _id: string
+  userId: string
+  portfolioId: string
+  assetType: AssetType
+  assetName: string
+  identifier: string
+  startDate?: Date // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
+  maturityDate?: Date // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
+  amountInvested?: number // FD, MUTUAL_FUND, LUMPSUM
+  expectedReturnRate?: number // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
+  contributionAmount?: number // RD, SIP
+  contributionFrequency?: RecurringFrequency // RD, SIP
+  valuationOnPurchase?: number // PROPERTY, BOND, METAL, OTHER
+  currentValuation?: number // EPF, PPF, CASH
+  units?: number // EQUITY, CRYPTO
+  unitPurchasePrice?: number // EQUITY, CRYPTO
+}
