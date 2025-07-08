@@ -42,7 +42,7 @@ export class Asset extends Document {
   expectedReturnRate?: number // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
 
   @Prop()
-  monthlyContribution?: number // RD, SIP
+  contributionAmount?: number // RD, SIP
 
   @Prop()
   contributionFrequency?: RecurringFrequency // RD, SIP

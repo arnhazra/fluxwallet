@@ -83,4 +83,20 @@ export class AssetController {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
+
+  @UseGuards(TokenGuard)
+  @Get("valuation/asset/:assetId")
+  async calculateCurrentValuationByAssetId(
+    @Request() request: ModRequest,
+    @Param() params: any
+  ) {
+    try {
+      return await this.service.calculateCurrentValuationByAssetId(
+        request.user.userId,
+        params.assetId
+      )
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
 }

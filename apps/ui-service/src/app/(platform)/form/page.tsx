@@ -33,6 +33,8 @@ import {
 import { Calendar } from "@/shared/components/ui/calendar"
 import { format } from "date-fns"
 import { cn } from "@/shared/lib/utils"
+import ky from "ky"
+import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 
 enum AssetType {
   FD = "FD",
@@ -58,6 +60,7 @@ enum RecurringFrequency {
 }
 
 interface AssetFormData {
+  portfolioId: string
   assetType: AssetType | ""
   assetName: string
   identifier: string
@@ -65,7 +68,7 @@ interface AssetFormData {
   maturityDate?: Date
   amountInvested?: number
   expectedReturnRate?: number
-  monthlyContribution?: number
+  contributionAmount?: number
   contributionFrequency?: RecurringFrequency
   valuationOnPurchase?: number
   currentValuation?: number
@@ -79,8 +82,8 @@ const assetTypeLabels = {
   [AssetType.MUTUAL_FUND]: "Mutual Fund",
   [AssetType.SIP]: "SIP",
   [AssetType.LUMPSUM]: "Lumpsum Investment",
-  [AssetType.METAL]: "Precious Metals",
-  [AssetType.PROPERTY]: "Real Estate",
+  [AssetType.METAL]: "Metals",
+  [AssetType.PROPERTY]: "Property",
   [AssetType.BOND]: "Bonds",
   [AssetType.EPF]: "Employee Provident Fund",
   [AssetType.PPF]: "Public Provident Fund",
@@ -98,6 +101,7 @@ const frequencyLabels = {
 
 export default function AssetForm() {
   const [formData, setFormData] = useState<AssetFormData>({
+    portfolioId: "686bf33951e6833a80196d28",
     assetType: "",
     assetName: "",
     identifier: "",
@@ -110,10 +114,12 @@ export default function AssetForm() {
     }))
   }
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Form submitted:", formData)
-    // Handle form submission here
+    await ky.post("http://localhost:8000/asset", {
+      timeout: FETCH_TIMEOUT,
+      json: formData,
+    })
   }
 
   const getAssetIcon = (assetType: AssetType) => {
@@ -379,17 +385,17 @@ export default function AssetForm() {
                 </h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                   <div className="space-y-2">
-                    <Label htmlFor="monthlyContribution">
-                      Monthly Contribution
+                    <Label htmlFor="contributionAmount">
+                      Contribution Amount
                     </Label>
                     <Input
-                      id="monthlyContribution"
+                      id="contributionAmount"
                       type="number"
                       step="0.01"
-                      value={formData.monthlyContribution || ""}
+                      value={formData.contributionAmount || ""}
                       onChange={(e) =>
                         handleInputChange(
-                          "monthlyContribution",
+                          "contributionAmount",
                           Number.parseFloat(e.target.value)
                         )
                       }

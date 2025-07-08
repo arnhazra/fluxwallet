@@ -24,6 +24,7 @@ export enum AssetType {
 export enum RecurringFrequency {
   MONTHLY = "MONTHLY",
   QUARTERLY = "QUARTERLY",
+  HALF_YEARLY = "HALF_YEARLY",
   YEARLY = "YEARLY",
 }
 

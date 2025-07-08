@@ -3,8 +3,8 @@ import {
   IsNotEmpty,
   IsNumber,
   IsString,
-  IsDate,
   ValidateIf,
+  IsDateString,
 } from "class-validator"
 import { AssetType, RecurringFrequency } from "@/shared/constants/types"
 
@@ -33,7 +33,7 @@ export class CreateAssetRequestDto {
       AssetType.LUMPSUM,
     ].includes(o.assetType)
   )
-  @IsDate()
+  @IsDateString()
   startDate?: Date
 
   @ValidateIf((o) =>
@@ -45,7 +45,7 @@ export class CreateAssetRequestDto {
       AssetType.LUMPSUM,
     ].includes(o.assetType)
   )
-  @IsDate()
+  @IsDateString()
   maturityDate?: Date
 
   @ValidateIf((o) =>
@@ -70,7 +70,7 @@ export class CreateAssetRequestDto {
 
   @ValidateIf((o) => [AssetType.RD, AssetType.SIP].includes(o.assetType))
   @IsNumber()
-  monthlyContribution?: number
+  contributionAmount?: number
 
   @ValidateIf((o) => [AssetType.RD, AssetType.SIP].includes(o.assetType))
   @IsEnum(RecurringFrequency)
