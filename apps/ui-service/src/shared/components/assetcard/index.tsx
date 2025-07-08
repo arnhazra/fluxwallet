@@ -4,62 +4,48 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/components/ui/card"
-import { Brain } from "lucide-react"
-import { Badge } from "../ui/badge"
-import { formatKey, formatValue } from "@/shared/lib/format-key-value"
-import { Asset } from "@/shared/types"
+import { Badge } from "@/shared/components/ui/badge"
+import { Asset, Currency } from "@/shared/types"
+import { Wallet } from "lucide-react"
 
-interface AssetCardProps {
-  asset: Asset
+function formatCurrency(amount: number): string {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "INR",
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 2,
+  }).format(amount)
 }
 
-const excludedKeys = [
-  "_id",
-  "userId",
-  "portfolioId",
-  "createdAt",
-  "updatedAt",
-  "assetName",
-  "assetType",
-]
-
-export function AssetCard({ asset }: AssetCardProps) {
-  const { _id, assetName, assetType } = asset
-
+export default function AssetCard({ asset }: { asset: Asset }) {
   return (
-    <Card className="w-full max-w-xs mx-auto h-[23rem] flex flex-col relative hover:shadow-md transition-shadow bg-background border-border text-white">
-      <CardHeader className="pb-2">
-        <div className="flex items-start">
-          <Brain className="w-8 h-8 text-primary mr-3 mt-1 text-primary" />
-          <div className="flex flex-col min-w-0">
-            <div className="flex items-center space-x-2">
-              <CardTitle
-                className="text-lg font-bold truncate"
-                title={assetName}
-              >
-                {assetName}
-              </CardTitle>
-              <Badge variant="secondary" className="text-xs" title={assetType}>
-                {assetType}
-              </Badge>
-            </div>
+    <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-border text-white">
+      <CardHeader className="pb-3">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-lg font-semibold truncate text-white">
+            {asset.assetName}
+          </CardTitle>
+          <Wallet className="text-primary w-6 h-6" />
+        </div>
+        <Badge variant="secondary" className="w-fit">
+          {asset.assetType}
+        </Badge>
+      </CardHeader>
+
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-zinc-400">Total Valuation</span>
+            <span className="text-lg font-bold text-primary">
+              {formatCurrency(0)}
+            </span>
+          </div>
+
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-zinc-400">Assets</span>
+            <span className="text-sm font-medium">1 assets</span>
           </div>
         </div>
-      </CardHeader>
-      <CardContent className="flex-grow py-2">
-        <dl className="grid gap-3">
-          {Object.entries(asset ?? {})
-            .filter(([key]) => !excludedKeys.includes(key))
-            .splice(0, 5)
-            .map(([key, value]) => (
-              <div key={key} className="space-y-1">
-                <dt className="text-xs font-medium text-zinc-300">
-                  {formatKey(key)}
-                </dt>
-                <dd className="text-sm font-semibold">{formatValue(value)}</dd>
-              </div>
-            ))}
-        </dl>
       </CardContent>
     </Card>
   )
