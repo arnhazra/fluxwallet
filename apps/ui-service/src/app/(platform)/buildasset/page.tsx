@@ -31,7 +31,7 @@ import {
   PopoverTrigger,
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
-import { format } from "date-fns"
+import { format, set } from "date-fns"
 import { cn } from "@/shared/lib/utils"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -88,6 +88,7 @@ export default function AssetForm() {
     assetName: "",
     identifier: "",
   })
+  const [message, setMessage] = useState<string>("")
 
   const portfolios = useQuery<Portfolio[]>({
     queryKey: ["get-portfolios-build-asset"],
@@ -103,11 +104,16 @@ export default function AssetForm() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
-    await ky.post("http://localhost:8000/asset", {
-      timeout: FETCH_TIMEOUT,
-      json: formData,
-    })
+    try {
+      e.preventDefault()
+      await ky.post("http://localhost:8000/asset", {
+        timeout: FETCH_TIMEOUT,
+        json: formData,
+      })
+      setMessage("Asset added successfully!")
+    } catch (error) {
+      setMessage("Failed to add asset. Please try again.")
+    }
   }
 
   // Field visibility logic based on asset type
@@ -532,6 +538,9 @@ export default function AssetForm() {
               </Button>
             </div>
           </form>
+          {message && (
+            <div className="mt-4 text-sm text-green-600">{message}</div>
+          )}
         </CardContent>
       </Card>
     </div>
