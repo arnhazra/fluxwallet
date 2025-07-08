@@ -91,10 +91,41 @@ export class AssetController {
     @Param() params: any
   ) {
     try {
-      return await this.service.calculateCurrentValuationByAssetId(
+      const amount = await this.service.calculateCurrentValuationByAssetId(
         request.user.userId,
         params.assetId
       )
+      return { amount }
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @UseGuards(TokenGuard)
+  @Get("valuation/portfolio/:portfolioId")
+  async calculatePortfolioValuation(
+    @Request() request: ModRequest,
+    @Param() params: any
+  ) {
+    try {
+      const amount = await this.service.calculatePortfolioValuation(
+        request.user.userId,
+        params.portfolioId
+      )
+      return { amount }
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @UseGuards(TokenGuard)
+  @Get("valuation/total")
+  async calculatTotalUserePortfolioValuation(@Request() request: ModRequest) {
+    try {
+      const amount = await this.service.calculatTotalUserePortfolioValuation(
+        request.user.userId
+      )
+      return { amount }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

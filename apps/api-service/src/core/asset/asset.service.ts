@@ -11,12 +11,15 @@ import { UpdateAssetCommand } from "./commands/impl/update-asset.command"
 import { AssetType } from "@/shared/constants/types"
 import calculateComplexValuation from "./helpers/calculate-complex-valuation"
 import calculateRecurringValuation from "./helpers/calculate-recurring-valuation"
+import { AssetRepository } from "./asset.repository"
+import objectId from "@/shared/utils/convert-objectid"
 
 @Injectable()
 export class AssetService {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
+    private readonly repository: AssetRepository
   ) {}
 
   async createAsset(userId: string, requestBody: CreateAssetRequestDto) {
@@ -152,6 +155,42 @@ export class AssetService {
         default:
           return 0
       }
+    } catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async calculatePortfolioValuation(reqUserId: string, portfolioId: string) {
+    try {
+      const assets = await this.repository.find({
+        portfolioId: objectId(portfolioId),
+      })
+
+      const valuations = await Promise.all(
+        assets.map((asset) =>
+          this.calculateCurrentValuationByAssetId(reqUserId, String(asset._id))
+        )
+      )
+      const total = valuations.reduce((sum, val) => sum + val, 0)
+      return total
+    } catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async calculatTotalUserePortfolioValuation(reqUserId: string) {
+    try {
+      const assets = await this.repository.find({
+        userId: objectId(reqUserId),
+      })
+
+      const valuations = await Promise.all(
+        assets.map((asset) =>
+          this.calculateCurrentValuationByAssetId(reqUserId, String(asset._id))
+        )
+      )
+      const total = valuations.reduce((sum, val) => sum + val, 0)
+      return total
     } catch (error) {
       throw new BadRequestException()
     }
