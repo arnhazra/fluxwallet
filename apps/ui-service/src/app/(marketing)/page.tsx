@@ -122,19 +122,16 @@ export default function Page() {
         <Header />
         {renderHeroSection}
         <section
-          id="models"
+          id="product"
           className="mt-8 container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-lg text-zinc-300"
         >
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Generic Models
+              Our Product
             </h2>
             <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-              {uiConstants.modelsHeader}
+              {uiConstants.homeIntro1}
             </p>
-          </div>
-          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-2 lg:max-w-[50rem] lg:grid-cols-3 xl:max-w-[68rem] xl:grid-cols-4">
-            {renderBaseModels}
           </div>
         </section>
         <section
