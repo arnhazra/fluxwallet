@@ -2,7 +2,7 @@ import { BadRequestException, Injectable } from "@nestjs/common"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
-import { OnEvent } from "@nestjs/event-emitter"
+import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventsUnion } from "@/shared/utils/events.union"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { Types } from "mongoose"
@@ -12,13 +12,15 @@ import {
   IntelligenceStrategy,
   IntelligenceStrategyType,
 } from "./intelligence.strategy"
+import { User } from "../user/schemas/user.schema"
 
 @Injectable()
 export class IntelligenceService {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-    private readonly strategy: IntelligenceStrategy
+    private readonly strategy: IntelligenceStrategy,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   async getThreadById(threadId: string, isFirstMessage: boolean) {
@@ -65,18 +67,24 @@ export class IntelligenceService {
         !aiGenerationDto.threadId
       )
 
+      const user: User = (
+        await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, {
+          _id: userId,
+        })
+      ).shift()
+
       const args: IntelligenceStrategyType = {
-        genericName: "openai/gpt-4.1",
+        genericName: "openai/gpt-4o-mini",
         temperature: 1.0,
         topP: 1.0,
         thread,
         prompt,
         threadId,
+        user,
       }
-
       const { response } = await this.strategy.azureStrategy(args)
       await this.commandBus.execute<CreateThreadCommand, Thread>(
-        new CreateThreadCommand(userId, threadId, prompt, response)
+        new CreateThreadCommand(String(user.id), threadId, prompt, response)
       )
       return { response, threadId }
     } catch (error) {
