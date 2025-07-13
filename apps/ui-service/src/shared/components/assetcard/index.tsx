@@ -5,8 +5,8 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Asset, Currency } from "@/shared/types"
-import { Wallet } from "lucide-react"
+import { Asset } from "@/shared/types"
+import { Coins } from "lucide-react"
 
 function formatCurrency(amount: number): string {
   return new Intl.NumberFormat("en-US", {
@@ -25,7 +25,7 @@ export default function AssetCard({ asset }: { asset: Asset }) {
           <CardTitle className="text-lg font-semibold truncate text-white">
             {asset.assetName}
           </CardTitle>
-          <Wallet className="text-primary w-6 h-6" />
+          <Coins className="text-primary w-6 h-6" />
         </div>
         <Badge variant="secondary" className="w-fit">
           {asset.assetType}

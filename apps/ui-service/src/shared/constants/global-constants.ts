@@ -1,4 +1,4 @@
-export const brandName = "Welaio"
+export const brandName = "FluxWallet"
 
 export const uiConstants = {
   homeHeader: "Invest for future",
@@ -18,7 +18,7 @@ export const uiConstants = {
     "This action may not be undone. Be sure before you click on continue, you can cancel if you do not want to proceed.",
   copyrightText: "Inc, All rights reserved.",
   openSourceHeader: `${brandName} is open source and powered by open source software.`,
-  productHeader: `Our Wealth Management platform helps you organize and manage your entire financial life in one place. Add assets across categories, monitor your net worth, and gain valuable insights into your financial health. Whether you're planning, growing, or preserving wealth — stay informed and in control with a unified, intuitive experience.`,
+  productHeader: `${brandName} helps you organize and manage your entire financial life in one place. Add assets across categories, monitor your net worth, and gain valuable insights into your financial health. Whether you're planning, growing, or preserving wealth — stay informed and in control with a unified, intuitive experience.`,
   pricingHeader: `Preferred access to the latest AI models & more usage. Unlock all features including extensive AI usage for your application.`,
   pricingTitle: `${brandName} Pricing`,
   privacyPolicyStatement: `By using ${brandName}, you agree to our Terms of Service and Privacy Policy`,
