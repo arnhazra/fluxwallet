@@ -116,16 +116,15 @@ export default function Page() {
       <Card className="bg-background text-white border-border">
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
-            <Package className="h-5 w-5" />
+            <Package className="h-5 w-5 text-primary" />
             Create New Portfolio
           </CardTitle>
-          <CardDescription className="text-sm text-white">
+          <CardDescription className="text-sm text-primary">
             Set up a new portfolio to track your investments and assets
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
-            {/* Portfolio Name */}
             <div className="space-y-2">
               <Label htmlFor="portfolioName">
                 Portfolio Name <span className="text-red-500">*</span>
@@ -137,14 +136,13 @@ export default function Page() {
                 onChange={(e) =>
                   handleInputChange("portfolioName", e.target.value)
                 }
-                className={errors.portfolioName ? "border-red-500" : ""}
+                className="w-full bg-main text-white border-border focus:border-primary focus:ring-0"
               />
               {errors.portfolioName && (
                 <p className="text-sm text-red-500">{errors.portfolioName}</p>
               )}
             </div>
 
-            {/* Institution Type */}
             <div className="space-y-2">
               <Label htmlFor="institutionType">Institution Type</Label>
               <Select
@@ -153,33 +151,19 @@ export default function Page() {
                   handleInputChange("institutionType", value)
                 }
               >
-                <SelectTrigger>
-                  <SelectValue placeholder="Select institution type">
-                    {/* {selectedInstitutionType && (
-                      <div className="flex items-center gap-2">
-                        {selectedInstitutionType.label}
-                      </div>
-                    )} */}
-                  </SelectValue>
+                <SelectTrigger className="w-full bg-main text-white border-border">
+                  <SelectValue placeholder="Select institution type"></SelectValue>
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="w-full bg-main text-white border-border">
                   {institutions.map((option) => (
                     <SelectItem key={option} value={option}>
-                      <div className="flex items-center gap-2">
-                        <div>
-                          <div className="font-medium">{option}</div>
-                          <div className="text-sm text-muted-foreground">
-                            {option}
-                          </div>
-                        </div>
-                      </div>
+                      {option}
                     </SelectItem>
                   ))}
                 </SelectContent>
               </Select>
             </div>
 
-            {/* Base Currency */}
             <div className="space-y-2">
               <Label htmlFor="baseCurrency">Base Currency</Label>
               <Select
@@ -188,10 +172,10 @@ export default function Page() {
                   handleInputChange("baseCurrency", value)
                 }
               >
-                <SelectTrigger>
+                <SelectTrigger className="w-full bg-main text-white border-border">
                   <SelectValue placeholder="Select base currency" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="w-full bg-main text-white border-border">
                   {currencies.map((currency) => (
                     <SelectItem key={currency} value={currency}>
                       {currency}
@@ -202,17 +186,14 @@ export default function Page() {
             </div>
 
             {/* Submit Button */}
-            <div className="flex gap-3">
-              <Button type="submit" disabled={isSubmitting} className="flex-1">
-                {isSubmitting ? "Creating..." : "Create Portfolio"}
-              </Button>
+            <div className="flex">
               <Button
+                className="ml-auto bg-primary text-white"
                 type="button"
-                variant="outline"
                 onClick={handleReset}
                 disabled={isSubmitting}
               >
-                Reset
+                {isSubmitting ? "Creating..." : "Create Portfolio"}
               </Button>
             </div>
           </form>

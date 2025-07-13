@@ -6,7 +6,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
 import { Currency, Portfolio } from "@/shared/types"
-import { Landmark, PlusCircle } from "lucide-react"
+import { Landmark, Plus } from "lucide-react"
 import Link from "next/link"
 
 function formatCurrency(amount: number, currency: Currency): string {
@@ -58,7 +58,7 @@ export function AddPortfolioCard() {
   return (
     <Link href={`/create/portfolio`}>
       <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-background border-border text-white">
-        <PlusCircle className="w-20 h-20 text-primary" />
+        <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>
   )

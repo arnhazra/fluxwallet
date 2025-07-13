@@ -179,7 +179,6 @@ export default function Page() {
           </CardHeader>
           <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
-              {/* Common Fields */}
               <div className="space-y-2">
                 <Label htmlFor="assetType" className="text-zinc-200">
                   Select Portfolio
