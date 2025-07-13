@@ -27,7 +27,7 @@ export default function Page() {
 
   const renderHeroSection = (
     <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-24 hero-landing">
-      <div className="container max-w-[75rem] text-left">
+      <div className="container max-w-[80rem] text-left">
         <h1 className="text-white text-xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight mb-4 max-w-[40rem]">
           {uiConstants.homeHeader}
         </h1>

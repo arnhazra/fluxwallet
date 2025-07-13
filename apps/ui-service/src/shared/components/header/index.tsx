@@ -13,7 +13,7 @@ import { brandName } from "@/shared/constants/global-constants"
 export default function Header() {
   return (
     <header className="relative z-50 top-0 flex h-[72px] items-center bg-main text-white px-4 md:px-6">
-      <div className="flex w-full items-center justify-between lg:container lg:max-w-[75rem]">
+      <div className="flex w-full items-center justify-between lg:container lg:max-w-[80rem]">
         <Link
           href="/"
           className="flex items-center gap-2 text-xl font-semibold"

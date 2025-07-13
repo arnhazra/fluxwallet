@@ -1,160 +1,78 @@
-"use client"
 import Link from "next/link"
-import {
-  BadgeDollarSign,
-  DraftingCompass,
-  PanelLeft,
-  Settings,
-} from "lucide-react"
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipTrigger,
-} from "@/shared/components/ui/tooltip"
+import { BadgeDollarSign, PanelLeft } from "lucide-react"
+import { Button } from "@/shared/components/ui/button"
 import {
   Sheet,
   SheetContent,
   SheetTitle,
   SheetTrigger,
 } from "@/shared/components/ui/sheet"
-import { Button } from "@/shared/components/ui/button"
 import { brandName } from "@/shared/constants/global-constants"
-import { usePathname } from "next/navigation"
-import { sidebarLinks } from "./data"
-import { UserNav } from "./user-nav"
+import { generalUserLinks } from "./data"
 
-export default function Sidebar() {
-  const pathName = usePathname()
-
-  const generateLinkClassName = (uri: string) => {
-    if (pathName.includes(uri)) {
-      return "group flex h-9 w-9 shrink-0 items-center justify-center gap-2 rounded-full bg-border text-lg font-semibold md:h-8 md:w-8 md:text-base text-primary"
-    }
-
-    return "flex h-9 w-9 items-center justify-center rounded-lg bg-accent transition-colors md:h-8 md:w-8"
-  }
-
-  const renderSheetLinks = sidebarLinks.map((link) => {
-    return (
-      <Link
-        key={link.link}
-        href={link.link}
-        className="flex items-center gap-4 px-2.5"
-      >
-        {link.icon}
-        {link.displayName}
-      </Link>
-    )
-  })
-
-  const renderSideBarLinks = sidebarLinks.map((link) => {
-    return (
-      <Tooltip key={link.link}>
-        <TooltipTrigger asChild>
-          <Link
-            key={link.link}
-            href={link.link}
-            className={generateLinkClassName(link.link)}
-          >
-            {link.icon}
-            <span className="sr-only">{link.displayName}</span>
-          </Link>
-        </TooltipTrigger>
-        <TooltipContent
-          side="right"
-          className="bg-background border-border text-white"
-        >
-          {link.displayName}
-        </TooltipContent>
-      </Tooltip>
-    )
-  })
-
+export default function Header() {
   return (
-    <>
-      <aside className="fixed inset-y-0 left-0 z-10 hidden w-14 flex-col border-r bg-main text-white border-border sm:flex">
-        <nav className="flex flex-col items-center gap-4 px-2 sm:py-5">
-          <Link
-            href="/dashboard"
-            className={generateLinkClassName("dashboard")}
-          >
-            <BadgeDollarSign className="h-4 w-4 transition-all group-hover:scale-110" />
-            <span className="sr-only">Dashboard</span>
-          </Link>
-          {renderSideBarLinks}
-        </nav>
-        <nav className="mt-auto flex flex-col items-center gap-4 px-2 sm:py-5">
-          <Tooltip>
-            <TooltipTrigger asChild>
-              <Link
-                href="/settings/user"
-                className={generateLinkClassName("settings")}
-              >
-                <Settings className="scale-75" />
-                <span className="sr-only">Settings</span>
-              </Link>
-            </TooltipTrigger>
-            <TooltipContent
-              side="right"
-              className="bg-background border-border text-white"
+    <header className="relative z-50 top-0 flex h-[72px] items-center bg-main text-white px-4 md:px-6 border-b border-b-zinc-800">
+      <div className="flex w-full items-center justify-between lg:container lg:max-w-[90rem]">
+        <Link
+          href="/"
+          className="flex items-center gap-2 text-xl font-semibold"
+        >
+          <BadgeDollarSign className="h-6 w-6" />
+          {brandName}
+        </Link>
+        <nav className="hidden md:flex items-center justify-end gap-2 flex-1">
+          {generalUserLinks.map((item, index) => (
+            <Link
+              key={index}
+              href={item.link}
+              className="text-sm font-medium text-white hover:text-primary mx-3"
+              target={item.external ? "_blank" : ""}
+              rel={item.external ? "noopener noreferrer" : ""}
             >
-              Settings
-            </TooltipContent>
-          </Tooltip>
+              {item.displayName}
+            </Link>
+          ))}
         </nav>
-      </aside>
-      <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14 lg:-mb-4">
-        <header className="sticky top-0 z-30 flex h-14 items-center gap-4 bg-main px-4 sm:static sm:h-auto sm:border-0 sm:bg-transparent sm:px-6">
+        <div className="flex items-center space-x-4">
           <Sheet>
             <SheetTrigger asChild>
               <Button
-                size="icon"
                 variant="default"
-                className="shrink-0 sm:hidden"
+                size="icon"
+                className="shrink-0 md:hidden"
               >
-                <PanelLeft className="scale-75" />
-                <span className="sr-only">Toggle Menu</span>
+                <PanelLeft className="h-5 w-5" />
               </Button>
             </SheetTrigger>
             <SheetContent
-              side="left"
+              side="right"
               className="bg-main text-white border-none"
             >
               <SheetTitle></SheetTitle>
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
-                  href="/dashboard"
-                  className="group flex h-10 w-10 shrink-0 items-center justify-center gap-2 rounded-full bg-main text-lg font-semibold md:text-base"
+                  href="/"
+                  className="flex items-center gap-2 text-lg font-semibold"
                 >
-                  <DraftingCompass className="scale-75" />
-                  <span className="sr-only">{brandName}</span>
+                  <BadgeDollarSign className="h-6 w-6" />
                 </Link>
-                <Link
-                  href="/dashboard"
-                  className="flex items-center gap-4 px-2.5"
-                >
-                  <DraftingCompass className="scale-75" />
-                  Dashboard
-                </Link>
-                {renderSheetLinks}
-                <Link
-                  href="/settings/user"
-                  className="flex items-center gap-4 px-2.5"
-                >
-                  <Settings className="scale-75" />
-                  Settings
-                </Link>
+                {generalUserLinks.map((item, index) => (
+                  <Link
+                    key={index}
+                    href={item.link}
+                    className="text-white hover:text-primary"
+                    target={item.external ? "_blank" : ""}
+                    rel={item.external ? "noopener noreferrer" : ""}
+                  >
+                    {item.displayName}
+                  </Link>
+                ))}
               </nav>
             </SheetContent>
           </Sheet>
-          <Link href="/dashboard" className="hidden sm:flex text-white text-lg">
-            {brandName}
-          </Link>
-          <div className="ml-auto flex items-center gap-2">
-            <UserNav />
-          </div>
-        </header>
+        </div>
       </div>
-    </>
+    </header>
   )
 }
