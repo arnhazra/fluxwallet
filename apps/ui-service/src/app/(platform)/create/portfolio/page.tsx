@@ -18,8 +18,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select"
-import { Building2, Vault, Landmark, Package } from "lucide-react"
+import { Package } from "lucide-react"
 import { Currency, InstitutionType } from "@/shared/types"
+import ky from "ky"
+import { endPoints } from "@/shared/constants/api-endpoints"
 
 const currencies = Object.values(Currency)
 const institutions = Object.values(InstitutionType)
@@ -30,85 +32,35 @@ interface PortfolioFormData {
   baseCurrency: string
 }
 
-interface FormErrors {
-  portfolioName?: string
-}
-
 export default function Page() {
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [alertMessage, setAlertMessage] = useState("")
   const [formData, setFormData] = useState<PortfolioFormData>({
     portfolioName: "",
     institutionType: InstitutionType.OTHER,
     baseCurrency: "INR",
   })
-  const [errors, setErrors] = useState<FormErrors>({})
-
-  const validateForm = (): boolean => {
-    const newErrors: FormErrors = {}
-
-    if (!formData.portfolioName.trim()) {
-      newErrors.portfolioName = "Portfolio name is required"
-    } else if (formData.portfolioName.trim().length < 2) {
-      newErrors.portfolioName = "Portfolio name must be at least 2 characters"
-    } else if (formData.portfolioName.trim().length > 100) {
-      newErrors.portfolioName =
-        "Portfolio name must be less than 100 characters"
-    }
-
-    setErrors(newErrors)
-    return Object.keys(newErrors).length === 0
-  }
 
   const handleInputChange = (field: keyof PortfolioFormData, value: string) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }))
-
-    if (errors[field as keyof FormErrors]) {
-      setErrors((prev) => ({
-        ...prev,
-        [field]: undefined,
-      }))
-    }
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-
-    if (!validateForm()) {
-      return
-    }
-
     setIsSubmitting(true)
+    setAlertMessage("")
 
     try {
-      // Simulate API call
-      console.log("Portfolio data:", formData)
-
-      // Here you would typically make an API call to create the portfolio
-      // await createPortfolio(formData)
-
-      // Simulate delay
-      await new Promise((resolve) => setTimeout(resolve, 1000))
-
-      alert("Portfolio created successfully!")
-      handleReset()
+      await ky.post(endPoints.portfolio, { json: formData })
+      setAlertMessage("Portfolio created successfully!")
     } catch (error) {
-      console.error("Error creating portfolio:", error)
-      alert("Failed to create portfolio. Please try again.")
+      setAlertMessage("Error creating portfolio")
     } finally {
       setIsSubmitting(false)
     }
-  }
-
-  const handleReset = () => {
-    setFormData({
-      portfolioName: "",
-      institutionType: InstitutionType.OTHER,
-      baseCurrency: "INR",
-    })
-    setErrors({})
   }
 
   return (
@@ -130,6 +82,7 @@ export default function Page() {
                 Portfolio Name <span className="text-red-500">*</span>
               </Label>
               <Input
+                required
                 id="portfolioName"
                 placeholder="Enter portfolio name"
                 value={formData.portfolioName}
@@ -138,14 +91,12 @@ export default function Page() {
                 }
                 className="w-full bg-main text-white border-border focus:border-primary focus:ring-0"
               />
-              {errors.portfolioName && (
-                <p className="text-sm text-red-500">{errors.portfolioName}</p>
-              )}
             </div>
 
             <div className="space-y-2">
               <Label htmlFor="institutionType">Institution Type</Label>
               <Select
+                required
                 value={formData.institutionType}
                 onValueChange={(value) =>
                   handleInputChange("institutionType", value)
@@ -167,6 +118,7 @@ export default function Page() {
             <div className="space-y-2">
               <Label htmlFor="baseCurrency">Base Currency</Label>
               <Select
+                required
                 value={formData.baseCurrency}
                 onValueChange={(value) =>
                   handleInputChange("baseCurrency", value)
@@ -185,18 +137,21 @@ export default function Page() {
               </Select>
             </div>
 
-            {/* Submit Button */}
             <div className="flex">
               <Button
-                className="ml-auto bg-primary text-white"
-                type="button"
-                onClick={handleReset}
+                className="ml-auto bg-primary hover:bg-primary text-white"
+                type="submit"
                 disabled={isSubmitting}
               >
                 {isSubmitting ? "Creating..." : "Create Portfolio"}
               </Button>
             </div>
           </form>
+          {alertMessage && (
+            <div className="mt-4 text-center text-sm text-primary">
+              {alertMessage}
+            </div>
+          )}
         </CardContent>
       </Card>
     </div>
