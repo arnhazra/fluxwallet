@@ -71,7 +71,7 @@ export default function Page() {
             ${subscriptionPricing.data?.price}
           </h4>
           <p className="text-sm font-medium text-muted-foreground">
-            Billed Monthly
+            Billed Yearly
           </p>
         </div>
         <Link
@@ -128,7 +128,7 @@ export default function Page() {
           </div>
         </section>
         <section
-          id="pro"
+          id="pricing"
           className="container py-8 md:py-12 lg:py-24 md:max-w-[64rem]"
         >
           <div className="mx-auto flex max-w-[64rem] flex-col items-center justify-center gap-4 text-center mb-8">
