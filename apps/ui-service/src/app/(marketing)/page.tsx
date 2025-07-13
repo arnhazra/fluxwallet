@@ -2,36 +2,28 @@
 import Header from "@/shared/components/header"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { BaseModel, SubscriptionConfig } from "@/shared/types"
+import { SubscriptionConfig } from "@/shared/types"
 import { brandName, uiConstants } from "@/shared/constants/global-constants"
-import { Check, CircleArrowRight, Github } from "lucide-react"
+import { Check, CircleArrowRight, Github, Play } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/utils"
 import { buttonVariants } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
 import Loading from "../loading"
 import useQuery from "@/shared/hooks/use-query"
-import { BaseModelCard } from "@/shared/components/assetcard"
-import { ShareCard, TeachCard, TestCard } from "@/shared/components/safetycard"
+import {
+  ControlCard,
+  IntelligenceCard,
+  OverviewCard,
+} from "@/shared/components/safetycard"
 
 export default function Page() {
-  const models = useQuery<BaseModel[]>({
-    queryKey: ["display-models"],
-    queryUrl: endPoints.getDisplayModels,
-    method: HTTPMethods.GET,
-    suspense: false,
-  })
-
   const subscriptionPricing = useQuery<SubscriptionConfig>({
     queryKey: ["subscription-pricing"],
     queryUrl: endPoints.getSubscriptionPricing,
     method: HTTPMethods.GET,
     suspense: false,
   })
-
-  const renderBaseModels = models?.data?.map((model) => (
-    <BaseModelCard key={model._id} model={model} />
-  ))
 
   const renderHeroSection = (
     <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-24 hero-landing">
@@ -40,10 +32,10 @@ export default function Page() {
           {uiConstants.homeHeader}
         </h1>
         <p className="max-w-[35rem] leading-normal text-zinc-300 sm:text-lg sm:leading-8 mb-6">
-          {uiConstants.homeIntro1}
+          {uiConstants.homeIntro}
         </p>
         <Link
-          href="/catalog"
+          href="/dashboard"
           className={cn(
             buttonVariants({
               variant: "default",
@@ -51,8 +43,7 @@ export default function Page() {
             })
           )}
         >
-          {uiConstants.getStartedButton}{" "}
-          <CircleArrowRight className="ms-2 scale-75" />
+          <Play className="me-2 scale-75" /> {uiConstants.getStartedButton}
         </Link>
       </div>
     </section>
@@ -84,7 +75,7 @@ export default function Page() {
           </p>
         </div>
         <Link
-          href="/catalog"
+          href="/dashboard"
           className={cn(
             buttonVariants({
               size: "lg",
@@ -114,42 +105,26 @@ export default function Page() {
   )
 
   return (
-    <Show
-      condition={!models.isLoading && !subscriptionPricing.isLoading}
-      fallback={<Loading />}
-    >
+    <Show condition={!subscriptionPricing.isLoading} fallback={<Loading />}>
       <div className="min-h-screen w-full text-white">
         <Header />
         {renderHeroSection}
         <section
           id="product"
-          className="mt-8 container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-lg text-zinc-300"
-        >
-          <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-            <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Our Product
-            </h2>
-            <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-              {uiConstants.homeIntro1}
-            </p>
-          </div>
-        </section>
-        <section
-          id="safety"
           className="mt-8 container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-lg"
         >
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Safety at every step
+              Wealth management redefined
             </h2>
             <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-              {uiConstants.safetyHeader}
+              {uiConstants.productHeader}
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
-            <TeachCard />
-            <TestCard />
-            <ShareCard />
+            <OverviewCard />
+            <IntelligenceCard />
+            <ControlCard />
           </div>
         </section>
         <section
