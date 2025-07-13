@@ -13,12 +13,12 @@ function formatCurrency(amount: number, currency: Currency): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
     currency: currency,
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(amount)
 }
 
-export default function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
+export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
   return (
     <Link href={`/portfolio/${portfolio._id}`}>
       <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-border text-white">

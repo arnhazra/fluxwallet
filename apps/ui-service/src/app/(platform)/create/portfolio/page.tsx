@@ -37,8 +37,8 @@ export default function Page() {
   const [alertMessage, setAlertMessage] = useState("")
   const [formData, setFormData] = useState<PortfolioFormData>({
     portfolioName: "",
-    institutionType: InstitutionType.OTHER,
-    baseCurrency: "INR",
+    institutionType: InstitutionType.BANK,
+    baseCurrency: Currency.INR,
   })
 
   const handleInputChange = (field: keyof PortfolioFormData, value: string) => {

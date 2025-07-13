@@ -5,19 +5,27 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Asset } from "@/shared/types"
-import { Coins } from "lucide-react"
+import { Asset, Currency } from "@/shared/types"
+import { Coins, Plus } from "lucide-react"
+import Link from "next/link"
+import MaskText from "../mask"
 
-function formatCurrency(amount: number): string {
+function formatCurrency(amount: number, currency: Currency): string {
   return new Intl.NumberFormat("en-US", {
     style: "currency",
-    currency: "INR",
-    minimumFractionDigits: 2,
-    maximumFractionDigits: 2,
+    currency: currency,
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
   }).format(amount)
 }
 
-export default function AssetCard({ asset }: { asset: Asset }) {
+export function AssetCard({
+  asset,
+  baseCurrency,
+}: {
+  asset: Asset
+  baseCurrency: Currency
+}) {
   return (
     <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-border text-white">
       <CardHeader className="pb-3">
@@ -35,18 +43,29 @@ export default function AssetCard({ asset }: { asset: Asset }) {
       <CardContent className="space-y-4">
         <div className="space-y-2">
           <div className="flex justify-between items-center">
-            <span className="text-sm text-zinc-400">Total Valuation</span>
-            <span className="text-lg font-bold text-primary">
-              {formatCurrency(0)}
+            <span className="text-sm text-zinc-400">Identifier</span>
+            <span className="text-sm font-medium">
+              <MaskText value={asset.identifier} />
             </span>
           </div>
-
           <div className="flex justify-between items-center">
-            <span className="text-sm text-zinc-400">Assets</span>
-            <span className="text-sm font-medium">1 assets</span>
+            <span className="text-sm text-zinc-400">Current Valuation</span>
+            <span className="text-lg font-bold text-primary">
+              {formatCurrency(asset.currentValuation ?? 0, baseCurrency)}
+            </span>
           </div>
         </div>
       </CardContent>
     </Card>
+  )
+}
+
+export function AddAssetCard() {
+  return (
+    <Link href={`/create/asset`}>
+      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-background border-border text-white">
+        <Plus className="w-20 h-20 text-primary" />
+      </Card>
+    </Link>
   )
 }

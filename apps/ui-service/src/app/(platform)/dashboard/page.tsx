@@ -2,9 +2,9 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Asset, Portfolio } from "@/shared/types"
-import { Button } from "@/shared/components/ui/button"
-import PortfolioCard, {
+import { Portfolio } from "@/shared/types"
+import {
+  PortfolioCard,
   AddPortfolioCard,
 } from "@/shared/components/portfoliocard"
 
@@ -22,7 +22,7 @@ export default function Page() {
   return (
     <div className="mx-auto grid w-full items-start gap-6">
       <section>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 py-4">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4">
           {renderPortfolios}
           <AddPortfolioCard />
         </div>

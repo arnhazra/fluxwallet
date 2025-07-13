@@ -70,7 +70,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const appLayout = (
     <div className="min-h-screen w-full text-white">
       <Sidebar />
-      <div className="container max-w-[90rem] mt-2">{children}</div>
+      <div className="container lg:max-w-[90rem] mt-4">{children}</div>
     </div>
   )
 

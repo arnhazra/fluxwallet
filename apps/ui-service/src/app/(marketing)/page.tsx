@@ -26,8 +26,8 @@ export default function Page() {
   })
 
   const renderHeroSection = (
-    <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-24 hero-landing">
-      <div className="container max-w-[80rem] text-left">
+    <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-28 hero-landing">
+      <div className="container max-w-[85rem] text-left">
         <h1 className="text-white text-xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight mb-4 max-w-[40rem]">
           {uiConstants.homeHeader}
         </h1>
@@ -91,7 +91,7 @@ export default function Page() {
 
   const renderFooterSection = (
     <footer>
-      <div className="bg-main text-white">
+      <div className="text-white">
         <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <p className="text-center text-sm leading-loose md:text-left">
