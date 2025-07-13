@@ -68,15 +68,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   })
 
   const appLayout = (
-    <div
-      className={`min-h-screen w-full ${pathName.includes("/playground") ? "fixed" : ""}`}
-    >
+    <div className="min-h-screen w-full text-white">
       <Sidebar />
-      <div className="flex min-h-screen w-full flex-col">
-        <div className="flex flex-col sm:gap-4 sm:py-4 sm:pl-14">
-          <div className="p-4 sm:px-6 sm:py-0">{children}</div>
-        </div>
-      </div>
+      <div className="container max-w-[90rem] mt-2">{children}</div>
     </div>
   )
 

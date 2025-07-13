@@ -15,11 +15,11 @@ export default function Header() {
     <header className="relative z-50 top-0 flex h-[72px] items-center bg-main text-white px-4 md:px-6 border-b border-b-zinc-800">
       <div className="flex w-full items-center justify-between lg:container lg:max-w-[90rem]">
         <Link
-          href="/"
+          href="/dashboard"
           className="flex items-center gap-2 text-xl font-semibold"
         >
           <BadgeDollarSign className="h-6 w-6" />
-          {brandName}
+          Dashboard
         </Link>
         <nav className="hidden md:flex items-center justify-end gap-2 flex-1">
           {generalUserLinks.map((item, index) => (
