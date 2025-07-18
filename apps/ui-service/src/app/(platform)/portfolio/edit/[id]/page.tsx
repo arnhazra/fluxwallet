@@ -74,10 +74,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     setAlertMessage("")
 
     try {
-      await ky.post(endPoints.portfolio, { json: formData })
+      await ky.put(`${endPoints.portfolio}/${portfolioId}`, {
+        json: formData,
+      })
       setAlertMessage("Portfolio updated successfully!")
     } catch (error) {
-      setAlertMessage("Error creating portfolio")
+      setAlertMessage("Error updating portfolio")
     } finally {
       setIsSubmitting(false)
     }
