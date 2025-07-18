@@ -288,3 +288,7 @@ export type Asset = {
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
 }
+
+export type Valuation = {
+  presentValuation: number | null | undefined
+}

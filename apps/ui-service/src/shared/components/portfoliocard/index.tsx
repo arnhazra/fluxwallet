@@ -5,9 +5,12 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Currency, Portfolio } from "@/shared/types"
+import { Currency, Portfolio, Valuation } from "@/shared/types"
 import { Landmark, Plus } from "lucide-react"
 import Link from "next/link"
+import useQuery from "@/shared/hooks/use-query"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
 
 function formatCurrency(amount: number, currency: Currency): string {
   return new Intl.NumberFormat("en-US", {
@@ -19,6 +22,12 @@ function formatCurrency(amount: number, currency: Currency): string {
 }
 
 export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
+  const { data } = useQuery<Valuation>({
+    queryKey: ["get-portfolio-valuation", portfolio._id],
+    queryUrl: `${endPoints.getPortfolioValuation}/${portfolio._id}`,
+    method: HTTPMethods.GET,
+  })
+
   return (
     <Link href={`/portfolio/${portfolio._id}`}>
       <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
@@ -39,13 +48,11 @@ export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
             <div className="flex justify-between items-center">
               <span className="text-sm text-zinc-400">Present Valuation</span>
               <span className="text-lg font-bold text-primary">
-                {formatCurrency(0, portfolio.baseCurrency)}
+                {formatCurrency(
+                  data?.presentValuation ?? 0,
+                  portfolio.baseCurrency
+                )}
               </span>
-            </div>
-
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-zinc-400">Assets</span>
-              <span className="text-sm font-medium">1 assets</span>
             </div>
           </div>
         </CardContent>
@@ -57,7 +64,7 @@ export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
 export function AddPortfolioCard() {
   return (
     <Link href={`/create/portfolio`}>
-      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
+      <Card className="w-full max-w-sm h-[147px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>

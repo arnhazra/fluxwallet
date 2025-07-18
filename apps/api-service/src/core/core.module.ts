@@ -12,6 +12,7 @@ import { EmailModule } from "./email/email.module"
 import { PortfolioModule } from "./portfolio/portfolio.module"
 import { AssetModule } from "./asset/asset.module"
 import { IntelligenceModule } from "./intelligence/intelligence.module"
+import { ValuationModule } from "./valuation/valuation.module"
 
 @Module({
   imports: [
@@ -26,6 +27,7 @@ import { IntelligenceModule } from "./intelligence/intelligence.module"
     PortfolioModule,
     AssetModule,
     IntelligenceModule,
+    ValuationModule,
   ],
 })
 export class CoreModule {}

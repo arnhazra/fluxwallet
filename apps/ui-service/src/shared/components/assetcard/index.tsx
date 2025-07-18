@@ -5,10 +5,13 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Asset, Currency } from "@/shared/types"
+import { Asset, Currency, Valuation } from "@/shared/types"
 import { Coins, Plus } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"
+import useQuery from "@/shared/hooks/use-query"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
 
 function formatCurrency(amount: number, currency: Currency): string {
   return new Intl.NumberFormat("en-US", {
@@ -26,6 +29,12 @@ export function AssetCard({
   asset: Asset
   baseCurrency: Currency
 }) {
+  const { data } = useQuery<Valuation>({
+    queryKey: ["get-asset-valuation", asset._id],
+    queryUrl: `${endPoints.getAssetValuation}/${asset._id}`,
+    method: HTTPMethods.GET,
+  })
+
   return (
     <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
       <CardHeader className="pb-3">
@@ -51,7 +60,7 @@ export function AssetCard({
           <div className="flex justify-between items-center">
             <span className="text-sm text-zinc-400">Current Valuation</span>
             <span className="text-lg font-bold text-primary">
-              {formatCurrency(asset.currentValuation ?? 0, baseCurrency)}
+              {formatCurrency(data?.presentValuation ?? 0, baseCurrency)}
             </span>
           </div>
         </div>
