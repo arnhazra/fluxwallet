@@ -11,14 +11,13 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { Subscription, User } from "@/shared/types"
 import Loading from "../loading"
 import { useQuery } from "@tanstack/react-query"
-import { Bell } from "lucide-react"
-import { usePathname } from "next/navigation"
+import { Bell, Infinity } from "lucide-react"
 import Sidebar from "@/shared/components/sidebar"
+import { Button } from "@/shared/components/ui/button"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [{ refreshId }, dispatch] = useContext(AppContext)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
-  const pathName = usePathname()
 
   const getUserDetails = async () => {
     if (!localStorage.getItem("accessToken")) {
@@ -68,9 +67,16 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   })
 
   const appLayout = (
-    <div className="min-h-screen w-full text-white">
+    <div className="min-h-screen w-full text-white hero-landing relative">
       <Sidebar />
       <div className="container lg:max-w-[90rem] mt-4">{children}</div>
+      <Button
+        variant="default"
+        size="default"
+        className="h-14 w-14 fixed bottom-6 right-6 z-50 bg-primary rounded-full"
+      >
+        <Infinity className="scale-75" />
+      </Button>
     </div>
   )
 

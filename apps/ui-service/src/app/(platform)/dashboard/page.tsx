@@ -23,8 +23,8 @@ export default function Page() {
     <div className="mx-auto grid w-full items-start gap-6">
       <section>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4">
-          {renderPortfolios}
           <AddPortfolioCard />
+          {renderPortfolios}
         </div>
       </section>
     </div>

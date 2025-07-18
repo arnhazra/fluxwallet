@@ -21,7 +21,7 @@ function formatCurrency(amount: number, currency: Currency): string {
 export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
   return (
     <Link href={`/portfolio/${portfolio._id}`}>
-      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-border text-white">
+      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold truncate text-white">
@@ -37,7 +37,7 @@ export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-zinc-400">Total Valuation</span>
+              <span className="text-sm text-zinc-400">Present Valuation</span>
               <span className="text-lg font-bold text-primary">
                 {formatCurrency(0, portfolio.baseCurrency)}
               </span>
@@ -57,7 +57,7 @@ export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
 export function AddPortfolioCard() {
   return (
     <Link href={`/create/portfolio`}>
-      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-background border-border text-white">
+      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>

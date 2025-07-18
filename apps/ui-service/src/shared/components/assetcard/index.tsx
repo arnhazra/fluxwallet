@@ -27,7 +27,7 @@ export function AssetCard({
   baseCurrency: Currency
 }) {
   return (
-    <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-border text-white">
+    <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg font-semibold truncate text-white">
@@ -63,7 +63,7 @@ export function AssetCard({
 export function AddAssetCard() {
   return (
     <Link href={`/create/asset`}>
-      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-background border-border text-white">
+      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>
