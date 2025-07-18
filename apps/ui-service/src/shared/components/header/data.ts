@@ -8,16 +8,12 @@ interface LinkData {
 
 export const generalUserLinks: LinkData[] = [
   {
-    displayName: "Models",
-    link: "/#models",
+    displayName: "Product",
+    link: "/#product",
   },
   {
-    displayName: "Safety",
-    link: "/#safety",
-  },
-  {
-    displayName: "Explore Pro",
-    link: "/#pro",
+    displayName: "Pricing",
+    link: "/#pricing",
   },
   {
     displayName: "Developer",
@@ -26,6 +22,6 @@ export const generalUserLinks: LinkData[] = [
   },
   {
     displayName: "Get Started",
-    link: "/catalog",
+    link: "/dashboard",
   },
 ]

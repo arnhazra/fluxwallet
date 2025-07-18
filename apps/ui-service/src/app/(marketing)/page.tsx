@@ -2,26 +2,22 @@
 import Header from "@/shared/components/header"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { BaseModel, SubscriptionConfig } from "@/shared/types"
+import { SubscriptionConfig } from "@/shared/types"
 import { brandName, uiConstants } from "@/shared/constants/global-constants"
-import { Check, CircleArrowRight, Github } from "lucide-react"
+import { Check, CircleArrowRight, Github, Play } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/utils"
 import { buttonVariants } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
 import Loading from "../loading"
 import useQuery from "@/shared/hooks/use-query"
-import { BaseModelCard } from "@/shared/components/modelcard"
-import { ShareCard, TeachCard, TestCard } from "@/shared/components/safetycard"
+import {
+  ControlCard,
+  IntelligenceCard,
+  OverviewCard,
+} from "@/shared/components/safetycard"
 
 export default function Page() {
-  const models = useQuery<BaseModel[]>({
-    queryKey: ["display-models"],
-    queryUrl: endPoints.getDisplayModels,
-    method: HTTPMethods.GET,
-    suspense: false,
-  })
-
   const subscriptionPricing = useQuery<SubscriptionConfig>({
     queryKey: ["subscription-pricing"],
     queryUrl: endPoints.getSubscriptionPricing,
@@ -29,31 +25,25 @@ export default function Page() {
     suspense: false,
   })
 
-  const renderBaseModels = models?.data?.map((model) => (
-    <BaseModelCard key={model._id} model={model} />
-  ))
-
   const renderHeroSection = (
-    <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-24 hero-landing">
-      <div className="container max-w-[75rem] text-left">
-        <h1 className="text-white text-2xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight mb-4 max-w-[40rem]">
+    <section className="space-y-6 pb-8 pt-6 md:pb-12 md:pt-10 lg:py-28 hero-landing">
+      <div className="container max-w-[85rem] text-left">
+        <h1 className="text-white text-xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight mb-4 max-w-[40rem]">
           {uiConstants.homeHeader}
         </h1>
         <p className="max-w-[35rem] leading-normal text-zinc-300 sm:text-lg sm:leading-8 mb-6">
-          {uiConstants.homeIntro1}
+          {uiConstants.homeIntro}
         </p>
         <Link
-          href="/catalog"
+          href="/dashboard"
           className={cn(
             buttonVariants({
-              size: "lg",
               variant: "default",
-              className: "rounded-full bg-primary hover:bg-primary",
+              className: "bg-primary hover:bg-primary",
             })
           )}
         >
-          {uiConstants.getStartedButton}{" "}
-          <CircleArrowRight className="ms-2 scale-75" />
+          <Play className="me-2 scale-75" /> {uiConstants.getStartedButton}
         </Link>
       </div>
     </section>
@@ -81,11 +71,11 @@ export default function Page() {
             ${subscriptionPricing.data?.price}
           </h4>
           <p className="text-sm font-medium text-muted-foreground">
-            Billed Monthly
+            Billed Yearly
           </p>
         </div>
         <Link
-          href="/catalog"
+          href="/dashboard"
           className={cn(
             buttonVariants({
               size: "lg",
@@ -101,7 +91,7 @@ export default function Page() {
 
   const renderFooterSection = (
     <footer>
-      <div className="bg-main text-white">
+      <div className="text-white">
         <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <p className="text-center text-sm leading-loose md:text-left">
@@ -115,49 +105,30 @@ export default function Page() {
   )
 
   return (
-    <Show
-      condition={!models.isLoading && !subscriptionPricing.isLoading}
-      fallback={<Loading />}
-    >
+    <Show condition={!subscriptionPricing.isLoading} fallback={<Loading />}>
       <div className="min-h-screen w-full text-white">
         <Header />
         {renderHeroSection}
         <section
-          id="models"
-          className="mt-8 container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-lg text-zinc-300"
-        >
-          <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-            <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Generic Models
-            </h2>
-            <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-              {uiConstants.modelsHeader}
-            </p>
-          </div>
-          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-2 lg:max-w-[50rem] lg:grid-cols-3 xl:max-w-[68rem] xl:grid-cols-4">
-            {renderBaseModels}
-          </div>
-        </section>
-        <section
-          id="safety"
+          id="product"
           className="mt-8 container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-lg"
         >
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Safety at every step
+              Wealth management redefined
             </h2>
             <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-              {uiConstants.safetyHeader}
+              {uiConstants.productHeader}
             </p>
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
-            <TeachCard />
-            <TestCard />
-            <ShareCard />
+            <OverviewCard />
+            <IntelligenceCard />
+            <ControlCard />
           </div>
         </section>
         <section
-          id="pro"
+          id="pricing"
           className="container py-8 md:py-12 lg:py-24 md:max-w-[64rem]"
         >
           <div className="mx-auto flex max-w-[64rem] flex-col items-center justify-center gap-4 text-center mb-8">

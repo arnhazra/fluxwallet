@@ -1,44 +1,49 @@
-import { Check } from "lucide-react"
+import { Check, Cog, Infinity } from "lucide-react"
 import { Button } from "../ui/button"
+import { brandName } from "@/shared/constants/global-constants"
 
-export function TeachCard() {
+export function OverviewCard() {
   return (
     <div className="bg-background border-white p-8 rounded-lg">
       <div className="flex justify-between items-center mb-12">
-        <h2 className="text-3xl">Teach</h2>
+        <h2 className="text-3xl">Overview</h2>
         <Button
           variant="ghost"
           size="icon"
           className="rounded-full text-white bg-primary hover:bg-primary"
         >
           <Check className="h-4 w-4 text-white" />
-          <span className="sr-only">Learn more about teaching</span>
+          <span className="sr-only">Your finance portfolio</span>
         </Button>
       </div>
       <div className="flex gap-8 mb-8 justify-center">
-        <div className="w-16 h-16 bg-main rounded-full" />
-        <div className="w-16 h-16 bg-zinc-100 rounded-full" />
+        <div className="w-16 h-16 bg-white rounded-full" />
+        <div className="w-16 h-16 bg-primary rounded-full" />
+      </div>
+      <div className="flex gap-8 mb-8 justify-center">
+        <div className="w-16 h-16 bg-primary rounded-full" />
+        <div className="w-16 h-16 bg-white rounded-full" />
       </div>
       <p className="text-md leading-relaxed">
-        We start by teaching our AI right from wrong, filtering harmful content
-        and responding with empathy.
+        See your entire financial landscape at a glance — assets, liabilities,
+        and net worth all organized in one clean view.
       </p>
     </div>
   )
 }
 
-export function TestCard() {
+export function IntelligenceCard() {
   return (
     <div className="bg-background border-border p-8 rounded-lg">
       <div className="flex justify-between items-center mb-12">
-        <h2 className="text-3xl">Test</h2>
+        <h2 className="text-3xl">Intelligence</h2>
         <Button
           variant="ghost"
           size="icon"
           className="rounded-full bg-primary hover:bg-primary"
         >
-          <Check className="h-4 w-4 text-white" />
-          <span className="sr-only">Learn more about testing</span>
+          <Infinity className="h-4 w-4 text-white" />
+          <span className="sr-only">{brandName} Intelligence</span>
         </Button>
       </div>
       <div className="flex justify-center mb-8">
@@ -51,13 +56,7 @@ export function TestCard() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <path
-                d="M20 6L9 17L4 12"
-                stroke="white"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              />
+              <Infinity />
             </svg>
           </div>
           <div className="absolute top-12 left-4 w-48 h-4 bg-zinc-100 rounded" />
@@ -65,25 +64,25 @@ export function TestCard() {
         </div>
       </div>
       <p className="text-md leading-relaxed">
-        We conduct internal evaluations and work with experts to test real-world
-        scenarios, enhancing our safeguards.
+        Leverage AI-powered insights to identify trends, uncover opportunities,
+        and get personalized suggestions to grow and protect your wealth.
       </p>
     </div>
   )
 }
 
-export function ShareCard() {
+export function ControlCard() {
   return (
     <div className="bg-background p-8 rounded-lg">
       <div className="flex justify-between items-center mb-12">
-        <h2 className="text-3xl">Share</h2>
+        <h2 className="text-3xl">Control</h2>
         <Button
           variant="ghost"
           size="icon"
           className="rounded-full bg-primary hover:bg-primary"
         >
-          <Check className="h-4 w-4 text-white" />
-          <span className="sr-only">Learn more about sharing</span>
+          <Cog className="h-4 w-4 text-white" />
+          <span className="sr-only">Learn more about control</span>
         </Button>
       </div>
       <div className="grid grid-cols-2 gap-4 mb-8 max-w-[200px] mx-auto">
@@ -126,7 +125,8 @@ export function ShareCard() {
         </div>
       </div>
       <p className="text-md leading-relaxed">
-        We use real-world feedback to help make our AI safer and more helpful.
+        Easily manage all your assets — add, edit, or remove entries anytime
+        with full flexibility and total peace of mind.
       </p>
     </div>
   )

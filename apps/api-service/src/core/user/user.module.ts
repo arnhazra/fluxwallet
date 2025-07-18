@@ -16,7 +16,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
     CqrsModule,
     EntityModule.forFeature(
       [{ name: User.name, schema: UserSchema }],
-      DbConnectionMap.Core
+      DbConnectionMap.Primary
     ),
   ],
   controllers: [UserController],

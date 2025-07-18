@@ -1,6 +1,6 @@
 {
-  "name": "welaio",
-  "version": "1.0.5",
+  "name": "fluxwallet",
+  "version": "0.1.0",
   "description": "a saas product",
   "scripts": {
     "api-service": "npm run dev --prefix apps/api-service",

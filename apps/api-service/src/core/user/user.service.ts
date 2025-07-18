@@ -103,7 +103,7 @@ export class UserService {
               algorithm: "HS512",
               expiresIn: "5m",
             })
-            const refreshToken = `rt_as-${randomUUID()}`
+            const refreshToken = `rtwm${randomUUID()}`
             await this.eventEmitter.emitAsync(EventsUnion.SetToken, {
               userId: user.id,
               token: refreshToken,
@@ -125,7 +125,7 @@ export class UserService {
             algorithm: "HS512",
             expiresIn: "5m",
           })
-          const refreshToken = `rt_as-${randomUUID()}`
+          const refreshToken = `rtwm${randomUUID()}`
           await this.eventEmitter.emitAsync(EventsUnion.SetToken, {
             userId: newUser.id,
             token: refreshToken,

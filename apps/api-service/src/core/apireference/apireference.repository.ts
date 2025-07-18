@@ -8,7 +8,7 @@ import { EntityRepository } from "@/shared/entity/entity.repository"
 @Injectable()
 export class ApiReferenceRepository extends EntityRepository<ApiReference> {
   constructor(
-    @InjectModel(ApiReference.name, DbConnectionMap.Core)
+    @InjectModel(ApiReference.name, DbConnectionMap.Primary)
     private apiReferenceModel: Model<ApiReference>
   ) {
     super(apiReferenceModel)
