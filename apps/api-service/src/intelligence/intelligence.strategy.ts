@@ -7,7 +7,7 @@ import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { systemPrompt } from "./helpers/prompts/system-prompt"
 import { getTotalValuation } from "./helpers/tools/get-total-valuation.tool"
 import { getPortfolioValuation } from "./helpers/tools/get-portfolio-valuation.tool"
-import { User } from "../user/schemas/user.schema"
+import { User } from "../core/user/schemas/user.schema"
 
 export interface IntelligenceStrategyType {
   genericName: string
