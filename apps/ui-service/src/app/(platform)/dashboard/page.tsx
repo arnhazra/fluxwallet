@@ -18,6 +18,7 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { toast } from "sonner"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { useAppContext } from "@/context/appstate.provider"
+import Show from "@/shared/components/show"
 
 export default function Page() {
   const [{ user }, dispatch] = useAppContext()
@@ -115,7 +116,7 @@ export default function Page() {
                     {portfolios?.data?.length}
                   </p>
                   <div className="flex items-center gap-2">
-                    <span className="text-sm text-green-400">
+                    <span className="text-sm text-gray-400">
                       Total number of portfolios
                     </span>
                   </div>
@@ -142,7 +143,10 @@ export default function Page() {
                 </div>
                 <div className="space-y-3">
                   <p className="text-3xl font-bold text-white">
-                    {goalPercentage.toFixed(0)}%
+                    <Show condition={!!goalPercentage}>
+                      {goalPercentage.toFixed(0)}%
+                    </Show>
+                    <Show condition={!goalPercentage}>Set a Goal</Show>
                   </p>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
