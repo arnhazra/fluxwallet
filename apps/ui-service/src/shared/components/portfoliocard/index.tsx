@@ -5,7 +5,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Currency, Portfolio, Valuation } from "@/shared/types"
+import { Portfolio, Valuation } from "@/shared/types"
 import { Landmark, Plus } from "lucide-react"
 import Link from "next/link"
 import useQuery from "@/shared/hooks/use-query"
@@ -13,15 +13,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { useContext } from "react"
 import { AppContext } from "@/context/appstate.provider"
-
-function formatCurrency(amount: number, currency: Currency): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currency,
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount)
-}
+import { formatCurrency } from "@/shared/lib/format-currency"
 
 export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
   const [{ user }] = useContext(AppContext)

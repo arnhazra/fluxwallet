@@ -2,25 +2,19 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Currency, Portfolio, Valuation } from "@/shared/types"
+import { Portfolio, Valuation } from "@/shared/types"
 import {
   PortfolioCard,
   AddPortfolioCard,
 } from "@/shared/components/portfoliocard"
-import SectionPanel from "@/shared/components/sectionpanel"
-import { Building, PieChart, Target, TrendingUp } from "lucide-react"
+import { PieChart, Target, TrendingUp } from "lucide-react"
 import { Card, CardContent } from "@/shared/components/ui/card"
-
-function formatCurrency(amount: number, currency: Currency): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currency,
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount)
-}
+import { useContext } from "react"
+import { AppContext } from "@/context/appstate.provider"
+import { formatCurrency } from "@/shared/lib/format-currency"
 
 export default function Page() {
+  const [{ user }] = useContext(AppContext)
   const portfolios = useQuery<Portfolio[]>({
     queryKey: ["get-portfolios"],
     queryUrl: endPoints.portfolio,
@@ -56,7 +50,10 @@ export default function Page() {
                 </div>
                 <div className="space-y-3">
                   <p className="text-3xl font-bold text-primary">
-                    {formatCurrency(data?.presentValuation ?? 0, Currency.INR)}
+                    {formatCurrency(
+                      data?.presentValuation ?? 0,
+                      user.baseCurrency
+                    )}
                   </p>
                   <p className="text-sm text-gray-400">Portfolio Valuation</p>
                 </div>

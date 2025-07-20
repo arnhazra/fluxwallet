@@ -14,15 +14,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { AppContext } from "@/context/appstate.provider"
 import { useContext } from "react"
-
-function formatCurrency(amount: number, currency: Currency): string {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: currency,
-    minimumFractionDigits: 0,
-    maximumFractionDigits: 0,
-  }).format(amount)
-}
+import { formatCurrency } from "@/shared/lib/format-currency"
 
 export function AssetCard({ asset }: { asset: Asset }) {
   const [{ user }] = useContext(AppContext)
