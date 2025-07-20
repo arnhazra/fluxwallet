@@ -6,7 +6,7 @@ on:
       - main
 
 jobs:
-  api-service:
+  API-DEPLOYMENT:
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -39,7 +39,7 @@ jobs:
         working-directory: apps/api-service
         run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
 
-  ui-service:
+  UI-DEPLOYMENT:
     runs-on: ubuntu-latest
     env:
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
