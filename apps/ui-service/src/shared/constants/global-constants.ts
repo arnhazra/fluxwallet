@@ -23,9 +23,6 @@ export const uiConstants = {
   pricingTitle: `${brandName} Pricing`,
   privacyPolicyStatement: `By using ${brandName}, you agree to our Terms of Service and Privacy Policy`,
   verifyEmailStatement: `Please verify your auth by entering the OTP we sent to your email`,
-  apiKeyCreated: "API Key created",
-  apiKeyDeleted: "API Key deleted",
-  apiRefreneceStatement: "You must send access_key in headers to authenticate",
   aiSafetyStatement: `As an AI LLM ${brandName} Intelligence can make mistakes. Please be aware.`,
   modelCreated: "Congratulations, your model has been created",
   modelCreationFailed:

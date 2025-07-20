@@ -1,6 +1,4 @@
 import { Module } from "@nestjs/common"
-import { ApiReferenceModule } from "./apireference/apireference.module"
-import { APIKeyModule } from "./apikey/apikey.module"
 import { SubscriptionModule } from "./subscription/subscription.module"
 import { UserModule } from "./user/user.module"
 import { config } from "src/config"
@@ -17,9 +15,7 @@ import { ValuationModule } from "./valuation/valuation.module"
 @Module({
   imports: [
     EntityModule.forRoot(config.PRIMARY_DATABASE_URI, DbConnectionMap.Primary),
-    ApiReferenceModule,
     ActivityModule,
-    APIKeyModule,
     SubscriptionModule,
     UserModule,
     TokenModule,

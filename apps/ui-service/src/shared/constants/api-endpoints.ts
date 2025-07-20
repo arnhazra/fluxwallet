@@ -12,8 +12,6 @@ export const uiHost =
 
 export const endPoints = {
   activityTrends: `${apiHost}/activity/trends`,
-  apiKey: `${apiHost}/apikey`,
-  getapireference: `${apiHost}/apireference`,
   asset: `${apiHost}/asset`,
   getAssetValuation: `${apiHost}/valuation/asset`,
   getPortfolioValuation: `${apiHost}/valuation/portfolio`,

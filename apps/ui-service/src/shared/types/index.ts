@@ -217,25 +217,8 @@ export type Subscription = {
   endsAt: string
 }
 
-export type APIKey = {
-  _id: string
-  userId: string
-  apiKey: string
-  createdAt: string
-}
-
 export type ActivityTrends = {
   totalUsage: number
-}
-
-export type APIReference = {
-  _id: string
-  apiName: string
-  apiDescription: string
-  apiUri: string
-  apiMethod: string
-  sampleRequestBody: Record<string, any>
-  sampleResponseBody: Record<string, any>
 }
 
 export type Thread = {
