@@ -31,7 +31,6 @@ const institutions = Object.values(InstitutionType)
 interface PortfolioFormData {
   portfolioName: string
   institutionType: InstitutionType
-  baseCurrency: string
 }
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
@@ -48,7 +47,6 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const [formData, setFormData] = useState<PortfolioFormData>({
     portfolioName: "",
     institutionType: InstitutionType.BANK,
-    baseCurrency: Currency.INR,
   })
 
   const handleInputChange = (field: keyof PortfolioFormData, value: string) => {
@@ -63,7 +61,6 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       setFormData({
         portfolioName: portfolio.data?.portfolioName,
         institutionType: portfolio.data?.institutionType,
-        baseCurrency: portfolio.data?.baseCurrency,
       })
     }
   }, [portfolio.data])
@@ -133,28 +130,6 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                   {institutions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
-
-            <div className="space-y-2">
-              <Label htmlFor="baseCurrency">Base Currency</Label>
-              <Select
-                required
-                value={formData.baseCurrency}
-                onValueChange={(value) =>
-                  handleInputChange("baseCurrency", value)
-                }
-              >
-                <SelectTrigger className="w-full bg-main text-white border-border">
-                  <SelectValue placeholder="Select base currency" />
-                </SelectTrigger>
-                <SelectContent className="w-full bg-main text-white border-border">
-                  {currencies.map((currency) => (
-                    <SelectItem key={currency} value={currency}>
-                      {currency}
                     </SelectItem>
                   ))}
                 </SelectContent>

@@ -1,3 +1,4 @@
+import { Currency } from "@/shared/constants/types"
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document } from "mongoose"
 
@@ -15,6 +16,12 @@ export class User extends Document {
 
   @Prop({ default: "user" })
   role: string
+
+  @Prop({ default: Currency.USD })
+  baseCurrency: Currency
+
+  @Prop({ default: null })
+  portfolioGoal: number | null
 
   @Prop({ type: Boolean, default: true })
   reduceCarbonEmissions: boolean

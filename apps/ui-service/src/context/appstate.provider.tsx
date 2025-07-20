@@ -1,6 +1,7 @@
 "use client"
 import { ReactNode, createContext, useReducer } from "react"
 import { AppState, Actions, ActionsMap, AppReducer } from "./appstate.reducer"
+import { Currency } from "@/shared/types"
 
 export type Dispatcher = <Type extends keyof ActionsMap>(
   type: Type,
@@ -16,6 +17,7 @@ const initialState: AppState = {
     createdAt: "",
     email: "",
     name: "",
+    baseCurrency: Currency.USD,
     reduceCarbonEmissions: true,
     role: "",
   },

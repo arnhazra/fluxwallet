@@ -1,4 +1,4 @@
-import { Currency, InstitutionType } from "@/shared/constants/types"
+import { InstitutionType } from "@/shared/constants/types"
 import { IsNotEmpty } from "class-validator"
 
 export class CreatePortfolioRequestDto {
@@ -7,7 +7,4 @@ export class CreatePortfolioRequestDto {
 
   @IsNotEmpty()
   institutionType: InstitutionType
-
-  @IsNotEmpty()
-  baseCurrency: Currency
 }

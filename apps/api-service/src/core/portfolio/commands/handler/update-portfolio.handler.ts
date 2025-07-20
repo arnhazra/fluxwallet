@@ -12,12 +12,11 @@ export class UpdatePortfolioCommandHandler
   async execute(command: UpdatePortfolioCommand) {
     const {
       portfolioId,
-      dto: { baseCurrency, institutionType, portfolioName },
+      dto: { institutionType, portfolioName },
     } = command
     return await this.repository.update(
       { _id: objectId(portfolioId) },
       {
-        baseCurrency,
         institutionType,
         portfolioName,
       }

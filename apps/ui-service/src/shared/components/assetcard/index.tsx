@@ -12,6 +12,8 @@ import MaskText from "../mask"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
+import { AppContext } from "@/context/appstate.provider"
+import { useContext } from "react"
 
 function formatCurrency(amount: number, currency: Currency): string {
   return new Intl.NumberFormat("en-US", {
@@ -22,13 +24,8 @@ function formatCurrency(amount: number, currency: Currency): string {
   }).format(amount)
 }
 
-export function AssetCard({
-  asset,
-  baseCurrency,
-}: {
-  asset: Asset
-  baseCurrency: Currency
-}) {
+export function AssetCard({ asset }: { asset: Asset }) {
+  const [{ user }] = useContext(AppContext)
   const { data } = useQuery<Valuation>({
     queryKey: ["get-asset-valuation", asset._id],
     queryUrl: `${endPoints.getAssetValuation}/${asset._id}`,
@@ -60,7 +57,7 @@ export function AssetCard({
           <div className="flex justify-between items-center">
             <span className="text-sm text-zinc-400">Present Valuation</span>
             <span className="text-lg font-bold text-primary">
-              {formatCurrency(data?.presentValuation ?? 0, baseCurrency)}
+              {formatCurrency(data?.presentValuation ?? 0, user.baseCurrency)}
             </span>
           </div>
         </div>

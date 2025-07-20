@@ -17,10 +17,13 @@ export default function Page() {
   const saveActivityLogSettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUser", { activityLog: updatedSettings })
-      await ky.patch(
-        `${endPoints.updateAttribute}/activityLog/${updatedSettings}`,
-        { timeout: FETCH_TIMEOUT }
-      )
+      await ky.patch(endPoints.updateAttribute, {
+        json: {
+          attributeName: "activityLog",
+          attributeValue: updatedSettings,
+        },
+        timeout: FETCH_TIMEOUT,
+      })
     } catch (error) {
       toast(uiConstants.notification, {
         icon: <Bell className="scale-75" />,

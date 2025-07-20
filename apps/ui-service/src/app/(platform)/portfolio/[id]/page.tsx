@@ -30,13 +30,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   })
 
   const renderAssets = assets?.data?.map((asset) => {
-    return (
-      <AssetCard
-        asset={asset}
-        key={asset._id}
-        baseCurrency={portfolio.data?.baseCurrency ?? Currency.INR}
-      />
-    )
+    return <AssetCard asset={asset} key={asset._id} />
   })
 
   const handleDeletePortfolio = async () => {

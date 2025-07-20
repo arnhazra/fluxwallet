@@ -1,9 +1,6 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { UserRepository } from "../../user.repository"
-import {
-  AttributeNames,
-  UpdateAttributeCommand,
-} from "../impl/update-attribute.command"
+import { UpdateAttributeCommand } from "../impl/update-attribute.command"
 
 @CommandHandler(UpdateAttributeCommand)
 export class UpdateAttributeCommandHandler
@@ -13,16 +10,10 @@ export class UpdateAttributeCommandHandler
 
   async execute(command: UpdateAttributeCommand) {
     const { userId, attributeName, attributeValue } = command
-
-    if (
-      attributeName === AttributeNames.ReduceCarbonEmissions ||
-      attributeName === AttributeNames.ActivityLog
-    ) {
-      if (attributeValue === "true") {
-        return await this.repository.updateOneById(userId, attributeName, true)
-      }
-
-      return await this.repository.updateOneById(userId, attributeName, false)
-    }
+    return await this.repository.updateOneById(
+      userId,
+      attributeName,
+      attributeValue
+    )
   }
 }

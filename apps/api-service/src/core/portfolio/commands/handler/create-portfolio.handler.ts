@@ -12,11 +12,10 @@ export class CreatePortfolioCommandHandler
   async execute(command: CreatePortfolioCommand) {
     const {
       userId,
-      dto: { baseCurrency, institutionType, portfolioName },
+      dto: { institutionType, portfolioName },
     } = command
     return await this.repository.create({
       userId: objectId(userId),
-      baseCurrency,
       institutionType,
       portfolioName,
     })

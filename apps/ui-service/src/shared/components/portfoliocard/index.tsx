@@ -11,6 +11,8 @@ import Link from "next/link"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
+import { useContext } from "react"
+import { AppContext } from "@/context/appstate.provider"
 
 function formatCurrency(amount: number, currency: Currency): string {
   return new Intl.NumberFormat("en-US", {
@@ -22,6 +24,7 @@ function formatCurrency(amount: number, currency: Currency): string {
 }
 
 export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
+  const [{ user }] = useContext(AppContext)
   const { data } = useQuery<Valuation>({
     queryKey: ["get-portfolio-valuation", portfolio._id],
     queryUrl: `${endPoints.getPortfolioValuation}/${portfolio._id}`,
@@ -48,10 +51,7 @@ export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
             <div className="flex justify-between items-center">
               <span className="text-sm text-zinc-400">Present Valuation</span>
               <span className="text-lg font-bold text-primary">
-                {formatCurrency(
-                  data?.presentValuation ?? 0,
-                  portfolio.baseCurrency
-                )}
+                {formatCurrency(data?.presentValuation ?? 0, user.baseCurrency)}
               </span>
             </div>
           </div>

@@ -1,5 +1,5 @@
 import { User } from "@/core/user/schemas/user.schema"
-import { Currency, InstitutionType } from "@/shared/constants/types"
+import { InstitutionType } from "@/shared/constants/types"
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document, Types } from "mongoose"
 
@@ -17,9 +17,6 @@ export class Portfolio extends Document {
 
   @Prop({ enum: InstitutionType, default: InstitutionType.OTHER })
   institutionType: InstitutionType
-
-  @Prop({ default: "INR" })
-  baseCurrency: Currency
 }
 
 export const PortfolioSchema = SchemaFactory.createForClass(Portfolio)

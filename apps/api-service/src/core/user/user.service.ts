@@ -18,12 +18,10 @@ import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
 import { User } from "./schemas/user.schema"
 import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
-import {
-  AttributeNames,
-  UpdateAttributeCommand,
-} from "./commands/impl/update-attribute.command"
+import { UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
 import { randomUUID } from "crypto"
 import { Subscription } from "../subscription/schemas/subscription.schema"
+import { Currency } from "@/shared/constants/types"
 
 @Injectable()
 export class UserService {
@@ -175,14 +173,15 @@ export class UserService {
 
   async updateAttribute(
     userId: string,
-    attributeName: AttributeNames,
-    attributeValue: string
+    attributeName: keyof User,
+    attributeValue: string | number | boolean | null | Currency
   ) {
     try {
       await this.commandBus.execute<UpdateAttributeCommand, User>(
         new UpdateAttributeCommand(userId, attributeName, attributeValue)
       )
     } catch (error) {
+      console.log(error)
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

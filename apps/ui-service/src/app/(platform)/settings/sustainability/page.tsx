@@ -16,10 +16,13 @@ export default function Page() {
   const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUser", { reduceCarbonEmissions: updatedSettings })
-      await ky.patch(
-        `${endPoints.updateAttribute}/reduceCarbonEmissions/${updatedSettings}`,
-        { timeout: FETCH_TIMEOUT }
-      )
+      await ky.patch(endPoints.updateAttribute, {
+        json: {
+          attributeName: "reduceCarbonEmissions",
+          attributeValue: updatedSettings,
+        },
+        timeout: FETCH_TIMEOUT,
+      })
     } catch (error) {
       toast(uiConstants.notification, {
         icon: <Bell className="scale-75" />,

@@ -198,6 +198,7 @@ export type User = {
   email: string
   name: string
   role: string
+  baseCurrency: Currency
   reduceCarbonEmissions: boolean
   activityLog: boolean
   createdAt: string
@@ -249,7 +250,6 @@ export type Portfolio = {
   userId: string
   portfolioName: string
   institutionType: InstitutionType
-  baseCurrency: Currency
   createdAt: string
 }
 

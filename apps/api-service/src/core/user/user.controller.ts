@@ -15,6 +15,7 @@ import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { TokenGuard } from "@/shared/auth/token.guard"
 import { ModRequest } from "@/shared/auth/types/mod-request.interface"
+import { UpdateAttributeDto } from "./dto/update-attribute.dto"
 
 @Controller("user")
 export class UserController {
@@ -77,16 +78,20 @@ export class UserController {
   }
 
   @UseGuards(TokenGuard)
-  @Patch("attribute/:attributeName/:attributeValue")
-  async updateAttribute(@Request() request: ModRequest, @Param() params: any) {
+  @Patch("attribute")
+  async updateAttribute(
+    @Request() request: ModRequest,
+    @Body() updateAttributeDto: UpdateAttributeDto
+  ) {
     try {
-      const { attributeName, attributeValue } = params
+      const { attributeName, attributeValue } = updateAttributeDto
       return await this.userService.updateAttribute(
         request.user.userId,
         attributeName,
         attributeValue
       )
     } catch (error) {
+      console.log(error)
       throw new BadRequestException(statusMessages.invalidUser)
     }
   }
