@@ -199,6 +199,7 @@ export type User = {
   name: string
   role: string
   baseCurrency: Currency
+  portfolioGoal: number | null
   reduceCarbonEmissions: boolean
   activityLog: boolean
   createdAt: string

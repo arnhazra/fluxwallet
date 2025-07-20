@@ -8,8 +8,16 @@ import { brandName, uiConstants } from "@/shared/constants/global-constants"
 import { AppContext } from "@/context/appstate.provider"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
-import { User, IdCard, AtSign, CircleArrowRight, Bell } from "lucide-react"
+import {
+  User,
+  IdCard,
+  AtSign,
+  CircleArrowRight,
+  Bell,
+  DollarSign,
+} from "lucide-react"
 import { useContext } from "react"
+import EditCurrency from "@/shared/components/editcurrency"
 
 export default function Page() {
   const [{ user }] = useContext(AppContext)
@@ -48,6 +56,14 @@ export default function Page() {
         title="Your Email"
         content={user.email}
         actionComponents={[<CopyToClipboard value={user.email} />]}
+      />
+      <SectionPanel
+        icon={<DollarSign className="scale-75" />}
+        title="Base Currency"
+        content={user.baseCurrency}
+        actionComponents={[
+          <EditCurrency baseCurrency={user.baseCurrency}></EditCurrency>,
+        ]}
       />
       <SectionPanel
         icon={<CircleArrowRight className="scale-75" />}

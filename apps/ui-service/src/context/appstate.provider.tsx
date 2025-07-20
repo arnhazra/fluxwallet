@@ -18,6 +18,7 @@ const initialState: AppState = {
     email: "",
     name: "",
     baseCurrency: Currency.USD,
+    portfolioGoal: null,
     reduceCarbonEmissions: true,
     role: "",
   },
