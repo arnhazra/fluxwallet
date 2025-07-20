@@ -1,7 +1,7 @@
 import { Currency } from "@/shared/types"
 import { Button } from "../ui/button"
 import { Bell, PenIcon } from "lucide-react"
-import { useContext, useState } from "react"
+import { useState } from "react"
 import {
   DialogHeader,
   Dialog,
@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
-import { AppContext } from "@/context/appstate.provider"
+import { useAppContext } from "@/context/appstate.provider"
 import ky from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -30,7 +30,7 @@ export default function EditCurrency({
   baseCurrency: Currency
 }) {
   const [open, setOpen] = useState(false)
-  const [, dispatch] = useContext(AppContext)
+  const [, dispatch] = useAppContext()
   const [value, setValue] = useState<Currency>(baseCurrency)
 
   const saveCurrency = async () => {

@@ -1,9 +1,8 @@
 "use client"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
-import { AppContext } from "@/context/appstate.provider"
 import ky from "ky"
-import { ReactNode, useContext, useState } from "react"
+import { ReactNode, useState } from "react"
 import { toast } from "sonner"
 import Show from "@/shared/components/show"
 import AuthProvider from "./auth"
@@ -14,9 +13,10 @@ import { useQuery } from "@tanstack/react-query"
 import { Atom, Bell } from "lucide-react"
 import Sidebar from "@/shared/components/sidebar"
 import { Button } from "@/shared/components/ui/button"
+import { useAppContext } from "@/context/appstate.provider"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const [, dispatch] = useContext(AppContext)
+  const [, dispatch] = useAppContext()
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
   const getUserDetails = async () => {

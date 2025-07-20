@@ -4,10 +4,9 @@ import {
   useSuspenseQuery,
   useQuery as useNormalQuery,
 } from "@tanstack/react-query"
-import { useContext } from "react"
-import { AppContext } from "@/context/appstate.provider"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
+import { useAppContext } from "@/context/appstate.provider"
 
 interface QueryType<T> {
   queryKey: string[]
@@ -26,7 +25,7 @@ export default function useQuery<T>({
   suspense = true,
   enabled = true,
 }: QueryType<T>) {
-  const [{ user }] = useContext(AppContext)
+  const [{ user }] = useAppContext()
 
   const queryFn = async () => {
     const data: any = await ky(queryUrl, {

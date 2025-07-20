@@ -1,5 +1,5 @@
 "use client"
-import { ReactNode, createContext, useReducer } from "react"
+import { ReactNode, createContext, useContext, useReducer } from "react"
 import { AppState, Actions, ActionsMap, AppReducer } from "./appstate.reducer"
 import { Currency } from "@/shared/types"
 
@@ -39,4 +39,14 @@ export function AppStateProvider({ children }: { children: ReactNode }) {
   }
   const values: AppContextInterface = [state, dispatch]
   return <AppContext.Provider value={values}>{children}</AppContext.Provider>
+}
+
+export const useAppContext = () => {
+  const context = useContext(AppContext)
+
+  if (!context) {
+    throw new Error("useAppContext must be used within a AppProvider")
+  }
+
+  return context
 }

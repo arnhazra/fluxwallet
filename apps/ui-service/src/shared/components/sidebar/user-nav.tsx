@@ -1,4 +1,5 @@
 "use client"
+import { useAppContext } from "@/context/appstate.provider"
 import { Button } from "@/shared/components/ui/button"
 import {
   DropdownMenu,
@@ -9,13 +10,11 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/shared/components/ui/dropdown-menu"
-import { AppContext } from "@/context/appstate.provider"
 import { User } from "lucide-react"
-import { useContext } from "react"
 import Link from "next/link"
 
 export function UserNav() {
-  const [{ user }] = useContext(AppContext)
+  const [{ user }] = useAppContext()
 
   const signOut = async () => {
     localStorage.clear()

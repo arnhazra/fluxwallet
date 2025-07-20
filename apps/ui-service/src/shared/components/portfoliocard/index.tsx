@@ -11,12 +11,11 @@ import Link from "next/link"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { useContext } from "react"
-import { AppContext } from "@/context/appstate.provider"
 import { formatCurrency } from "@/shared/lib/format-currency"
+import { useAppContext } from "@/context/appstate.provider"
 
 export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
-  const [{ user }] = useContext(AppContext)
+  const [{ user }] = useAppContext()
   const { data } = useQuery<Valuation>({
     queryKey: ["get-portfolio-valuation", portfolio._id],
     queryUrl: `${endPoints.getPortfolioValuation}/${portfolio._id}`,

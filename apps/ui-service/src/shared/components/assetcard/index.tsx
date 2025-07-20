@@ -5,19 +5,18 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Asset, Currency, Valuation } from "@/shared/types"
+import { Asset, Valuation } from "@/shared/types"
 import { Coins, Plus } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { AppContext } from "@/context/appstate.provider"
-import { useContext } from "react"
 import { formatCurrency } from "@/shared/lib/format-currency"
+import { useAppContext } from "@/context/appstate.provider"
 
 export function AssetCard({ asset }: { asset: Asset }) {
-  const [{ user }] = useContext(AppContext)
+  const [{ user }] = useAppContext()
   const { data } = useQuery<Valuation>({
     queryKey: ["get-asset-valuation", asset._id],
     queryUrl: `${endPoints.getAssetValuation}/${asset._id}`,

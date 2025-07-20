@@ -3,17 +3,16 @@ import SectionPanel from "../../../../shared/components/sectionpanel"
 import Show from "@/shared/components/show"
 import { toast } from "sonner"
 import { uiConstants } from "@/shared/constants/global-constants"
-import { AppContext } from "@/context/appstate.provider"
 import { format } from "date-fns"
 import { Bell, Bolt, CalendarClock } from "lucide-react"
-import { useContext, useEffect, useState } from "react"
+import { useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { useRouter } from "nextjs-toploader/app"
 import { SubscriptionModal } from "@/shared/components/subscriptionmodal"
-import { Button } from "@/shared/components/ui/button"
+import { useAppContext } from "@/context/appstate.provider"
 
 export default function Page() {
-  const [{ subscription, isSubscriptionActive }] = useContext(AppContext)
+  const [{ subscription, isSubscriptionActive }] = useAppContext()
   const searchParams = useSearchParams()
   const router = useRouter()
 

@@ -5,7 +5,7 @@ import { Button } from "@/shared/components/ui/button"
 import { toast } from "sonner"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { brandName, uiConstants } from "@/shared/constants/global-constants"
-import { AppContext } from "@/context/appstate.provider"
+import { useAppContext } from "@/context/appstate.provider"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
 import {
@@ -16,11 +16,10 @@ import {
   Bell,
   DollarSign,
 } from "lucide-react"
-import { useContext } from "react"
 import EditCurrency from "@/shared/components/editcurrency"
 
 export default function Page() {
-  const [{ user }] = useContext(AppContext)
+  const [{ user }] = useAppContext()
 
   const signOut = async (signOutOption: string) => {
     try {

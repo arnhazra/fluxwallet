@@ -70,7 +70,8 @@ export default function usePrompt() {
           </Button>
           <Button
             type="submit"
-            variant="destructive"
+            className="bg-primary hover:bg-primary"
+            variant="default"
             onClick={() => handleConfirm(true)}
           >
             Proceed

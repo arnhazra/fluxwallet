@@ -1,12 +1,12 @@
 "use client"
-import { ReactElement, ReactNode, useContext } from "react"
+import { ReactElement, ReactNode } from "react"
 import { Button } from "@/shared/components/ui/button"
 import { CalendarClock, Info, Leaf, ShieldCheck, User } from "lucide-react"
-import { AppContext } from "@/context/appstate.provider"
 import { Tabs, tabsList } from "./data"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
+import { useAppContext } from "@/context/appstate.provider"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User />,
@@ -17,7 +17,7 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
 }
 
 export default function SetingsLayout({ children }: { children: ReactNode }) {
-  const [{ user }, dispatch] = useContext(AppContext)
+  const [{ user }, dispatch] = useAppContext()
   const pathname = usePathname()
   const { confirm } = useConfirmContext()
 
