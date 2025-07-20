@@ -28,7 +28,7 @@ export function UserNav() {
         <Button
           variant="default"
           size="icon"
-          className="overflow-hidden rounded-full bg-border"
+          className="overflow-hidden rounded-full bg-border hover:bg-border"
         >
           <User className="scale-75" />
         </Button>
@@ -49,11 +49,7 @@ export function UserNav() {
           <Link href="/settings/user">
             <DropdownMenuItem>Settings</DropdownMenuItem>
           </Link>
-          <Link href="/">
-            <DropdownMenuItem>Home Page</DropdownMenuItem>
-          </Link>
         </DropdownMenuGroup>
-        <DropdownMenuSeparator className="bg-border" />
         <DropdownMenuItem onClick={signOut}>Sign out</DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

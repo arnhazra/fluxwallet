@@ -16,8 +16,11 @@ import {
   IntelligenceCard,
   OverviewCard,
 } from "@/shared/components/safetycard"
+import { useRouter } from "next/navigation"
+import { useEffect } from "react"
 
 export default function Page() {
+  const router = useRouter()
   const subscriptionPricing = useQuery<SubscriptionConfig>({
     queryKey: ["subscription-pricing"],
     queryUrl: endPoints.getSubscriptionPricing,
@@ -103,6 +106,12 @@ export default function Page() {
       </div>
     </footer>
   )
+
+  useEffect(() => {
+    if (localStorage.getItem("refreshToken")) {
+      router.push("/dashboard")
+    }
+  }, [])
 
   return (
     <Show condition={!subscriptionPricing.isLoading} fallback={<Loading />}>

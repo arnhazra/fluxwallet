@@ -7,14 +7,17 @@ import {
   CardDescription,
   CardFooter,
 } from "@/shared/components/ui/card"
+import { useRouter } from "next/navigation"
 
 export default function Error({ error }: { error?: Error }) {
+  const router = useRouter()
+
   return (
     <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
       <Card className="mx-auto max-w-sm bg-background border-border text-white">
         <CardHeader>
           <CardTitle className="text-2xl">Error</CardTitle>
-          <CardDescription className="text-white">
+          <CardDescription className="text-white break-all">
             {error?.message ?? "Seems like an error occured here, click retry"}
           </CardDescription>
         </CardHeader>
@@ -22,9 +25,9 @@ export default function Error({ error }: { error?: Error }) {
           <Button
             size="lg"
             className="w-full bg-primary hover:bg-primary"
-            onClick={(): void => window.location.reload()}
+            onClick={(): void => router.push("/dashboard")}
           >
-            Retry
+            Back to Dashboard
           </Button>
         </CardFooter>
       </Card>

@@ -53,10 +53,12 @@ export class PortfolioController {
     @Param() params: any
   ) {
     try {
-      return await this.service.findPortfolioById(
+      const portfolio = await this.service.findPortfolioById(
         request.user.userId,
         params.portfolioId
       )
+      if (!portfolio) throw new Error()
+      return portfolio
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
