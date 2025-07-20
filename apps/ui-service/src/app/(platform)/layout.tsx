@@ -11,7 +11,7 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { Subscription, User } from "@/shared/types"
 import Loading from "../loading"
 import { useQuery } from "@tanstack/react-query"
-import { Bell, Infinity } from "lucide-react"
+import { Atom, Bell } from "lucide-react"
 import Sidebar from "@/shared/components/sidebar"
 import { Button } from "@/shared/components/ui/button"
 
@@ -73,9 +73,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <Button
         variant="default"
         size="default"
-        className="h-14 w-14 fixed bottom-6 right-6 z-50 bg-primary rounded-full"
+        className="h-14 w-14 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary rounded-full"
       >
-        <Infinity className="scale-75" />
+        <Atom className="scale-75" />
       </Button>
     </div>
   )
