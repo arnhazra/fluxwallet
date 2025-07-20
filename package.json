@@ -7,7 +7,7 @@
     "email-service": "npm run dev --prefix apps/email-service",
     "ui-service": "npm run dev --prefix apps/ui-service",
     "dev": "concurrently \"npm run api-service\" \"npm run ui-service\"",
-    "publish": "git add . && git commit -m publish && git push",
+    "publish": "git add . && git commit -m \"Publish App\" && git push",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "author": "Arnab Hazra",
