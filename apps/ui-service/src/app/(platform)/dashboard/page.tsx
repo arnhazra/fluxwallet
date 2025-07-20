@@ -88,7 +88,7 @@ export default function Page() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <p className="text-3xl font-bold text-primary">
+                  <p className="text-3xl font-bold text-white">
                     {formatCurrency(
                       data?.presentValuation ?? 0,
                       user.baseCurrency
@@ -103,8 +103,8 @@ export default function Page() {
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <div className="p-2 bg-blue-500/20 rounded-lg">
-                      <TrendingUp className="h-5 w-5 text-blue-400" />
+                    <div className="p-2 bg-green-500/20 rounded-lg">
+                      <TrendingUp className="h-5 w-5 text-green-400" />
                     </div>
                     <span className="text-sm text-gray-400">
                       Active Portfolios
@@ -112,7 +112,7 @@ export default function Page() {
                   </div>
                 </div>
                 <div className="space-y-3">
-                  <p className="text-3xl font-bold text-green-400">
+                  <p className="text-3xl font-bold text-white">
                     {portfolios?.data?.length}
                   </p>
                   <div className="flex items-center gap-2">
@@ -121,24 +121,24 @@ export default function Page() {
                     </span>
                   </div>
                 </div>
-                <div className="absolute top-0 right-0 w-20 h-20 bg-blue-500/10 rounded-full -translate-y-10 translate-x-10"></div>
+                <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -translate-y-10 translate-x-10"></div>
               </CardContent>
             </Card>
             <Card className="bg-background border-none relative overflow-hidden">
               <CardContent className="p-6">
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
-                    <div className="p-2 bg-purple-500/20 rounded-lg">
-                      <Target className="h-5 w-5 text-purple-400" />
+                    <div className="p-2 bg-green-500/20 rounded-lg">
+                      <Target className="h-5 w-5 text-green-400" />
                     </div>
                     <span className="text-sm text-gray-400">Goal Progress</span>
                   </div>
                   <Button
                     onClick={editGoal}
                     size="icon"
-                    className="p-2 bg-purple-500/20 rounded-lg"
+                    className="p-2 bg-green-500/20 rounded-lg"
                   >
-                    <PenIcon className="text-purple-400 h-4 w-4" />
+                    <PenIcon className="text-green-400 h-4 w-4" />
                   </Button>
                 </div>
                 <div className="space-y-3">
@@ -160,13 +160,13 @@ export default function Page() {
                     </div>
                     <div className="w-full bg-gray-700 rounded-full h-2">
                       <div
-                        className="bg-purple-500 h-2 rounded-full"
+                        className="bg-primary h-2 rounded-full"
                         style={{ width: `${goalPercentage.toFixed(0)}%` }}
                       ></div>
                     </div>
                   </div>
                 </div>
-                <div className="absolute top-0 right-0 w-20 h-20 bg-purple-500/10 rounded-full -translate-y-10 translate-x-10"></div>
+                <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -translate-y-10 translate-x-10"></div>
               </CardContent>
             </Card>
           </div>
