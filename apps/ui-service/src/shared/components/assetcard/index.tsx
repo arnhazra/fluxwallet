@@ -58,7 +58,7 @@ export function AssetCard({
             </span>
           </div>
           <div className="flex justify-between items-center">
-            <span className="text-sm text-zinc-400">Current Valuation</span>
+            <span className="text-sm text-zinc-400">Present Valuation</span>
             <span className="text-lg font-bold text-primary">
               {formatCurrency(data?.presentValuation ?? 0, baseCurrency)}
             </span>

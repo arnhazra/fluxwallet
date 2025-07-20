@@ -25,5 +25,5 @@ export default function calculateComplexValuation(args: FnArgs): number {
   const quarterlyRate = annualRate / 4
   const quarterlyAmount = amountInvested * Math.pow(1 + quarterlyRate, quarters)
   // Pick what you want to return below:
-  return Number(monthlyAmount.toFixed(2)) // change to dailyAmount or monthlyAmount if needed
+  return Number(dailyAmount.toFixed(2)) // change to dailyAmount or monthlyAmount if needed
 }
