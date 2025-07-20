@@ -69,7 +69,9 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const appLayout = (
     <div className="min-h-screen w-full text-white hero-landing relative">
       <Sidebar />
-      <div className="w-full px-4 sm:container mt-4">{children}</div>
+      <div className="w-full px-4 sm:container sm:max-w-[90rem] mt-4">
+        {children}
+      </div>
       <Button
         variant="default"
         size="default"

@@ -19,9 +19,10 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { Package } from "lucide-react"
-import { Currency, InstitutionType } from "@/shared/types"
-import ky from "ky"
+import { Currency, InstitutionType, Portfolio } from "@/shared/types"
+import ky, { KyResponse } from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
+import { useRouter } from "next/navigation"
 
 const currencies = Object.values(Currency)
 const institutions = Object.values(InstitutionType)
@@ -32,6 +33,7 @@ interface PortfolioFormData {
 }
 
 export default function Page() {
+  const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [alertMessage, setAlertMessage] = useState("")
   const [formData, setFormData] = useState<PortfolioFormData>({
@@ -52,7 +54,13 @@ export default function Page() {
     setAlertMessage("")
 
     try {
-      await ky.post(endPoints.portfolio, { json: formData })
+      const portfolio: KyResponse<Portfolio> = await ky.post(
+        endPoints.portfolio,
+        {
+          json: formData,
+        }
+      )
+      router.push(`/portfolio/${(await portfolio.json())._id}`)
       setAlertMessage("Portfolio created successfully!")
     } catch (error) {
       setAlertMessage("Error creating portfolio")
