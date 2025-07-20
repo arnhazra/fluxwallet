@@ -4,14 +4,12 @@ export type AppState = {
   user: User
   subscription: Subscription | null
   isSubscriptionActive: boolean
-  refreshId: string
   searchQuery: string
 }
 
 export type ActionsMap = {
   setUser: Partial<User>
   setSubscription: Subscription | null
-  setRefreshId: string
   setSubscriptionActive: boolean
   setSearchQuery: string
 }
@@ -35,12 +33,6 @@ export const AppReducer = (state: AppState, action: Actions): AppState => {
       return {
         ...state,
         subscription: action.payload,
-      }
-
-    case "setRefreshId":
-      return {
-        ...state,
-        refreshId: action.payload,
       }
 
     case "setSubscriptionActive":

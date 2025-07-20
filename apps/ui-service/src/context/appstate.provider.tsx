@@ -1,7 +1,6 @@
 "use client"
 import { ReactNode, createContext, useReducer } from "react"
 import { AppState, Actions, ActionsMap, AppReducer } from "./appstate.reducer"
-import { generateRandomKey } from "@/shared/lib/random-key-gen"
 
 export type Dispatcher = <Type extends keyof ActionsMap>(
   type: Type,
@@ -22,7 +21,6 @@ const initialState: AppState = {
   },
   subscription: null,
   isSubscriptionActive: false,
-  refreshId: generateRandomKey(),
   searchQuery: "",
 }
 

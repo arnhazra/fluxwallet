@@ -16,7 +16,7 @@ import Sidebar from "@/shared/components/sidebar"
 import { Button } from "@/shared/components/ui/button"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const [{ refreshId }, dispatch] = useContext(AppContext)
+  const [, dispatch] = useContext(AppContext)
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
   const getUserDetails = async () => {
@@ -59,7 +59,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   }
 
   const { isLoading, isFetching } = useQuery({
-    queryKey: ["user-details", refreshId, isAuthorized],
+    queryKey: ["user-details", isAuthorized],
     queryFn: getUserDetails,
     refetchInterval: 0,
     refetchOnWindowFocus: false,
