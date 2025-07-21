@@ -123,8 +123,8 @@ export default function Page() {
           className="mt-8 container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-lg"
         >
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-            <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Wealth management redefined
+            <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
+              Choose the Right Approach
             </h2>
             <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
               {uiConstants.productHeader}

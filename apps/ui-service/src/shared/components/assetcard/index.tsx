@@ -32,7 +32,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
           </CardTitle>
           <Coins className="text-primary w-6 h-6" />
         </div>
-        <Badge variant="secondary" className="w-fit">
+        <Badge variant="default" className="w-fit bg-border text-primary">
           {asset.assetType}
         </Badge>
       </CardHeader>
