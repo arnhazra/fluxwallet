@@ -8,7 +8,7 @@ import {
 } from "lucide-react"
 import { DayButton, DayPicker, getDefaultClassNames } from "react-day-picker"
 
-import { cn } from "@/shared/lib/utils"
+import { cn } from "@/shared/lib/tw-class-util"
 import { Button, buttonVariants } from "@/shared/components/ui/button"
 
 function Calendar({
@@ -105,7 +105,10 @@ function Calendar({
           defaultClassNames.range_start
         ),
         range_middle: cn("rounded-none", defaultClassNames.range_middle),
-        range_end: cn("bg-zinc-100 rounded-r-md dark:bg-zinc-800", defaultClassNames.range_end),
+        range_end: cn(
+          "bg-zinc-100 rounded-r-md dark:bg-zinc-800",
+          defaultClassNames.range_end
+        ),
         today: cn(
           "bg-zinc-100 text-zinc-900 rounded-md data-[selected=true]:rounded-none dark:bg-zinc-800 dark:text-zinc-50",
           defaultClassNames.today

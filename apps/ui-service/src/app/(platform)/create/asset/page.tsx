@@ -27,7 +27,7 @@ import {
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
 import { format } from "date-fns"
-import { cn } from "@/shared/lib/utils"
+import { cn } from "@/shared/lib/tw-class-util"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { AssetType, Portfolio, RecurringFrequency } from "@/shared/types"
