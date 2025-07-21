@@ -10,9 +10,11 @@ export const subscriptionPricing: SubscriptionConfig = {
   subscriptionName: "Pro Subscription",
   price: config.SUBSCRIPTION_PRICE,
   features: [
-    "Priority API response",
-    "Unlimited API usage",
-    "Great for extensive usage",
-    "Includes Pro Models",
+    "Unified Financial Dashboard",
+    "Real-Time Net Worth Tracking",
+    "Smart Categorization & Organization",
+    `${config.BRAND_NAME} Natural Intelligence ™`,
+    "Insightful Reports & Trends",
+    "Privacy-First Experience",
   ],
 }

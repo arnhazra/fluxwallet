@@ -89,7 +89,7 @@ export default function AuthenticationPage({
         <Card className="mx-auto max-w-sm bg-main border-none text-white">
           <CardHeader>
             <CardTitle className="text-2xl">{brandName} Auth</CardTitle>
-            <CardDescription className="text-white">
+            <CardDescription className="text-primary">
               <Show
                 condition={authStep === 1}
                 fallback="Enter the OTP we sent to your email"
@@ -194,7 +194,7 @@ export default function AuthenticationPage({
                 </form>
               </Show>
             </div>
-            <div className="mt-4 text-sm text-zinc-200">
+            <div className="mt-4 text-sm text-zinc-300">
               {uiConstants.privacyPolicyStatement}
             </div>
           </CardContent>

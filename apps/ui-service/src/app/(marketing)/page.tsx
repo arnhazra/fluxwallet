@@ -55,9 +55,7 @@ export default function Page() {
   const renderProSubscription = (
     <>
       <div className="grid gap-6">
-        <h3 className="text-xl font-bold sm:text-2xl">
-          What's included in the {subscriptionPricing.data?.subscriptionName}
-        </h3>
+        <h3 className="text-xl font-bold sm:text-2xl">What's included</h3>
         <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
           {subscriptionPricing.data?.features.map((feature) => {
             return (
@@ -70,8 +68,8 @@ export default function Page() {
       </div>
       <div className="flex flex-col gap-4 text-center">
         <div>
-          <h4 className="text-7xl font-bold">
-            ${subscriptionPricing.data?.price}
+          <h4 className="text-4xl font-bold">
+            $ {subscriptionPricing.data?.price}
           </h4>
           <p className="text-sm font-medium text-muted-foreground">
             Billed Yearly

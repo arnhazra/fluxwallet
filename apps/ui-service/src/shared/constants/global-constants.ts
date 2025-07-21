@@ -3,7 +3,7 @@ export const brandName = "FluxWallet"
 export const uiConstants = {
   homeHeader: "Invest for future",
   homeIntro:
-    "Manage your wealth effortlessly — organize your assets and see your complete financial picture in one place. All your assets, one smart view — simplify how you manage your wealth.",
+    "Seamlessly manage your wealth — track all your assets, monitor your net worth, and gain real-time insights into your complete financial picture.",
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Credentials",
   errorMessage: "Not Found",
