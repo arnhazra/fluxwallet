@@ -88,10 +88,8 @@ export default function AuthenticationPage({
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm bg-main border-none text-white">
           <CardHeader>
-            <CardTitle className="text-2xl text-center">
-              {brandName} Auth
-            </CardTitle>
-            <CardDescription className="text-white text-center">
+            <CardTitle className="text-2xl">{brandName} Auth</CardTitle>
+            <CardDescription className="text-white">
               <Show
                 condition={authStep === 1}
                 fallback="Enter the OTP we sent to your email"
@@ -196,7 +194,7 @@ export default function AuthenticationPage({
                 </form>
               </Show>
             </div>
-            <div className="mt-4 text-center text-sm text-zinc-200">
+            <div className="mt-4 text-sm text-zinc-200">
               {uiConstants.privacyPolicyStatement}
             </div>
           </CardContent>
