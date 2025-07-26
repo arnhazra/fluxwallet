@@ -169,10 +169,10 @@ export default function Page() {
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader className="border-b border-zinc-800">
             <CardTitle className="flex items-center gap-2 text-zinc-100">
-              <DollarSign className="h-6 w-6 text-zinc-400" />
+              <DollarSign className="h-6 w-6 text-primary" />
               Add New Asset
             </CardTitle>
-            <CardDescription className="text-zinc-400">
+            <CardDescription className="text-primary">
               Fill in the details for your new asset. Fields will appear based
               on the asset type you select.
             </CardDescription>
@@ -582,19 +582,13 @@ export default function Page() {
                 </div>
               )}
 
-              <div className="flex gap-4 pt-6">
+              <div className="flex">
                 <Button
                   type="submit"
-                  className="flex-1 bg-zinc-100 text-zinc-900 hover:bg-zinc-200"
+                  variant="default"
+                  className="bg-primary hover:bg-primary ml-auto"
                 >
                   Add Asset
-                </Button>
-                <Button
-                  type="button"
-                  variant="outline"
-                  className="flex-1 bg-transparent border-zinc-700 text-zinc-100 hover:bg-zinc-800"
-                >
-                  Cancel
                 </Button>
               </div>
             </form>
