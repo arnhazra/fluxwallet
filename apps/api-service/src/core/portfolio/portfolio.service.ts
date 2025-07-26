@@ -8,6 +8,8 @@ import { DeletePortfolioCommand } from "./commands/impl/delete-portfolio.command
 import { CreatePortfolioCommand } from "./commands/impl/create-portfolio.command"
 import { CreatePortfolioRequestDto } from "./dto/request/create-portfolio.request.dto"
 import { UpdatePortfolioCommand } from "./commands/impl/update-portfolio.command"
+import { OnEvent } from "@nestjs/event-emitter"
+import { EventMap } from "@/shared/utils/event.map"
 
 @Injectable()
 export class PortfolioService {
@@ -16,6 +18,7 @@ export class PortfolioService {
     private readonly commandBus: CommandBus
   ) {}
 
+  @OnEvent(EventMap.CreatePortfolio)
   async createPortfolio(
     userId: string,
     requestBody: CreatePortfolioRequestDto

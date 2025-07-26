@@ -30,7 +30,10 @@ export class IntelligenceStrategy {
 
     const agent = createReactAgent({
       llm,
-      tools: [this.agent.getTotalValuationAgent],
+      tools: [
+        this.agent.getTotalValuationAgent,
+        this.agent.createPortfolioAgent,
+      ],
     })
 
     const chatHistory = thread.flatMap((t) => [

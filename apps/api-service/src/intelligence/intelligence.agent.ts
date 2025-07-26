@@ -28,4 +28,40 @@ export class IntelligenceAgent {
       }),
     }
   )
+
+  private async createPortfolio(
+    userId: string,
+    portfolioName: string,
+    institutionType: string
+  ) {
+    await this.eventEmitter.emitAsync(EventMap.CreatePortfolio, userId, {
+      portfolioName,
+      institutionType,
+    })
+  }
+
+  public createPortfolioAgent = tool(
+    async ({
+      userId,
+      portfolioName,
+      institutionType,
+    }: {
+      userId: string
+      portfolioName: string
+      institutionType: string
+    }) => {
+      await this.createPortfolio(userId, portfolioName, institutionType)
+    },
+    {
+      name: "create_a_portfolio",
+      description: "Create a portfolio for a user",
+      schema: z.object({
+        userId: z.string().describe("_id of the user"),
+        portfolioName: z.string().describe("portfolio name given by the user"),
+        institutionType: z
+          .string()
+          .describe("institution type given by the user"),
+      }),
+    }
+  )
 }

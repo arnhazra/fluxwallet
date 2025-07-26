@@ -7,4 +7,5 @@ export enum EventMap {
   GetUserDetails = "getUserDetails",
   GetSubscriptionDetails = "getSubscriptionDetails",
   GetUserPortfolio = "getUserPortfolio",
+  CreatePortfolio = "createPortfolio",
 }

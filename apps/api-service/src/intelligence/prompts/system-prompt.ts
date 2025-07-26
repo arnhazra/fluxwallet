@@ -14,6 +14,7 @@ export const systemPrompt = (user: User): string => {
     1. to list down their portfolios or assets 
     2. their total asset valuation
     3. asset valuation in a portfolio
+    4. they can ask to create portfolio
     there can be other questions as well.
     For each of these you will find a suitabletool and then you need to use that tool and get the data and then convert 
     the answer to a natural language to answer the user's question.
