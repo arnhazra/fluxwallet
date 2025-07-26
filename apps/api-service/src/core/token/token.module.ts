@@ -10,7 +10,15 @@ import { config } from "src/config"
     {
       provide: "REDIS_CLIENT",
       useFactory: () => {
-        return new Redis(config.REDIS_URI)
+        const redis = new Redis(config.REDIS_URI, {
+          reconnectOnError(err) {
+            const targetError = "ECONNRESET"
+            if (err.message.includes(targetError)) {
+              return true
+            }
+          },
+        })
+        return redis
       },
     },
     TokenService,
