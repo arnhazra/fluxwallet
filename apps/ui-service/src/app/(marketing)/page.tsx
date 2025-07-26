@@ -17,10 +17,11 @@ import {
   OverviewCard,
 } from "@/shared/components/safetycard"
 import { useRouter } from "next/navigation"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 
 export default function Page() {
   const router = useRouter()
+  const [checked, setChecked] = useState(false)
   const subscriptionPricing = useQuery<SubscriptionConfig>({
     queryKey: ["subscription-pricing"],
     queryUrl: endPoints.getSubscriptionPricing,
@@ -106,10 +107,15 @@ export default function Page() {
   )
 
   useEffect(() => {
-    if (localStorage.getItem("refreshToken")) {
-      router.push("/dashboard")
+    const token = localStorage.getItem("refreshToken")
+    if (token) {
+      router.replace("/dashboard")
+    } else {
+      setChecked(true)
     }
-  }, [])
+  }, [router])
+
+  if (!checked) return <Loading />
 
   return (
     <Show condition={!subscriptionPricing.isLoading} fallback={<Loading />}>
