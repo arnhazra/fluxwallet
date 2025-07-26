@@ -1,18 +1,38 @@
 "use client"
-import { useChat } from "@ai-sdk/react"
 import { useState, useRef, useEffect } from "react"
-import { Button } from "@/shared/components/ui/button"
-import { Input } from "@/shared/components/ui/input"
-import { ScrollArea } from "@/shared/components/ui/scroll-area"
+import { Button } from "@/shared/components//ui/button"
+import { Input } from "@/shared/components//ui/input"
+import { ScrollArea } from "@/shared/components//ui/scroll-area"
 import { X, Send, Bot, User, Atom } from "lucide-react"
+import useQuery from "@/shared/hooks/use-query"
+import { Thread } from "@/shared/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
+import ky from "ky"
+import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { brandName } from "@/shared/constants/global-constants"
 
-export default function Chatbot() {
+export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
-  const { messages, input, handleInputChange, handleSubmit, isLoading } =
-    useChat({ api: endPoints.intelligence })
+  const threadId = localStorage.getItem("threadId")
+  const [prompt, setPrompt] = useState("")
+  const [isLoading, setLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
+
+  const thread = useQuery<Thread[]>({
+    queryKey: ["thread", threadId ?? ""],
+    queryUrl: `${endPoints.intelligence}/${threadId}`,
+    method: HTTPMethods.GET,
+    suspense: false,
+    enabled: !!threadId,
+  })
+
+  const [messages, setMessages] = useState<string[]>(
+    thread.data?.flatMap(({ prompt, response }) => [
+      prompt ?? "",
+      response ?? "",
+    ]) ?? []
+  )
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -22,10 +42,34 @@ export default function Chatbot() {
     scrollToBottom()
   }, [messages])
 
-  const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setPrompt(e.target.value)
+  }
+
+  const hitAPI = async (e: any) => {
     e.preventDefault()
-    if (input.trim()) {
-      handleSubmit(e)
+    setMessages([...messages, prompt])
+    setPrompt("")
+
+    try {
+      setLoading(true)
+      const res: any = await ky
+        .post(`${endPoints.intelligence}`, {
+          json: { prompt, threadId: threadId ?? undefined },
+          timeout: FETCH_TIMEOUT,
+        })
+        .json()
+      setMessages((prevMessages) => [...prevMessages, res?.response])
+      if (!threadId) {
+        localStorage.setItem("threadId", (res as any).threadId)
+      }
+    } catch (error: any) {
+      setMessages((prevMessages) => [
+        ...prevMessages.slice(0, -1),
+        "An error occurred",
+      ])
+    } finally {
+      setLoading(false)
     }
   }
 
@@ -33,11 +77,12 @@ export default function Chatbot() {
     <>
       <Button
         onClick={() => setIsOpen(true)}
-        variant="default"
-        size="default"
-        className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary text-black rounded-full"
+        className={`fixed bottom-6 right-6 h-14 w-14 rounded-full shadow-lg transition-all duration-300 hover:scale-110 z-40 ${
+          isOpen ? "opacity-0 pointer-events-none" : "opacity-100"
+        }`}
+        style={{ backgroundColor: "#32cd32" }}
       >
-        <Atom />
+        <Atom className="scale-75 text-black" />
       </Button>
 
       {isOpen && (
@@ -58,8 +103,8 @@ export default function Chatbot() {
           style={{ borderColor: "#27272a" }}
         >
           <div className="flex items-center space-x-2">
-            <Atom className="scale-75" style={{ color: "#32cd32" }} />
-            <h2 className="text-md font-semibold text-white">
+            <Atom className="h-6 w-6" style={{ color: "#32cd32" }} />
+            <h2 className="text-lg font-semibold text-white">
               {brandName} Intelligence
             </h2>
           </div>
@@ -81,17 +126,17 @@ export default function Chatbot() {
                   className="h-12 w-12 mx-auto mb-4"
                   style={{ color: "#32cd32" }}
                 />
-                <p>Hello! I'm your Portfolio assistant.</p>
+                <p>Hello! I'm your AI assistant.</p>
                 <p className="text-sm mt-2">How can I help you today?</p>
               </div>
             )}
 
-            {messages.map((message) => (
+            {messages.map((message, index) => (
               <div
-                key={message.id}
-                className={`flex items-start space-x-2 ${message.role === "user" ? "justify-end" : "justify-start"}`}
+                key={index}
+                className={`flex items-start space-x-2 ${index % 2 === 0 ? "justify-end" : "justify-start"}`}
               >
-                {message.role === "assistant" && (
+                {index % 2 !== 0 && (
                   <div
                     className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
                     style={{ backgroundColor: "#32cd32" }}
@@ -101,20 +146,16 @@ export default function Chatbot() {
                 )}
 
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg ${message.role === "user" ? "text-white" : "text-gray-100"}`}
+                  className={`max-w-[80%] p-3 rounded-lg ${index % 2 === 0 ? "text-white" : "text-gray-100"}`}
                   style={{
-                    backgroundColor:
-                      message.role === "user" ? "#32cd32" : "#121212",
-                    border:
-                      message.role === "user" ? "none" : "1px solid #27272a",
+                    backgroundColor: index % 2 === 0 ? "#32cd32" : "#121212",
+                    border: index % 2 === 0 ? "none" : "1px solid #27272a",
                   }}
                 >
-                  <div className="whitespace-pre-wrap text-sm">
-                    {message.content}
-                  </div>
+                  <div className="whitespace-pre-wrap text-sm">{message}</div>
                 </div>
 
-                {message.role === "user" && (
+                {index % 2 === 0 && (
                   <div
                     className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
                     style={{ backgroundColor: "#3f3f46" }}
@@ -160,9 +201,9 @@ export default function Chatbot() {
         </ScrollArea>
 
         <div className="p-4 border-t" style={{ borderColor: "#27272a" }}>
-          <form onSubmit={onSubmit} className="flex space-x-2">
+          <form onSubmit={hitAPI} className="flex space-x-2">
             <Input
-              value={input}
+              value={prompt}
               onChange={handleInputChange}
               placeholder="Type your message..."
               disabled={isLoading}
@@ -174,7 +215,7 @@ export default function Chatbot() {
             />
             <Button
               type="submit"
-              disabled={isLoading || !input.trim()}
+              disabled={isLoading || !prompt.trim()}
               size="sm"
               className="px-3"
               style={{ backgroundColor: "#32cd32" }}

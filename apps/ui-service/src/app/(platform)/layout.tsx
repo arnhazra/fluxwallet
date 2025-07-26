@@ -10,11 +10,10 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { Subscription, User } from "@/shared/types"
 import Loading from "../loading"
 import { useQuery } from "@tanstack/react-query"
-import { Atom, Bell } from "lucide-react"
+import { Bell } from "lucide-react"
 import Sidebar from "@/shared/components/sidebar"
-import { Button } from "@/shared/components/ui/button"
 import { useAppContext } from "@/context/appstate.provider"
-import Chatbot from "@/shared/components/intelligence"
+import Intelligence from "@/shared/components/intelligence"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [, dispatch] = useAppContext()
@@ -73,7 +72,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <div className="w-full px-4 sm:container sm:max-w-[90rem] mt-4">
         {children}
       </div>
-      <Chatbot />
+      <Intelligence />
     </div>
   )
 
