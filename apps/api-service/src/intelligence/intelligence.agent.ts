@@ -1,3 +1,4 @@
+import { Portfolio } from "@/core/portfolio/schemas/portfolio.schema"
 import { EventMap } from "@/shared/utils/event.map"
 import { tool } from "@langchain/core/tools"
 import { Injectable } from "@nestjs/common"
@@ -10,7 +11,7 @@ export class IntelligenceAgent {
 
   private async getTotalValuation(userId: string): Promise<number> {
     const valuation: number = (
-      await this.eventEmitter.emitAsync(EventMap.GetUserPortfolio, userId)
+      await this.eventEmitter.emitAsync(EventMap.GetTotalPortfolio, userId)
     ).shift()
     return valuation
   }
@@ -25,6 +26,50 @@ export class IntelligenceAgent {
       description: "Get total portfolio valuation for a user",
       schema: z.object({
         userId: z.string().describe("_id of the user"),
+      }),
+    }
+  )
+
+  private async getPortfolioValuation(
+    userId: string,
+    portfolioName: string
+  ): Promise<number> {
+    const portfolio: Portfolio = (
+      await this.eventEmitter.emitAsync(
+        EventMap.FindPortfolioByName,
+        userId,
+        portfolioName
+      )
+    ).shift()
+
+    const valuation: number = (
+      await this.eventEmitter.emitAsync(
+        EventMap.GetPortfolioValuation,
+        userId,
+        String(portfolio._id)
+      )
+    ).shift()
+
+    return valuation
+  }
+
+  public getPortfolioValuationAgent = tool(
+    async ({
+      userId,
+      portfolioName,
+    }: {
+      userId: string
+      portfolioName: string
+    }) => {
+      const valuation = await this.getPortfolioValuation(userId, portfolioName)
+      return `Valuation is ${valuation}`
+    },
+    {
+      name: "get_portfolio_valuation_by_portfolio_name",
+      description: "Get portfolio valuation for a specific portfolio",
+      schema: z.object({
+        userId: z.string().describe("_id of the user"),
+        portfolioName: z.string().describe("portfolio name given by the user"),
       }),
     }
   )

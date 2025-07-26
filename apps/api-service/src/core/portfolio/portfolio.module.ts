@@ -11,6 +11,7 @@ import { FindAllPortfolioQueryHandler } from "./queries/handler/find-all-portfol
 import { FindPortfolioByIdQueryHandler } from "./queries/handler/find-portfolio-by-id.handler"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { UpdatePortfolioCommandHandler } from "./commands/handler/update-portfolio.handler"
+import { FindPortfolioByNameQueryHandler } from "./queries/handler/find-portfolio-by-name.handler"
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { UpdatePortfolioCommandHandler } from "./commands/handler/update-portfol
     DeletePortfolioCommandHandler,
     FindAllPortfolioQueryHandler,
     FindPortfolioByIdQueryHandler,
+    FindPortfolioByNameQueryHandler,
   ],
 })
 export class PortfolioModule {}

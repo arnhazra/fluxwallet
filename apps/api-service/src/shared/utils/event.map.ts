@@ -6,6 +6,8 @@ export enum EventMap {
   CreateActivity = "createActivity",
   GetUserDetails = "getUserDetails",
   GetSubscriptionDetails = "getSubscriptionDetails",
-  GetUserPortfolio = "getUserPortfolio",
+  GetTotalPortfolio = "getTotalPortfolio",
+  FindPortfolioByName = "findPortfolioByName",
+  GetPortfolioValuation = "getPortfolioValuation",
   CreatePortfolio = "createPortfolio",
 }

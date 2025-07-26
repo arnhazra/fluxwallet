@@ -10,6 +10,7 @@ import { CreatePortfolioRequestDto } from "./dto/request/create-portfolio.reques
 import { UpdatePortfolioCommand } from "./commands/impl/update-portfolio.command"
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
+import { FindPortfolioByNameQuery } from "./queries/impl/find-portfolio-by-name.query"
 
 @Injectable()
 export class PortfolioService {
@@ -46,6 +47,17 @@ export class PortfolioService {
     try {
       return await this.queryBus.execute<FindPortfolioByIdQuery, Portfolio>(
         new FindPortfolioByIdQuery(reqUserId, portfolioId)
+      )
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @OnEvent(EventMap.FindPortfolioByName)
+  async findPortfolioByName(reqUserId: string, portfolioName: string) {
+    try {
+      return await this.queryBus.execute<FindPortfolioByNameQuery, Portfolio>(
+        new FindPortfolioByNameQuery(reqUserId, portfolioName)
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)

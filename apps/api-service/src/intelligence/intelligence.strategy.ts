@@ -33,6 +33,7 @@ export class IntelligenceStrategy {
       tools: [
         this.agent.getTotalValuationAgent,
         this.agent.createPortfolioAgent,
+        this.agent.getPortfolioValuationAgent,
       ],
     })
 
