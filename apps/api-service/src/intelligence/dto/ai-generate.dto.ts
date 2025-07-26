@@ -1,8 +1,14 @@
 import { IsNotEmpty } from "class-validator"
 
 export class AIGenerationDto {
-  @IsNotEmpty()
-  prompt: string
-
-  threadId: string
+  messages: {
+    role: string
+    content: string
+    parts: [
+      {
+        type: "text"
+        text: string
+      },
+    ]
+  }[]
 }

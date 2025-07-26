@@ -14,6 +14,7 @@ import { Atom, Bell } from "lucide-react"
 import Sidebar from "@/shared/components/sidebar"
 import { Button } from "@/shared/components/ui/button"
 import { useAppContext } from "@/context/appstate.provider"
+import Chatbot from "@/shared/components/intelligence"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [, dispatch] = useAppContext()
@@ -72,13 +73,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <div className="w-full px-4 sm:container sm:max-w-[90rem] mt-4">
         {children}
       </div>
-      <Button
-        variant="default"
-        size="default"
-        className="h-14 w-14 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary text-black rounded-full"
-      >
-        <Atom className="scale-75" />
-      </Button>
+      <Chatbot />
     </div>
   )
 

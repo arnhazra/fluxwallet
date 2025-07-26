@@ -22,7 +22,7 @@ export function formatValue(value: any) {
   if (typeof value === "string") {
     const parsed = parseISO(value)
     if (isValid(parsed)) {
-      return format(parsed, "dd MMM yyyy") // Customize format as needed
+      return format(parsed, "dd MMM yyyy")
     }
   }
 
