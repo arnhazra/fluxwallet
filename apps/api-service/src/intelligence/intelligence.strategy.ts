@@ -4,10 +4,9 @@ import { config } from "@/config"
 import { ChatOpenAI } from "@langchain/openai"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
-import { systemPrompt } from "./helpers/prompts/system-prompt"
-import { getTotalValuation } from "./helpers/agents/get-total-valuation.tool"
-import { getPortfolioValuation } from "./helpers/agents/get-portfolio-valuation.tool"
+import { systemPrompt } from "./prompts/system-prompt"
 import { User } from "../core/user/schemas/user.schema"
+import { IntelligenceAgent } from "./intelligence.agent"
 
 export interface IntelligenceStrategyType {
   genericName: string
@@ -21,6 +20,8 @@ export interface IntelligenceStrategyType {
 
 @Injectable()
 export class IntelligenceStrategy {
+  constructor(private readonly agent: IntelligenceAgent) {}
+
   private async runAgent(
     llm: LanguageModelLike,
     args: IntelligenceStrategyType
@@ -29,7 +30,7 @@ export class IntelligenceStrategy {
 
     const agent = createReactAgent({
       llm,
-      tools: [getTotalValuation, getPortfolioValuation],
+      tools: [this.agent.getTotalValuationAgent],
     })
 
     const chatHistory = thread.flatMap((t) => [

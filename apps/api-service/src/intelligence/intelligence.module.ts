@@ -10,6 +10,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
 import { FetchThreadByIdQueryHandler } from "./queries/handler/fetch-thread-by-id.handler"
 import { HttpModule } from "@nestjs/axios"
 import { IntelligenceStrategy } from "./intelligence.strategy"
+import { IntelligenceAgent } from "./intelligence.agent"
 
 @Module({
   imports: [
@@ -25,6 +26,7 @@ import { IntelligenceStrategy } from "./intelligence.strategy"
     IntelligenceService,
     IntelligenceRepository,
     IntelligenceStrategy,
+    IntelligenceAgent,
     CreateThreadCommandHandler,
     FetchThreadByIdQueryHandler,
   ],

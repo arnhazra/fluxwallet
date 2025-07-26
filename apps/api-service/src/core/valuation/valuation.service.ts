@@ -8,6 +8,8 @@ import calculateComplexValuation from "./helpers/calculate-complex-valuation"
 import calculateRecurringValuation from "./helpers/calculate-recurring-valuation"
 import { ValuationRepository } from "./valuation.repository"
 import objectId from "@/shared/utils/convert-objectid"
+import { OnEvent } from "@nestjs/event-emitter"
+import { EventMap } from "@/shared/utils/event.map"
 
 @Injectable()
 export class ValuationService {
@@ -125,6 +127,7 @@ export class ValuationService {
     }
   }
 
+  @OnEvent(EventMap.GetUserPortfolio)
   async calculatTotalUserePortfolioValuation(reqUserId: string) {
     try {
       const assets = await this.repository.find({
