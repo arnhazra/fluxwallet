@@ -109,6 +109,7 @@ export class ValuationService {
     }
   }
 
+  @OnEvent(EventMap.GetPortfolioValuation)
   async calculatePortfolioValuation(reqUserId: string, portfolioId: string) {
     try {
       const assets = await this.repository.find({
@@ -127,7 +128,7 @@ export class ValuationService {
     }
   }
 
-  @OnEvent(EventMap.GetUserPortfolio)
+  @OnEvent(EventMap.GetTotalPortfolio)
   async calculatTotalUserePortfolioValuation(reqUserId: string) {
     try {
       const assets = await this.repository.find({
