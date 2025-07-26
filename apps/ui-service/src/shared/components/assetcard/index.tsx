@@ -14,6 +14,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { useAppContext } from "@/context/appstate.provider"
+import { AssetModal } from "../assetmodal"
 
 export function AssetCard({ asset }: { asset: Asset }) {
   const [{ user }] = useAppContext()
@@ -24,36 +25,38 @@ export function AssetCard({ asset }: { asset: Asset }) {
   })
 
   return (
-    <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
-      <CardHeader className="pb-3">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-lg font-semibold truncate text-white">
-            {asset.assetName}
-          </CardTitle>
-          <Coins className="text-primary w-6 h-6" />
-        </div>
-        <Badge variant="secondary" className="w-fit">
-          {asset.assetType}
-        </Badge>
-      </CardHeader>
+    <AssetModal assetId={asset._id} key={asset._id}>
+      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white cursor-pointer">
+        <CardHeader className="pb-3">
+          <div className="flex items-center justify-between">
+            <CardTitle className="text-lg font-semibold truncate text-white">
+              {asset.assetName}
+            </CardTitle>
+            <Coins className="text-primary w-6 h-6" />
+          </div>
+          <Badge variant="default" className="w-fit bg-border text-primary">
+            {asset.assetType}
+          </Badge>
+        </CardHeader>
 
-      <CardContent className="space-y-4">
-        <div className="space-y-2">
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-zinc-400">Identifier</span>
-            <span className="text-sm font-medium">
-              <MaskText value={asset.identifier} />
-            </span>
+        <CardContent className="space-y-4">
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-zinc-400">Identifier</span>
+              <span className="text-sm font-medium">
+                <MaskText value={asset.identifier} />
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-zinc-400">Present Valuation</span>
+              <span className="text-lg font-bold text-primary">
+                {formatCurrency(data?.presentValuation ?? 0, user.baseCurrency)}
+              </span>
+            </div>
           </div>
-          <div className="flex justify-between items-center">
-            <span className="text-sm text-zinc-400">Present Valuation</span>
-            <span className="text-lg font-bold text-primary">
-              {formatCurrency(data?.presentValuation ?? 0, user.baseCurrency)}
-            </span>
-          </div>
-        </div>
-      </CardContent>
-    </Card>
+        </CardContent>
+      </Card>
+    </AssetModal>
   )
 }
 

@@ -75,7 +75,7 @@ export default function Page() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Package className="h-5 w-5 text-primary" />
-            Create New Portfolio
+            Add New Portfolio
           </CardTitle>
           <CardDescription className="text-sm text-primary">
             Set up a new portfolio to track your investments and assets

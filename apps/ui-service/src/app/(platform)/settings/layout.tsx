@@ -46,7 +46,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
               size="icon"
               className="rounded-full bg-border"
             >
-              <User className="scale-75" />
+              <User className="scale-75 text-primary" />
             </Button>
             <div className="text-white">
               <p className="text-sm font-semibold">{user.name}</p>

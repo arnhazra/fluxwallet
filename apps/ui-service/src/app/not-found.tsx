@@ -8,7 +8,7 @@ import {
 } from "@/shared/components/ui/card"
 import { buttonVariants } from "@/shared/components/ui/button"
 import Link from "next/link"
-import { cn } from "@/shared/lib/utils"
+import { cn } from "@/shared/lib/tw-class-util"
 
 export default function NotFound() {
   return (

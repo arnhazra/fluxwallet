@@ -6,7 +6,7 @@ import { SubscriptionConfig } from "@/shared/types"
 import { brandName, uiConstants } from "@/shared/constants/global-constants"
 import { Check, CircleArrowRight, Github, Play } from "lucide-react"
 import Link from "next/link"
-import { cn } from "@/shared/lib/utils"
+import { cn } from "@/shared/lib/tw-class-util"
 import { buttonVariants } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
 import Loading from "../loading"
@@ -55,9 +55,7 @@ export default function Page() {
   const renderProSubscription = (
     <>
       <div className="grid gap-6">
-        <h3 className="text-xl font-bold sm:text-2xl">
-          What's included in the {subscriptionPricing.data?.subscriptionName}
-        </h3>
+        <h3 className="text-xl font-bold sm:text-2xl">What's included</h3>
         <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
           {subscriptionPricing.data?.features.map((feature) => {
             return (
@@ -70,8 +68,8 @@ export default function Page() {
       </div>
       <div className="flex flex-col gap-4 text-center">
         <div>
-          <h4 className="text-7xl font-bold">
-            ${subscriptionPricing.data?.price}
+          <h4 className="text-4xl font-bold">
+            $ {subscriptionPricing.data?.price}
           </h4>
           <p className="text-sm font-medium text-muted-foreground">
             Billed Yearly
@@ -123,8 +121,8 @@ export default function Page() {
           className="mt-8 container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-lg"
         >
           <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-            <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              Wealth management redefined
+            <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
+              Choose the Right Approach
             </h2>
             <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
               {uiConstants.productHeader}

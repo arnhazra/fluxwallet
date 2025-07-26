@@ -75,7 +75,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <Button
         variant="default"
         size="default"
-        className="h-14 w-14 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary rounded-full"
+        className="h-14 w-14 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary text-black rounded-full"
       >
         <Atom className="scale-75" />
       </Button>
