@@ -127,11 +127,11 @@ export default function Intelligence() {
         <ScrollArea className="flex-1 h-[calc(100vh-140px)] p-4">
           <div className="space-y-4">
             {messages.length === 0 && (
-              <div className="text-center text-gray-400 mt-8">
+              <div className="text-center mt-8">
                 <Atom className="h-12 w-12 mx-auto mb-4 text-primary" />
-                <p>{brandName} Intelligence</p>
-                <p className="text-sm mt-2">
-                  It can assist you today regarding your portfolio
+                <p className="text-primary">{brandName} Intelligence</p>
+                <p className="text-sm mt-2 text-white">
+                  I can assist you today regarding your portfolio
                 </p>
               </div>
             )}
