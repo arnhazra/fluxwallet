@@ -181,7 +181,6 @@ export class UserService {
         new UpdateAttributeCommand(userId, attributeName, attributeValue)
       )
     } catch (error) {
-      console.log(error)
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
