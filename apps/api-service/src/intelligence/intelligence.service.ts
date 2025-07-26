@@ -3,11 +3,10 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
-import { EventsUnion } from "@/shared/utils/events.union"
+import { EventMap } from "@/shared/utils/event.map"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
-import { GetUsageByUserIdQuery } from "./queries/impl/get-usage-by-user-id.query"
 import {
   IntelligenceStrategy,
   IntelligenceStrategyType,
@@ -43,17 +42,6 @@ export class IntelligenceService {
     }
   }
 
-  @OnEvent(EventsUnion.GetThreadCount)
-  async getTodaysUsageByUserId(userId: string) {
-    try {
-      return await this.queryBus.execute<GetUsageByUserIdQuery, number>(
-        new GetUsageByUserIdQuery(userId)
-      )
-    } catch (error) {
-      throw error
-    }
-  }
-
   async generateRecommendation(
     aiGenerationDto: AIGenerationDto,
     userId: string
@@ -68,7 +56,7 @@ export class IntelligenceService {
       )
 
       const user: User = (
-        await this.eventEmitter.emitAsync(EventsUnion.GetUserDetails, {
+        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, {
           _id: userId,
         })
       ).shift()

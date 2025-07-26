@@ -1,11 +1,9 @@
-export enum EventsUnion {
+export enum EventMap {
   SetToken = "setToken",
   GetToken = "getToken",
   DeleteToken = "deleteToken",
   SendEmail = "sendEmail",
   CreateActivity = "createActivity",
   GetUserDetails = "getUserDetails",
-  UpdateUserDetails = "updateUserDetails",
   GetSubscriptionDetails = "getSubscriptionDetails",
-  GetThreadCount = "getThreadCount",
 }

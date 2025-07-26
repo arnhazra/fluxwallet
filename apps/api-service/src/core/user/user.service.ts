@@ -12,7 +12,7 @@ import {
 import { prodUIURI } from "@/shared/constants/other-constants"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/shared/utils/events.union"
+import { EventMap } from "@/shared/utils/event.map"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
 import { User } from "./schemas/user.schema"
@@ -44,7 +44,7 @@ export class UserService {
       const { fullHash: hash, otp } = generateOTP(email)
       const subject: string = generateOTPEmailSubject()
       const body: string = generateOTPEmailBody(otp)
-      await this.eventEmitter.emitAsync(EventsUnion.SendEmail, {
+      await this.eventEmitter.emitAsync(EventMap.SendEmail, {
         email,
         subject,
         body,
@@ -67,7 +67,7 @@ export class UserService {
 
         if (user) {
           const refreshTokenFromRedis = await this.eventEmitter.emitAsync(
-            EventsUnion.GetToken,
+            EventMap.GetToken,
             { userId: user.id }
           )
 
@@ -94,7 +94,7 @@ export class UserService {
               expiresIn: "5m",
             })
             const refreshToken = `rtwm${randomUUID()}`
-            await this.eventEmitter.emitAsync(EventsUnion.SetToken, {
+            await this.eventEmitter.emitAsync(EventMap.SetToken, {
               userId: user.id,
               token: refreshToken,
             })
@@ -116,7 +116,7 @@ export class UserService {
             expiresIn: "5m",
           })
           const refreshToken = `rtwm${randomUUID()}`
-          await this.eventEmitter.emitAsync(EventsUnion.SetToken, {
+          await this.eventEmitter.emitAsync(EventMap.SetToken, {
             userId: newUser.id,
             token: refreshToken,
           })
@@ -139,7 +139,7 @@ export class UserService {
       if (user) {
         const subscriptionRes: Subscription[] =
           await this.eventEmitter.emitAsync(
-            EventsUnion.GetSubscriptionDetails,
+            EventMap.GetSubscriptionDetails,
             userId
           )
 
@@ -165,7 +165,7 @@ export class UserService {
 
   async signOut(userId: string) {
     try {
-      await this.eventEmitter.emitAsync(EventsUnion.DeleteToken, { userId })
+      await this.eventEmitter.emitAsync(EventMap.DeleteToken, { userId })
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

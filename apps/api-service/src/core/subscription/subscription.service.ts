@@ -3,7 +3,7 @@ import { Injectable, BadRequestException } from "@nestjs/common"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { config } from "src/config"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventsUnion } from "src/shared/utils/events.union"
+import { EventMap } from "@/shared/utils/event.map"
 import { subscriptionPricing } from "./subscription.config"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.command"
@@ -77,7 +77,7 @@ export class SubscriptionService {
     }
   }
 
-  @OnEvent(EventsUnion.GetSubscriptionDetails)
+  @OnEvent(EventMap.GetSubscriptionDetails)
   async getMySubscription(userId: string) {
     try {
       return await this.queryBus.execute(

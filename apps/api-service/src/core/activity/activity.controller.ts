@@ -7,7 +7,7 @@ import {
 } from "@nestjs/common"
 import { ActivityService } from "./activity.service"
 import { CreateActivityDto } from "./dto/create-activity.dto"
-import { EventsUnion } from "../../shared/utils/events.union"
+import { EventMap } from "../../shared/utils/event.map"
 import { OnEvent } from "@nestjs/event-emitter"
 import { GetCountDto } from "./dto/get-count.dto"
 import { TokenGuard } from "@/shared/auth/token.guard"
@@ -16,7 +16,7 @@ import { TokenGuard } from "@/shared/auth/token.guard"
 export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
 
-  @OnEvent(EventsUnion.CreateActivity)
+  @OnEvent(EventMap.CreateActivity)
   createActivity(createActivityDto: CreateActivityDto) {
     this.activityService.createActivity(createActivityDto)
   }

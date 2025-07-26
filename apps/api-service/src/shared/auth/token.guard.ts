@@ -8,7 +8,7 @@ import * as jwt from "jsonwebtoken"
 import { statusMessages } from "../constants/status-messages"
 import { config } from "src/config"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventsUnion } from "../utils/events.union"
+import { EventMap } from "../utils/event.map"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "@/core/user/schemas/user.schema"
 import { Response } from "express"
@@ -33,7 +33,7 @@ export class TokenGuard implements CanActivate {
         })
         const userId = (decodedAccessToken as any).id
         const userResponse: User[] = await this.eventEmitter.emitAsync(
-          EventsUnion.GetUserDetails,
+          EventMap.GetUserDetails,
           { _id: userId }
         )
 
@@ -45,7 +45,7 @@ export class TokenGuard implements CanActivate {
 
           if (activityLog) {
             const { method, url: apiUri } = request
-            this.eventEmitter.emit(EventsUnion.CreateActivity, {
+            this.eventEmitter.emit(EventMap.CreateActivity, {
               userId,
               method,
               apiUri,
@@ -60,7 +60,7 @@ export class TokenGuard implements CanActivate {
         const decodedAccessToken = jwt.decode(String(accessToken))
         const userId = (decodedAccessToken as any).id
         const refreshTokenFromRedis: String[] =
-          await this.eventEmitter.emitAsync(EventsUnion.GetToken, { userId })
+          await this.eventEmitter.emitAsync(EventMap.GetToken, { userId })
 
         if (
           !refreshTokenFromRedis ||
@@ -70,7 +70,7 @@ export class TokenGuard implements CanActivate {
           throw new UnauthorizedException(statusMessages.unauthorized)
         } else {
           const user: User[] = await this.eventEmitter.emitAsync(
-            EventsUnion.GetUserDetails,
+            EventMap.GetUserDetails,
             { _id: userId }
           )
           const { activityLog, email, role } = user?.shift()
@@ -78,7 +78,7 @@ export class TokenGuard implements CanActivate {
 
           if (activityLog) {
             const { method, url: apiUri } = request
-            this.eventEmitter.emit(EventsUnion.CreateActivity, {
+            this.eventEmitter.emit(EventMap.CreateActivity, {
               userId,
               method,
               apiUri,
