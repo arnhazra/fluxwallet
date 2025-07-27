@@ -4,7 +4,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { SubscriptionConfig } from "@/shared/types"
 import { brandName, uiConstants } from "@/shared/constants/global-constants"
-import { Check, CircleArrowRight, Play } from "lucide-react"
+import { Check, Play } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/tw-class-util"
 import { buttonVariants } from "@/shared/components/ui/button"
@@ -53,7 +53,7 @@ export default function Page() {
     </section>
   )
 
-  const renderProSubscription = (
+  const renderSubscription = (
     <>
       <div className="grid gap-6">
         <h3 className="text-xl font-bold sm:text-2xl">What's included</h3>
@@ -69,11 +69,13 @@ export default function Page() {
       </div>
       <div className="flex flex-col gap-4 text-center">
         <div>
-          <h4 className="text-4xl font-bold">
+          <h4 className="text-xl font-bold">Free for a year</h4>
+          <h4 className="text-2xl font-bold">
             $ {subscriptionPricing.data?.price}
+            <span className="text-base font-normal ml-1">/year</span>
           </h4>
           <p className="text-sm font-medium text-muted-foreground">
-            Billed Yearly
+            From second year
           </p>
         </div>
         <Link
@@ -85,7 +87,7 @@ export default function Page() {
             })
           )}
         >
-          Get Started <CircleArrowRight className="ms-2 scale-75" />
+          <Play className="me-2 scale-75" /> {uiConstants.getStartedButton}
         </Link>
       </div>
     </>
@@ -153,7 +155,7 @@ export default function Page() {
             </p>
           </div>
           <div className="grid w-full items-start gap-10 rounded-lg border border-border p-10 md:grid-cols-[1fr_200px]">
-            {renderProSubscription}
+            {renderSubscription}
           </div>
         </section>
       </div>
