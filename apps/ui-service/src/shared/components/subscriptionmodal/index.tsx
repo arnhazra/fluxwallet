@@ -1,4 +1,4 @@
-import { ArrowRightCircle, Bell, Check } from "lucide-react"
+import { Bell, Check } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Dialog,
@@ -15,25 +15,10 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
 import { toast } from "sonner"
 import { brandName, uiConstants } from "@/shared/constants/global-constants"
-import { useRouter } from "next/navigation"
-import { DialogTrigger } from "@radix-ui/react-dialog"
-import { useState } from "react"
+import { useAppContext } from "@/context/appstate.provider"
 
-interface SubscriptionModalProps {
-  customMessage?: string
-  buttonText?: string
-  defaultOpen?: boolean
-  className?: string
-}
-
-export function SubscriptionModal({
-  customMessage,
-  buttonText,
-  defaultOpen,
-  className,
-}: SubscriptionModalProps) {
-  const router = useRouter()
-  const [open, setOpen] = useState(defaultOpen ?? false)
+export function SubscriptionModal() {
+  const [{ isSubscriptionActive }] = useAppContext()
   const subscriptionPricing = useQuery<SubscriptionConfig>({
     queryKey: ["pricing-settings"],
     queryUrl: endPoints.getSubscriptionPricing,
@@ -57,28 +42,25 @@ export function SubscriptionModal({
     }
   }
 
+  const signOut = async () => {
+    localStorage.clear()
+    window.location.replace("/")
+  }
+
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      {!defaultOpen && (
-        <DialogTrigger asChild>
-          <Button className={`${className} bg-primary hover:bg-primary`}>
-            {buttonText ?? "Upgrade to Pro"}
-          </Button>
-        </DialogTrigger>
-      )}
+    <Dialog open={!isSubscriptionActive} onOpenChange={(): void => undefined}>
       <DialogContent
         className="max-w-[22rem] bg-background border-border text-white -mb-4"
         onInteractOutside={(event) => event.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle>{brandName} Pro</DialogTitle>
+          <DialogTitle>{brandName} Subscription</DialogTitle>
           <DialogDescription className="text-zinc-300">
-            {customMessage ??
-              `What's included in the ${subscriptionPricing.data?.subscriptionName}`}
+            You need to subscribe before you use
           </DialogDescription>
           <h4 className="text-4xl font-bold">
             ${subscriptionPricing.data?.price}
-            <span className="text-base font-normal ml-1">/month</span>
+            <span className="text-base font-normal ml-1">/year</span>
           </h4>
         </DialogHeader>
         <div className="grid gap-6">
@@ -92,22 +74,15 @@ export function SubscriptionModal({
             })}
           </ul>
         </div>
-        <div className="flex flex-col gap-4 text-center">
+        <div className="flex flex-col gap-4 text-center -mb-2">
           <Button
-            className="bg-primary hover:bg-primary"
+            className="bg-primary hover:bg-primary focus-visible:outline-none"
             onClick={activateSubscription}
           >
-            Upgrade <ArrowRightCircle className="ms-2 scale-75" />
+            Activate Subscription
           </Button>
-          <Button
-            variant="link"
-            className="text-primary"
-            onClick={(): void => {
-              setOpen(false)
-              router.push("/settings/subscription")
-            }}
-          >
-            I'll do this later
+          <Button variant="link" className="text-primary" onClick={signOut}>
+            Sign Out
           </Button>
         </div>
       </DialogContent>

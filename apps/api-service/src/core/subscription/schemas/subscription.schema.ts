@@ -16,7 +16,7 @@ export class Subscription extends Document {
 
   @Prop({
     type: Date,
-    default: () => new Date(Date.now() + 86400 * 30 * 1000),
+    default: () => new Date(Date.now() + 1000 * 86400 * 365),
   })
   endsAt: Date
 }

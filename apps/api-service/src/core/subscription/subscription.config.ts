@@ -11,9 +11,9 @@ export const subscriptionPricing: SubscriptionConfig = {
   price: config.SUBSCRIPTION_PRICE,
   features: [
     "Unified Financial Dashboard",
+    `${config.BRAND_NAME} Intelligence`,
     "Real-Time Net Worth Tracking",
     "Smart Categorization & Organization",
-    `${config.BRAND_NAME} Natural Intelligence ™`,
     "Insightful Reports & Trends",
     "Privacy-First Experience",
   ],
