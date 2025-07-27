@@ -41,7 +41,7 @@ export class SubscriptionService {
             price_data: {
               currency: "usd",
               product_data: {
-                name: `${config.BRAND_NAME} Pro subscription`,
+                name: `${config.BRAND_NAME} subscription`,
               },
               unit_amount: Number(price) * 100,
             },
@@ -71,6 +71,16 @@ export class SubscriptionService {
       await this.commandBus.execute(
         new CreateSubscriptionCommand(userId, Number(price))
       )
+      return { success: true }
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @OnEvent(EventMap.ActivateInitialFreeSubscription)
+  async activateInitialFreeSubscription(userId: string) {
+    try {
+      await this.commandBus.execute(new CreateSubscriptionCommand(userId, 0))
       return { success: true }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)

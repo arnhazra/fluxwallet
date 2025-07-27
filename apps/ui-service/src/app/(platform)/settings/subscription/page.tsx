@@ -50,7 +50,7 @@ export default function Page() {
           <SectionPanel
             icon={<Bolt className="scale-75" />}
             title="Your Subscription"
-            content="You are on Pro subscription"
+            content="You have an active subscription"
           />
           <SectionPanel
             icon={<CalendarClock className="scale-75" />}

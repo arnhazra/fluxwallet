@@ -120,6 +120,10 @@ export class UserService {
             userId: newUser.id,
             token: refreshToken,
           })
+          await this.eventEmitter.emitAsync(
+            EventMap.ActivateInitialFreeSubscription,
+            newUser.id
+          )
           return { accessToken, refreshToken, user: newUser, success: true }
         }
       } else {
