@@ -88,7 +88,7 @@ export default function AuthenticationPage({
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm bg-main border-none text-white">
           <CardHeader>
-            <CardTitle className="text-2xl">{appName} Auth</CardTitle>
+            <CardTitle className="text-2xl">{appName}</CardTitle>
             <CardDescription className="text-primary">
               <Show
                 condition={authStep === 1}
