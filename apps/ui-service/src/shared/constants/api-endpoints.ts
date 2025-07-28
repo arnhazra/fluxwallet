@@ -1,14 +1,14 @@
-import { brandName } from "./global-constants"
+import { appName } from "./global-constants"
 
 export const apiHost =
   process.env.NODE_ENV === "development"
     ? "http://localhost:8000"
-    : `https://api-${brandName.toLowerCase()}.vercel.app`
+    : `https://api-${appName.toLowerCase()}.vercel.app`
 
 export const uiHost =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
-    : `https://${brandName.toLowerCase()}.vercel.app`
+    : `https://${appName.toLowerCase()}.vercel.app`
 
 export const endPoints = {
   activityTrends: `${apiHost}/activity/trends`,

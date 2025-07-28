@@ -1,6 +1,6 @@
 import { Check, Cog, Infinity } from "lucide-react"
 import { Button } from "../ui/button"
-import { brandName } from "@/shared/constants/global-constants"
+import { appName } from "@/shared/constants/global-constants"
 
 export function OverviewCard() {
   return (
@@ -43,7 +43,7 @@ export function IntelligenceCard() {
           className="rounded-full bg-primary hover:bg-primary"
         >
           <Infinity className="h-4 w-4 text-white" />
-          <span className="sr-only">{brandName} Intelligence</span>
+          <span className="sr-only">{appName} Intelligence</span>
         </Button>
       </div>
       <div className="flex justify-center mb-8">

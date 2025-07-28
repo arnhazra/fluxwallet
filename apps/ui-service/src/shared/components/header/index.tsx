@@ -8,7 +8,7 @@ import {
   SheetTrigger,
 } from "@/shared/components/ui/sheet"
 import { generalUserLinks } from "./data"
-import { brandName } from "@/shared/constants/global-constants"
+import { appName } from "@/shared/constants/global-constants"
 
 export default function Header() {
   return (
@@ -19,7 +19,7 @@ export default function Header() {
           className="flex items-center gap-2 text-lg font-semibold"
         >
           <WalletMinimal className="text-primary h-6 w-6" />
-          {brandName}
+          {appName}
         </Link>
         <nav className="hidden md:flex items-center justify-end gap-2 flex-1">
           {generalUserLinks.map((item, index) => (

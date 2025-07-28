@@ -7,7 +7,7 @@ import { X, Send, Bot, User, Atom } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { brandName } from "@/shared/constants/global-constants"
+import { appName } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "../markdown"
 
 export default function Intelligence() {
@@ -109,7 +109,7 @@ export default function Intelligence() {
           <div className="flex items-center space-x-2">
             <Atom className="h-6 w-6 text-primary" />
             <h2 className="text-md font-semibold text-white">
-              {brandName} Intelligence
+              {appName} Intelligence
             </h2>
           </div>
           <Button
@@ -127,7 +127,7 @@ export default function Intelligence() {
             {messages.length === 0 && (
               <div className="text-center mt-8">
                 <Atom className="h-12 w-12 mx-auto mb-4 text-primary" />
-                <p className="text-primary">{brandName} Intelligence</p>
+                <p className="text-primary">{appName} Intelligence</p>
                 <p className="text-sm mt-2 text-white">
                   I can assist you today regarding your portfolio
                 </p>

@@ -3,7 +3,7 @@ import Header from "@/shared/components/header"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { SubscriptionConfig } from "@/shared/types"
-import { brandName, uiConstants } from "@/shared/constants/global-constants"
+import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { Check, Play } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/tw-class-util"
@@ -70,13 +70,11 @@ export default function Page() {
       <div className="flex flex-col gap-4 text-center">
         <div>
           <h4 className="text-xl font-bold">Free for a year</h4>
+          <p className="text-sm font-medium text-muted-foreground">and then</p>
           <h4 className="text-2xl font-bold">
             $ {subscriptionPricing.data?.price}
             <span className="text-base font-normal ml-1">/year</span>
           </h4>
-          <p className="text-sm font-medium text-muted-foreground">
-            From second year
-          </p>
         </div>
         <Link
           href="/dashboard"
@@ -99,7 +97,7 @@ export default function Page() {
         <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <p className="text-center text-sm leading-loose md:text-left">
-              © {new Date().getFullYear()} {brandName}{" "}
+              © {new Date().getFullYear()} {appName}{" "}
               {uiConstants.copyrightText}
             </p>
           </div>

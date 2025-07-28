@@ -31,7 +31,7 @@ export function verifyOTP(email: string, hash: string, otp: string): boolean {
 }
 
 export function generateOTPEmailSubject() {
-  return `${config.BRAND_NAME} OTP`
+  return `${config.APP_NAME} OTP`
 }
 
 export function generateOTPEmailBody(otp: string) {
@@ -40,7 +40,7 @@ export function generateOTPEmailBody(otp: string) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>${config.BRAND_NAME} OTP</title>
+    <title>${config.APP_NAME} OTP</title>
     <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
       body {
@@ -106,15 +106,15 @@ export function generateOTPEmailBody(otp: string) {
   </head>
   <body>
     <div class="container">
-      <h1>${config.BRAND_NAME}</h1>
+      <h1>${config.APP_NAME}</h1>
       <p>Hello there,</p>
-      <p>Use the key below as your <strong>${config.BRAND_NAME}</strong> OTP. Please do not share it with anyone.</p>
+      <p>Use the key below as your <strong>${config.APP_NAME}</strong> OTP. Please do not share it with anyone.</p>
       <p>This OTP is valid for only 5 minutes.</p>
       <div class="otp">${otp}</div>
-      <p>Warm regards,<br />The ${config.BRAND_NAME} Team</p>
+      <p>Warm regards,<br />The ${config.APP_NAME} Team</p>
 
       <div class="footer">
-        <p>${config.BRAND_NAME}</p>
+        <p>${config.APP_NAME}</p>
         <p>Worldwide</p>
       </div>
     </div>

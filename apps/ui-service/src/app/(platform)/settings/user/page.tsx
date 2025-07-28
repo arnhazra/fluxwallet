@@ -4,7 +4,7 @@ import SectionPanel from "../../../../shared/components/sectionpanel"
 import { Button } from "@/shared/components/ui/button"
 import { toast } from "sonner"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import { brandName, uiConstants } from "@/shared/constants/global-constants"
+import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { useAppContext } from "@/context/appstate.provider"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
@@ -45,7 +45,7 @@ export default function Page() {
       />
       <SectionPanel
         icon={<IdCard className="scale-75" />}
-        title={`${brandName} ID`}
+        title={`${appName} ID`}
         content={user._id}
         masked
         actionComponents={[<CopyToClipboard value={user._id} />]}

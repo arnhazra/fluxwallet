@@ -1,5 +1,5 @@
 "use client"
-import { brandName, uiConstants } from "@/shared/constants/global-constants"
+import { appName, uiConstants } from "@/shared/constants/global-constants"
 import ky from "ky"
 import { useState } from "react"
 import { toast } from "sonner"
@@ -88,7 +88,7 @@ export default function AuthenticationPage({
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm bg-main border-none text-white">
           <CardHeader>
-            <CardTitle className="text-2xl">{brandName} Auth</CardTitle>
+            <CardTitle className="text-2xl">{appName} Auth</CardTitle>
             <CardDescription className="text-primary">
               <Show
                 condition={authStep === 1}

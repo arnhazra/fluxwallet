@@ -1,5 +1,5 @@
 import { ReactNode } from "react"
-import { brandName } from "@/shared/constants/global-constants"
+import { appName } from "@/shared/constants/global-constants"
 import { Quicksand } from "next/font/google"
 import Providers from "@/shared/providers"
 import NextTopLoader from "nextjs-toploader"
@@ -11,7 +11,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
-        <title>{brandName}</title>
+        <title>{appName}</title>
         <meta
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"

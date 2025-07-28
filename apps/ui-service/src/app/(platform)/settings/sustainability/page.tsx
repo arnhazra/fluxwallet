@@ -3,7 +3,7 @@ import SectionPanel from "../../../../shared/components/sectionpanel"
 import { Switch } from "@/shared/components/ui/switch"
 import { toast } from "sonner"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import { brandName, uiConstants } from "@/shared/constants/global-constants"
+import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
 import { Bell, Leaf } from "lucide-react"
@@ -34,7 +34,7 @@ export default function Page() {
     <SectionPanel
       icon={<Leaf className="scale-75" />}
       title="Reduce Carbon Emissions"
-      content={`Turn this settings on to reduce carbon footprints inside ${brandName}`}
+      content={`Turn this settings on to reduce carbon footprints inside ${appName}`}
       actionComponents={[
         <Switch
           checked={user.reduceCarbonEmissions}

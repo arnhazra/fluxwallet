@@ -1,6 +1,6 @@
 import Link from "next/link"
 import { WalletMinimal } from "lucide-react"
-import { brandName } from "@/shared/constants/global-constants"
+import { appName } from "@/shared/constants/global-constants"
 import { UserNav } from "./user-nav"
 
 export default function Header() {
@@ -12,7 +12,7 @@ export default function Header() {
           className="flex items-center gap-2 text-lg font-semibold"
         >
           <WalletMinimal className="text-primary h-6 w-6" />
-          {brandName}
+          {appName}
         </Link>
         <nav className="flex items-center justify-end flex-1">
           <UserNav />

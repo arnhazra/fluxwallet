@@ -14,7 +14,7 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
 import { toast } from "sonner"
-import { brandName, uiConstants } from "@/shared/constants/global-constants"
+import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { useAppContext } from "@/context/appstate.provider"
 
 export function SubscriptionModal() {
@@ -54,7 +54,7 @@ export function SubscriptionModal() {
         onInteractOutside={(event) => event.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle>{brandName} Subscription</DialogTitle>
+          <DialogTitle>{appName} Subscription</DialogTitle>
           <DialogDescription className="text-zinc-300">
             You need to subscribe before you use
           </DialogDescription>
