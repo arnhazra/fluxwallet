@@ -1,17 +1,9 @@
-import React, { ReactNode } from "react"
 import ReactMarkdown from "react-markdown"
 import rehypeRaw from "rehype-raw"
 
-const MarkdownRenderer = ({
-  markdown,
-  user,
-}: {
-  markdown: string
-  user: ReactNode
-}) => {
+const MarkdownRenderer = ({ markdown }: { markdown: string }) => {
   return (
-    <div className="gap-4 mb-4">
-      <p className="text-zinc-400">{user}</p>
+    <div className="gap-4 whitespace-pre-wrap text-sm">
       <div className="block">
         <ReactMarkdown
           rehypePlugins={[rehypeRaw]}

@@ -8,6 +8,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { brandName } from "@/shared/constants/global-constants"
+import MarkdownRenderer from "../markdown"
 
 export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
@@ -75,10 +76,7 @@ export default function Intelligence() {
         })
       })
     } catch (error: any) {
-      setMessages((prevMessages) => [
-        ...prevMessages.slice(0, -1),
-        "An error occurred",
-      ])
+      setMessages((prevMessages) => [...prevMessages, "An error occurred"])
     } finally {
       setLoading(false)
     }
@@ -154,7 +152,7 @@ export default function Intelligence() {
                     border: index % 2 === 0 ? "none" : "1px solid #27272a",
                   }}
                 >
-                  <div className="whitespace-pre-wrap text-sm">{message}</div>
+                  <MarkdownRenderer key={index} markdown={message} />
                 </div>
 
                 {index % 2 === 0 && (
