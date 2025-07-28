@@ -41,7 +41,7 @@ export class SubscriptionService {
             price_data: {
               currency: "usd",
               product_data: {
-                name: `${config.BRAND_NAME} subscription`,
+                name: `${config.BRAND_NAME} Subscription`,
               },
               unit_amount: Number(price) * 100,
             },
