@@ -27,7 +27,7 @@ const initialState: AppState = {
   searchQuery: "",
 }
 
-export const AppContext = createContext<AppContextInterface>([
+const AppContext = createContext<AppContextInterface>([
   initialState,
   (): void => undefined,
 ])

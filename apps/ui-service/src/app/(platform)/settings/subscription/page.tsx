@@ -8,7 +8,6 @@ import { Bell, Bolt, CalendarClock } from "lucide-react"
 import { useEffect } from "react"
 import { useSearchParams } from "next/navigation"
 import { useRouter } from "nextjs-toploader/app"
-import { SubscriptionModal } from "@/shared/components/subscriptionmodal"
 import { useAppContext } from "@/context/appstate.provider"
 
 export default function Page() {
@@ -37,20 +36,13 @@ export default function Page() {
     }
   }, [searchParams])
 
-  const canActivateNewSubscription =
-    !subscription ||
-    (subscription &&
-      new Date(subscription.endsAt).getTime() - new Date().getTime() <=
-        24 * 60 * 60 * 1000)
-
   return (
     <>
       <Show condition={!isSubscriptionActive}>
         <SectionPanel
           icon={<CalendarClock className="scale-75" />}
           title="Your Subscription"
-          content="You are on free subscription"
-          actionComponents={[<SubscriptionModal />]}
+          content="You don't have a subscription"
         />
       </Show>
       <Show condition={!!isSubscriptionActive}>
@@ -58,12 +50,7 @@ export default function Page() {
           <SectionPanel
             icon={<Bolt className="scale-75" />}
             title="Your Subscription"
-            content="You are on Pro subscription"
-            actionComponents={[
-              <Show condition={!!canActivateNewSubscription}>
-                <SubscriptionModal buttonText="Renew Subscription" />
-              </Show>,
-            ]}
+            content="You have an active subscription"
           />
           <SectionPanel
             icon={<CalendarClock className="scale-75" />}

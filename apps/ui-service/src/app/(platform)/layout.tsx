@@ -14,6 +14,7 @@ import { Bell } from "lucide-react"
 import Sidebar from "@/shared/components/sidebar"
 import { useAppContext } from "@/context/appstate.provider"
 import Intelligence from "@/shared/components/intelligence"
+import { SubscriptionModal } from "@/shared/components/subscriptionmodal"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [, dispatch] = useAppContext()
@@ -73,6 +74,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         {children}
       </div>
       <Intelligence />
+      <SubscriptionModal />
     </div>
   )
 
