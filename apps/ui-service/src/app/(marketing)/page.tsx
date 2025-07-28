@@ -35,8 +35,11 @@ export default function Page() {
         <h1 className="text-white text-xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight mb-4 max-w-[40rem]">
           {uiConstants.homeHeader}
         </h1>
-        <p className="max-w-[35rem] leading-normal text-zinc-300 sm:text-lg sm:leading-8 mb-6">
+        <p className="max-w-[35rem] leading-normal text-zinc-300 sm:text-lg sm:leading-8">
           {uiConstants.homeIntro}
+        </p>
+        <p className="max-w-[35rem] leading-normal text-primary sm:text-lg sm:leading-8 mb-6">
+          {uiConstants.homePricing}
         </p>
         <Link
           href="/dashboard"
@@ -148,8 +151,8 @@ export default function Page() {
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
               {uiConstants.pricingTitle}
             </h2>
-            <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-              {uiConstants.pricingHeader}
+            <p className="max-w-[85%] text-2xl sm:text-lg sm:leading-7">
+              Get full platform access {uiConstants.homePricing}
             </p>
           </div>
           <div className="grid w-full items-start gap-10 rounded-lg border border-border p-10 md:grid-cols-[1fr_200px]">

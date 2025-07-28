@@ -3,7 +3,8 @@ export const appName = "FluxWallet"
 export const uiConstants = {
   homeHeader: "Invest for future",
   homeIntro:
-    "Seamlessly manage your wealth — track all your assets, monitor your net worth, and gain real-time insights into your complete financial picture.",
+    "Seamlessly manage your wealth — track all your assets, monitor your net worth, and gain real-time insights.",
+  homePricing: "Free for the first year. Only $29/year afterward.",
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Credentials",
   errorMessage: "Not Found",
@@ -19,7 +20,6 @@ export const uiConstants = {
   copyrightText: "Inc, All rights reserved.",
   openSourceHeader: `${appName} is open source and powered by open source software.`,
   productHeader: `${appName} helps you organize and manage your entire financial life in one place. Add assets across categories, monitor your net worth, and gain valuable insights into your financial health. Whether you're planning, growing, or preserving wealth — stay informed and in control with a unified, intuitive experience.`,
-  pricingHeader: `Preferred access to the latest AI models & more usage. Unlock all features including extensive AI usage for your application.`,
   pricingTitle: `${appName} Pricing`,
   privacyPolicyStatement: `By using ${appName}, you agree to our Terms of Service and Privacy Policy`,
   verifyEmailStatement: `Please verify your auth by entering the OTP we sent to your email`,
