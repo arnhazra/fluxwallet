@@ -7,7 +7,7 @@ export default function Page() {
     <SectionPanel
       icon={<InfoIcon className="scale-75" />}
       title={`${appName} App Version`}
-      content="0.1.0"
+      content="1.0"
     />
   )
 }
