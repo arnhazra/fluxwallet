@@ -21,7 +21,7 @@ export default function WealthCard({
             <div className="p-2 bg-green-500/20 rounded-lg">
               <BanknoteIcon className="h-5 w-5 text-primary" />
             </div>
-            <span className="text-sm text-zinc-400">Total Assets</span>
+            <span className="text-sm text-zinc-400">Total Wealth</span>
           </div>
         </div>
         <div className="space-y-3">
