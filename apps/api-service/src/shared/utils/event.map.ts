@@ -11,4 +11,5 @@ export enum EventMap {
   FindPortfolioByName = "findPortfolioByName",
   GetPortfolioValuation = "getPortfolioValuation",
   CreatePortfolio = "createPortfolio",
+  GetPortfolioList = "getPortfolioList",
 }
