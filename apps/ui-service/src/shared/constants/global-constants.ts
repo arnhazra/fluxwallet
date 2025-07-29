@@ -6,7 +6,7 @@ export const uiConstants = {
     "Effortlessly manage your wealth — track assets, monitor net worth, and unlock real-time insights.",
   homePricing: "Enjoy your first year free. Just $29/year after that.",
   connectionErrorMessage: "Unable to connect. Please check your internet.",
-  authVerificationMessage: "Checking your credentials...",
+  authVerificationMessage: "Checking your credentials",
   errorMessage: "Page not found",
   genericError: "Oops! Something went wrong.",
   subscriptionSuccess: "Subscription activated successfully!",
@@ -14,7 +14,7 @@ export const uiConstants = {
   portfolioDeleteWarning:
     "Please delete all assets within the portfolio before removing it.",
   portfolioDeleteFailed: "Unable to delete the portfolio.",
-  notification: "Notifications",
+  notification: "Notification",
   copiedToClipBoard: "Copied to clipboard!",
   invalidOTP: "The OTP you entered is incorrect.",
   getStartedButton: "Get Started",

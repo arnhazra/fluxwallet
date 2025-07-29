@@ -204,9 +204,9 @@ export default function Intelligence() {
             <Input
               value={prompt}
               onChange={handleInputChange}
-              placeholder="Type your message..."
+              placeholder="Ask anything..."
               disabled={isLoading}
-              className="flex-1 bg-transparent border text-white placeholder-zinc-400 focus:ring-1"
+              className="h-11 flex-1 bg-transparent border text-white placeholder-zinc-400 focus:ring-1"
               style={{
                 borderColor: "#3f3f46",
                 backgroundColor: "#121212",
@@ -215,11 +215,10 @@ export default function Intelligence() {
             <Button
               type="submit"
               disabled={isLoading || !prompt.trim()}
-              size="sm"
-              className="px-3"
+              className="h-11 px-3"
               style={{ backgroundColor: "#32cd32" }}
             >
-              <Send className="h-4 w-4 text-white" />
+              <Send className="scale-75 text-white" />
             </Button>
           </form>
         </div>
