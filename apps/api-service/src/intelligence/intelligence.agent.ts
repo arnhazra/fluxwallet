@@ -74,6 +74,28 @@ export class IntelligenceAgent {
     }
   )
 
+  private async getPortfolioList(userId: string): Promise<string> {
+    const portfolios: Portfolio[] = await this.eventEmitter.emitAsync(
+      EventMap.GetPortfolioList,
+      userId
+    )
+
+    return JSON.stringify(portfolios)
+  }
+
+  public getPortfolioListAgent = tool(
+    async ({ userId }: { userId: string }) => {
+      return await this.getPortfolioList(userId)
+    },
+    {
+      name: "get_portfolio-list",
+      description: "Get portfolio list for a user",
+      schema: z.object({
+        userId: z.string().describe("_id of the user"),
+      }),
+    }
+  )
+
   private async createPortfolio(
     userId: string,
     portfolioName: string,

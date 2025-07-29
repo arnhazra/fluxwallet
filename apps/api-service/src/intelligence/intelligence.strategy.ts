@@ -2,6 +2,7 @@ import { Injectable } from "@nestjs/common"
 import { Thread } from "./schemas/thread.schema"
 import { config } from "@/config"
 import { ChatOpenAI } from "@langchain/openai"
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { systemPrompt } from "./prompts/system-prompt"
@@ -34,6 +35,7 @@ export class IntelligenceStrategy {
         this.agent.getTotalValuationAgent,
         this.agent.createPortfolioAgent,
         this.agent.getPortfolioValuationAgent,
+        this.agent.getPortfolioListAgent,
       ],
     })
 
@@ -66,8 +68,23 @@ export class IntelligenceStrategy {
     })
   }
 
+  private buildGoogleLLM(opts: IntelligenceStrategyType) {
+    return new ChatGoogleGenerativeAI({
+      model: opts.genericName,
+      temperature: opts.temperature,
+      topP: opts.topP,
+      apiKey: config.GCP_API_KEY,
+    })
+  }
+
   async azureStrategy(args: IntelligenceStrategyType) {
     const llm = this.buildAzureLLM(args)
+    const response = await this.runAgent(llm, args)
+    return { response }
+  }
+
+  async googleStrategy(args: IntelligenceStrategyType) {
+    const llm = this.buildGoogleLLM(args)
     const response = await this.runAgent(llm, args)
     return { response }
   }

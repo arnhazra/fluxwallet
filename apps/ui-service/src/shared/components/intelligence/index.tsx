@@ -2,13 +2,25 @@
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import { X, Send, Bot, User, Atom } from "lucide-react"
+import { X, Bot, User, Sparkles, ArrowUp, BrainIcon } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { appName } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "../markdown"
+
+enum Model {
+  Gemini = "gemini-2.5-flash-lite",
+  GPT = "openai/gpt-4o-mini",
+}
 
 export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
@@ -17,6 +29,7 @@ export default function Intelligence() {
   const [isLoading, setLoading] = useState(false)
   const [messages, setMessages] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const [model, setModel] = useState<Model>(Model.Gemini)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -56,7 +69,7 @@ export default function Intelligence() {
     try {
       const res: any = await ky
         .post(`${endPoints.intelligence}`, {
-          json: { prompt, threadId: threadId ?? undefined },
+          json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })
         .json()
@@ -86,27 +99,28 @@ export default function Intelligence() {
       <Button
         onClick={() => setIsOpen(true)}
         variant="default"
-        size="default"
-        className="h-14 w-14 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary text-black rounded-full"
+        size="icon"
+        className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary rounded-full"
       >
-        <Atom className="scale-75" />
+        <Sparkles className="scale-75 text-white" />
       </Button>
 
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-50 transition-opacity duration-300"
+          className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}
 
       <div
-        className={`fixed top-0 bg-main right-0 h-full w-full sm:w-96 transform transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed top-0 bg-main right-0 h-full w-full sm:w-96 flex flex-col transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
+        {/* Header */}
         <div className="flex items-center justify-between p-4 border-none">
           <div className="flex items-center space-x-2">
-            <Atom className="h-6 w-6 text-primary" />
+            <Sparkles className="h-6 w-6 text-primary" />
             <h2 className="text-md font-semibold text-white">
               {appName} Intelligence
             </h2>
@@ -121,11 +135,12 @@ export default function Intelligence() {
           </Button>
         </div>
 
-        <ScrollArea className="flex-1 h-[calc(100vh-140px)] p-4">
+        {/* Scrollable Message Area */}
+        <ScrollArea className="flex-1 p-4 overflow-y-auto">
           <div className="space-y-4">
             {messages.length === 0 && (
               <div className="text-center mt-8">
-                <Atom className="h-12 w-12 mx-auto mb-4 text-primary" />
+                <Sparkles className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <p className="text-primary">{appName} Intelligence</p>
                 <p className="text-sm mt-2 text-white">
                   I can assist you today regarding your portfolio
@@ -136,7 +151,9 @@ export default function Intelligence() {
             {messages.map((message, index) => (
               <div
                 key={index}
-                className={`flex items-start space-x-2 ${index % 2 === 0 ? "justify-end" : "justify-start"}`}
+                className={`flex items-start space-x-2 ${
+                  index % 2 === 0 ? "justify-end" : "justify-start"
+                }`}
               >
                 {index % 2 !== 0 && (
                   <div className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center bg-primary">
@@ -145,7 +162,9 @@ export default function Intelligence() {
                 )}
 
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg ${index % 2 === 0 ? "text-white" : "text-zinc-100"}`}
+                  className={`max-w-[80%] p-3 rounded-lg ${
+                    index % 2 === 0 ? "text-white" : "text-zinc-100"
+                  }`}
                   style={{
                     backgroundColor: index % 2 === 0 ? "#32cd32" : "#121212",
                     border: index % 2 === 0 ? "none" : "1px solid #27272a",
@@ -199,28 +218,63 @@ export default function Intelligence() {
           </div>
         </ScrollArea>
 
-        <div className="p-4" style={{ borderColor: "#27272a" }}>
-          <form onSubmit={hitAPI} className="flex space-x-2">
-            <Input
-              value={prompt}
-              onChange={handleInputChange}
-              placeholder="Type your message..."
-              disabled={isLoading}
-              className="flex-1 bg-transparent border text-white placeholder-zinc-400 focus:ring-1"
-              style={{
-                borderColor: "#3f3f46",
-                backgroundColor: "#121212",
-              }}
-            />
-            <Button
-              type="submit"
-              disabled={isLoading || !prompt.trim()}
-              size="sm"
-              className="px-3"
-              style={{ backgroundColor: "#32cd32" }}
-            >
-              <Send className="h-4 w-4 text-white" />
-            </Button>
+        {/* Input area */}
+        <div className="p-4 border-none">
+          <form onSubmit={hitAPI}>
+            <div className="w-full max-w-4xl mx-auto">
+              <div className="relative bg-zinc-900 border border-zinc-700 rounded-2xl p-2 ps-4 pe-4 shadow-lg">
+                <div className="flex flex-col gap-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1">
+                      <Input
+                        autoFocus
+                        value={prompt}
+                        onChange={handleInputChange}
+                        placeholder="Ask anything..."
+                        disabled={isLoading}
+                        className="bg-transparent border-none text-zinc-300 placeholder:text-zinc-500 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none outline-none ring-0 text-sm px-0"
+                      />
+                    </div>
+                    <Button
+                      type="submit"
+                      disabled={isLoading || !prompt.trim()}
+                      size="icon"
+                      className="bg-zinc-700 hover:bg-zinc-600 text-white h-8 w-8"
+                    >
+                      <ArrowUp className="h-4 w-4" />
+                    </Button>
+                  </div>
+
+                  <div className="flex justify-start -ms-3">
+                    <Select
+                      defaultValue={Model.Gemini}
+                      onValueChange={(value: Model) => setModel(value)}
+                    >
+                      <SelectTrigger className="w-auto bg-transparent border-none text-zinc-300 hover:text-white focus:ring-0 focus:ring-offset-0">
+                        <div className="flex items-center gap-2">
+                          <BrainIcon className="h-4 w-4 text-emerald-400" />
+                          <SelectValue />
+                        </div>
+                      </SelectTrigger>
+                      <SelectContent className="bg-zinc-800 border-zinc-700">
+                        <SelectItem
+                          value={Model.Gemini}
+                          className="text-zinc-300 focus:bg-zinc-700 focus:text-white"
+                        >
+                          Gemini
+                        </SelectItem>
+                        <SelectItem
+                          value={Model.GPT}
+                          className="text-zinc-300 focus:bg-zinc-700 focus:text-white"
+                        >
+                          GPT
+                        </SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                </div>
+              </div>
+            </div>
           </form>
         </div>
       </div>

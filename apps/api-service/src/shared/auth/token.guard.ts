@@ -13,6 +13,7 @@ import { ModRequest } from "./types/mod-request.interface"
 import { User } from "@/core/user/schemas/user.schema"
 import { Response } from "express"
 import { prodUIURI } from "../constants/other-constants"
+import { Token } from "@/core/token/schemas/token.schema"
 
 @Injectable()
 export class TokenGuard implements CanActivate {
@@ -59,14 +60,13 @@ export class TokenGuard implements CanActivate {
       if (error instanceof jwt.TokenExpiredError) {
         const decodedAccessToken = jwt.decode(String(accessToken))
         const userId = (decodedAccessToken as any).id
-        const refreshTokenFromRedis: String[] =
-          await this.eventEmitter.emitAsync(EventMap.GetToken, { userId })
+        const refreshTokenFromDB: Token = (
+          await this.eventEmitter.emitAsync(EventMap.GetToken, {
+            userId,
+          })
+        ).shift()
 
-        if (
-          !refreshTokenFromRedis ||
-          !refreshTokenFromRedis.length ||
-          refreshToken !== refreshTokenFromRedis[0]
-        ) {
+        if (!refreshTokenFromDB || refreshToken !== refreshTokenFromDB.token) {
           throw new UnauthorizedException(statusMessages.unauthorized)
         } else {
           const user: User[] = await this.eventEmitter.emitAsync(

@@ -2,9 +2,9 @@ import { BadRequestException, Injectable } from "@nestjs/common"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
-import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
+import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
-import { AIGenerationDto } from "./dto/ai-generate.dto"
+import { AIGenerationDto, AIModel } from "./dto/ai-generate.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import {
@@ -47,7 +47,7 @@ export class IntelligenceService {
     userId: string
   ) {
     try {
-      const { prompt } = aiGenerationDto
+      const { prompt, model } = aiGenerationDto
       const threadId =
         aiGenerationDto.threadId ?? new Types.ObjectId().toString()
       const thread = await this.getThreadById(
@@ -62,7 +62,7 @@ export class IntelligenceService {
       ).shift()
 
       const args: IntelligenceStrategyType = {
-        genericName: "openai/gpt-4o-mini",
+        genericName: model,
         temperature: 1.0,
         topP: 1.0,
         thread,
@@ -70,11 +70,21 @@ export class IntelligenceService {
         threadId,
         user,
       }
-      const { response } = await this.strategy.azureStrategy(args)
-      await this.commandBus.execute<CreateThreadCommand, Thread>(
-        new CreateThreadCommand(String(user.id), threadId, prompt, response)
-      )
-      return { response, threadId }
+      if (args.genericName === AIModel.Gemini) {
+        const { response } = await this.strategy.googleStrategy(args)
+        await this.commandBus.execute<CreateThreadCommand, Thread>(
+          new CreateThreadCommand(String(user.id), threadId, prompt, response)
+        )
+        return { response, threadId }
+      }
+
+      if (args.genericName === AIModel.GPT) {
+        const { response } = await this.strategy.azureStrategy(args)
+        await this.commandBus.execute<CreateThreadCommand, Thread>(
+          new CreateThreadCommand(String(user.id), threadId, prompt, response)
+        )
+        return { response, threadId }
+      }
     } catch (error) {
       throw error
     }

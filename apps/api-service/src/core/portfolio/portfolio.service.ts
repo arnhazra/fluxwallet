@@ -33,6 +33,7 @@ export class PortfolioService {
     }
   }
 
+  @OnEvent(EventMap.GetPortfolioList)
   async findMyPortfolios(userId: string) {
     try {
       return await this.queryBus.execute<FindAllPortfolioQuery, Portfolio[]>(

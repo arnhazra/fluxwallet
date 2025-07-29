@@ -22,6 +22,7 @@ import { UpdateAttributeCommand } from "./commands/impl/update-attribute.command
 import { randomUUID } from "crypto"
 import { Subscription } from "../subscription/schemas/subscription.schema"
 import { Currency } from "@/shared/constants/types"
+import { Token } from "../token/schemas/token.schema"
 
 @Injectable()
 export class UserService {
@@ -66,13 +67,14 @@ export class UserService {
         )
 
         if (user) {
-          const refreshTokenFromRedis = await this.eventEmitter.emitAsync(
-            EventMap.GetToken,
-            { userId: user.id }
-          )
+          const refreshTokenFromDB: Token = (
+            await this.eventEmitter.emitAsync(EventMap.GetToken, {
+              userId: user.id,
+            })
+          ).shift()
 
-          if (refreshTokenFromRedis.toString()) {
-            const refreshToken = refreshTokenFromRedis.toString()
+          if (refreshTokenFromDB) {
+            const refreshToken = refreshTokenFromDB.token
             const tokenPayload = {
               id: user.id,
               email: user.email,

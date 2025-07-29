@@ -14,12 +14,12 @@ export function formatKey(key: string) {
     .replace(/^./, (str) => str.toUpperCase())
 }
 
-export function formatValue(value: any) {
+export function formatValue(value: any, date: boolean) {
   if (typeof value === "boolean") {
     return value ? "Yes" : "No"
   }
 
-  if (typeof value === "string") {
+  if (date && typeof value === "string") {
     const parsed = parseISO(value)
     if (isValid(parsed)) {
       return format(parsed, "dd MMM yyyy")
