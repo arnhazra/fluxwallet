@@ -3,7 +3,7 @@ import { useState, useRef, useEffect } from "react"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import { X, Send, Bot, User, Atom } from "lucide-react"
+import { X, Send, Bot, User, Sparkles } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -86,10 +86,10 @@ export default function Intelligence() {
       <Button
         onClick={() => setIsOpen(true)}
         variant="default"
-        size="default"
-        className="h-14 w-14 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary text-black rounded-full"
+        size="icon"
+        className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary rounded-full"
       >
-        <Atom className="scale-75" />
+        <Sparkles className="scale-75 text-white" />
       </Button>
 
       {isOpen && (
@@ -106,7 +106,7 @@ export default function Intelligence() {
       >
         <div className="flex items-center justify-between p-4 border-none">
           <div className="flex items-center space-x-2">
-            <Atom className="h-6 w-6 text-primary" />
+            <Sparkles className="h-6 w-6 text-primary" />
             <h2 className="text-md font-semibold text-white">
               {appName} Intelligence
             </h2>
@@ -125,7 +125,7 @@ export default function Intelligence() {
           <div className="space-y-4">
             {messages.length === 0 && (
               <div className="text-center mt-8">
-                <Atom className="h-12 w-12 mx-auto mb-4 text-primary" />
+                <Sparkles className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <p className="text-primary">{appName} Intelligence</p>
                 <p className="text-sm mt-2 text-white">
                   I can assist you today regarding your portfolio
