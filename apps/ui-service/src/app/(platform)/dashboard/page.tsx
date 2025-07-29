@@ -7,13 +7,7 @@ import {
   PortfolioCard,
   AddPortfolioCard,
 } from "@/shared/components/portfoliocard"
-import {
-  ChartCandlestick,
-  PenIcon,
-  PieChart,
-  Target,
-  TrendingUp,
-} from "lucide-react"
+import { BanknoteIcon, CreditCardIcon, PenIcon, Target } from "lucide-react"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { useEffect, useState } from "react"
 import { formatCurrency } from "@/shared/lib/format-currency"
@@ -102,9 +96,9 @@ export default function Page() {
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <div className="p-2 bg-green-500/20 rounded-lg">
-                      <PieChart className="h-5 w-5 text-primary" />
+                      <BanknoteIcon className="h-5 w-5 text-primary" />
                     </div>
-                    <span className="text-sm text-gray-400">Total Assets</span>
+                    <span className="text-sm text-zinc-400">Total Assets</span>
                   </div>
                 </div>
                 <div className="space-y-3">
@@ -114,8 +108,8 @@ export default function Page() {
                       user.baseCurrency
                     )}
                   </p>
-                  <p className="text-sm text-gray-400">Portfolio Valuation</p>
-                  <span className="text-sm text-gray-400">
+                  <p className="text-sm text-zinc-400">Portfolio Valuation</p>
+                  <span className="text-sm text-zinc-400">
                     Across {portfolios.data?.length} active portfolios
                   </span>
                 </div>
@@ -127,9 +121,9 @@ export default function Page() {
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <div className="p-2 bg-green-500/20 rounded-lg">
-                      <ChartCandlestick className="h-5 w-5 text-green-400" />
+                      <CreditCardIcon className="h-5 w-5 text-green-400" />
                     </div>
-                    <span className="text-sm text-gray-400">
+                    <span className="text-sm text-zinc-400">
                       Total Liabilities
                     </span>
                   </div>
@@ -146,14 +140,15 @@ export default function Page() {
                     {formatCurrency(user.currentLiabilities, user.baseCurrency)}
                   </p>
                   <div className="space-y-2">
-                    <p className="text-sm text-gray-400">
+                    <p className="text-sm text-zinc-400">
                       Your total liabilities
                     </p>
-                    <span className="text-sm text-gray-400">
+                    <span className="text-sm text-zinc-400">
                       This is the amount you owe
                     </span>
                   </div>
                 </div>
+                <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -translate-y-10 translate-x-10"></div>
               </CardContent>
             </Card>
             <Card className="bg-background border-none relative overflow-hidden">
@@ -163,7 +158,7 @@ export default function Page() {
                     <div className="p-2 bg-green-500/20 rounded-lg">
                       <Target className="h-5 w-5 text-green-400" />
                     </div>
-                    <span className="text-sm text-gray-400">Goal Progress</span>
+                    <span className="text-sm text-zinc-400">Goal Progress</span>
                   </div>
                   <Button
                     onClick={editGoal}
@@ -182,7 +177,7 @@ export default function Page() {
                   </p>
                   <div className="space-y-2">
                     <div className="flex justify-between text-sm">
-                      <span className="text-gray-400">
+                      <span className="text-zinc-400">
                         Wealth Goal:{" "}
                         {formatCurrency(
                           user.portfolioGoal ?? 0,
@@ -190,7 +185,7 @@ export default function Page() {
                         )}
                       </span>
                     </div>
-                    <div className="w-full bg-gray-700 rounded-full h-2">
+                    <div className="w-full bg-zinc-700 rounded-full h-2">
                       <div
                         className="bg-primary h-2 rounded-full"
                         style={{ width: `${goalPercentage.toFixed(0)}%` }}

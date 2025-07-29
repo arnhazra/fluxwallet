@@ -116,7 +116,7 @@ export default function Intelligence() {
             variant="ghost"
             size="sm"
             onClick={() => setIsOpen(false)}
-            className="text-gray-400 hover:text-white bg-none hover:bg-background"
+            className="text-zinc-400 hover:text-white bg-none hover:bg-background"
           >
             <X className="h-5 w-5" />
           </Button>
@@ -146,7 +146,7 @@ export default function Intelligence() {
                 )}
 
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg ${index % 2 === 0 ? "text-white" : "text-gray-100"}`}
+                  className={`max-w-[80%] p-3 rounded-lg ${index % 2 === 0 ? "text-white" : "text-zinc-100"}`}
                   style={{
                     backgroundColor: index % 2 === 0 ? "#32cd32" : "#121212",
                     border: index % 2 === 0 ? "none" : "1px solid #27272a",
@@ -182,13 +182,13 @@ export default function Intelligence() {
                   }}
                 >
                   <div className="flex space-x-1">
-                    <div className="w-1 h-1 bg-gray-400 rounded-full animate-bounce"></div>
+                    <div className="w-1 h-1 bg-zinc-400 rounded-full animate-bounce"></div>
                     <div
-                      className="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+                      className="w-1 h-1 bg-zinc-400 rounded-full animate-bounce"
                       style={{ animationDelay: "0.1s" }}
                     ></div>
                     <div
-                      className="w-1 h-1 bg-gray-400 rounded-full animate-bounce"
+                      className="w-1 h-1 bg-zinc-400 rounded-full animate-bounce"
                       style={{ animationDelay: "0.2s" }}
                     ></div>
                   </div>
@@ -207,7 +207,7 @@ export default function Intelligence() {
               onChange={handleInputChange}
               placeholder="Type your message..."
               disabled={isLoading}
-              className="flex-1 bg-transparent border text-white placeholder-gray-400 focus:ring-1"
+              className="flex-1 bg-transparent border text-white placeholder-zinc-400 focus:ring-1"
               style={{
                 borderColor: "#3f3f46",
                 backgroundColor: "#121212",
