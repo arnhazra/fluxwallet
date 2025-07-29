@@ -101,7 +101,7 @@ export default function Page() {
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault()
-      await ky.post("http://localhost:8000/asset", {
+      await ky.post(endPoints.asset, {
         timeout: FETCH_TIMEOUT,
         json: formData,
       })
@@ -111,7 +111,6 @@ export default function Page() {
     }
   }
 
-  // Field visibility logic based on asset type
   const showDateFields =
     formData.assetType &&
     [
