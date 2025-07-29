@@ -227,6 +227,7 @@ export default function Intelligence() {
                   <div className="flex items-center gap-3">
                     <div className="flex-1">
                       <Input
+                        autoFocus
                         value={prompt}
                         onChange={handleInputChange}
                         placeholder="Ask anything..."
