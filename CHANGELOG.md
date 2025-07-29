@@ -5,6 +5,7 @@
 - Bug fixes & performance improvements
 - Added liability support
 - Better training for intelligence model
+- Migrated from Redis to MongoDB for token storage due to frequent redis disconnection issue
 
 ## v1.0
 
