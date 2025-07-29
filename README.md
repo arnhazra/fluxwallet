@@ -12,4 +12,3 @@ Typically, utilizing this platform incurs no cost. We have implemented a test st
 - Nest as a framework on top of Node JS for API
 - Next JS as a framework on top of React JS for UI
 - Mongo DB as a primary database
-- Redis for Managing user authorization, refresh tokens

@@ -8,7 +8,6 @@
 - class-validator: Validation library for TypeScript and JavaScript that works both on the frontend and backend.
 - dotenv: Loads environment variables from a .env file, enabling configuration management.
 - googleapis: Official Google library for interacting with Google APIs, including OAuth2 for authentication and authorization.
-- ioredis: In-memory data store for caching and session management, providing high-performance data storage.
 - jsonwebtoken: Generates and validates JSON Web Tokens (JWTs) for user authentication and authorization in web applications.
 - langchain: A data framework for connecting AI models with structured and unstructured data sources.
 - mongoose: Elegant MongoDB object modeling for Node.js, facilitating interaction with MongoDB databases.
