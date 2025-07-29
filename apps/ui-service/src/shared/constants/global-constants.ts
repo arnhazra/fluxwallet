@@ -8,7 +8,12 @@ export const uiConstants = {
   connectionErrorMessage: "Connection Error",
   authVerificationMessage: "Verifying Credentials",
   errorMessage: "Not Found",
-  toastError: "Something went wrong",
+  genericError: "Something went wrong",
+  subscriptionSuccess: "Subscription Activation Success",
+  subscriptionFailed: "Subscription Activation Failure",
+  portfolioDeleteWarning:
+    "You need to delete all your assets individually before deleting a portfolio",
+  portfolioDeleteFailed: "Failed to delete the portfolio",
   notification: "Notification",
   copiedToClipBoard: "Copied to Clipboard",
   invalidOTP: "Invalid OTP",
@@ -24,9 +29,4 @@ export const uiConstants = {
   privacyPolicyStatement: `By using ${appName}, you agree to our Terms of Service and Privacy Policy`,
   verifyEmailStatement: `Please verify your auth by entering the OTP we sent to your email`,
   aiSafetyStatement: `As an AI LLM ${appName} Intelligence can make mistakes. Please be aware.`,
-  modelCreated: "Congratulations, your model has been created",
-  modelCreationFailed:
-    "Oops! seems like there is some problem creating your model. Please try again",
-  fallbackImageURL:
-    "https://img.freepik.com/free-photo/ai-technology-microchip-background-digital-transformation-concept_53876-124669.jpg?t=st=1740971145~exp=1740974745~hmac=090205b829b6a1d67da2257f42126467a191cdba6a955e902a4ea487d67af9e0&w=1000",
 }

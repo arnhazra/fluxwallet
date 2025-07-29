@@ -1,4 +1,4 @@
-import { Bell, Check } from "lucide-react"
+import { Check } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Dialog,
@@ -13,9 +13,9 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
-import { toast } from "sonner"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { useAppContext } from "@/context/appstate.provider"
+import notify from "@/shared/hooks/use-notify"
 
 export function SubscriptionModal() {
   const [{ isSubscriptionActive }] = useAppContext()
@@ -35,10 +35,7 @@ export function SubscriptionModal() {
         .json()
       window.location = response.redirectUrl
     } catch (error) {
-      toast(uiConstants.notification, {
-        icon: <Bell className="scale-75" />,
-        description: uiConstants.toastError,
-      })
+      notify(uiConstants.subscriptionFailed, "error")
     }
   }
 

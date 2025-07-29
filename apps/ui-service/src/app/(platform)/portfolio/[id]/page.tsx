@@ -3,7 +3,7 @@ import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { use } from "react"
-import { Asset, Currency, Portfolio } from "@/shared/types"
+import { Asset, Portfolio } from "@/shared/types"
 import { AddAssetCard, AssetCard } from "@/shared/components/assetcard"
 import SectionPanel from "@/shared/components/sectionpanel"
 import { Building, Pen, Trash } from "lucide-react"
@@ -11,6 +11,8 @@ import { Button } from "@/shared/components/ui/button"
 import { useRouter } from "next/navigation"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import ky from "ky"
+import { uiConstants } from "@/shared/constants/global-constants"
+import notify from "@/shared/hooks/use-notify"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: portfolioId = "" } = use(params)
@@ -34,6 +36,10 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   })
 
   const handleDeletePortfolio = async () => {
+    if (assets.data?.length) {
+      notify(uiConstants.portfolioDeleteWarning, "warning")
+      return
+    }
     const confirmed = await confirm({
       title: "Delete Portfolio",
       desc: "Are you sure you want to delete this portfolio?",
@@ -44,8 +50,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         await ky.delete(`${endPoints.portfolio}/${portfolioId}`)
         router.push("/dashboard")
       } catch (error) {
-        console.error("Failed to delete portfolio:", error)
-        // Optionally, you can show an error message to the user
+        notify(uiConstants.portfolioDeleteFailed, "error")
       }
     }
   }

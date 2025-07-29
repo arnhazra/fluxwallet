@@ -2,13 +2,13 @@
 import CopyToClipboard from "@/shared/components/copy"
 import SectionPanel from "../../../../shared/components/sectionpanel"
 import { Switch } from "@/shared/components/ui/switch"
-import { toast } from "sonner"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
-import { PieChart, Fingerprint, ScanFace, Bell } from "lucide-react"
+import { PieChart, Fingerprint, ScanFace } from "lucide-react"
 import { useAppContext } from "@/context/appstate.provider"
+import notify from "@/shared/hooks/use-notify"
 
 export default function Page() {
   const [{ user }, dispatch] = useAppContext()
@@ -24,10 +24,7 @@ export default function Page() {
         timeout: FETCH_TIMEOUT,
       })
     } catch (error) {
-      toast(uiConstants.notification, {
-        icon: <Bell className="scale-75" />,
-        description: uiConstants.toastError,
-      })
+      notify(uiConstants.genericError, "error")
     }
   }
 
