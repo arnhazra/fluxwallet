@@ -34,7 +34,12 @@ export const systemPrompt = (user: User): string => {
   - If no valid response is possible, say politely that you don't know.
 
   You also have access to user details to personalize interactions.  
-  Here is the current user's information:${JSON.stringify(user)}
+  Here is the current user's information:
+  - Name: ${user.name}
+  - User ID: ${user.id}
+  - Base Currency: ${user.baseCurrency}
+  - Portfolio Goal: ${user.portfolioGoal}
+  - Current Liabilities: ${user.currentLiabilities}
 
   Always respond with a helpful, polite, and application-aware tone.
   `
