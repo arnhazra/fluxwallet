@@ -21,10 +21,10 @@ const initialState: AppState = {
     portfolioGoal: null,
     reduceCarbonEmissions: true,
     role: "",
+    currentLiabilities: 0,
   },
   subscription: null,
   isSubscriptionActive: false,
-  searchQuery: "",
 }
 
 const AppContext = createContext<AppContextInterface>([
