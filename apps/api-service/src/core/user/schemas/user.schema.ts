@@ -23,6 +23,9 @@ export class User extends Document {
   @Prop({ default: null })
   portfolioGoal: number | null
 
+  @Prop({ default: 0 })
+  currentLiabilities: number
+
   @Prop({ type: Boolean, default: true })
   reduceCarbonEmissions: boolean
 

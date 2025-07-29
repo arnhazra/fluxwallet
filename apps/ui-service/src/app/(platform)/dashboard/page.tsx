@@ -7,7 +7,13 @@ import {
   PortfolioCard,
   AddPortfolioCard,
 } from "@/shared/components/portfoliocard"
-import { PenIcon, PieChart, Target, TrendingUp } from "lucide-react"
+import {
+  ChartCandlestick,
+  PenIcon,
+  PieChart,
+  Target,
+  TrendingUp,
+} from "lucide-react"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { useEffect, useState } from "react"
 import { formatCurrency } from "@/shared/lib/format-currency"
@@ -67,6 +73,25 @@ export default function Page() {
     }
   }
 
+  const editLiabilities = async () => {
+    const { hasConfirmed, value } = await prompt("Total Liabilities")
+
+    if (hasConfirmed) {
+      try {
+        dispatch("setUser", { currentLiabilities: value })
+        await ky.patch(endPoints.updateAttribute, {
+          json: {
+            attributeName: "currentLiabilities",
+            attributeValue: Number(value),
+          },
+          timeout: FETCH_TIMEOUT,
+        })
+      } catch (error) {
+        notify(uiConstants.genericError, "error")
+      }
+    }
+  }
+
   return (
     <div className="mx-auto grid w-full items-start gap-6">
       <section>
@@ -79,9 +104,7 @@ export default function Page() {
                     <div className="p-2 bg-green-500/20 rounded-lg">
                       <PieChart className="h-5 w-5 text-primary" />
                     </div>
-                    <span className="text-sm text-gray-400">
-                      Total Portfolio
-                    </span>
+                    <span className="text-sm text-gray-400">Total Assets</span>
                   </div>
                 </div>
                 <div className="space-y-3">
@@ -92,6 +115,9 @@ export default function Page() {
                     )}
                   </p>
                   <p className="text-sm text-gray-400">Portfolio Valuation</p>
+                  <span className="text-sm text-gray-400">
+                    Across {portfolios.data?.length} active portfolios
+                  </span>
                 </div>
                 <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -translate-y-10 translate-x-10"></div>
               </CardContent>
@@ -101,24 +127,33 @@ export default function Page() {
                 <div className="flex items-center justify-between mb-2">
                   <div className="flex items-center gap-2">
                     <div className="p-2 bg-green-500/20 rounded-lg">
-                      <TrendingUp className="h-5 w-5 text-green-400" />
+                      <ChartCandlestick className="h-5 w-5 text-green-400" />
                     </div>
                     <span className="text-sm text-gray-400">
-                      Active Portfolios
+                      Total Liabilities
                     </span>
                   </div>
+                  <Button
+                    onClick={editLiabilities}
+                    size="icon"
+                    className="p-2 bg-green-500/20 rounded-lg"
+                  >
+                    <PenIcon className="text-green-400 h-4 w-4" />
+                  </Button>
                 </div>
                 <div className="space-y-3">
                   <p className="text-3xl font-bold text-white">
-                    {portfolios?.data?.length}
+                    {formatCurrency(user.currentLiabilities, user.baseCurrency)}
                   </p>
-                  <div className="flex items-center gap-2">
+                  <div className="space-y-2">
+                    <p className="text-sm text-gray-400">
+                      Your total liabilities
+                    </p>
                     <span className="text-sm text-gray-400">
-                      Total number of portfolios
+                      This is the amount you owe
                     </span>
                   </div>
                 </div>
-                <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -translate-y-10 translate-x-10"></div>
               </CardContent>
             </Card>
             <Card className="bg-background border-none relative overflow-hidden">

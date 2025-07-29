@@ -202,6 +202,7 @@ export type User = {
   portfolioGoal: number | null
   reduceCarbonEmissions: boolean
   activityLog: boolean
+  currentLiabilities: number
   createdAt: string
 }
 
