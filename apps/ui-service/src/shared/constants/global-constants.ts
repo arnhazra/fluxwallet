@@ -17,8 +17,8 @@ export const uiConstants = {
   notification: "Notifications",
   copiedToClipBoard: "Copied to clipboard!",
   invalidOTP: "The OTP you entered is incorrect.",
-  getStartedButton: "Start Now",
-  authVerificationSuccess: "You're all set!",
+  getStartedButton: "Get Started",
+  assetDeleted: "Successfully deleted the asset",
   linkedinURI: "https://www.linkedin.com/in/arnhazra",
   confirmDescription:
     "This action cannot be undone. Click continue to proceed, or cancel to go back.",

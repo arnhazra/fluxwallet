@@ -88,7 +88,9 @@ export class CreateAssetRequestDto {
   valuationOnPurchase?: number
 
   @ValidateIf((o) =>
-    [AssetType.EPF, AssetType.PPF, AssetType.CASH].includes(o.assetType)
+    [AssetType.EPF, AssetType.PPF, AssetType.CASH, AssetType.METAL].includes(
+      o.assetType
+    )
   )
   @IsNumber()
   currentValuation?: number

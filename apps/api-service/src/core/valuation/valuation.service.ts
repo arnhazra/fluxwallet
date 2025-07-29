@@ -48,7 +48,7 @@ export class ValuationService {
           return asset.valuationOnPurchase
 
         case AssetType.METAL:
-          return asset.valuationOnPurchase
+          return asset.currentValuation
 
         case AssetType.OTHER:
           return asset.valuationOnPurchase

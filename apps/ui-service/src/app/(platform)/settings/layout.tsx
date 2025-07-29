@@ -5,7 +5,6 @@ import { CalendarClock, Info, Leaf, ShieldCheck, User } from "lucide-react"
 import { Tabs, tabsList } from "./data"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useAppContext } from "@/context/appstate.provider"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
@@ -17,9 +16,8 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
 }
 
 export default function SetingsLayout({ children }: { children: ReactNode }) {
-  const [{ user }, dispatch] = useAppContext()
+  const [{ user }] = useAppContext()
   const pathname = usePathname()
-  const { confirm } = useConfirmContext()
 
   const renderTabs = tabsList.map((tab: Tabs) => {
     return (

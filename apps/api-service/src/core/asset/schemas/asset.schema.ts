@@ -51,7 +51,7 @@ export class Asset extends Document {
   valuationOnPurchase?: number // PROPERTY, BOND, METAL, OTHER
 
   @Prop()
-  currentValuation?: number // EPF, PPF, CASH
+  currentValuation?: number // EPF, PPF, CASH, METAL
 
   @Prop()
   units?: number // EQUITY, CRYPTO
