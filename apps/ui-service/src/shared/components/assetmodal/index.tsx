@@ -40,6 +40,7 @@ export function AssetModal({ assetId, children }: AssetModalProps) {
     queryUrl: `${endPoints.asset}/${assetId}`,
     method: HTTPMethods.GET,
     suspense: false,
+    enabled: open,
   })
 
   const deleteAsset = async (): Promise<void> => {
@@ -86,7 +87,8 @@ export function AssetModal({ assetId, children }: AssetModalProps) {
               .filter(([key]) => !excludedKeys.includes(key))
               .map(([key, value]) => (
                 <div key={key}>
-                  <strong>{formatKey(key)}:</strong> {formatValue(value)}
+                  <strong>{formatKey(key)}:</strong>{" "}
+                  {formatValue(value, key.includes("Date"))}
                 </div>
               ))}
           </ul>

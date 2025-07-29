@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.1
+
+- Bug fixes & performance improvements
+- Added liability support
+- Better training for intelligence model
+
 ## v1.0
 
 - Added homepage
