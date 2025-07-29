@@ -1,8 +1,8 @@
 "use client"
 import { useState, useRef, useEffect } from "react"
-import { Button } from "@/shared/components//ui/button"
-import { Input } from "@/shared/components//ui/input"
-import { ScrollArea } from "@/shared/components//ui/scroll-area"
+import { Button } from "@/shared/components/ui/button"
+import { Input } from "@/shared/components/ui/input"
+import { ScrollArea } from "@/shared/components/ui/scroll-area"
 import { X, Send, Bot, User, Atom } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
@@ -65,7 +65,6 @@ export default function Intelligence() {
         setThreadId((res as any).threadId)
       }
 
-      // Add placeholder for streaming
       setMessages((prevMessages) => [...prevMessages, ""])
 
       streamResponseText(res?.response ?? "", (chunk) => {
