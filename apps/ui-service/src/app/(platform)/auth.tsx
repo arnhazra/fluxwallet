@@ -2,7 +2,6 @@
 import { appName, uiConstants } from "@/shared/constants/global-constants"
 import ky from "ky"
 import { useState } from "react"
-import { toast } from "sonner"
 import Show from "@/shared/components/show"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
@@ -18,7 +17,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import Header from "@/shared/components/header"
-import { Bell } from "lucide-react"
+import notify from "@/shared/hooks/use-notify"
 
 interface AuthProviderProps {
   onAuthorized: (isAuthorized: boolean) => void
@@ -47,10 +46,7 @@ export default function AuthenticationPage({
       setNewUser(response.newUser)
       setAuthStep(2)
     } catch (error) {
-      toast(uiConstants.notification, {
-        icon: <Bell className="scale-75" />,
-        description: uiConstants.connectionErrorMessage,
-      })
+      notify(uiConstants.connectionErrorMessage, "error")
     } finally {
       setAuthLoading(false)
     }
@@ -72,10 +68,7 @@ export default function AuthenticationPage({
       localStorage.setItem("refreshToken", response.refreshToken)
       onAuthorized(true)
     } catch (error: any) {
-      toast(uiConstants.notification, {
-        icon: <Bell className="scale-75" />,
-        description: uiConstants.invalidOTP,
-      })
+      notify(uiConstants.invalidOTP, "error")
       onAuthorized(false)
     } finally {
       setAuthLoading(false)

@@ -7,7 +7,7 @@ import {
   PortfolioCard,
   AddPortfolioCard,
 } from "@/shared/components/portfoliocard"
-import { Bell, PenIcon, PieChart, Target, TrendingUp } from "lucide-react"
+import { PenIcon, PieChart, Target, TrendingUp } from "lucide-react"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { useEffect, useState } from "react"
 import { formatCurrency } from "@/shared/lib/format-currency"
@@ -15,10 +15,10 @@ import { Button } from "@/shared/components/ui/button"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { toast } from "sonner"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { useAppContext } from "@/context/appstate.provider"
 import Show from "@/shared/components/show"
+import notify from "@/shared/hooks/use-notify"
 
 export default function Page() {
   const [{ user }, dispatch] = useAppContext()
@@ -62,10 +62,7 @@ export default function Page() {
           timeout: FETCH_TIMEOUT,
         })
       } catch (error) {
-        toast(uiConstants.notification, {
-          icon: <Bell className="scale-75" />,
-          description: uiConstants.toastError,
-        })
+        notify(uiConstants.genericError, "error")
       }
     }
   }

@@ -3,18 +3,17 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import ky from "ky"
 import { ReactNode, useState } from "react"
-import { toast } from "sonner"
 import Show from "@/shared/components/show"
 import AuthProvider from "./auth"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { Subscription, User } from "@/shared/types"
 import Loading from "../loading"
 import { useQuery } from "@tanstack/react-query"
-import { Bell } from "lucide-react"
 import Sidebar from "@/shared/components/sidebar"
 import { useAppContext } from "@/context/appstate.provider"
 import Intelligence from "@/shared/components/intelligence"
 import { SubscriptionModal } from "@/shared/components/subscriptionmodal"
+import notify from "@/shared/hooks/use-notify"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [, dispatch] = useAppContext()
@@ -42,16 +41,10 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
           if (error.response.status === 401) {
             setAuthorized(false)
           } else {
-            toast(uiConstants.notification, {
-              icon: <Bell className="scale-75" />,
-              description: uiConstants.connectionErrorMessage,
-            })
+            notify(uiConstants.connectionErrorMessage, "error")
           }
         } else {
-          toast(uiConstants.notification, {
-            icon: <Bell className="scale-75" />,
-            description: uiConstants.toastError,
-          })
+          notify(uiConstants.genericError, "error")
         }
       } finally {
         return null

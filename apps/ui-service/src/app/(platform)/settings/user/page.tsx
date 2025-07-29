@@ -2,9 +2,8 @@
 import CopyToClipboard from "@/shared/components/copy"
 import SectionPanel from "../../../../shared/components/sectionpanel"
 import { Button } from "@/shared/components/ui/button"
-import { toast } from "sonner"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import { appName, uiConstants } from "@/shared/constants/global-constants"
+import { appName } from "@/shared/constants/global-constants"
 import { useAppContext } from "@/context/appstate.provider"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
@@ -13,7 +12,6 @@ import {
   IdCard,
   AtSign,
   CircleArrowRight,
-  Bell,
   DollarSign,
 } from "lucide-react"
 import EditCurrency from "@/shared/components/editcurrency"
@@ -29,10 +27,8 @@ export default function Page() {
       localStorage.clear()
       window.location.replace("/")
     } catch (error) {
-      toast(uiConstants.notification, {
-        icon: <Bell className="scale-75" />,
-        description: uiConstants.toastError,
-      })
+      localStorage.clear()
+      window.location.replace("/")
     }
   }
 

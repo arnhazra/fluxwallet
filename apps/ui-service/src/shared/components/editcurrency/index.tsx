@@ -1,6 +1,6 @@
 import { Currency } from "@/shared/types"
 import { Button } from "../ui/button"
-import { Bell, PenIcon } from "lucide-react"
+import { PenIcon } from "lucide-react"
 import { useState } from "react"
 import {
   DialogHeader,
@@ -21,8 +21,8 @@ import { useAppContext } from "@/context/appstate.provider"
 import ky from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { toast } from "sonner"
 import { uiConstants } from "@/shared/constants/global-constants"
+import notify from "@/shared/hooks/use-notify"
 
 export default function EditCurrency({
   baseCurrency,
@@ -45,10 +45,7 @@ export default function EditCurrency({
       })
       setOpen(false)
     } catch (error) {
-      toast(uiConstants.notification, {
-        icon: <Bell className="scale-75" />,
-        description: uiConstants.toastError,
-      })
+      notify(uiConstants.genericError, "error")
     }
   }
 
