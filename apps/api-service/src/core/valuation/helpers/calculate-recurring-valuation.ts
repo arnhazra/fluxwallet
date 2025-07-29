@@ -20,7 +20,7 @@ export default function calculateRecurringValuation(args: FnArgs): number {
   const today = new Date()
   const effectiveDate = today > maturityDate ? maturityDate : today
   const diffInMs = effectiveDate.getTime() - startDate.getTime()
-  if (diffInMs <= 0) return 0
+  if (diffInMs < 0) return 0
   const days = diffInMs / (1000 * 60 * 60 * 24)
   const years = days / 365
   let n: number
@@ -44,7 +44,7 @@ export default function calculateRecurringValuation(args: FnArgs): number {
 
   const r = expectedReturnRate / 100
   const totalPeriods = Math.floor(n * years)
-  if (totalPeriods <= 0) return 0
+  if (totalPeriods === 0) return contributionAmount
   const ratePerPeriod = r / n
   const amount =
     contributionAmount *
