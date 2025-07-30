@@ -10,7 +10,14 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import { X, Bot, User, Sparkles, ArrowUp, BrainIcon } from "lucide-react"
+import {
+  PanelRightClose,
+  Bot,
+  User,
+  Sparkles,
+  ArrowUp,
+  BrainIcon,
+} from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -117,34 +124,24 @@ export default function Intelligence() {
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
-        {/* Header */}
         <div className="flex items-center justify-between p-4 border-none">
-          <div className="flex items-center space-x-2">
-            <Sparkles className="h-6 w-6 text-primary" />
-            <h2 className="text-md font-semibold text-white">
-              {appName} Intelligence
-            </h2>
-          </div>
           <Button
             variant="ghost"
             size="sm"
             onClick={() => setIsOpen(false)}
             className="text-zinc-400 hover:text-white bg-none hover:bg-background"
           >
-            <X className="h-5 w-5" />
+            <PanelRightClose className="h-5 w-5" />
           </Button>
         </div>
 
-        {/* Scrollable Message Area */}
         <ScrollArea className="flex-1 p-4 overflow-y-auto">
           <div className="space-y-4">
             {messages.length === 0 && (
               <div className="text-center mt-8">
                 <Sparkles className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <p className="text-primary">{appName} Intelligence</p>
-                <p className="text-sm mt-2 text-white">
-                  I can assist you today regarding your portfolio
-                </p>
+                <p className="text-sm mt-2 text-white">Ask me anything</p>
               </div>
             )}
 
@@ -218,7 +215,6 @@ export default function Intelligence() {
           </div>
         </ScrollArea>
 
-        {/* Input area */}
         <div className="p-4 border-none">
           <form onSubmit={hitAPI}>
             <div className="w-full max-w-4xl mx-auto">
