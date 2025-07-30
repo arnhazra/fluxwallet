@@ -4,7 +4,7 @@ export const uiConstants = {
   homeHeader: "Invest for future",
   homeIntro:
     "Effortlessly manage your wealth — track assets, monitor net worth, and unlock real-time insights.",
-  homePricing: "Enjoy your first year free. Just $29/year after that.",
+  homePricing: "Enjoy your first year for FREE. Just $29/year afterwards.",
   connectionErrorMessage: "Unable to connect. Please check your internet.",
   authVerificationMessage: "Checking your credentials",
   errorMessage: "Page not found",
@@ -17,7 +17,7 @@ export const uiConstants = {
   notification: "Notification",
   copiedToClipBoard: "Copied to clipboard!",
   invalidOTP: "The OTP you entered is incorrect.",
-  getStartedButton: "Get Started",
+  getStartedButton: "Start Free",
   assetDeleted: "Successfully deleted the asset",
   linkedinURI: "https://www.linkedin.com/in/arnhazra",
   confirmDescription:

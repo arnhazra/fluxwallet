@@ -11,7 +11,7 @@ import {
 } from "./user.util"
 import { prodUIURI } from "@/shared/constants/other-constants"
 import { statusMessages } from "@/shared/constants/status-messages"
-import { EventEmitter2 } from "@nestjs/event-emitter"
+import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
@@ -177,6 +177,7 @@ export class UserService {
     }
   }
 
+  @OnEvent(EventMap.UpdateAttribute)
   async updateAttribute(
     userId: string,
     attributeName: keyof User,

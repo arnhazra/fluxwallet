@@ -1,4 +1,5 @@
 import { Portfolio } from "@/core/portfolio/schemas/portfolio.schema"
+import { Currency } from "@/shared/constants/types"
 import { EventMap } from "@/shared/utils/event.map"
 import { tool } from "@langchain/core/tools"
 import { Injectable } from "@nestjs/common"
@@ -128,6 +129,42 @@ export class IntelligenceAgent {
         institutionType: z
           .string()
           .describe("institution type given by the user"),
+      }),
+    }
+  )
+
+  private async changeBaseCurrency(userId: string, baseCurrency: Currency) {
+    await this.eventEmitter.emitAsync(
+      EventMap.UpdateAttribute,
+      userId,
+      "baseCurrency",
+      baseCurrency
+    )
+  }
+
+  public changeBaseCurrencyAgent = tool(
+    async ({
+      userId,
+      baseCurrency,
+    }: {
+      userId: string
+      baseCurrency: Currency
+    }) => {
+      try {
+        await this.changeBaseCurrency(userId, baseCurrency)
+        return "success"
+      } catch (error) {
+        return "failure"
+      }
+    },
+    {
+      name: "change_base_currency",
+      description: "Change base currency for a user",
+      schema: z.object({
+        userId: z.string().describe("_id of the user"),
+        baseCurrency: z
+          .string()
+          .describe("new base currency name given by the user"),
       }),
     }
   )
