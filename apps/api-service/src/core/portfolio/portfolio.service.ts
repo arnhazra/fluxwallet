@@ -80,9 +80,18 @@ export class PortfolioService {
   @OnEvent(EventMap.FindPortfolioByName)
   async findPortfolioByName(reqUserId: string, portfolioName: string) {
     try {
-      return await this.queryBus.execute<FindPortfolioByNameQuery, Portfolio>(
-        new FindPortfolioByNameQuery(reqUserId, portfolioName)
+      const portfolio = await this.queryBus.execute<
+        FindPortfolioByNameQuery,
+        Portfolio
+      >(new FindPortfolioByNameQuery(reqUserId, portfolioName))
+
+      const valuation = await this.valuationService.calculatePortfolioValuation(
+        portfolio._id.toString()
       )
+      return {
+        ...(portfolio.toObject?.() ?? portfolio),
+        presentValuation: valuation,
+      }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

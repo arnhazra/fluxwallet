@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3
+
+- Added simplified logic for present valuation caluclation on the fly
+- Removed unnecessary api call to calculate present valuation
+- Simplified agent logics
+
 ## v1.2
 
 - Fixed Reccurring calculation issue

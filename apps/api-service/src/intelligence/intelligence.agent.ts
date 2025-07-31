@@ -10,17 +10,16 @@ import { z } from "zod"
 export class IntelligenceAgent {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
-  private async getTotalValuation(userId: string): Promise<number> {
-    const valuation: number = (
-      await this.eventEmitter.emitAsync(EventMap.GetTotalPortfolio, userId)
-    ).shift()
-    return valuation
-  }
-
   public getTotalValuationAgent = tool(
     async ({ userId }: { userId: string }) => {
-      const valuation = await this.getTotalValuation(userId)
-      return `Total valuation is ${valuation}`
+      try {
+        const valuation: number = (
+          await this.eventEmitter.emitAsync(EventMap.GetTotalPortfolio, userId)
+        ).shift()
+        return `Total valuation is ${valuation}`
+      } catch (error) {
+        return "Unable to get total valuation"
+      }
     },
     {
       name: "get_total_portfolio_valuation_by_userid",
@@ -31,29 +30,6 @@ export class IntelligenceAgent {
     }
   )
 
-  private async getPortfolioValuation(
-    userId: string,
-    portfolioName: string
-  ): Promise<number> {
-    const portfolio: Portfolio = (
-      await this.eventEmitter.emitAsync(
-        EventMap.FindPortfolioByName,
-        userId,
-        portfolioName
-      )
-    ).shift()
-
-    const valuation: number = (
-      await this.eventEmitter.emitAsync(
-        EventMap.GetPortfolioValuation,
-        userId,
-        String(portfolio._id)
-      )
-    ).shift()
-
-    return valuation
-  }
-
   public getPortfolioValuationAgent = tool(
     async ({
       userId,
@@ -62,8 +38,19 @@ export class IntelligenceAgent {
       userId: string
       portfolioName: string
     }) => {
-      const valuation = await this.getPortfolioValuation(userId, portfolioName)
-      return `Valuation is ${valuation}`
+      try {
+        const portfolio: any = (
+          await this.eventEmitter.emitAsync(
+            EventMap.FindPortfolioByName,
+            userId,
+            portfolioName
+          )
+        ).shift()
+        const valuation = portfolio.presentValuation ?? 0
+        return `Valuation is ${valuation}`
+      } catch (error) {
+        return "Unable to get the valuation"
+      }
     },
     {
       name: "get_portfolio_valuation_by_portfolio_name",
@@ -75,18 +62,18 @@ export class IntelligenceAgent {
     }
   )
 
-  private async getPortfolioList(userId: string): Promise<string> {
-    const portfolios: Portfolio[] = await this.eventEmitter.emitAsync(
-      EventMap.GetPortfolioList,
-      userId
-    )
-
-    return JSON.stringify(portfolios)
-  }
-
   public getPortfolioListAgent = tool(
     async ({ userId }: { userId: string }) => {
-      return await this.getPortfolioList(userId)
+      try {
+        const portfolios: Portfolio[] = await this.eventEmitter.emitAsync(
+          EventMap.GetPortfolioList,
+          userId
+        )
+
+        return JSON.stringify(portfolios)
+      } catch (error) {
+        return "Unable to get the portfolio list"
+      }
     },
     {
       name: "get_portfolio-list",
@@ -96,17 +83,6 @@ export class IntelligenceAgent {
       }),
     }
   )
-
-  private async createPortfolio(
-    userId: string,
-    portfolioName: string,
-    institutionType: string
-  ) {
-    await this.eventEmitter.emitAsync(EventMap.CreatePortfolio, userId, {
-      portfolioName,
-      institutionType,
-    })
-  }
 
   public createPortfolioAgent = tool(
     async ({
@@ -118,7 +94,15 @@ export class IntelligenceAgent {
       portfolioName: string
       institutionType: string
     }) => {
-      await this.createPortfolio(userId, portfolioName, institutionType)
+      try {
+        await this.eventEmitter.emitAsync(EventMap.CreatePortfolio, userId, {
+          portfolioName,
+          institutionType,
+        })
+        return "Portfolio created successfully"
+      } catch (error) {
+        return "Failed to create the portfolio"
+      }
     },
     {
       name: "create_a_portfolio",
@@ -133,15 +117,6 @@ export class IntelligenceAgent {
     }
   )
 
-  private async changeBaseCurrency(userId: string, baseCurrency: Currency) {
-    await this.eventEmitter.emitAsync(
-      EventMap.UpdateAttribute,
-      userId,
-      "baseCurrency",
-      baseCurrency
-    )
-  }
-
   public changeBaseCurrencyAgent = tool(
     async ({
       userId,
@@ -151,7 +126,12 @@ export class IntelligenceAgent {
       baseCurrency: Currency
     }) => {
       try {
-        await this.changeBaseCurrency(userId, baseCurrency)
+        await this.eventEmitter.emitAsync(
+          EventMap.UpdateAttribute,
+          userId,
+          "baseCurrency",
+          baseCurrency
+        )
         return "success"
       } catch (error) {
         return "failure"
