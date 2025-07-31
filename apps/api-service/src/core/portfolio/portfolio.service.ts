@@ -11,12 +11,14 @@ import { UpdatePortfolioCommand } from "./commands/impl/update-portfolio.command
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
 import { FindPortfolioByNameQuery } from "./queries/impl/find-portfolio-by-name.query"
+import { ValuationService } from "../valuation/valuation.service"
 
 @Injectable()
 export class PortfolioService {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
+    private readonly valuationService: ValuationService
   ) {}
 
   @OnEvent(EventMap.CreatePortfolio)
@@ -35,13 +37,26 @@ export class PortfolioService {
 
   @OnEvent(EventMap.GetPortfolioList)
   async findMyPortfolios(userId: string) {
-    try {
-      return await this.queryBus.execute<FindAllPortfolioQuery, Portfolio[]>(
-        new FindAllPortfolioQuery(userId)
-      )
-    } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
+    const portfolios = await this.queryBus.execute<
+      FindAllPortfolioQuery,
+      Portfolio[]
+    >(new FindAllPortfolioQuery(userId))
+
+    const portfoliosWithValuation = await Promise.all(
+      portfolios.map(async (portfolio) => {
+        const valuation =
+          await this.valuationService.calculatePortfolioValuation(
+            userId,
+            portfolio._id.toString()
+          )
+        return {
+          ...(portfolio.toObject?.() ?? portfolio),
+          presentValuation: valuation,
+        }
+      })
+    )
+
+    return portfoliosWithValuation
   }
 
   async findPortfolioById(reqUserId: string, portfolioId: string) {

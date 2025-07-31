@@ -12,10 +12,12 @@ import { FindPortfolioByIdQueryHandler } from "./queries/handler/find-portfolio-
 import { EntityModule } from "@/shared/entity/entity.module"
 import { UpdatePortfolioCommandHandler } from "./commands/handler/update-portfolio.handler"
 import { FindPortfolioByNameQueryHandler } from "./queries/handler/find-portfolio-by-name.handler"
+import { ValuationModule } from "../valuation/valuation.module"
 
 @Module({
   imports: [
     CqrsModule,
+    ValuationModule,
     EntityModule.forFeature(
       [{ name: Portfolio.name, schema: PortfolioSchema }],
       DbConnectionMap.Primary

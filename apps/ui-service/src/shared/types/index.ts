@@ -251,6 +251,7 @@ export type Portfolio = {
   _id: string
   userId: string
   portfolioName: string
+  presentValuation: number | null | undefined
   institutionType: InstitutionType
   createdAt: string
 }

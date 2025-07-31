@@ -18,5 +18,6 @@ import { EntityModule } from "@/shared/entity/entity.module"
   ],
   controllers: [ValuationController],
   providers: [ValuationService, ValuationRepository, FindAssetByIdQueryHandler],
+  exports: [ValuationService],
 })
 export class ValuationModule {}
