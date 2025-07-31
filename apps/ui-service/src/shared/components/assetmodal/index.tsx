@@ -12,11 +12,13 @@ import { DialogDescription, DialogTrigger } from "@radix-ui/react-dialog"
 import { ReactNode, useState } from "react"
 import { Badge } from "../ui/badge"
 import { formatKey, formatValue } from "@/shared/lib/format-key-value"
-import { TrashIcon } from "lucide-react"
+import { Pen, Trash } from "lucide-react"
 import ky from "ky"
 import notify from "@/shared/hooks/use-notify"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
+import { useRouter } from "next/navigation"
+import { Button } from "../ui/button"
 
 interface AssetModalProps {
   assetId: string
@@ -34,6 +36,7 @@ const excludedKeys = [
 
 export function AssetModal({ assetId, children }: AssetModalProps) {
   const [open, setOpen] = useState(false)
+  const router = useRouter()
   const { confirm } = useConfirmContext()
   const assetDetails = useQuery<Asset>({
     queryKey: ["asset-details", assetId],
@@ -75,10 +78,19 @@ export function AssetModal({ assetId, children }: AssetModalProps) {
               </Badge>
               <DialogDescription></DialogDescription>
             </div>
-            <TrashIcon
-              onClick={deleteAsset}
-              className="h-5 w-5 text-secondary cursor-pointer"
-            />
+            <div className="flex gap-2">
+              <Button
+                onClick={(): void => router.push(`/edit/asset/${assetId}`)}
+                variant="default"
+                size="icon"
+                className="bg-border text-white"
+              >
+                <Pen className="scale-50" />
+              </Button>
+              <Button onClick={deleteAsset} variant="destructive" size="icon">
+                <Trash className="scale-50" />
+              </Button>
+            </div>
           </div>
         </DialogHeader>
         <div className="grid gap-6">
