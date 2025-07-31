@@ -137,7 +137,7 @@ export default function Intelligence() {
               <div className="text-center mt-8">
                 <BrainIcon className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <p className="text-primary">{appName} Intelligence</p>
-                <p className="text-sm mt-2 text-white">
+                <p className="text-sm mt-2 text-white p-6">
                   {appName} Intelligence is an agentic workflow powered by AI,
                   so mistakes are possible. Please use carefully.
                 </p>
