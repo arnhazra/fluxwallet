@@ -1,5 +1,4 @@
 "use client"
-import Header from "@/shared/components/header"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { SubscriptionConfig } from "@/shared/types"
@@ -18,6 +17,7 @@ import {
 } from "@/shared/components/safetycard"
 import { useRouter } from "next/navigation"
 import { useEffect, useState } from "react"
+import MarketingHeader from "@/shared/components/marketingheader"
 
 export default function Page() {
   const router = useRouter()
@@ -123,7 +123,7 @@ export default function Page() {
   return (
     <Show condition={!subscriptionPricing.isLoading} fallback={<Loading />}>
       <div className="min-h-screen w-full text-white">
-        <Header />
+        <MarketingHeader />
         {renderHeroSection}
         <section
           id="product"
