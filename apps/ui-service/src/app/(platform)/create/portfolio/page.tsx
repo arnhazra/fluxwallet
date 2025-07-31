@@ -127,7 +127,7 @@ export default function Page() {
                 type="submit"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Creating..." : "Create Portfolio"}
+                {isSubmitting ? "Creating..." : "Add Portfolio"}
               </Button>
             </div>
           </form>

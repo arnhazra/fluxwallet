@@ -19,7 +19,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select"
-import { DollarSign, TrendingUp, CalendarIcon } from "lucide-react"
+import { TrendingUp, CalendarIcon, BadgeDollarSign } from "lucide-react"
 import {
   Popover,
   PopoverContent,
@@ -168,7 +168,7 @@ export default function Page() {
         <Card className="bg-zinc-900 border-zinc-800">
           <CardHeader className="border-b border-zinc-800">
             <CardTitle className="flex items-center gap-2 text-zinc-100">
-              <DollarSign className="h-6 w-6 text-primary" />
+              <BadgeDollarSign className="h-6 w-6 text-primary" />
               Add New Asset
             </CardTitle>
             <CardDescription className="text-primary">

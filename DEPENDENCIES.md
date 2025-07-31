@@ -2,6 +2,7 @@
 
 - @aws-crypto/sha256-js: AWS Crypto library for computing SHA-256 hashes in JavaScript.
 - @langchain/openai: Langchain integration with OpenAI models for efficient indexing and querying.
+- @langchain/google-genai: Langchain integration with Gemini models for efficient indexing and querying.
 - @langchain/langgraph: Langgraph for langchain.
 - @nestjs: Fast backend framework for Node.js to build APIs, providing a robust structure for web applications.
 - class-transformer: Library for transforming plain JavaScript objects to class constructors and vice versa.

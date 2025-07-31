@@ -19,18 +19,17 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { Package } from "lucide-react"
-import { Currency, InstitutionType, Portfolio } from "@/shared/types"
+import { InstitutionType, Portfolio } from "@/shared/types"
 import ky from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 
-const currencies = Object.values(Currency)
 const institutions = Object.values(InstitutionType)
 
 interface PortfolioFormData {
   portfolioName: string
-  institutionType: InstitutionType
+  institutionType: InstitutionType | null
 }
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
@@ -46,7 +45,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const [alertMessage, setAlertMessage] = useState("")
   const [formData, setFormData] = useState<PortfolioFormData>({
     portfolioName: "",
-    institutionType: InstitutionType.BANK,
+    institutionType: null,
   })
 
   const handleInputChange = (field: keyof PortfolioFormData, value: string) => {
@@ -116,7 +115,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               <Label htmlFor="institutionType">Institution Type</Label>
               <Select
                 required
-                value={formData.institutionType}
+                value={
+                  formData.institutionType ?? portfolio?.data?.institutionType
+                }
                 onValueChange={(value) =>
                   handleInputChange("institutionType", value)
                 }

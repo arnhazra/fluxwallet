@@ -65,14 +65,19 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           actionComponents={[
             <Button
               onClick={(): void =>
-                router.push(`/portfolio/edit/${portfolioId}`)
+                router.push(`/edit/portfolio/${portfolioId}`)
               }
               variant="default"
+              size="icon"
               className="bg-border text-white"
             >
               <Pen className="scale-50" />
             </Button>,
-            <Button onClick={handleDeletePortfolio} variant="destructive">
+            <Button
+              onClick={handleDeletePortfolio}
+              variant="destructive"
+              size="icon"
+            >
               <Trash className="scale-50" />
             </Button>,
           ]}
