@@ -16,7 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/components/ui/card"
-import Header from "@/shared/components/header"
+import MarketingHeader from "@/shared/components/marketingheader"
 import notify from "@/shared/hooks/use-notify"
 
 interface AuthProviderProps {
@@ -77,7 +77,7 @@ export default function AuthenticationPage({
 
   return (
     <>
-      <Header />
+      <MarketingHeader />
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm bg-main border-none text-white">
           <CardHeader>

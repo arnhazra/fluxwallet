@@ -10,7 +10,7 @@ import {
 import { generalUserLinks } from "./data"
 import { appName } from "@/shared/constants/global-constants"
 
-export default function Header() {
+export default function MarketingHeader() {
   return (
     <header className="relative z-50 top-0 flex h-[64px] items-center bg-main text-white px-4 md:px-6">
       <div className="flex w-full items-center justify-between lg:container lg:max-w-[90rem]">

@@ -9,7 +9,7 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { Subscription, User } from "@/shared/types"
 import Loading from "../loading"
 import { useQuery } from "@tanstack/react-query"
-import Sidebar from "@/shared/components/sidebar"
+import PlatformHeader from "@/shared/components/platformheader"
 import { useAppContext } from "@/context/appstate.provider"
 import Intelligence from "@/shared/components/intelligence"
 import { SubscriptionModal } from "@/shared/components/subscriptionmodal"
@@ -62,7 +62,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   const appLayout = (
     <div className="min-h-screen w-full text-white hero-landing relative">
-      <Sidebar />
+      <PlatformHeader />
       <div className="w-full px-4 sm:container sm:max-w-[90rem] mt-4">
         {children}
       </div>
