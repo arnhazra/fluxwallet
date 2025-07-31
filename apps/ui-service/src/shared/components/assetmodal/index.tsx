@@ -18,6 +18,7 @@ import { uiConstants } from "@/shared/constants/global-constants"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useRouter } from "next/navigation"
 import { Button } from "../ui/button"
+import { useAppContext } from "@/context/appstate.provider"
 
 interface AssetModalProps {
   assetDetails: Asset
@@ -36,6 +37,7 @@ const excludedKeys = [
 export function AssetModal({ assetDetails, children }: AssetModalProps) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
+  const [{ user }] = useAppContext()
   const { confirm } = useConfirmContext()
 
   const deleteAsset = async (): Promise<void> => {
@@ -53,6 +55,17 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
       }
     }
   }
+
+  const amountKeys = new Set<keyof Asset>([
+    "amountInvested",
+    "contributionAmount",
+    "currentValuation",
+    "presentValuation",
+    "unitPurchasePrice",
+    "valuationOnPurchase",
+  ])
+
+  const isAmount = (key: keyof Asset): boolean => amountKeys.has(key)
 
   return (
     <Dialog open={open}>
@@ -94,9 +107,15 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
             {Object.entries(assetDetails ?? {})
               .filter(([key]) => !excludedKeys.includes(key))
               .map(([key, value]) => (
-                <div key={key}>
-                  <strong>{formatKey(key)}:</strong>{" "}
-                  {formatValue(value, key.includes("Date"))}
+                <div key={key} className="flex justify-between items-center">
+                  <strong>{formatKey(key)}</strong>{" "}
+                  {formatValue(
+                    value,
+                    key.includes("Date"),
+                    isAmount(key as keyof Asset),
+                    user.baseCurrency,
+                    key.includes("Rate")
+                  )}
                 </div>
               ))}
           </ul>

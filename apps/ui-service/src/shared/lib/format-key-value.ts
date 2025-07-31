@@ -1,4 +1,6 @@
 import { format, parseISO, isValid } from "date-fns"
+import { formatCurrency } from "./format-currency"
+import { Currency } from "../types"
 
 export const excludedKeys = [
   "_id",
@@ -14,12 +16,26 @@ export function formatKey(key: string) {
     .replace(/^./, (str) => str.toUpperCase())
 }
 
-export function formatValue(value: any, date: boolean) {
+export function formatValue(
+  value: any,
+  isDate: boolean,
+  isCurrency: boolean,
+  baseCurrency: Currency,
+  isPercentage: boolean
+) {
   if (typeof value === "boolean") {
     return value ? "Yes" : "No"
   }
 
-  if (date && typeof value === "string") {
+  if (isCurrency) {
+    return formatCurrency(value, baseCurrency)
+  }
+
+  if (isPercentage) {
+    return `${Number(value).toFixed(2)} %`
+  }
+
+  if (isDate && typeof value === "string") {
     const parsed = parseISO(value)
     if (isValid(parsed)) {
       return format(parsed, "dd MMM yyyy")
