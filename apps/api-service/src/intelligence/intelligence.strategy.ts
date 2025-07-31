@@ -37,6 +37,8 @@ export class IntelligenceStrategy {
         this.agent.getPortfolioValuationAgent,
         this.agent.getPortfolioListAgent,
         this.agent.changeBaseCurrencyAgent,
+        this.agent.updateLiabilityAgent,
+        this.agent.updatePortfolioGoalAgent,
       ],
     })
 
