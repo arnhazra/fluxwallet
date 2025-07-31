@@ -263,6 +263,7 @@ export type Asset = {
   assetType: AssetType
   assetName: string
   identifier: string
+  presentValuation: number | null | undefined
   startDate?: Date // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
   maturityDate?: Date // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
   amountInvested?: number // FD, MUTUAL_FUND, LUMPSUM

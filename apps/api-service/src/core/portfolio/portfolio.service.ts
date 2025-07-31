@@ -46,7 +46,6 @@ export class PortfolioService {
       portfolios.map(async (portfolio) => {
         const valuation =
           await this.valuationService.calculatePortfolioValuation(
-            userId,
             portfolio._id.toString()
           )
         return {
@@ -61,9 +60,18 @@ export class PortfolioService {
 
   async findPortfolioById(reqUserId: string, portfolioId: string) {
     try {
-      return await this.queryBus.execute<FindPortfolioByIdQuery, Portfolio>(
-        new FindPortfolioByIdQuery(reqUserId, portfolioId)
+      const portfolio = await this.queryBus.execute<
+        FindPortfolioByIdQuery,
+        Portfolio
+      >(new FindPortfolioByIdQuery(reqUserId, portfolioId))
+
+      const valuation = await this.valuationService.calculatePortfolioValuation(
+        portfolio._id.toString()
       )
+      return {
+        ...(portfolio.toObject?.() ?? portfolio),
+        presentValuation: valuation,
+      }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

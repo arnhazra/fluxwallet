@@ -8,12 +8,14 @@ import { DeleteAssetCommand } from "./commands/impl/delete-asset.command"
 import { CreateAssetCommand } from "./commands/impl/create-asset.command"
 import { CreateAssetRequestDto } from "./dto/request/create-asset.request.dto"
 import { UpdateAssetCommand } from "./commands/impl/update-asset.command"
+import { ValuationService } from "../valuation/valuation.service"
 
 @Injectable()
 export class AssetService {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
+    private readonly valuationService: ValuationService
   ) {}
 
   async createAsset(userId: string, requestBody: CreateAssetRequestDto) {
@@ -28,8 +30,19 @@ export class AssetService {
 
   async findMyAssetsByPortfolioId(userId: string, portfolioId: string) {
     try {
-      return await this.queryBus.execute<FindAllAssetQuery, Asset[]>(
+      const assets = await this.queryBus.execute<FindAllAssetQuery, Asset[]>(
         new FindAllAssetQuery(userId, portfolioId)
+      )
+
+      return await Promise.all(
+        assets.map(async (asset) => {
+          const valuation =
+            await this.valuationService.calculateAssetValuation(asset)
+          return {
+            ...(asset.toObject?.() ?? asset),
+            presentValuation: valuation,
+          }
+        })
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
@@ -38,9 +51,16 @@ export class AssetService {
 
   async findAssetById(reqUserId: string, assetId: string) {
     try {
-      return await this.queryBus.execute<FindAssetByIdQuery, Asset>(
+      const asset = await this.queryBus.execute<FindAssetByIdQuery, Asset>(
         new FindAssetByIdQuery(reqUserId, assetId)
       )
+
+      const valuation =
+        await this.valuationService.calculateAssetValuation(asset)
+      return {
+        ...(asset.toObject?.() ?? asset),
+        presentValuation: valuation,
+      }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

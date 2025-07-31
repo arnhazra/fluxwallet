@@ -5,24 +5,16 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Asset, Valuation } from "@/shared/types"
+import { Asset } from "@/shared/types"
 import { Coins, Plus } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"
-import useQuery from "@/shared/hooks/use-query"
-import { endPoints } from "@/shared/constants/api-endpoints"
-import HTTPMethods from "@/shared/constants/http-methods"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { useAppContext } from "@/context/appstate.provider"
 import { AssetModal } from "../assetmodal"
 
 export function AssetCard({ asset }: { asset: Asset }) {
   const [{ user }] = useAppContext()
-  const { data } = useQuery<Valuation>({
-    queryKey: ["get-asset-valuation", asset._id],
-    queryUrl: `${endPoints.getAssetValuation}/${asset._id}`,
-    method: HTTPMethods.GET,
-  })
 
   return (
     <AssetModal assetId={asset._id} key={asset._id}>
@@ -50,7 +42,10 @@ export function AssetCard({ asset }: { asset: Asset }) {
             <div className="flex justify-between items-center">
               <span className="text-sm text-zinc-400">Present Valuation</span>
               <span className="text-lg font-bold text-primary">
-                {formatCurrency(data?.presentValuation ?? 0, user.baseCurrency)}
+                {formatCurrency(
+                  asset?.presentValuation ?? 0,
+                  user.baseCurrency
+                )}
               </span>
             </div>
           </div>

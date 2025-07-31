@@ -36,7 +36,7 @@ export function AssetModal({ assetId, children }: AssetModalProps) {
   const [open, setOpen] = useState(false)
   const { confirm } = useConfirmContext()
   const assetDetails = useQuery<Asset>({
-    queryKey: ["pricing-settings", assetId],
+    queryKey: ["asset-details", assetId],
     queryUrl: `${endPoints.asset}/${assetId}`,
     method: HTTPMethods.GET,
     suspense: false,

@@ -1,7 +1,4 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { statusMessages } from "@/shared/constants/status-messages"
-import { QueryBus } from "@nestjs/cqrs"
-import { FindAssetByIdQuery } from "./queries/impl/find-asset-by-id.query"
 import { Asset } from "../asset/schemas/asset.schema"
 import { AssetType } from "@/shared/constants/types"
 import calculateComplexValuation from "./helpers/calculate-complex-valuation"
@@ -13,24 +10,10 @@ import { EventMap } from "@/shared/utils/event.map"
 
 @Injectable()
 export class ValuationService {
-  constructor(
-    private readonly queryBus: QueryBus,
-    private readonly repository: ValuationRepository
-  ) {}
+  constructor(private readonly repository: ValuationRepository) {}
 
-  async findAssetById(reqUserId: string, assetId: string) {
+  async calculateAssetValuation(asset: Asset) {
     try {
-      return await this.queryBus.execute<FindAssetByIdQuery, Asset>(
-        new FindAssetByIdQuery(reqUserId, assetId)
-      )
-    } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
-  async calculateCurrentValuationByAssetId(reqUserId: string, assetId: string) {
-    try {
-      const asset = await this.findAssetById(reqUserId, assetId)
       switch (asset.assetType) {
         case AssetType.EPF:
           return asset.currentValuation
@@ -110,16 +93,14 @@ export class ValuationService {
   }
 
   @OnEvent(EventMap.GetPortfolioValuation)
-  async calculatePortfolioValuation(reqUserId: string, portfolioId: string) {
+  async calculatePortfolioValuation(portfolioId: string) {
     try {
       const assets = await this.repository.find({
         portfolioId: objectId(portfolioId),
       })
 
       const valuations = await Promise.all(
-        assets.map((asset) =>
-          this.calculateCurrentValuationByAssetId(reqUserId, String(asset._id))
-        )
+        assets.map((asset) => this.calculateAssetValuation(asset))
       )
       const total = valuations.reduce((sum, val) => sum + val, 0)
       return total
@@ -129,16 +110,14 @@ export class ValuationService {
   }
 
   @OnEvent(EventMap.GetTotalPortfolio)
-  async calculatTotalUserePortfolioValuation(reqUserId: string) {
+  async calculateTotalValuation(reqUserId: string) {
     try {
       const assets = await this.repository.find({
         userId: objectId(reqUserId),
       })
 
       const valuations = await Promise.all(
-        assets.map((asset) =>
-          this.calculateCurrentValuationByAssetId(reqUserId, String(asset._id))
-        )
+        assets.map((asset) => this.calculateAssetValuation(asset))
       )
       const total = valuations.reduce((sum, val) => sum + val, 0)
       return total

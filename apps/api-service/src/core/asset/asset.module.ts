@@ -11,10 +11,12 @@ import { FindAllAssetQueryHandler } from "./queries/handler/find-all-assets.hand
 import { FindAssetByIdQueryHandler } from "./queries/handler/find-asset-by-id.handler"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { UpdateAssetCommandHandler } from "./commands/handler/update-asset.handler"
+import { ValuationModule } from "../valuation/valuation.module"
 
 @Module({
   imports: [
     CqrsModule,
+    ValuationModule,
     EntityModule.forFeature(
       [{ name: Asset.name, schema: AssetSchema }],
       DbConnectionMap.Primary
