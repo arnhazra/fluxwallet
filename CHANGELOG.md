@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.2
+
+- Fixed Reccurring calculation issue
+- Added new agentic workflows
+- Added suggested prompts
+
 ## v1.1
 
 - Bug fixes & performance improvements

@@ -10,19 +10,15 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import {
-  PanelRightClose,
-  Bot,
-  User,
-  Sparkles,
-  ArrowUp,
-  BrainIcon,
-} from "lucide-react"
+import { PanelRightClose, Bot, User, ArrowUp, BrainIcon } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { appName } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "../markdown"
+import Show from "../show"
+import { suggestedPrompts } from "./suggested-prompts"
+import { Badge } from "../ui/badge"
 
 enum Model {
   Gemini = "gemini-2.5-flash-lite",
@@ -109,7 +105,7 @@ export default function Intelligence() {
         size="icon"
         className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary rounded-full"
       >
-        <Sparkles className="scale-75 text-white" />
+        <BrainIcon className="scale-75 text-white" />
       </Button>
 
       {isOpen && (
@@ -137,14 +133,30 @@ export default function Intelligence() {
 
         <ScrollArea className="flex-1 p-4 overflow-y-auto">
           <div className="space-y-4">
-            {messages.length === 0 && (
+            <Show condition={messages.length === 0}>
               <div className="text-center mt-8">
-                <Sparkles className="h-12 w-12 mx-auto mb-4 text-primary" />
+                <BrainIcon className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <p className="text-primary">{appName} Intelligence</p>
-                <p className="text-sm mt-2 text-white">Ask anything</p>
+                <p className="text-sm mt-2 text-white">
+                  {appName} Intelligence is an agentic workflow powered by AI,
+                  so mistakes are possible. Please use carefully.
+                </p>
+                <p className="text-sm mt-2 text-zinc-400 mb-4">
+                  Try these actions
+                </p>
+                {suggestedPrompts.map((item, index) => (
+                  <Badge
+                    key={index}
+                    className="text-primary ps-4 pe-4 p-2 mb-2 cursor-pointer"
+                    onClick={(e): void => {
+                      setPrompt(item)
+                    }}
+                  >
+                    {item}
+                  </Badge>
+                ))}
               </div>
-            )}
-
+            </Show>
             {messages.map((message, index) => (
               <div
                 key={index}
@@ -257,13 +269,13 @@ export default function Intelligence() {
                           value={Model.Gemini}
                           className="text-zinc-300 focus:bg-zinc-700 focus:text-white"
                         >
-                          Gemini
+                          Gemini 2.5
                         </SelectItem>
                         <SelectItem
                           value={Model.GPT}
                           className="text-zinc-300 focus:bg-zinc-700 focus:text-white"
                         >
-                          GPT
+                          GPT 4o
                         </SelectItem>
                       </SelectContent>
                     </Select>

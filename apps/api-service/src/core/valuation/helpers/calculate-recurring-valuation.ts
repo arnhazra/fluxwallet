@@ -43,8 +43,8 @@ export default function calculateRecurringValuation(args: FnArgs): number {
   }
 
   const r = expectedReturnRate / 100
-  const totalPeriods = Math.floor(n * years)
-  if (totalPeriods === 0) return contributionAmount
+  const totalPeriods = Math.floor(n * years) + 1
+  if (totalPeriods === 1) return contributionAmount
   const ratePerPeriod = r / n
   const amount =
     contributionAmount *
