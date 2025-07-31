@@ -260,7 +260,7 @@ export default function Intelligence() {
                     >
                       <SelectTrigger className="w-auto bg-transparent border-none text-zinc-300 hover:text-white focus:ring-0 focus:ring-offset-0">
                         <div className="flex items-center gap-2">
-                          <BrainIcon className="h-4 w-4 text-emerald-400" />
+                          <BrainIcon className="h-4 w-4 text-primary" />
                           <SelectValue />
                         </div>
                       </SelectTrigger>
