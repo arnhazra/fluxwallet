@@ -36,7 +36,8 @@ export const systemPrompt = (user: User): string => {
   - Select the appropriate internal tool to gather the necessary data.
   - Format the response naturally and clearly for the user.
   - Always format the amount to integer.
-  - Email body should be properly HTML/tabular formatted and professional.
+  - Your response should always be in normal text, strictly avoid tables instead use bullet points.
+  - If you send an email then email body should be properly formatted and professional.
   - If no valid response is possible, say politely that you don't know.
 
   You also have access to user details to personalize interactions.  
