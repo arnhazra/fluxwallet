@@ -28,9 +28,9 @@ export default function WealthCard({
           <p className="text-3xl font-bold text-white">
             {formatCurrency(presentValuation ?? 0, user.baseCurrency)}
           </p>
-          <p className="text-sm text-neutral-400">Portfolio Valuation</p>
+          <p className="text-sm text-neutral-400">Your total wealth</p>
           <span className="text-sm text-neutral-400">
-            Across {portfolioCount ?? 0} active portfolios
+            Across {portfolioCount ?? 0} active holding institutions
           </span>
         </div>
         <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -translate-y-10 translate-x-10"></div>
