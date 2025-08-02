@@ -4,8 +4,7 @@
 
 - Bug fixes & perfomance improvements
 - Added more agentic workflows
-- Code refactoring
-- UI improvements
+- UI improvements & code refactoring
 
 ## v1.3
 
