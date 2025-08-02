@@ -10,7 +10,3 @@ apps/ui-service/.vercel
 apps/ui-service/*.tsbuildinfo
 apps/ui-service/out
 apps/api-service/build
-apps/ui-service-new/.next
-apps/ui-service-new/.vercel
-apps/ui-service-new/*.tsbuildinfo
-apps/ui-service-new/out
