@@ -89,21 +89,21 @@ export function ControlCard() {
         <div className="space-y-4">
           <div className="w-16 h-16">
             <div className="w-16 h-8 bg-zinc-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-main rounded-b-full" />
+            <div className="w-16 h-8 bg-zinc-600 rounded-b-full" />
           </div>
           <div className="w-16 h-16">
             <div className="w-16 h-8 bg-zinc-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-main rounded-b-full" />
+            <div className="w-16 h-8 bg-zinc-600 rounded-b-full" />
           </div>
         </div>
         <div className="space-y-4">
           <div className="w-16 h-16">
             <div className="w-16 h-8 bg-zinc-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-main rounded-b-full" />
+            <div className="w-16 h-8 bg-zinc-600 rounded-b-full" />
           </div>
           <div className="w-16 h-16 relative">
             <div className="w-16 h-8 bg-zinc-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-main rounded-b-full" />
+            <div className="w-16 h-8 bg-zinc-600 rounded-b-full" />
             <div className="absolute bottom-0 right-0 bg-primary p-1 rounded-lg">
               <svg
                 width="16"
