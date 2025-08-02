@@ -257,7 +257,7 @@ export type Asset = {
   contributionAmount?: number // RD, SIP
   contributionFrequency?: RecurringFrequency // RD, SIP
   valuationOnPurchase?: number // PROPERTY, BOND, METAL, OTHER
-  currentValuation?: number // EPF, PPF, CASH
+  currentValuation?: number // EPF, PPF, CASH, PROPERTY, BOND, METAL, OTHER
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
 }

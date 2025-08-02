@@ -151,9 +151,15 @@ export default function Page() {
 
   const showCurrentValuation =
     formData.assetType &&
-    [AssetType.EPF, AssetType.PPF, AssetType.CASH, AssetType.METAL].includes(
-      formData.assetType as AssetType
-    )
+    [
+      AssetType.EPF,
+      AssetType.PPF,
+      AssetType.CASH,
+      AssetType.PROPERTY,
+      AssetType.BOND,
+      AssetType.METAL,
+      AssetType.OTHER,
+    ].includes(formData.assetType as AssetType)
 
   const showEquityFields =
     formData.assetType &&

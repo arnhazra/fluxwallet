@@ -25,16 +25,16 @@ export class ValuationService {
           return asset.currentValuation
 
         case AssetType.PROPERTY:
-          return asset.valuationOnPurchase
+          return asset.currentValuation
 
         case AssetType.BOND:
-          return asset.valuationOnPurchase
+          return asset.currentValuation
 
         case AssetType.METAL:
           return asset.currentValuation
 
         case AssetType.OTHER:
-          return asset.valuationOnPurchase
+          return asset.currentValuation
 
         case AssetType.FD:
           return calculateComplexValuation({
