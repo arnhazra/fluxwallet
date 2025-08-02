@@ -10,7 +10,7 @@ export const endPoints = {
   asset: `${apiHost}/asset`,
   getTotalWealth: `${apiHost}/valuation/wealth`,
   intelligence: `${apiHost}/intelligence`,
-  portfolio: `${apiHost}/portfolio`,
+  institution: `${apiHost}/portfolio`,
   getSubscriptionPricing: `${apiHost}/subscription/pricing`,
   createCheckoutSession: `${apiHost}/subscription/checkout`,
   generateOTP: `${apiHost}/user/generateotp`,

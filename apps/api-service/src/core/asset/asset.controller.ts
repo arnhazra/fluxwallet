@@ -34,7 +34,7 @@ export class AssetController {
   }
 
   @UseGuards(TokenGuard)
-  @Get("portfolio/:portfolioId")
+  @Get("institution/:institutionId")
   async findMyAssetsByPortfolioId(
     @Request() request: ModRequest,
     @Param() params: any
@@ -42,7 +42,7 @@ export class AssetController {
     try {
       return await this.service.findMyAssetsByPortfolioId(
         request.user.userId,
-        params.portfolioId
+        params.institutionId
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)

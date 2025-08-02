@@ -102,7 +102,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
   const portfolios = useQuery<Portfolio[]>({
     queryKey: ["get-portfolios-build-asset"],
-    queryUrl: endPoints.portfolio,
+    queryUrl: endPoints.institution,
     method: HTTPMethods.GET,
   })
 

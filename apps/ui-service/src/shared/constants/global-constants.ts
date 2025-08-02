@@ -11,9 +11,9 @@ export const uiConstants = {
   genericError: "Oops! Something went wrong.",
   subscriptionSuccess: "Subscription activated successfully!",
   subscriptionFailed: "Subscription activation failed. Please try again.",
-  portfolioDeleteWarning:
-    "Please delete all assets within the portfolio before removing it.",
-  portfolioDeleteFailed: "Unable to delete the portfolio.",
+  institutionDeleteWarning:
+    "Please delete all assets within the institution before removing it.",
+  institutionDeleteFailed: "Unable to delete the institution.",
   notification: "Notification",
   copiedToClipBoard: "Copied to clipboard!",
   invalidOTP: "The OTP you entered is incorrect.",

@@ -76,9 +76,9 @@ export default function GoalCard({
             <Show condition={!goalPercentage}>Set a Goal</Show>
           </p>
           <div className="space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-neutral-400">
-                Wealth Goal:{" "}
+            <div className="flex gap-1 text-sm">
+              <span className="text-neutral-400">Wealth Goal:</span>
+              <span className="text-primary">
                 {formatCurrency(user.portfolioGoal ?? 0, user.baseCurrency)}
               </span>
             </div>

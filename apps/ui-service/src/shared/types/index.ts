@@ -233,7 +233,7 @@ export type Thread = {
   createdAt: string
 }
 
-export type Portfolio = {
+export type Institution = {
   _id: string
   userId: string
   portfolioName: string

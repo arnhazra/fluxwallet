@@ -13,7 +13,7 @@ export function OverviewCard() {
           className="rounded-full text-white bg-primary hover:bg-primary"
         >
           <Check className="h-4 w-4 text-white" />
-          <span className="sr-only">Your finance portfolio</span>
+          <span className="sr-only">Your finance dashboard</span>
         </Button>
       </div>
       <div className="flex gap-8 mb-8 justify-center">

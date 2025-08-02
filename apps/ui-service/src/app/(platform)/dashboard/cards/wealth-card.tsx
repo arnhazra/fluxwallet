@@ -6,10 +6,10 @@ import { BanknoteIcon } from "lucide-react"
 
 export default function WealthCard({
   presentValuation,
-  portfolioCount,
+  institutionCount,
 }: {
   presentValuation: number | null | undefined
-  portfolioCount: number | null | undefined
+  institutionCount: number | null | undefined
 }) {
   const [{ user }] = useAppContext()
 
@@ -30,7 +30,7 @@ export default function WealthCard({
           </p>
           <p className="text-sm text-neutral-400">Your total wealth</p>
           <span className="text-sm text-neutral-400">
-            Across {portfolioCount ?? 0} active holding institutions
+            Across {institutionCount ?? 0} active holding institutions
           </span>
         </div>
         <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -translate-y-10 translate-x-10"></div>

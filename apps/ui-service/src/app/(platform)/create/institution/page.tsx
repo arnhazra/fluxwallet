@@ -19,15 +19,15 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { Package } from "lucide-react"
-import { InstitutionType, Portfolio } from "@/shared/types"
+import { InstitutionType, Institution } from "@/shared/types"
 import ky, { KyResponse } from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { useRouter } from "next/navigation"
 
 const institutions = Object.values(InstitutionType)
 
-interface PortfolioFormData {
-  portfolioName: string
+interface InstitutionFormData {
+  institutionName: string
   institutionType: InstitutionType
 }
 
@@ -35,12 +35,15 @@ export default function Page() {
   const router = useRouter()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [alertMessage, setAlertMessage] = useState("")
-  const [formData, setFormData] = useState<PortfolioFormData>({
-    portfolioName: "",
+  const [formData, setFormData] = useState<InstitutionFormData>({
+    institutionName: "",
     institutionType: InstitutionType.BANK,
   })
 
-  const handleInputChange = (field: keyof PortfolioFormData, value: string) => {
+  const handleInputChange = (
+    field: keyof InstitutionFormData,
+    value: string
+  ) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -53,16 +56,16 @@ export default function Page() {
     setAlertMessage("")
 
     try {
-      const portfolio: KyResponse<Portfolio> = await ky.post(
-        endPoints.portfolio,
+      const institution: KyResponse<Institution> = await ky.post(
+        endPoints.institution,
         {
           json: formData,
         }
       )
-      router.push(`/portfolio/${(await portfolio.json())._id}`)
-      setAlertMessage("Portfolio created successfully!")
+      router.push(`/institution/${(await institution.json())._id}`)
+      setAlertMessage("Institution created successfully!")
     } catch (error) {
-      setAlertMessage("Error creating portfolio")
+      setAlertMessage("Error creating institution")
     } finally {
       setIsSubmitting(false)
     }
@@ -74,25 +77,27 @@ export default function Page() {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Package className="h-5 w-5 text-primary" />
-            Add New Portfolio
+            Add Holding Institution
           </CardTitle>
           <CardDescription className="text-sm text-primary">
-            Set up a new portfolio to track your investments and assets
+            Set up a new institution to track your investments and assets. A
+            holding institution is similar to a bank or any institution that
+            manage assets.
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="portfolioName">
-                Portfolio Name <span className="text-red-500">*</span>
+              <Label htmlFor="institutionName">
+                Holding Institution Name <span className="text-red-500">*</span>
               </Label>
               <Input
                 required
-                id="portfolioName"
-                placeholder="Enter portfolio name"
-                value={formData.portfolioName}
+                id="institutionName"
+                placeholder="Enter Holding Institution Name"
+                value={formData.institutionName}
                 onChange={(e) =>
-                  handleInputChange("portfolioName", e.target.value)
+                  handleInputChange("institutionName", e.target.value)
                 }
                 className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
               />
@@ -126,7 +131,7 @@ export default function Page() {
                 type="submit"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Creating..." : "Add Portfolio"}
+                {isSubmitting ? "Adding..." : "Add Institution"}
               </Button>
             </div>
           </form>

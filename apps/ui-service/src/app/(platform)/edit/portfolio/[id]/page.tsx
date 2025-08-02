@@ -37,7 +37,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
   const portfolio = useQuery<Portfolio>({
     queryKey: ["get-portfolio", portfolioId],
-    queryUrl: `${endPoints.portfolio}/${portfolioId}`,
+    queryUrl: `${endPoints.institution}/${portfolioId}`,
     method: HTTPMethods.GET,
   })
 
@@ -70,7 +70,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     setAlertMessage("")
 
     try {
-      await ky.put(`${endPoints.portfolio}/${portfolioId}`, {
+      await ky.put(`${endPoints.institution}/${portfolioId}`, {
         json: formData,
       })
       setAlertMessage("Portfolio updated successfully!")

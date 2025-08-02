@@ -3,7 +3,7 @@ import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { use } from "react"
-import { Asset, Portfolio } from "@/shared/types"
+import { Asset, Institution } from "@/shared/types"
 import { AddAssetCard, AssetCard } from "@/shared/components/assetcard"
 import SectionPanel from "@/shared/components/sectionpanel"
 import { Building, Pen, Trash } from "lucide-react"
@@ -15,19 +15,19 @@ import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id: portfolioId = "" } = use(params)
+  const { id: institutionId = "" } = use(params)
   const router = useRouter()
   const { confirm } = useConfirmContext()
 
-  const portfolio = useQuery<Portfolio>({
-    queryKey: ["get-portfolio", portfolioId],
-    queryUrl: `${endPoints.portfolio}/${portfolioId}`,
+  const institution = useQuery<Institution>({
+    queryKey: ["get-institution", institutionId],
+    queryUrl: `${endPoints.institution}/${institutionId}`,
     method: HTTPMethods.GET,
   })
 
   const assets = useQuery<Asset[]>({
-    queryKey: ["get-assets", portfolioId],
-    queryUrl: `${endPoints.asset}/portfolio/${portfolioId}`,
+    queryKey: ["get-assets", institutionId],
+    queryUrl: `${endPoints.asset}/institution/${institutionId}`,
     method: HTTPMethods.GET,
   })
 
@@ -35,22 +35,22 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     return <AssetCard asset={asset} key={asset._id} />
   })
 
-  const handleDeletePortfolio = async () => {
+  const handleDeleteInstitution = async () => {
     if (assets.data?.length) {
-      notify(uiConstants.portfolioDeleteWarning, "warning")
+      notify(uiConstants.institutionDeleteWarning, "warning")
       return
     }
     const confirmed = await confirm({
-      title: "Delete Portfolio",
-      desc: "Are you sure you want to delete this portfolio?",
+      title: "Delete Institution",
+      desc: "Are you sure you want to delete this institution?",
     })
 
     if (confirmed) {
       try {
-        await ky.delete(`${endPoints.portfolio}/${portfolioId}`)
+        await ky.delete(`${endPoints.institution}/${institutionId}`)
         router.push("/dashboard")
       } catch (error) {
-        notify(uiConstants.portfolioDeleteFailed, "error")
+        notify(uiConstants.institutionDeleteFailed, "error")
       }
     }
   }
@@ -60,12 +60,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       <section>
         <SectionPanel
           icon={<Building className="h-4 w-4 text-primary" />}
-          title={portfolio.data?.portfolioName || ""}
-          content={portfolio.data?.institutionType || ""}
+          title={institution.data?.portfolioName || ""}
+          content={institution.data?.institutionType || ""}
           actionComponents={[
             <Button
               onClick={(): void =>
-                router.push(`/edit/portfolio/${portfolioId}`)
+                router.push(`/edit/institution/${institutionId}`)
               }
               variant="default"
               size="icon"
@@ -74,7 +74,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               <Pen className="text-green-400 h-4 w-4" />
             </Button>,
             <Button
-              onClick={handleDeletePortfolio}
+              onClick={handleDeleteInstitution}
               variant="destructive"
               size="icon"
             >

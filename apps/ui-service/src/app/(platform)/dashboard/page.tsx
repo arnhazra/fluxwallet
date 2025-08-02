@@ -2,19 +2,19 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Portfolio, Valuation } from "@/shared/types"
+import { Institution, Valuation } from "@/shared/types"
 import {
-  PortfolioCard,
-  AddPortfolioCard,
-} from "@/shared/components/portfoliocard"
+  InstitutionCard,
+  AddInstitutionCard,
+} from "@/shared/components/institutioncard"
 import WealthCard from "./cards/wealth-card"
 import LiabilityCard from "./cards/liability-card"
 import GoalCard from "./cards/goal-card"
 
 export default function Page() {
-  const portfolios = useQuery<Portfolio[]>({
-    queryKey: ["get-portfolios"],
-    queryUrl: endPoints.portfolio,
+  const institutions = useQuery<Institution[]>({
+    queryKey: ["get-institutions"],
+    queryUrl: endPoints.institution,
     method: HTTPMethods.GET,
   })
 
@@ -24,9 +24,9 @@ export default function Page() {
     method: HTTPMethods.GET,
   })
 
-  const renderPortfolios = portfolios?.data?.map((portfolio) => {
-    return <PortfolioCard portfolio={portfolio} key={portfolio._id} />
-  })
+  const renderInstitutions = institutions?.data?.map((institution) => (
+    <InstitutionCard institution={institution} key={institution._id} />
+  ))
 
   return (
     <div className="mx-auto grid w-full items-start gap-6">
@@ -34,7 +34,7 @@ export default function Page() {
         <div className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <WealthCard
-              portfolioCount={portfolios.data?.length}
+              institutionCount={institutions.data?.length}
               presentValuation={data?.presentValuation}
             />
             <LiabilityCard />
@@ -44,8 +44,8 @@ export default function Page() {
       </section>
       <section>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4">
-          <AddPortfolioCard />
-          {renderPortfolios}
+          <AddInstitutionCard />
+          {renderInstitutions}
         </div>
       </section>
     </div>
