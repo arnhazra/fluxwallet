@@ -21,15 +21,15 @@ export default function WealthCard({
             <div className="p-2 bg-green-500/20 rounded-lg">
               <BanknoteIcon className="h-5 w-5 text-primary" />
             </div>
-            <span className="text-sm text-zinc-400">Total Wealth</span>
+            <span className="text-sm text-neutral-400">Total Wealth</span>
           </div>
         </div>
         <div className="space-y-3">
           <p className="text-3xl font-bold text-white">
             {formatCurrency(presentValuation ?? 0, user.baseCurrency)}
           </p>
-          <p className="text-sm text-zinc-400">Portfolio Valuation</p>
-          <span className="text-sm text-zinc-400">
+          <p className="text-sm text-neutral-400">Portfolio Valuation</p>
+          <span className="text-sm text-neutral-400">
             Across {portfolioCount ?? 0} active portfolios
           </span>
         </div>

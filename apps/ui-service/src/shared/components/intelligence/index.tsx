@@ -117,7 +117,7 @@ export default function Intelligence() {
       )}
 
       <div
-        className={`fixed top-0 bg-main right-0 h-full w-full sm:w-96 flex flex-col transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed top-0 bg-background right-0 h-full w-full sm:w-96 flex flex-col transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -126,7 +126,7 @@ export default function Intelligence() {
             variant="ghost"
             size="sm"
             onClick={() => setIsOpen(false)}
-            className="text-zinc-400 hover:text-white bg-none hover:bg-background"
+            className="text-neutral-400 hover:text-white bg-none hover:bg-background"
           >
             <PanelRightClose className="h-5 w-5" />
           </Button>
@@ -142,7 +142,7 @@ export default function Intelligence() {
                   {appName} Intelligence is an agentic workflow powered by AI,
                   so mistakes are possible. Please use carefully.
                 </p>
-                <p className="text-sm mt-2 text-zinc-400 mb-4">
+                <p className="text-sm mt-2 text-neutral-400 mb-4">
                   Try these actions
                 </p>
                 {suggestedPrompts.map((item, index) => (
@@ -173,7 +173,7 @@ export default function Intelligence() {
 
                 <div
                   className={`max-w-[80%] p-3 rounded-lg ${
-                    index % 2 === 0 ? "text-white" : "text-zinc-100"
+                    index % 2 === 0 ? "text-white" : "text-neutral-100"
                   }`}
                   style={{
                     backgroundColor: index % 2 === 0 ? "#32cd32" : "#121212",
@@ -210,13 +210,13 @@ export default function Intelligence() {
                   }}
                 >
                   <div className="flex space-x-1">
-                    <div className="w-1 h-1 bg-zinc-400 rounded-full animate-bounce"></div>
+                    <div className="w-1 h-1 bg-neutral-400 rounded-full animate-bounce"></div>
                     <div
-                      className="w-1 h-1 bg-zinc-400 rounded-full animate-bounce"
+                      className="w-1 h-1 bg-neutral-400 rounded-full animate-bounce"
                       style={{ animationDelay: "0.1s" }}
                     ></div>
                     <div
-                      className="w-1 h-1 bg-zinc-400 rounded-full animate-bounce"
+                      className="w-1 h-1 bg-neutral-400 rounded-full animate-bounce"
                       style={{ animationDelay: "0.2s" }}
                     ></div>
                   </div>
@@ -231,7 +231,7 @@ export default function Intelligence() {
         <div className="p-4 border-none">
           <form onSubmit={hitAPI}>
             <div className="w-full max-w-4xl mx-auto">
-              <div className="relative bg-zinc-900 border border-zinc-700 rounded-2xl p-2 ps-4 pe-4 shadow-lg">
+              <div className="relative bg-neutral-900 border border-neutral-700 rounded-2xl p-2 ps-4 pe-4 shadow-lg">
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-3">
                     <div className="flex-1">
@@ -241,14 +241,14 @@ export default function Intelligence() {
                         onChange={handleInputChange}
                         placeholder="Ask anything..."
                         disabled={isLoading}
-                        className="bg-transparent border-none text-zinc-300 placeholder:text-zinc-500 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none outline-none ring-0 text-sm px-0"
+                        className="bg-transparent border-none text-neutral-300 placeholder:text-neutral-500 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none outline-none ring-0 text-sm px-0"
                       />
                     </div>
                     <Button
                       type="submit"
                       disabled={isLoading || !prompt.trim()}
                       size="icon"
-                      className="bg-zinc-700 hover:bg-zinc-600 text-white h-8 w-8"
+                      className="bg-neutral-700 hover:bg-neutral-600 text-white h-8 w-8"
                     >
                       <ArrowUp className="h-4 w-4" />
                     </Button>
@@ -259,22 +259,22 @@ export default function Intelligence() {
                       defaultValue={Model.Gemini}
                       onValueChange={(value: Model) => setModel(value)}
                     >
-                      <SelectTrigger className="w-auto bg-transparent border-none text-zinc-300 hover:text-white focus:ring-0 focus:ring-offset-0">
+                      <SelectTrigger className="w-auto bg-transparent border-none text-neutral-300 hover:text-white focus:ring-0 focus:ring-offset-0">
                         <div className="flex items-center gap-2">
                           <BrainCircuit className="h-4 w-4 text-primary" />
                           <SelectValue />
                         </div>
                       </SelectTrigger>
-                      <SelectContent className="bg-zinc-800 border-zinc-700">
+                      <SelectContent className="bg-neutral-800 border-neutral-700">
                         <SelectItem
                           value={Model.Gemini}
-                          className="text-zinc-300 focus:bg-zinc-700 focus:text-white"
+                          className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
                         >
                           Gemini 2.5
                         </SelectItem>
                         <SelectItem
                           value={Model.GPT}
-                          className="text-zinc-300 focus:bg-zinc-700 focus:text-white"
+                          className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
                         >
                           GPT 4o
                         </SelectItem>

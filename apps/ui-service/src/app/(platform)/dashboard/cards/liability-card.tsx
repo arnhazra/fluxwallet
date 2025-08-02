@@ -45,7 +45,7 @@ export default function LiabilityCard() {
             <div className="p-2 bg-green-500/20 rounded-lg">
               <CreditCardIcon className="h-5 w-5 text-green-400" />
             </div>
-            <span className="text-sm text-zinc-400">Total Liabilities</span>
+            <span className="text-sm text-neutral-400">Total Liabilities</span>
           </div>
           <Button
             onClick={editLiabilities}
@@ -60,8 +60,8 @@ export default function LiabilityCard() {
             {formatCurrency(user.currentLiabilities, user.baseCurrency)}
           </p>
           <div className="space-y-2">
-            <p className="text-sm text-zinc-400">Your total liabilities</p>
-            <span className="text-sm text-zinc-400">
+            <p className="text-sm text-neutral-400">Your total liabilities</p>
+            <span className="text-sm text-neutral-400">
               This is the amount you owe
             </span>
           </div>

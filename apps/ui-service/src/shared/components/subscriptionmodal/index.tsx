@@ -52,7 +52,7 @@ export function SubscriptionModal() {
       >
         <DialogHeader>
           <DialogTitle>{appName} Subscription</DialogTitle>
-          <DialogDescription className="text-zinc-300">
+          <DialogDescription className="text-neutral-300">
             You need to subscribe before you use
           </DialogDescription>
           <h4 className="text-4xl font-bold">

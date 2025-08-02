@@ -95,7 +95,7 @@ export default function Page() {
                 onChange={(e) =>
                   handleInputChange("portfolioName", e.target.value)
                 }
-                className="w-full bg-main text-white border-border focus:border-primary focus:ring-0"
+                className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
               />
             </div>
 
@@ -108,10 +108,10 @@ export default function Page() {
                   handleInputChange("institutionType", value)
                 }
               >
-                <SelectTrigger className="w-full bg-main text-white border-border">
+                <SelectTrigger className="w-full bg-background text-white border-border">
                   <SelectValue placeholder="Select institution type"></SelectValue>
                 </SelectTrigger>
-                <SelectContent className="w-full bg-main text-white border-border">
+                <SelectContent className="w-full bg-background text-white border-border">
                   {institutions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}

@@ -24,7 +24,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
       <Link
         key={tab}
         className={`cursor-pointer flex capitalize ${
-          pathname.includes(tab) ? "text-primary" : "text-zinc-200"
+          pathname.includes(tab) ? "text-primary" : "text-neutral-200"
         }`}
         href={`/settings/${tab}`}
       >

@@ -18,7 +18,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
 
   return (
     <AssetModal assetDetails={asset} key={asset._id}>
-      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white cursor-pointer">
+      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white cursor-pointer">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold truncate text-white">
@@ -34,13 +34,15 @@ export function AssetCard({ asset }: { asset: Asset }) {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-zinc-400">Identifier</span>
+              <span className="text-sm text-neutral-400">Identifier</span>
               <span className="text-sm font-medium">
                 <MaskText value={asset.identifier} />
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-zinc-400">Present Valuation</span>
+              <span className="text-sm text-neutral-400">
+                Present Valuation
+              </span>
               <span className="text-lg font-bold text-primary">
                 {formatCurrency(
                   asset?.presentValuation ?? 0,
@@ -58,7 +60,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
 export function AddAssetCard() {
   return (
     <Link href={`/create/asset`}>
-      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
+      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>

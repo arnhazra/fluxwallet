@@ -60,7 +60,7 @@ export default function EditCurrency({
           <PenIcon className="h-3 w-3" />
         </Button>
       </DialogTrigger>
-      <DialogContent className="bg-main border-border">
+      <DialogContent className="bg-background border-border">
         <DialogHeader>
           <DialogTitle className="text-white">Select Currency</DialogTitle>
           <p className="text-primary text-sm">
@@ -68,10 +68,10 @@ export default function EditCurrency({
           </p>
         </DialogHeader>
         <Select onValueChange={(value: Currency) => setValue(value)}>
-          <SelectTrigger className="bg-main border-border text-white">
+          <SelectTrigger className="bg-background border-border text-white">
             <SelectValue placeholder={value} />
           </SelectTrigger>
-          <SelectContent className="bg-main border-border text-white">
+          <SelectContent className="bg-background border-border text-white">
             {Object.values(Currency).map((item) => (
               <SelectItem value={item} key={item}>
                 {item}

@@ -35,7 +35,7 @@ export default function Page() {
         <h1 className="text-white text-xl sm:text-4xl md:text-5xl lg:text-6xl tracking-tight mb-4 max-w-[40rem]">
           {uiConstants.homeHeader}
         </h1>
-        <p className="max-w-[35rem] leading-normal text-zinc-300 sm:text-lg sm:leading-8">
+        <p className="max-w-[35rem] leading-normal text-neutral-300 sm:text-lg sm:leading-8">
           {uiConstants.homeIntro}
         </p>
         <p className="max-w-[35rem] leading-normal text-primary sm:text-lg sm:leading-8 mb-6">
@@ -155,7 +155,7 @@ export default function Page() {
               Get full platform access {uiConstants.homePricing}
             </p>
           </div>
-          <div className="grid w-full items-start gap-10 rounded-lg border border-border p-10 md:grid-cols-[1fr_200px]">
+          <div className="grid w-full items-start gap-10 rounded-lg bg-background border-none p-10 md:grid-cols-[1fr_200px]">
             {renderSubscription}
           </div>
         </section>
