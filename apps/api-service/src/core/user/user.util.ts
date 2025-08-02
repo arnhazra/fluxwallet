@@ -41,12 +41,10 @@ export function generateOTPEmailBody(otp: string) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>${config.APP_NAME} OTP</title>
-    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;600&display=swap" rel="stylesheet">
     <style>
       body {
         margin: 0;
         padding: 0;
-        font-family: 'Quicksand', sans-serif;
         background-color: #18181b;
         color: #f4f4f5;
       }
