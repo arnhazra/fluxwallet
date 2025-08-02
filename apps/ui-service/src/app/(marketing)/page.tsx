@@ -50,7 +50,7 @@ export default function Page() {
             })
           )}
         >
-          <Play className="me-2 scale-75" /> {uiConstants.getStartedButton}
+          <Play className="me-2 h-4 w-4" /> {uiConstants.getStartedButton}
         </Link>
       </div>
     </section>
@@ -88,7 +88,7 @@ export default function Page() {
             })
           )}
         >
-          <Play className="me-2 scale-75" /> {uiConstants.getStartedButton}
+          <Play className="me-2 h-4 w-4" /> {uiConstants.getStartedButton}
         </Link>
       </div>
     </>

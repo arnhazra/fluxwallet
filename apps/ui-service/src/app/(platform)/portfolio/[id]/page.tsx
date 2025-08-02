@@ -59,7 +59,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     <div className="mx-auto grid w-full items-start gap-6">
       <section>
         <SectionPanel
-          icon={<Building className="scale-75 text-primary" />}
+          icon={<Building className="h-4 w-4 text-primary" />}
           title={portfolio.data?.portfolioName || ""}
           content={portfolio.data?.institutionType || ""}
           actionComponents={[

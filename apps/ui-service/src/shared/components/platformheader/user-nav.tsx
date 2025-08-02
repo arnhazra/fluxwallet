@@ -29,7 +29,7 @@ export function UserNav() {
           size="icon"
           className="overflow-hidden rounded-full bg-border hover:bg-border"
         >
-          <User className="scale-75 text-primary" />
+          <User className="h-4 w-4 text-primary" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent

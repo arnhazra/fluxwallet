@@ -34,7 +34,7 @@ export default function Page() {
     <>
       <Show condition={!isSubscriptionActive}>
         <SectionPanel
-          icon={<CalendarClock className="scale-75" />}
+          icon={<CalendarClock className="h-4 w-4" />}
           title="Your Subscription"
           content="You don't have a subscription"
         />
@@ -42,12 +42,12 @@ export default function Page() {
       <Show condition={!!isSubscriptionActive}>
         <section className="grid gap-2">
           <SectionPanel
-            icon={<Bolt className="scale-75" />}
+            icon={<Bolt className="h-4 w-4" />}
             title="Your Subscription"
             content="You have an active subscription"
           />
           <SectionPanel
-            icon={<CalendarClock className="scale-75" />}
+            icon={<CalendarClock className="h-4 w-4" />}
             title="Subscription Start Date"
             content={format(
               subscription?.createdAt
@@ -57,7 +57,7 @@ export default function Page() {
             )}
           />
           <SectionPanel
-            icon={<CalendarClock className="scale-75" />}
+            icon={<CalendarClock className="h-4 w-4" />}
             title="Subscription Valid Upto"
             content={
               subscription?.endsAt?.includes("9999")

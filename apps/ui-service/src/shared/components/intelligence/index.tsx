@@ -105,7 +105,7 @@ export default function Intelligence() {
         size="icon"
         className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary rounded-full"
       >
-        <BrainCircuit className="scale-75 text-white" />
+        <BrainCircuit className="h-4 w-4 text-white" />
       </Button>
 
       {isOpen && (

@@ -28,7 +28,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
         }`}
         href={`/settings/${tab}`}
       >
-        <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
+        <div className="me-2 h-4 w-4 -mt-0.5">{mapTabIcons[tab]}</div>
         <p>{tab}</p>
       </Link>
     )
@@ -44,7 +44,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
               size="icon"
               className="rounded-full bg-border"
             >
-              <User className="scale-75 text-primary" />
+              <User className="h-4 w-4 text-primary" />
             </Button>
             <div className="text-white">
               <p className="text-sm font-semibold">{user.name}</p>
