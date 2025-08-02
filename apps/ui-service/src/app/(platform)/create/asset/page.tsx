@@ -54,7 +54,6 @@ interface AssetFormData {
 const assetTypeLabels = {
   [AssetType.FD]: "Fixed Deposit",
   [AssetType.RD]: "Recurring Deposit",
-  [AssetType.MUTUAL_FUND]: "Mutual Fund",
   [AssetType.SIP]: "SIP",
   [AssetType.LUMPSUM]: "Lumpsum Investment",
   [AssetType.METAL]: "Metals",
@@ -112,29 +111,19 @@ export default function Page() {
 
   const showDateFields =
     formData.assetType &&
-    [
-      AssetType.FD,
-      AssetType.RD,
-      AssetType.MUTUAL_FUND,
-      AssetType.SIP,
-      AssetType.LUMPSUM,
-    ].includes(formData.assetType as AssetType)
-
-  const showAmountInvested =
-    formData.assetType &&
-    [AssetType.FD, AssetType.MUTUAL_FUND, AssetType.LUMPSUM].includes(
+    [AssetType.FD, AssetType.RD, AssetType.SIP, AssetType.LUMPSUM].includes(
       formData.assetType as AssetType
     )
 
+  const showAmountInvested =
+    formData.assetType &&
+    [AssetType.FD, AssetType.LUMPSUM].includes(formData.assetType as AssetType)
+
   const showExpectedReturn =
     formData.assetType &&
-    [
-      AssetType.FD,
-      AssetType.RD,
-      AssetType.MUTUAL_FUND,
-      AssetType.SIP,
-      AssetType.LUMPSUM,
-    ].includes(formData.assetType as AssetType)
+    [AssetType.FD, AssetType.RD, AssetType.SIP, AssetType.LUMPSUM].includes(
+      formData.assetType as AssetType
+    )
 
   const showRecurringFields =
     formData.assetType &&

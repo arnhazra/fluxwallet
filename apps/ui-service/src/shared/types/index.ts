@@ -8,7 +8,6 @@ export enum InstitutionType {
 export enum AssetType {
   FD = "FD",
   RD = "RD",
-  MUTUAL_FUND = "MUTUAL_FUND",
   SIP = "SIP",
   LUMPSUM = "LUMPSUM",
   METAL = "METAL",
@@ -250,10 +249,10 @@ export type Asset = {
   assetName: string
   identifier: string
   presentValuation: number | null | undefined
-  startDate?: Date // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
-  maturityDate?: Date // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
-  amountInvested?: number // FD, MUTUAL_FUND, LUMPSUM
-  expectedReturnRate?: number // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
+  startDate?: Date // FD, RD, SIP, LUMPSUM
+  maturityDate?: Date // FD, RD, SIP, LUMPSUM
+  amountInvested?: number // FD, LUMPSUM
+  expectedReturnRate?: number // FD, RD, SIP, LUMPSUM
   contributionAmount?: number // RD, SIP
   contributionFrequency?: RecurringFrequency // RD, SIP
   valuationOnPurchase?: number // PROPERTY, BOND, METAL, OTHER

@@ -17,7 +17,7 @@ export const systemPrompt = (user: User): string => {
   - OTHER
 
   Available asset types:
-  - FD, RD, MUTUAL_FUND, SIP, LUMPSUM
+  - FD, RD, SIP, LUMPSUM
   - METAL, PROPERTY, BOND
   - EPF, PPF, CASH, EQUITY, CRYPTO, OTHER
 

@@ -30,16 +30,16 @@ export class Asset extends Document {
   identifier: string // COMMON
 
   @Prop()
-  startDate?: Date // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
+  startDate?: Date // FD, RD, SIP, LUMPSUM
 
   @Prop()
-  maturityDate?: Date // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
+  maturityDate?: Date // FD, RD, SIP, LUMPSUM
 
   @Prop()
-  amountInvested?: number // FD, MUTUAL_FUND, LUMPSUM
+  amountInvested?: number // FD, LUMPSUM
 
   @Prop()
-  expectedReturnRate?: number // FD, RD, MUTUAL_FUND, SIP, LUMPSUM
+  expectedReturnRate?: number // FD, RD, SIP, LUMPSUM
 
   @Prop()
   contributionAmount?: number // RD, SIP

@@ -25,45 +25,29 @@ export class CreateAssetRequestDto {
   identifier: string
 
   @ValidateIf((o) =>
-    [
-      AssetType.FD,
-      AssetType.RD,
-      AssetType.MUTUAL_FUND,
-      AssetType.SIP,
-      AssetType.LUMPSUM,
-    ].includes(o.assetType)
+    [AssetType.FD, AssetType.RD, AssetType.SIP, AssetType.LUMPSUM].includes(
+      o.assetType
+    )
   )
   @IsDateString()
   startDate?: Date
 
   @ValidateIf((o) =>
-    [
-      AssetType.FD,
-      AssetType.RD,
-      AssetType.MUTUAL_FUND,
-      AssetType.SIP,
-      AssetType.LUMPSUM,
-    ].includes(o.assetType)
+    [AssetType.FD, AssetType.RD, AssetType.SIP, AssetType.LUMPSUM].includes(
+      o.assetType
+    )
   )
   @IsDateString()
   maturityDate?: Date
 
-  @ValidateIf((o) =>
-    [AssetType.FD, AssetType.MUTUAL_FUND, AssetType.LUMPSUM].includes(
-      o.assetType
-    )
-  )
+  @ValidateIf((o) => [AssetType.FD, AssetType.LUMPSUM].includes(o.assetType))
   @IsNumber()
   amountInvested?: number
 
   @ValidateIf((o) =>
-    [
-      AssetType.FD,
-      AssetType.RD,
-      AssetType.MUTUAL_FUND,
-      AssetType.SIP,
-      AssetType.LUMPSUM,
-    ].includes(o.assetType)
+    [AssetType.FD, AssetType.RD, AssetType.SIP, AssetType.LUMPSUM].includes(
+      o.assetType
+    )
   )
   @IsNumber()
   expectedReturnRate?: number

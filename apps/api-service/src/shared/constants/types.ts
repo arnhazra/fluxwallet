@@ -8,7 +8,6 @@ export enum InstitutionType {
 export enum AssetType {
   FD = "FD",
   RD = "RD",
-  MUTUAL_FUND = "MUTUAL_FUND",
   SIP = "SIP",
   LUMPSUM = "LUMPSUM",
   METAL = "METAL",

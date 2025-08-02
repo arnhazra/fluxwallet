@@ -24,11 +24,7 @@ export class ValuationService {
         AssetType.OTHER,
       ]
 
-      const complexValuationAssets = [
-        AssetType.FD,
-        AssetType.MUTUAL_FUND,
-        AssetType.LUMPSUM,
-      ]
+      const complexValuationAssets = [AssetType.FD, AssetType.LUMPSUM]
 
       const recurringValuationAssets = [AssetType.RD, AssetType.SIP]
 
