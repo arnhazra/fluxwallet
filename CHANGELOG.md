@@ -2,6 +2,10 @@
 
 ## v1.5
 
+- NPM & Node upgrades
+- Package upgrades across application
+- Code refactoring & bug fixes
+
 ## v1.4
 
 - Bug fixes & perfomance improvements
