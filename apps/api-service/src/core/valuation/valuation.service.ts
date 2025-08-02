@@ -14,79 +14,54 @@ export class ValuationService {
 
   async calculateAssetValuation(asset: Asset) {
     try {
-      switch (asset.assetType) {
-        case AssetType.EPF:
-          return asset.currentValuation
+      const simpleValuationAssets = [
+        AssetType.EPF,
+        AssetType.PPF,
+        AssetType.CASH,
+        AssetType.PROPERTY,
+        AssetType.BOND,
+        AssetType.METAL,
+        AssetType.OTHER,
+      ]
 
-        case AssetType.PPF:
-          return asset.currentValuation
+      const complexValuationAssets = [
+        AssetType.FD,
+        AssetType.MUTUAL_FUND,
+        AssetType.LUMPSUM,
+      ]
 
-        case AssetType.CASH:
-          return asset.currentValuation
+      const recurringValuationAssets = [AssetType.RD, AssetType.SIP]
 
-        case AssetType.PROPERTY:
-          return asset.currentValuation
+      const unitValuationAssets = [AssetType.EQUITY, AssetType.CRYPTO]
 
-        case AssetType.BOND:
-          return asset.currentValuation
-
-        case AssetType.METAL:
-          return asset.currentValuation
-
-        case AssetType.OTHER:
-          return asset.currentValuation
-
-        case AssetType.FD:
-          return calculateComplexValuation({
-            amountInvested: asset.amountInvested,
-            startDate: asset.startDate,
-            maturityDate: asset.maturityDate,
-            expectedReturnRate: asset.expectedReturnRate,
-          })
-
-        case AssetType.MUTUAL_FUND:
-          return calculateComplexValuation({
-            amountInvested: asset.amountInvested,
-            startDate: asset.startDate,
-            maturityDate: asset.maturityDate,
-            expectedReturnRate: asset.expectedReturnRate,
-          })
-
-        case AssetType.LUMPSUM:
-          return calculateComplexValuation({
-            amountInvested: asset.amountInvested,
-            startDate: asset.startDate,
-            maturityDate: asset.maturityDate,
-            expectedReturnRate: asset.expectedReturnRate,
-          })
-
-        case AssetType.RD:
-          return calculateRecurringValuation({
-            contributionAmount: asset.contributionAmount,
-            contributionFrequency: asset.contributionFrequency,
-            expectedReturnRate: asset.expectedReturnRate,
-            maturityDate: asset.maturityDate,
-            startDate: asset.startDate,
-          })
-
-        case AssetType.SIP:
-          return calculateRecurringValuation({
-            contributionAmount: asset.contributionAmount,
-            contributionFrequency: asset.contributionFrequency,
-            expectedReturnRate: asset.expectedReturnRate,
-            maturityDate: asset.maturityDate,
-            startDate: asset.startDate,
-          })
-
-        case AssetType.EQUITY:
-          return asset.units * asset.unitPurchasePrice
-
-        case AssetType.CRYPTO:
-          return asset.units * asset.unitPurchasePrice
-
-        default:
-          return 0
+      if (simpleValuationAssets.includes(asset.assetType)) {
+        return asset.currentValuation
       }
+
+      if (complexValuationAssets.includes(asset.assetType)) {
+        return calculateComplexValuation({
+          amountInvested: asset.amountInvested,
+          startDate: asset.startDate,
+          maturityDate: asset.maturityDate,
+          expectedReturnRate: asset.expectedReturnRate,
+        })
+      }
+
+      if (recurringValuationAssets.includes(asset.assetType)) {
+        return calculateRecurringValuation({
+          contributionAmount: asset.contributionAmount,
+          contributionFrequency: asset.contributionFrequency,
+          expectedReturnRate: asset.expectedReturnRate,
+          maturityDate: asset.maturityDate,
+          startDate: asset.startDate,
+        })
+      }
+
+      if (unitValuationAssets.includes(asset.assetType)) {
+        return asset.units * asset.unitPurchasePrice
+      }
+
+      return 0
     } catch (error) {
       throw new BadRequestException()
     }
