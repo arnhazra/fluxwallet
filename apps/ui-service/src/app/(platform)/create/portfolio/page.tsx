@@ -19,12 +19,11 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { Package } from "lucide-react"
-import { Currency, InstitutionType, Portfolio } from "@/shared/types"
+import { InstitutionType, Portfolio } from "@/shared/types"
 import ky, { KyResponse } from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { useRouter } from "next/navigation"
 
-const currencies = Object.values(Currency)
 const institutions = Object.values(InstitutionType)
 
 interface PortfolioFormData {
