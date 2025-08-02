@@ -6,7 +6,7 @@ import { FilterQuery, Model } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
 import { EntityRepository } from "@/shared/entity/entity.repository"
-import objectId from "src/shared/utils/convert-objectid"
+import objectId from "@/shared/utils/convert-objectid"
 
 @Injectable()
 export class UserRepository extends EntityRepository<User> {

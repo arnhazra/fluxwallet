@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindAssetByIdQuery } from "../impl/find-asset-by-id.query"
 import { AssetRepository } from "../../asset.repository"
-import objectId from "src/shared/utils/convert-objectid"
+import objectId from "@/shared/utils/convert-objectid"
 
 @QueryHandler(FindAssetByIdQuery)
 export class FindAssetByIdQueryHandler

@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { DeleteAssetCommand } from "../impl/delete-asset.command"
 import { AssetRepository } from "../../asset.repository"
-import objectId from "src/shared/utils/convert-objectid"
+import objectId from "@/shared/utils/convert-objectid"
 
 @CommandHandler(DeleteAssetCommand)
 export class DeleteAssetCommandHandler

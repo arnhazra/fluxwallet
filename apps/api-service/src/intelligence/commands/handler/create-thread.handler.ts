@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { IntelligenceRepository } from "../../intelligence.repository"
 import { CreateThreadCommand } from "../impl/create-thread.command"
-import objectId from "src/shared/utils/convert-objectid"
+import objectId from "@/shared/utils/convert-objectid"
 
 @CommandHandler(CreateThreadCommand)
 export class CreateThreadCommandHandler

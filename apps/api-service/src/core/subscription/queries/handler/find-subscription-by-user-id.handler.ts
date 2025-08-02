@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindSubscriptionByUserIdQuery } from "../impl/find-subscription-by-user-id.query"
 import { SubscriptionRepository } from "../../subscription.repository"
-import objectId from "src/shared/utils/convert-objectid"
+import objectId from "@/shared/utils/convert-objectid"
 
 @QueryHandler(FindSubscriptionByUserIdQuery)
 export class FindSubscriptionByUserIdQueryHandler

@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { DeletePortfolioCommand } from "../impl/delete-portfolio.command"
 import { PortfolioRepository } from "../../portfolio.repository"
-import objectId from "src/shared/utils/convert-objectid"
+import objectId from "@/shared/utils/convert-objectid"
 
 @CommandHandler(DeletePortfolioCommand)
 export class DeletePortfolioCommandHandler
