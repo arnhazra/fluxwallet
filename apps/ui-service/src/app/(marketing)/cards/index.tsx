@@ -1,5 +1,5 @@
 import { BrainCircuit, Check, Cog } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "../../../shared/components/ui/button"
 import { appName } from "@/shared/constants/global-constants"
 
 export function OverviewCard() {
@@ -59,8 +59,8 @@ export function IntelligenceCard() {
               <BrainCircuit />
             </svg>
           </div>
-          <div className="absolute top-12 left-4 w-48 h-4 bg-zinc-100 rounded" />
-          <div className="absolute top-20 left-4 w-36 h-4 bg-zinc-100 rounded" />
+          <div className="absolute top-12 left-4 w-48 h-4 bg-zinc-600 rounded" />
+          <div className="absolute top-20 left-4 w-36 h-4 bg-zinc-600 rounded" />
         </div>
       </div>
       <p className="text-md leading-relaxed">
