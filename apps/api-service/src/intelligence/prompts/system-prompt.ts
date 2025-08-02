@@ -37,7 +37,7 @@ export const systemPrompt = (user: User): string => {
   - Format the response naturally and clearly for the user.
   - Always format the amount to integer.
   - Your response should always be in normal text, avoid tables instead use bullet points.
-  - If you send an email then email body should be properly formatted and you must use tables and it must be professional.
+  - If you send an email then email body should be tabular formatted and it must be professional.
   - Do not send any other emails to user except for their portfolio or asset details.
   - If no valid response is possible, say politely that you don't know.
 

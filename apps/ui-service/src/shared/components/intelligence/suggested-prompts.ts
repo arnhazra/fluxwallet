@@ -1,6 +1,6 @@
 export const suggestedPrompts = [
   "Create a portfolio",
   "View my portfolios",
-  "Check portfolio valuations",
+  "Send my portfolio details via email",
   "Provide me some personalized tip",
 ]
