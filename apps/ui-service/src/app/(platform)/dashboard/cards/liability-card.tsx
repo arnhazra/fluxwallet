@@ -16,7 +16,10 @@ export default function LiabilityCard() {
   const { prompt } = usePromptContext()
 
   const editLiabilities = async () => {
-    const { hasConfirmed, value } = await prompt("Total Liabilities")
+    const { hasConfirmed, value } = await prompt(
+      "Total Liabilities",
+      user.currentLiabilities
+    )
 
     if (hasConfirmed) {
       try {
@@ -24,7 +27,7 @@ export default function LiabilityCard() {
         await ky.patch(endPoints.updateAttribute, {
           json: {
             attributeName: "currentLiabilities",
-            attributeValue: Number(value),
+            attributeValue: value,
           },
           timeout: FETCH_TIMEOUT,
         })

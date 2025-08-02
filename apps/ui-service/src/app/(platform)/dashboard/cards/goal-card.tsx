@@ -29,7 +29,10 @@ export default function GoalCard({
   }, [presentValuation, user.portfolioGoal])
 
   const editGoal = async () => {
-    const { hasConfirmed, value } = await prompt("Portfolio Goal")
+    const { hasConfirmed, value } = await prompt(
+      "Portfolio Goal",
+      user.portfolioGoal
+    )
 
     if (hasConfirmed) {
       try {
@@ -37,7 +40,7 @@ export default function GoalCard({
         await ky.patch(endPoints.updateAttribute, {
           json: {
             attributeName: "portfolioGoal",
-            attributeValue: Number(value),
+            attributeValue: value,
           },
           timeout: FETCH_TIMEOUT,
         })
