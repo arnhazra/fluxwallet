@@ -15,10 +15,10 @@ export class ValuationController {
   constructor(private readonly service: ValuationService) {}
 
   @UseGuards(TokenGuard)
-  @Get("total")
-  async calculateTotalValuation(@Request() request: ModRequest) {
+  @Get("wealth")
+  async calculateTotalWealth(@Request() request: ModRequest) {
     try {
-      const presentValuation = await this.service.calculateTotalValuation(
+      const presentValuation = await this.service.calculateTotalWealth(
         request.user.userId
       )
       return { presentValuation }

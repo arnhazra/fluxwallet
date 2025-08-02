@@ -7,7 +7,7 @@ export enum EventMap {
   GetUserDetails = "getUserDetails",
   GetSubscriptionDetails = "getSubscriptionDetails",
   ActivateInitialFreeSubscription = "activateInitialFreeSubscription",
-  GetTotalPortfolio = "getTotalPortfolio",
+  GetTotalWealth = "getTotalWealth",
   FindPortfolioByName = "findPortfolioByName",
   CreatePortfolio = "createPortfolio",
   GetPortfolioList = "getPortfolioList",

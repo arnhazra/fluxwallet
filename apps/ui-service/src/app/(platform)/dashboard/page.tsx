@@ -19,8 +19,8 @@ export default function Page() {
   })
 
   const { data } = useQuery<Valuation>({
-    queryKey: ["get-total-valuation"],
-    queryUrl: `${endPoints.getTotalValuation}`,
+    queryKey: ["get-total-wealth"],
+    queryUrl: `${endPoints.getTotalWealth}`,
     method: HTTPMethods.GET,
   })
 

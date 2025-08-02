@@ -1,8 +1,8 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { Asset } from "../asset/schemas/asset.schema"
 import { AssetType } from "@/shared/constants/types"
-import calculateComplexValuation from "./helpers/calculate-complex-valuation"
-import calculateRecurringValuation from "./helpers/calculate-recurring-valuation"
+import calculateComplexValuation from "./lib/calculate-complex-valuation"
+import calculateRecurringValuation from "./lib/calculate-recurring-valuation"
 import { ValuationRepository } from "./valuation.repository"
 import objectId from "@/shared/utils/convert-objectid"
 import { OnEvent } from "@nestjs/event-emitter"
@@ -80,8 +80,8 @@ export class ValuationService {
     }
   }
 
-  @OnEvent(EventMap.GetTotalPortfolio)
-  async calculateTotalValuation(reqUserId: string) {
+  @OnEvent(EventMap.GetTotalWealth)
+  async calculateTotalWealth(reqUserId: string) {
     try {
       const assets = await this.repository.find({
         userId: objectId(reqUserId),

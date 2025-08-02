@@ -32,7 +32,7 @@ export class IntelligenceStrategy {
     const agent = createReactAgent({
       llm,
       tools: [
-        this.agent.getTotalValuationAgent,
+        this.agent.getTotalWealthAgent,
         this.agent.createPortfolioAgent,
         this.agent.getPortfolioValuationAgent,
         this.agent.getPortfolioListAgent,

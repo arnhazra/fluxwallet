@@ -8,7 +8,7 @@ const apiHost =
 export const endPoints = {
   activityTrends: `${apiHost}/activity/trends`,
   asset: `${apiHost}/asset`,
-  getTotalValuation: `${apiHost}/valuation/total`,
+  getTotalWealth: `${apiHost}/valuation/wealth`,
   intelligence: `${apiHost}/intelligence`,
   portfolio: `${apiHost}/portfolio`,
   getSubscriptionPricing: `${apiHost}/subscription/pricing`,

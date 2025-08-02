@@ -10,20 +10,20 @@ import { z } from "zod"
 export class IntelligenceAgent {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
-  public getTotalValuationAgent = tool(
+  public getTotalWealthAgent = tool(
     async ({ userId }: { userId: string }) => {
       try {
         const valuation: number = (
-          await this.eventEmitter.emitAsync(EventMap.GetTotalPortfolio, userId)
+          await this.eventEmitter.emitAsync(EventMap.GetTotalWealth, userId)
         ).shift()
-        return `Total valuation is ${valuation}`
+        return `Total wealth is ${valuation}`
       } catch (error) {
-        return "Unable to get total valuation"
+        return "Unable to get total wealth"
       }
     },
     {
-      name: "get_total_portfolio_valuation_by_userid",
-      description: "Get total portfolio valuation for a user",
+      name: "get_total_portfolio_wealth_by_userid",
+      description: "Get total portfolio wealth for a user",
       schema: z.object({
         userId: z.string().describe("_id of the user"),
       }),
