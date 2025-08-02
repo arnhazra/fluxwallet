@@ -1,5 +1,5 @@
 "use client"
-import { useState, useRef, useEffect } from "react"
+import { useState, useRef, useEffect, FormEventHandler } from "react"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
 import {
@@ -19,6 +19,7 @@ import MarkdownRenderer from "../markdown"
 import Show from "../show"
 import { suggestedPrompts } from "./suggested-prompts"
 import { Badge } from "../ui/badge"
+import { Thread } from "@/shared/types"
 
 enum Model {
   Gemini = "gemini-2.5-flash-lite",
@@ -27,7 +28,7 @@ enum Model {
 
 export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
-  const [threadId, setThreadId] = useState(null)
+  const [threadId, setThreadId] = useState<string | null>(null)
   const [prompt, setPrompt] = useState("")
   const [isLoading, setLoading] = useState(false)
   const [messages, setMessages] = useState<string[]>([])
@@ -70,7 +71,7 @@ export default function Intelligence() {
     setLoading(true)
 
     try {
-      const res: any = await ky
+      const res: Thread = await ky
         .post(`${endPoints.intelligence}`, {
           json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
@@ -78,7 +79,7 @@ export default function Intelligence() {
         .json()
 
       if (!threadId) {
-        setThreadId((res as any).threadId)
+        setThreadId(res.threadId)
       }
 
       setMessages((prevMessages) => [...prevMessages, ""])
