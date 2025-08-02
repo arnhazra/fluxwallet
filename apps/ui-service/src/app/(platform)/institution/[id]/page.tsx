@@ -60,7 +60,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       <section>
         <SectionPanel
           icon={<Building className="h-4 w-4 text-primary" />}
-          title={institution.data?.portfolioName || ""}
+          title={institution.data?.institutionName || ""}
           content={institution.data?.institutionType || ""}
           actionComponents={[
             <Button

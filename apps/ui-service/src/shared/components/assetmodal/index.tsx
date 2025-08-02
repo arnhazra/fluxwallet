@@ -28,7 +28,7 @@ interface AssetModalProps {
 const excludedKeys = [
   "_id",
   "userId",
-  "portfolioId",
+  "institutionId",
   "assetType",
   "assetName",
   "createdAt",

@@ -23,10 +23,7 @@ export default function GoalCard({
   const goalPercentage = (presentValuation * 100) / (user.wealthGoal ?? 0)
 
   const editGoal = async () => {
-    const { hasConfirmed, value } = await prompt(
-      "Portfolio Goal",
-      user.wealthGoal
-    )
+    const { hasConfirmed, value } = await prompt("Wealth Goal", user.wealthGoal)
 
     if (hasConfirmed) {
       try {

@@ -20,7 +20,7 @@ export function InstitutionCard({ institution }: { institution: Institution }) {
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold truncate text-white">
-              {institution.portfolioName}
+              {institution.institutionName}
             </CardTitle>
             <Landmark className="text-primary w-6 h-6" />
           </div>

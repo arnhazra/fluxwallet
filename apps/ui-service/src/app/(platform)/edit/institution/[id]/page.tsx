@@ -61,7 +61,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   useEffect(() => {
     if (institution.data) {
       setFormData({
-        institutionName: institution.data?.portfolioName,
+        institutionName: institution.data?.institutionName,
         institutionType: institution.data?.institutionType,
       })
     }

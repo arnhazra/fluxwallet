@@ -35,7 +35,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 
 interface AssetFormData {
-  portfolioId: string
+  institutionId: string
   assetType: AssetType | ""
   assetName: string
   identifier: string
@@ -77,7 +77,7 @@ const frequencyLabels = {
 
 export default function Page() {
   const [formData, setFormData] = useState<AssetFormData>({
-    portfolioId: "",
+    institutionId: "",
     assetType: "",
     assetName: "",
     identifier: "",
@@ -179,9 +179,9 @@ export default function Page() {
                   Select Institution
                 </Label>
                 <Select
-                  value={formData.portfolioId}
+                  value={formData.institutionId}
                   onValueChange={(value) =>
-                    handleInputChange("portfolioId", value)
+                    handleInputChange("institutionId", value)
                   }
                   required
                 >
@@ -195,7 +195,7 @@ export default function Page() {
                         value={institution._id}
                         className="text-neutral-100 focus:bg-neutral-700"
                       >
-                        {institution.portfolioName}
+                        {institution.institutionName}
                       </SelectItem>
                     ))}
                   </SelectContent>

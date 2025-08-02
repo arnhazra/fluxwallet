@@ -236,7 +236,7 @@ export type Thread = {
 export type Institution = {
   _id: string
   userId: string
-  portfolioName: string
+  institutionName: string
   presentValuation: number | null | undefined
   institutionType: InstitutionType
   createdAt: string
@@ -245,7 +245,7 @@ export type Institution = {
 export type Asset = {
   _id: string
   userId: string
-  portfolioId: string
+  institutionId: string
   assetType: AssetType
   assetName: string
   identifier: string

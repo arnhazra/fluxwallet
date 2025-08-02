@@ -29,14 +29,19 @@ import { format } from "date-fns"
 import { cn } from "@/shared/lib/tw-class-util"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { Asset, AssetType, Portfolio, RecurringFrequency } from "@/shared/types"
+import {
+  Asset,
+  AssetType,
+  Institution,
+  RecurringFrequency,
+} from "@/shared/types"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import Loading from "@/app/loading"
 
 interface AssetFormData {
-  portfolioId: string
+  institutionId: string
   assetType: AssetType | ""
   assetName: string
   identifier: string
@@ -86,7 +91,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   })
 
   const [formData, setFormData] = useState<AssetFormData | null>({
-    portfolioId: "",
+    institutionId: "",
     assetType: "",
     assetName: "",
     identifier: "",
@@ -100,8 +105,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     }
   }, [asset.data])
 
-  const portfolios = useQuery<Portfolio[]>({
-    queryKey: ["get-portfolios-build-asset"],
+  const institutions = useQuery<Institution[]>({
+    queryKey: ["get-institutions-build-asset"],
     queryUrl: endPoints.institution,
     method: HTTPMethods.GET,
   })
@@ -198,21 +203,21 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="portfolioId" className="text-neutral-200">
-                  Select Portfolio
+                <Label htmlFor="institutionId" className="text-neutral-200">
+                  Select Holding Institution
                 </Label>
-                <Select value={formData?.portfolioId} disabled required>
+                <Select value={formData?.institutionId} disabled required>
                   <SelectTrigger className="bg-neutral-800 border-neutral-700 text-neutral-100 focus:border-neutral-600">
-                    <SelectValue placeholder="Select Portfolio" />
+                    <SelectValue placeholder="Select Holding Institution" />
                   </SelectTrigger>
                   <SelectContent className="bg-neutral-800 border-neutral-700">
-                    {portfolios.data?.map((portfolio) => (
+                    {institutions.data?.map((institution) => (
                       <SelectItem
-                        key={portfolio._id}
-                        value={portfolio._id}
+                        key={institution._id}
+                        value={institution._id}
                         className="text-neutral-100 focus:bg-neutral-700"
                       >
-                        {portfolio.portfolioName}
+                        {institution.institutionName}
                       </SelectItem>
                     ))}
                   </SelectContent>
