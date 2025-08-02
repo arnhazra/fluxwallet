@@ -5,6 +5,7 @@
 - Updates in asset valuation calculation logic
 - Bug fixes and performance improvements
 - Added new agentic workflows
+- Rebranded Portfolio to Holding Institutions
 
 ## v1.5
 
