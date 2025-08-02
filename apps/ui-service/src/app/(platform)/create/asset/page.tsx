@@ -176,7 +176,7 @@ export default function Page() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="assetType" className="text-neutral-200">
-                  Select Institution
+                  Select Holding Institution
                 </Label>
                 <Select
                   value={formData.institutionId}
@@ -186,7 +186,7 @@ export default function Page() {
                   required
                 >
                   <SelectTrigger className="bg-neutral-800 border-neutral-700 text-neutral-100 focus:border-neutral-600">
-                    <SelectValue placeholder="Select Institution" />
+                    <SelectValue placeholder="Select Holding Institution" />
                   </SelectTrigger>
                   <SelectContent className="bg-neutral-800 border-neutral-700">
                     {institutions.data?.map((institution) => (

@@ -126,7 +126,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 }
               >
                 <SelectTrigger className="w-full bg-background text-white border-border">
-                  <SelectValue placeholder="Select institution type">
+                  <SelectValue placeholder="Select Holding Institution type">
                     {formData.institutionType}
                   </SelectValue>
                 </SelectTrigger>

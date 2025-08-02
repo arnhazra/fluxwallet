@@ -113,7 +113,7 @@ export default function Page() {
                 }
               >
                 <SelectTrigger className="w-full bg-background text-white border-border">
-                  <SelectValue placeholder="Select institution type"></SelectValue>
+                  <SelectValue placeholder="Select Holding Institution type"></SelectValue>
                 </SelectTrigger>
                 <SelectContent className="w-full bg-background text-white border-border">
                   {institutions.map((option) => (
