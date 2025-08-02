@@ -21,7 +21,7 @@ export class User extends Document {
   baseCurrency: Currency
 
   @Prop({ default: null })
-  portfolioGoal: number | null
+  wealthGoal: number | null
 
   @Prop({ default: 0 })
   currentLiabilities: number

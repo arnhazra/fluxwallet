@@ -20,26 +20,20 @@ export default function GoalCard({
 }) {
   const [{ user }, dispatch] = useAppContext()
   const { prompt } = usePromptContext()
-  const [goalPercentage, setGoalPercentage] = useState(0)
-
-  useEffect(() => {
-    const portfolioGoal = user.portfolioGoal ?? 0
-    const goal = (presentValuation * 100) / portfolioGoal
-    setGoalPercentage(goal > 100 ? 100 : goal)
-  }, [presentValuation, user.portfolioGoal])
+  const goalPercentage = (presentValuation * 100) / (user.wealthGoal ?? 0)
 
   const editGoal = async () => {
     const { hasConfirmed, value } = await prompt(
       "Portfolio Goal",
-      user.portfolioGoal
+      user.wealthGoal
     )
 
     if (hasConfirmed) {
       try {
-        dispatch("setUser", { portfolioGoal: value })
+        dispatch("setUser", { wealthGoal: value })
         await ky.patch(endPoints.updateAttribute, {
           json: {
-            attributeName: "portfolioGoal",
+            attributeName: "wealthGoal",
             attributeValue: value,
           },
           timeout: FETCH_TIMEOUT,
@@ -70,16 +64,16 @@ export default function GoalCard({
         </div>
         <div className="space-y-3">
           <p className="text-3xl font-bold text-white">
-            <Show condition={!!goalPercentage}>
+            <Show condition={!!user.wealthGoal}>
               {goalPercentage.toFixed(0)}%
             </Show>
-            <Show condition={!goalPercentage}>Set a Goal</Show>
+            <Show condition={!user.wealthGoal}>Set a Goal</Show>
           </p>
           <div className="space-y-2">
             <div className="flex gap-1 text-sm">
               <span className="text-neutral-400">Wealth Goal:</span>
               <span className="text-primary">
-                {formatCurrency(user.portfolioGoal ?? 0, user.baseCurrency)}
+                {formatCurrency(user.wealthGoal ?? 0, user.baseCurrency)}
               </span>
             </div>
             <div className="w-full bg-neutral-700 rounded-full h-2">

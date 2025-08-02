@@ -19,36 +19,39 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { Package } from "lucide-react"
-import { InstitutionType, Portfolio } from "@/shared/types"
+import { InstitutionType, Institution } from "@/shared/types"
 import ky from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 
-const institutions = Object.values(InstitutionType)
+const institutionTypes = Object.values(InstitutionType)
 
-interface PortfolioFormData {
-  portfolioName: string
+interface InstitutionFormData {
+  institutionName: string
   institutionType: InstitutionType | null
 }
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id: portfolioId = "" } = use(params)
+  const { id: institutionId = "" } = use(params)
 
-  const portfolio = useQuery<Portfolio>({
-    queryKey: ["get-portfolio", portfolioId],
-    queryUrl: `${endPoints.institution}/${portfolioId}`,
+  const institution = useQuery<Institution>({
+    queryKey: ["get-institution", institutionId],
+    queryUrl: `${endPoints.institution}/${institutionId}`,
     method: HTTPMethods.GET,
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [alertMessage, setAlertMessage] = useState("")
-  const [formData, setFormData] = useState<PortfolioFormData>({
-    portfolioName: "",
+  const [formData, setFormData] = useState<InstitutionFormData>({
+    institutionName: "",
     institutionType: null,
   })
 
-  const handleInputChange = (field: keyof PortfolioFormData, value: string) => {
+  const handleInputChange = (
+    field: keyof InstitutionFormData,
+    value: string
+  ) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
@@ -56,13 +59,13 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   }
 
   useEffect(() => {
-    if (portfolio.data) {
+    if (institution.data) {
       setFormData({
-        portfolioName: portfolio.data?.portfolioName,
-        institutionType: portfolio.data?.institutionType,
+        institutionName: institution.data?.portfolioName,
+        institutionType: institution.data?.institutionType,
       })
     }
-  }, [portfolio.data])
+  }, [institution.data])
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -70,12 +73,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     setAlertMessage("")
 
     try {
-      await ky.put(`${endPoints.institution}/${portfolioId}`, {
+      await ky.put(`${endPoints.institution}/${institutionId}`, {
         json: formData,
       })
-      setAlertMessage("Portfolio updated successfully!")
+      setAlertMessage("Institution updated successfully!")
     } catch (error) {
-      setAlertMessage("Error updating portfolio")
+      setAlertMessage("Error updating Institution")
     } finally {
       setIsSubmitting(false)
     }
@@ -87,25 +90,25 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         <CardHeader>
           <CardTitle className="flex items-center gap-2">
             <Package className="h-5 w-5 text-primary" />
-            Edit Portfolio
+            Edit Holding Institution
           </CardTitle>
           <CardDescription className="text-sm text-primary">
-            Set up a new portfolio to track your investments and assets
+            Edit your holding institution to track your investments and assets
           </CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-6">
             <div className="space-y-2">
-              <Label htmlFor="portfolioName">
-                Portfolio Name <span className="text-red-500">*</span>
+              <Label htmlFor="institutionName">
+                Holding Institution Name <span className="text-red-500">*</span>
               </Label>
               <Input
                 required
-                id="portfolioName"
-                placeholder="Enter portfolio name"
-                value={formData.portfolioName}
+                id="institutionName"
+                placeholder="Enter Holding Institution Name"
+                value={formData.institutionName}
                 onChange={(e) =>
-                  handleInputChange("portfolioName", e.target.value)
+                  handleInputChange("institutionName", e.target.value)
                 }
                 className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
               />
@@ -116,7 +119,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               <Select
                 required
                 value={
-                  formData.institutionType ?? portfolio?.data?.institutionType
+                  formData.institutionType ?? institution?.data?.institutionType
                 }
                 onValueChange={(value) =>
                   handleInputChange("institutionType", value)
@@ -128,7 +131,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                   </SelectValue>
                 </SelectTrigger>
                 <SelectContent className="w-full bg-background text-white border-border">
-                  {institutions.map((option) => (
+                  {institutionTypes.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
                     </SelectItem>
@@ -143,7 +146,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                 type="submit"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Updating..." : "Update Portfolio"}
+                {isSubmitting ? "Updating..." : "Update Institution"}
               </Button>
             </div>
           </form>

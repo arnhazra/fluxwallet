@@ -181,20 +181,14 @@ export class IntelligenceAgent {
     }
   )
 
-  public updatePortfolioGoalAgent = tool(
-    async ({
-      userId,
-      portfolioGoal,
-    }: {
-      userId: string
-      portfolioGoal: number
-    }) => {
+  public updateWealthGoalAgent = tool(
+    async ({ userId, wealthGoal }: { userId: string; wealthGoal: number }) => {
       try {
         await this.eventEmitter.emitAsync(
           EventMap.UpdateAttribute,
           userId,
-          "portfolioGoal",
-          portfolioGoal
+          "wealthGoal",
+          wealthGoal
         )
         return "success"
       } catch (error) {
@@ -202,11 +196,13 @@ export class IntelligenceAgent {
       }
     },
     {
-      name: "update_portfolio_goal_for_user",
-      description: "Update the portfolio goal value for a user",
+      name: "update_wealth_goal_for_user",
+      description: "Update the wealth goal value for a user",
       schema: z.object({
         userId: z.string().describe("_id of the user"),
-        portfolioGoal: z.number().describe("new goal value given by the user"),
+        wealthGoal: z
+          .number()
+          .describe("new wealth goal value given by the user"),
       }),
     }
   )

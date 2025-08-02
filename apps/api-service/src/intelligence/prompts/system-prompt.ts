@@ -47,7 +47,7 @@ export const systemPrompt = (user: User): string => {
   - User ID: ${user.id}
   - User Email: ${user.email}
   - Base Currency: ${user.baseCurrency}
-  - Portfolio Goal: ${user.portfolioGoal}
+  - Wealth Goal: ${user.wealthGoal}
   - Current Liabilities: ${user.currentLiabilities}
 
   Always respond with a helpful, polite, and application-aware tone.
