@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.4
+
+- Bug fixes & perfomance improvements
+- Added more agentic workflows
+- UI improvements & code refactoring
+
 ## v1.3
 
 - Added simplified logic for present valuation caluclation on the fly

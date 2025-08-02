@@ -1,4 +1,4 @@
-import { Check, Cog, Infinity } from "lucide-react"
+import { BrainCircuit, Check, Cog } from "lucide-react"
 import { Button } from "../ui/button"
 import { appName } from "@/shared/constants/global-constants"
 
@@ -42,7 +42,7 @@ export function IntelligenceCard() {
           size="icon"
           className="rounded-full bg-primary hover:bg-primary"
         >
-          <Infinity className="h-4 w-4 text-white" />
+          <BrainCircuit className="h-4 w-4 text-white" />
           <span className="sr-only">{appName} Intelligence</span>
         </Button>
       </div>
@@ -56,7 +56,7 @@ export function IntelligenceCard() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <Infinity />
+              <BrainCircuit />
             </svg>
           </div>
           <div className="absolute top-12 left-4 w-48 h-4 bg-zinc-100 rounded" />

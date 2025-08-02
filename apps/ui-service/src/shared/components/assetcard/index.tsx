@@ -17,7 +17,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
   const [{ user }] = useAppContext()
 
   return (
-    <AssetModal assetId={asset._id} key={asset._id}>
+    <AssetModal assetDetails={asset} key={asset._id}>
       <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white cursor-pointer">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">

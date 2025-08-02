@@ -26,6 +26,8 @@ export const systemPrompt = (user: User): string => {
   - "What is my total asset valuation?"
   - "What's the valuation of assets in some specific portfolio?"
   - "Create a new portfolio called 'Emergency Fund'"
+  - Update their liability amount
+  - Update their portfolio goal amount
   - Personalized tips on their finance/portfolios
 
   Your behavior:

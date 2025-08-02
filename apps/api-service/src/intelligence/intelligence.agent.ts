@@ -148,4 +148,66 @@ export class IntelligenceAgent {
       }),
     }
   )
+
+  public updateLiabilityAgent = tool(
+    async ({
+      userId,
+      currentLiabilities,
+    }: {
+      userId: string
+      currentLiabilities: number
+    }) => {
+      try {
+        await this.eventEmitter.emitAsync(
+          EventMap.UpdateAttribute,
+          userId,
+          "currentLiabilities",
+          currentLiabilities
+        )
+        return "success"
+      } catch (error) {
+        return "failure"
+      }
+    },
+    {
+      name: "update_liability_for_user",
+      description: "Update the liability value for a user",
+      schema: z.object({
+        userId: z.string().describe("_id of the user"),
+        currentLiabilities: z
+          .number()
+          .describe("new current liabilities value given by the user"),
+      }),
+    }
+  )
+
+  public updatePortfolioGoalAgent = tool(
+    async ({
+      userId,
+      portfolioGoal,
+    }: {
+      userId: string
+      portfolioGoal: number
+    }) => {
+      try {
+        await this.eventEmitter.emitAsync(
+          EventMap.UpdateAttribute,
+          userId,
+          "portfolioGoal",
+          portfolioGoal
+        )
+        return "success"
+      } catch (error) {
+        return "failure"
+      }
+    },
+    {
+      name: "update_portfolio_goal_for_user",
+      description: "Update the portfolio goal value for a user",
+      schema: z.object({
+        userId: z.string().describe("_id of the user"),
+        portfolioGoal: z.number().describe("new goal value given by the user"),
+      }),
+    }
+  )
 }
