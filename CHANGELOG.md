@@ -4,6 +4,7 @@
 
 - Updates in asset valuation calculation logic
 - Bug fixes and performance improvements
+- Added new agentic workflows
 
 ## v1.5
 
