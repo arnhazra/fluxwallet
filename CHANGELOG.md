@@ -2,6 +2,10 @@
 
 ## v1.5
 
+- Updates in asset valuation calculation logic
+
+## v1.5
+
 - NPM & Node upgrades
 - Package upgrades across application
 - Code refactoring & bug fixes
