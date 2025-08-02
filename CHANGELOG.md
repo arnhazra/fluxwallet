@@ -1,5 +1,7 @@
 # Changelog
 
+## v1.5
+
 ## v1.4
 
 - Bug fixes & perfomance improvements
