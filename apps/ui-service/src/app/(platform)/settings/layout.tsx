@@ -8,11 +8,11 @@ import { usePathname } from "next/navigation"
 import { useAppContext } from "@/context/appstate.provider"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
-  user: <User />,
-  privacy: <ShieldCheck />,
-  subscription: <CalendarClock />,
-  sustainability: <Leaf />,
-  about: <Info />,
+  user: <User className="h-4 w-4" />,
+  privacy: <ShieldCheck className="h-4 w-4" />,
+  subscription: <CalendarClock className="h-4 w-4" />,
+  sustainability: <Leaf className="h-4 w-4" />,
+  about: <Info className="h-4 w-4" />,
 }
 
 export default function SetingsLayout({ children }: { children: ReactNode }) {
@@ -28,7 +28,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
         }`}
         href={`/settings/${tab}`}
       >
-        <div className="me-2 h-4 w-4 -mt-0.5">{mapTabIcons[tab]}</div>
+        <div className="me-2 mt-0.5">{mapTabIcons[tab]}</div>
         <p>{tab}</p>
       </Link>
     )

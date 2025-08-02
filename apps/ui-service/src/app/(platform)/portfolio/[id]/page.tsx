@@ -71,14 +71,14 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               size="icon"
               className="bg-border text-white"
             >
-              <Pen className="scale-50" />
+              <Pen className="h-3 w-3" />
             </Button>,
             <Button
               onClick={handleDeletePortfolio}
               variant="destructive"
               size="icon"
             >
-              <Trash className="scale-50" />
+              <Trash className="h-3 w-3" />
             </Button>,
           ]}
         />

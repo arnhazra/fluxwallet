@@ -59,6 +59,10 @@ export default function usePrompt() {
     }
   }
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(Number(e.target.value))
+  }
+
   const promptDialog = () => (
     <AlertDialog open={show}>
       <AlertDialogContent className="bg-background text-white border-border">
@@ -67,12 +71,12 @@ export default function usePrompt() {
           <Input
             min={0}
             defaultValue={defaultValueState ? defaultValueState : ""}
-            className="prompt-input bg-background border-border"
+            className="h-12 bg-background border-border"
             required
             type="number"
             placeholder={`Enter ${message}`}
             autoComplete={"off"}
-            onChange={(e) => setValue(Number(e.target.value))}
+            onChange={handleChange}
           />
         </AlertDialogHeader>
         <AlertDialogFooter>

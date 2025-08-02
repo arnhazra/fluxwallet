@@ -57,7 +57,7 @@ export default function EditCurrency({
           variant="default"
           size="icon"
         >
-          <PenIcon className="scale-50" />
+          <PenIcon className="h-3 w-3" />
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-main border-border">
