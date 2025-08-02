@@ -97,7 +97,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
                 <Pen className="text-green-400 h-4 w-4" />
               </Button>
               <Button onClick={deleteAsset} variant="destructive" size="icon">
-                <Trash className="h-3 w-3" />
+                <Trash className="h-4 w-4" />
               </Button>
             </div>
           </div>

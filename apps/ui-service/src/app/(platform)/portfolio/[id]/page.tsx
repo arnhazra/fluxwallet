@@ -78,7 +78,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               variant="destructive"
               size="icon"
             >
-              <Trash className="h-3 w-3" />
+              <Trash className="h-4 w-4" />
             </Button>,
           ]}
         />

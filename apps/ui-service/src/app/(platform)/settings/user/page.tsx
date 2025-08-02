@@ -67,7 +67,6 @@ export default function Page() {
         actionComponents={[
           <Button
             size="icon"
-            className="rounded-full"
             variant="destructive"
             onClick={(): Promise<void> => signOut("all")}
           >
