@@ -49,7 +49,7 @@ export default function useConfirm() {
       <AlertDialogContent className="bg-background text-white border-border">
         <AlertDialogHeader>
           <AlertDialogTitle>{message.title}</AlertDialogTitle>
-          <AlertDialogDescription className="text-zinc-300">
+          <AlertDialogDescription className="text-neutral-300">
             {message.desc ?? uiConstants.confirmDescription}
           </AlertDialogDescription>
         </AlertDialogHeader>

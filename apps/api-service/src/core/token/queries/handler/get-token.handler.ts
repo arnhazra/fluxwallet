@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { GetTokenQuery } from "../impl/get-token.query"
 import { TokenRepository } from "../../token.repository"
-import objectId from "src/shared/utils/convert-objectid"
+import objectId from "@/shared/utils/convert-objectid"
 
 @QueryHandler(GetTokenQuery)
 export class GetTokenQueryHandler implements IQueryHandler<GetTokenQuery> {

@@ -16,7 +16,7 @@ export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
 
   return (
     <Link href={`/portfolio/${portfolio._id}`}>
-      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
+      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold truncate text-white">
@@ -24,7 +24,10 @@ export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
             </CardTitle>
             <Landmark className="text-primary w-6 h-6" />
           </div>
-          <Badge variant="default" className="w-fit bg-border text-primary">
+          <Badge
+            variant="default"
+            className="w-fit bg-neutral-800 text-primary"
+          >
             {portfolio.institutionType}
           </Badge>
         </CardHeader>
@@ -32,7 +35,9 @@ export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-zinc-400">Present Valuation</span>
+              <span className="text-sm text-neutral-400">
+                Present Valuation
+              </span>
               <span className="text-lg font-bold text-primary">
                 {formatCurrency(
                   portfolio?.presentValuation ?? 0,
@@ -50,7 +55,7 @@ export function PortfolioCard({ portfolio }: { portfolio: Portfolio }) {
 export function AddPortfolioCard() {
   return (
     <Link href={`/create/portfolio`}>
-      <Card className="w-full max-w-sm h-[147px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-main border-background text-white">
+      <Card className="w-full max-w-sm h-[147px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>

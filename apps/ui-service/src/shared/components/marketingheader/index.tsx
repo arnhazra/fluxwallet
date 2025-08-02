@@ -12,7 +12,7 @@ import { appName } from "@/shared/constants/global-constants"
 
 export default function MarketingHeader() {
   return (
-    <header className="relative z-50 top-0 flex h-[64px] items-center bg-main text-white px-4 md:px-6">
+    <header className="relative z-50 top-0 flex h-[64px] items-center bg-background text-white px-4 md:px-6">
       <div className="flex w-full items-center justify-between lg:container lg:max-w-[90rem]">
         <Link
           href="/"
@@ -47,7 +47,7 @@ export default function MarketingHeader() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="bg-main text-white border-none"
+              className="bg-background text-white border-none"
             >
               <SheetTitle></SheetTitle>
               <nav className="grid gap-6 text-lg font-medium">

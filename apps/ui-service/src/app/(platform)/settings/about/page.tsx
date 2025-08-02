@@ -5,9 +5,9 @@ import { InfoIcon } from "lucide-react"
 export default function Page() {
   return (
     <SectionPanel
-      icon={<InfoIcon className="scale-75" />}
+      icon={<InfoIcon className="h-4 w-4" />}
       title={`${appName} App Version`}
-      content="1.4"
+      content="1.5"
     />
   )
 }

@@ -31,7 +31,7 @@ export default function Page() {
   return (
     <section className="grid gap-2">
       <SectionPanel
-        icon={<PieChart className="scale-75" />}
+        icon={<PieChart className="h-4 w-4" />}
         title="Activity Log"
         content="Choose whether to save the things you do to get more relevant results"
         actionComponents={[
@@ -44,7 +44,7 @@ export default function Page() {
         ]}
       />
       <SectionPanel
-        icon={<Fingerprint className="scale-75" />}
+        icon={<Fingerprint className="h-4 w-4" />}
         title="Access Token"
         content={localStorage.getItem("accessToken") ?? ""}
         masked
@@ -53,7 +53,7 @@ export default function Page() {
         ]}
       />
       <SectionPanel
-        icon={<ScanFace className="scale-75" />}
+        icon={<ScanFace className="h-4 w-4" />}
         title="Refresh Token"
         content={localStorage.getItem("refreshToken") ?? ""}
         masked

@@ -27,9 +27,9 @@ export function UserNav() {
         <Button
           variant="default"
           size="icon"
-          className="overflow-hidden rounded-full bg-border hover:bg-border"
+          className="overflow-hidden rounded-full bg-neutral-800 hover:bg-neutral-800"
         >
-          <User className="scale-75 text-primary" />
+          <User className="h-4 w-4 text-primary" />
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent
@@ -43,7 +43,7 @@ export function UserNav() {
             <p className="text-xs leading-none">{user.email}</p>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator className="bg-border" />
+        <DropdownMenuSeparator className="bg-neutral-800" />
         <DropdownMenuGroup>
           <Link href="/settings/user">
             <DropdownMenuItem>Settings</DropdownMenuItem>

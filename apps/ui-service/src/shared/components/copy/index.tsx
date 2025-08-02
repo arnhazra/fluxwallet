@@ -21,13 +21,13 @@ export default function CopyToClipboard({ value }: { value: string }) {
       size="icon"
       onClick={copyValue}
       title="Copy to Clipboard"
-      className="bg-border hover:bg-border"
+      className="bg-neutral-800 hover:bg-neutral-800"
     >
       <Show
         condition={!isCopied}
-        fallback={<CheckCircle2 className="scale-65 text-primary" />}
+        fallback={<CheckCircle2 className="h-4 w-4 text-primary" />}
       >
-        <Clipboard className="scale-65" />
+        <Clipboard className="h-4 w-4" />
       </Show>
     </Button>
   )

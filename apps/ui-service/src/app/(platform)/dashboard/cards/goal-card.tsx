@@ -29,7 +29,10 @@ export default function GoalCard({
   }, [presentValuation, user.portfolioGoal])
 
   const editGoal = async () => {
-    const { hasConfirmed, value } = await prompt("Portfolio Goal")
+    const { hasConfirmed, value } = await prompt(
+      "Portfolio Goal",
+      user.portfolioGoal
+    )
 
     if (hasConfirmed) {
       try {
@@ -37,7 +40,7 @@ export default function GoalCard({
         await ky.patch(endPoints.updateAttribute, {
           json: {
             attributeName: "portfolioGoal",
-            attributeValue: Number(value),
+            attributeValue: value,
           },
           timeout: FETCH_TIMEOUT,
         })
@@ -55,7 +58,7 @@ export default function GoalCard({
             <div className="p-2 bg-green-500/20 rounded-lg">
               <Target className="h-5 w-5 text-green-400" />
             </div>
-            <span className="text-sm text-zinc-400">Goal Progress</span>
+            <span className="text-sm text-neutral-400">Goal Progress</span>
           </div>
           <Button
             onClick={editGoal}
@@ -74,12 +77,12 @@ export default function GoalCard({
           </p>
           <div className="space-y-2">
             <div className="flex justify-between text-sm">
-              <span className="text-zinc-400">
+              <span className="text-neutral-400">
                 Wealth Goal:{" "}
                 {formatCurrency(user.portfolioGoal ?? 0, user.baseCurrency)}
               </span>
             </div>
-            <div className="w-full bg-zinc-700 rounded-full h-2">
+            <div className="w-full bg-neutral-700 rounded-full h-2">
               <div
                 className="bg-primary h-2 rounded-full"
                 style={{ width: `${goalPercentage.toFixed(0)}%` }}

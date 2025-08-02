@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindAllPortfolioQuery } from "../impl/find-all-portfolios.query"
 import { PortfolioRepository } from "../../portfolio.repository"
-import objectId from "src/shared/utils/convert-objectid"
+import objectId from "@/shared/utils/convert-objectid"
 
 @QueryHandler(FindAllPortfolioQuery)
 export class FindAllPortfolioQueryHandler

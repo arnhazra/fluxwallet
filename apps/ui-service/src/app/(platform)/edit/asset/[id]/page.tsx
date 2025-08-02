@@ -188,9 +188,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   return (
     <div className="min-h-screen p-6">
       <div className="max-w-4xl mx-auto">
-        <Card className="bg-zinc-900 border-zinc-800">
-          <CardHeader className="border-b border-zinc-800">
-            <CardTitle className="flex items-center gap-2 text-zinc-100">
+        <Card className="bg-neutral-900 border-neutral-800">
+          <CardHeader className="border-b border-neutral-800">
+            <CardTitle className="flex items-center gap-2 text-neutral-100">
               <BadgeDollarSign className="h-6 w-6 text-primary" />
               Update Asset
             </CardTitle>
@@ -201,19 +201,19 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="portfolioId" className="text-zinc-200">
+                <Label htmlFor="portfolioId" className="text-neutral-200">
                   Select Portfolio
                 </Label>
                 <Select value={formData?.portfolioId} disabled required>
-                  <SelectTrigger className="bg-zinc-800 border-zinc-700 text-zinc-100 focus:border-zinc-600">
+                  <SelectTrigger className="bg-neutral-800 border-neutral-700 text-neutral-100 focus:border-neutral-600">
                     <SelectValue placeholder="Select Portfolio" />
                   </SelectTrigger>
-                  <SelectContent className="bg-zinc-800 border-zinc-700">
+                  <SelectContent className="bg-neutral-800 border-neutral-700">
                     {portfolios.data?.map((portfolio) => (
                       <SelectItem
                         key={portfolio._id}
                         value={portfolio._id}
-                        className="text-zinc-100 focus:bg-zinc-700"
+                        className="text-neutral-100 focus:bg-neutral-700"
                       >
                         {portfolio.portfolioName}
                       </SelectItem>
@@ -223,19 +223,19 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               </div>
 
               <div className="space-y-2">
-                <Label htmlFor="assetType" className="text-zinc-200">
+                <Label htmlFor="assetType" className="text-neutral-200">
                   Asset Type
                 </Label>
                 <Select value={formData?.assetType} disabled required>
-                  <SelectTrigger className="bg-zinc-800 border-zinc-700 text-zinc-100 focus:border-zinc-600">
+                  <SelectTrigger className="bg-neutral-800 border-neutral-700 text-neutral-100 focus:border-neutral-600">
                     <SelectValue placeholder="Select asset type" />
                   </SelectTrigger>
-                  <SelectContent className="bg-zinc-800 border-zinc-700">
+                  <SelectContent className="bg-neutral-800 border-neutral-700">
                     {Object.entries(assetTypeLabels).map(([value, label]) => (
                       <SelectItem
                         key={value}
                         value={value}
-                        className="text-zinc-100 focus:bg-zinc-700"
+                        className="text-neutral-100 focus:bg-neutral-700"
                       >
                         <div className="flex items-center gap-2">{label}</div>
                       </SelectItem>
@@ -246,7 +246,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 <div className="space-y-2">
-                  <Label htmlFor="assetName" className="text-zinc-200">
+                  <Label htmlFor="assetName" className="text-neutral-200">
                     Asset Name
                   </Label>
                   <Input
@@ -256,12 +256,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       handleInputChange("assetName", e.target.value)
                     }
                     placeholder="Enter asset name"
-                    className="bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-600"
+                    className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                     required
                   />
                 </div>
                 <div className="space-y-2">
-                  <Label htmlFor="identifier" className="text-zinc-200">
+                  <Label htmlFor="identifier" className="text-neutral-200">
                     Identifier
                   </Label>
                   <Input
@@ -271,7 +271,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       handleInputChange("identifier", e.target.value)
                     }
                     placeholder="Enter unique identifier"
-                    className="bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-600"
+                    className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                     required
                   />
                 </div>
@@ -280,20 +280,20 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               {/* Conditional Fields */}
               {showDateFields && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold flex items-center gap-2 text-zinc-100">
-                    <CalendarIcon className="h-5 w-5 text-zinc-400" />
+                  <h3 className="text-lg font-semibold flex items-center gap-2 text-neutral-100">
+                    <CalendarIcon className="h-5 w-5 text-neutral-400" />
                     Date Information
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label className="text-zinc-200">Start Date</Label>
+                      <Label className="text-neutral-200">Start Date</Label>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
                             className={cn(
-                              "w-full justify-start text-left font-normal bg-zinc-800 border-zinc-700 text-zinc-100 hover:bg-zinc-700",
-                              !formData.startDate && "text-zinc-500"
+                              "w-full justify-start text-left font-normal bg-neutral-800 border-neutral-700 text-neutral-100 hover:bg-neutral-700",
+                              !formData.startDate && "text-neutral-500"
                             )}
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -302,7 +302,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                               : "Pick a date"}
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 bg-zinc-800 border-zinc-700">
+                        <PopoverContent className="w-auto p-0 bg-neutral-800 border-neutral-700">
                           <Calendar
                             mode="single"
                             selected={formData.startDate}
@@ -313,20 +313,20 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                             onSelect={(date) =>
                               handleInputChange("startDate", date)
                             }
-                            className="bg-zinc-800 text-zinc-100"
+                            className="bg-neutral-800 text-neutral-100"
                           />
                         </PopoverContent>
                       </Popover>
                     </div>
                     <div className="space-y-2">
-                      <Label className="text-zinc-200">Maturity Date</Label>
+                      <Label className="text-neutral-200">Maturity Date</Label>
                       <Popover>
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
                             className={cn(
-                              "w-full justify-start text-left font-normal bg-zinc-800 border-zinc-700 text-zinc-100 hover:bg-zinc-700",
-                              !formData.maturityDate && "text-zinc-500"
+                              "w-full justify-start text-left font-normal bg-neutral-800 border-neutral-700 text-neutral-100 hover:bg-neutral-700",
+                              !formData.maturityDate && "text-neutral-500"
                             )}
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
@@ -335,7 +335,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                               : "Pick a date"}
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 bg-zinc-800 border-zinc-700">
+                        <PopoverContent className="w-auto p-0 bg-neutral-800 border-neutral-700">
                           <Calendar
                             mode="single"
                             selected={formData.maturityDate}
@@ -353,7 +353,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                               handleInputChange("maturityDate", date)
                             }
                             initialFocus
-                            className="bg-zinc-800 text-zinc-100"
+                            className="bg-neutral-800 text-neutral-100"
                           />
                         </PopoverContent>
                       </Popover>
@@ -364,8 +364,8 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
               {(showAmountInvested || showExpectedReturn) && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold flex items-center gap-2 text-zinc-100">
-                    <TrendingUp className="h-5 w-5 text-zinc-400" />
+                  <h3 className="text-lg font-semibold flex items-center gap-2 text-neutral-100">
+                    <TrendingUp className="h-5 w-5 text-neutral-400" />
                     Investment Details
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -373,7 +373,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       <div className="space-y-2">
                         <Label
                           htmlFor="amountInvested"
-                          className="text-zinc-200"
+                          className="text-neutral-200"
                         >
                           Amount Invested
                         </Label>
@@ -389,7 +389,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                             )
                           }
                           placeholder="0.00"
-                          className="bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-600"
+                          className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                         />
                       </div>
                     )}
@@ -397,7 +397,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       <div className="space-y-2">
                         <Label
                           htmlFor="expectedReturnRate"
-                          className="text-zinc-200"
+                          className="text-neutral-200"
                         >
                           Expected Return Rate (%)
                         </Label>
@@ -413,7 +413,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                             )
                           }
                           placeholder="0.00"
-                          className="bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-600"
+                          className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                         />
                       </div>
                     )}
@@ -423,14 +423,14 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
               {showRecurringFields && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-zinc-100">
+                  <h3 className="text-lg font-semibold text-neutral-100">
                     Recurring Contribution
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
                       <Label
                         htmlFor="contributionAmount"
-                        className="text-zinc-200"
+                        className="text-neutral-200"
                       >
                         Contribution Amount
                       </Label>
@@ -446,13 +446,13 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           )
                         }
                         placeholder="0.00"
-                        className="bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-600"
+                        className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                       />
                     </div>
                     <div className="space-y-2">
                       <Label
                         htmlFor="contributionFrequency"
-                        className="text-zinc-200"
+                        className="text-neutral-200"
                       >
                         Contribution Frequency
                       </Label>
@@ -462,16 +462,16 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           handleInputChange("contributionFrequency", value)
                         }
                       >
-                        <SelectTrigger className="bg-zinc-800 border-zinc-700 text-zinc-100 focus:border-zinc-600">
+                        <SelectTrigger className="bg-neutral-800 border-neutral-700 text-neutral-100 focus:border-neutral-600">
                           <SelectValue placeholder="Select frequency" />
                         </SelectTrigger>
-                        <SelectContent className="bg-zinc-800 border-zinc-700">
+                        <SelectContent className="bg-neutral-800 border-neutral-700">
                           {Object.entries(frequencyLabels).map(
                             ([value, label]) => (
                               <SelectItem
                                 key={value}
                                 value={value}
-                                className="text-zinc-100 focus:bg-zinc-700"
+                                className="text-neutral-100 focus:bg-neutral-700"
                               >
                                 {label}
                               </SelectItem>
@@ -486,13 +486,13 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
               {showValuationOnPurchase && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-zinc-100">
+                  <h3 className="text-lg font-semibold text-neutral-100">
                     Valuation
                   </h3>
                   <div className="space-y-2">
                     <Label
                       htmlFor="valuationOnPurchase"
-                      className="text-zinc-200"
+                      className="text-neutral-200"
                     >
                       Valuation on Purchase
                     </Label>
@@ -508,7 +508,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                         )
                       }
                       placeholder="0.00"
-                      className="bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-600"
+                      className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                     />
                   </div>
                 </div>
@@ -516,11 +516,14 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
               {showCurrentValuation && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-zinc-100">
+                  <h3 className="text-lg font-semibold text-neutral-100">
                     Current Value
                   </h3>
                   <div className="space-y-2">
-                    <Label htmlFor="currentValuation" className="text-zinc-200">
+                    <Label
+                      htmlFor="currentValuation"
+                      className="text-neutral-200"
+                    >
                       Current Valuation
                     </Label>
                     <Input
@@ -535,7 +538,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                         )
                       }
                       placeholder="0.00"
-                      className="bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-600"
+                      className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                     />
                   </div>
                 </div>
@@ -543,12 +546,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
               {showEquityFields && (
                 <div className="space-y-4">
-                  <h3 className="text-lg font-semibold text-zinc-100">
+                  <h3 className="text-lg font-semibold text-neutral-100">
                     Equity Details
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div className="space-y-2">
-                      <Label htmlFor="units" className="text-zinc-200">
+                      <Label htmlFor="units" className="text-neutral-200">
                         Number of Units
                       </Label>
                       <Input
@@ -562,13 +565,13 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           )
                         }
                         placeholder="0"
-                        className="bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-600"
+                        className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                       />
                     </div>
                     <div className="space-y-2">
                       <Label
                         htmlFor="unitPurchasePrice"
-                        className="text-zinc-200"
+                        className="text-neutral-200"
                       >
                         Unit Purchase Price
                       </Label>
@@ -584,7 +587,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           )
                         }
                         placeholder="0.00"
-                        className="bg-zinc-800 border-zinc-700 text-zinc-100 placeholder:text-zinc-500 focus:border-zinc-600"
+                        className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                       />
                     </div>
                   </div>

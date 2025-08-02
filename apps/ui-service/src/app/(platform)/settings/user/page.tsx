@@ -35,25 +35,25 @@ export default function Page() {
   return (
     <section className="grid gap-2">
       <SectionPanel
-        icon={<User className="scale-75" />}
+        icon={<User className="h-4 w-4" />}
         title="Your Name"
         content={user.name}
       />
       <SectionPanel
-        icon={<IdCard className="scale-75" />}
+        icon={<IdCard className="h-4 w-4" />}
         title={`${appName} ID`}
         content={user._id}
         masked
         actionComponents={[<CopyToClipboard value={user._id} />]}
       />
       <SectionPanel
-        icon={<AtSign className="scale-75" />}
+        icon={<AtSign className="h-4 w-4" />}
         title="Your Email"
         content={user.email}
         actionComponents={[<CopyToClipboard value={user.email} />]}
       />
       <SectionPanel
-        icon={<DollarSign className="scale-75" />}
+        icon={<DollarSign className="h-4 w-4" />}
         title="Base Currency"
         content={user.baseCurrency}
         actionComponents={[
@@ -61,7 +61,7 @@ export default function Page() {
         ]}
       />
       <SectionPanel
-        icon={<CircleArrowRight className="scale-75" />}
+        icon={<CircleArrowRight className="h-4 w-4" />}
         title="Sign Out"
         content="Sign out from all logged in devices"
         actionComponents={[
@@ -71,7 +71,7 @@ export default function Page() {
             variant="destructive"
             onClick={(): Promise<void> => signOut("all")}
           >
-            <CircleArrowRight className="scale-75" />
+            <CircleArrowRight className="h-4 w-4" />
           </Button>,
         ]}
       />

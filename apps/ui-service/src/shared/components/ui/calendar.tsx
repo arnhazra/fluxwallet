@@ -29,7 +29,7 @@ function Calendar({
     <DayPicker
       showOutsideDays={showOutsideDays}
       className={cn(
-        "bg-white group/calendar p-3 [--cell-size:2rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent dark:bg-zinc-950",
+        "bg-white group/calendar p-3 [--cell-size:2rem] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent dark:bg-neutral-950",
         String.raw`rtl:**:[.rdp-button\_next>svg]:rotate-180`,
         String.raw`rtl:**:[.rdp-button\_previous>svg]:rotate-180`,
         className
@@ -70,7 +70,7 @@ function Calendar({
           defaultClassNames.dropdowns
         ),
         dropdown_root: cn(
-          "has-focus:border-zinc-950 border-zinc-200 shadow-xs has-focus:ring-zinc-950/50 has-focus:ring-[3px] relative rounded-md border dark:has-focus:border-zinc-300 dark:border-zinc-800 dark:has-focus:ring-zinc-300/50",
+          "has-focus:border-neutral-950 border-neutral-200 shadow-xs has-focus:ring-neutral-950/50 has-focus:ring-[3px] relative rounded-md border dark:has-focus:border-neutral-300 dark:border-neutral-800 dark:has-focus:ring-neutral-300/50",
           defaultClassNames.dropdown_root
         ),
         dropdown: cn("absolute inset-0 opacity-0", defaultClassNames.dropdown),
@@ -78,13 +78,13 @@ function Calendar({
           "select-none font-medium",
           captionLayout === "label"
             ? "text-sm"
-            : "[&>svg]:text-zinc-500 flex h-8 items-center gap-1 rounded-md pl-2 pr-1 text-sm [&>svg]:size-3.5 dark:[&>svg]:text-zinc-400",
+            : "[&>svg]:text-neutral-500 flex h-8 items-center gap-1 rounded-md pl-2 pr-1 text-sm [&>svg]:size-3.5 dark:[&>svg]:text-neutral-400",
           defaultClassNames.caption_label
         ),
         table: "w-full border-collapse",
         weekdays: cn("flex", defaultClassNames.weekdays),
         weekday: cn(
-          "text-zinc-500 flex-1 select-none rounded-md text-[0.8rem] font-normal dark:text-zinc-400",
+          "text-neutral-500 flex-1 select-none rounded-md text-[0.8rem] font-normal dark:text-neutral-400",
           defaultClassNames.weekday
         ),
         week: cn("mt-2 flex w-full", defaultClassNames.week),
@@ -93,7 +93,7 @@ function Calendar({
           defaultClassNames.week_number_header
         ),
         week_number: cn(
-          "text-zinc-500 select-none text-[0.8rem] dark:text-zinc-400",
+          "text-neutral-500 select-none text-[0.8rem] dark:text-neutral-400",
           defaultClassNames.week_number
         ),
         day: cn(
@@ -101,24 +101,24 @@ function Calendar({
           defaultClassNames.day
         ),
         range_start: cn(
-          "bg-zinc-100 rounded-l-md dark:bg-zinc-800",
+          "bg-neutral-100 rounded-l-md dark:bg-neutral-800",
           defaultClassNames.range_start
         ),
         range_middle: cn("rounded-none", defaultClassNames.range_middle),
         range_end: cn(
-          "bg-zinc-100 rounded-r-md dark:bg-zinc-800",
+          "bg-neutral-100 rounded-r-md dark:bg-neutral-800",
           defaultClassNames.range_end
         ),
         today: cn(
-          "bg-zinc-100 text-zinc-900 rounded-md data-[selected=true]:rounded-none dark:bg-zinc-800 dark:text-zinc-50",
+          "bg-neutral-100 text-neutral-900 rounded-md data-[selected=true]:rounded-none dark:bg-neutral-800 dark:text-neutral-50",
           defaultClassNames.today
         ),
         outside: cn(
-          "text-zinc-500 aria-selected:text-zinc-500 dark:text-zinc-400 dark:aria-selected:text-zinc-400",
+          "text-neutral-500 aria-selected:text-neutral-500 dark:text-neutral-400 dark:aria-selected:text-neutral-400",
           defaultClassNames.outside
         ),
         disabled: cn(
-          "text-zinc-500 opacity-50 dark:text-zinc-400",
+          "text-neutral-500 opacity-50 dark:text-neutral-400",
           defaultClassNames.disabled
         ),
         hidden: cn("invisible", defaultClassNames.hidden),
@@ -201,7 +201,7 @@ function CalendarDayButton({
       data-range-end={modifiers.range_end}
       data-range-middle={modifiers.range_middle}
       className={cn(
-        "data-[selected-single=true]:bg-zinc-900 data-[selected-single=true]:text-zinc-50 data-[range-middle=true]:bg-zinc-100 data-[range-middle=true]:text-zinc-900 data-[range-start=true]:bg-zinc-900 data-[range-start=true]:text-zinc-50 data-[range-end=true]:bg-zinc-900 data-[range-end=true]:text-zinc-50 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 flex aspect-square h-auto w-full min-w-[--cell-size] flex-col gap-1 font-normal leading-none data-[range-end=true]:rounded-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] [&>span]:text-xs [&>span]:opacity-70 dark:data-[selected-single=true]:bg-zinc-50 dark:data-[selected-single=true]:text-zinc-900 dark:data-[range-middle=true]:bg-zinc-800 dark:data-[range-middle=true]:text-zinc-50 dark:data-[range-start=true]:bg-zinc-50 dark:data-[range-start=true]:text-zinc-900 dark:data-[range-end=true]:bg-zinc-50 dark:data-[range-end=true]:text-zinc-900",
+        "data-[selected-single=true]:bg-neutral-900 data-[selected-single=true]:text-neutral-50 data-[range-middle=true]:bg-neutral-100 data-[range-middle=true]:text-neutral-900 data-[range-start=true]:bg-neutral-900 data-[range-start=true]:text-neutral-50 data-[range-end=true]:bg-neutral-900 data-[range-end=true]:text-neutral-50 group-data-[focused=true]/day:border-ring group-data-[focused=true]/day:ring-ring/50 flex aspect-square h-auto w-full min-w-[--cell-size] flex-col gap-1 font-normal leading-none data-[range-end=true]:rounded-md data-[range-middle=true]:rounded-none data-[range-start=true]:rounded-md group-data-[focused=true]/day:relative group-data-[focused=true]/day:z-10 group-data-[focused=true]/day:ring-[3px] [&>span]:text-xs [&>span]:opacity-70 dark:data-[selected-single=true]:bg-neutral-50 dark:data-[selected-single=true]:text-neutral-900 dark:data-[range-middle=true]:bg-neutral-800 dark:data-[range-middle=true]:text-neutral-50 dark:data-[range-start=true]:bg-neutral-50 dark:data-[range-start=true]:text-neutral-900 dark:data-[range-end=true]:bg-neutral-50 dark:data-[range-end=true]:text-neutral-900",
         defaultClassNames.day,
         className
       )}

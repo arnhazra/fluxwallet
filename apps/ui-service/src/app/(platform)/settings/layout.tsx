@@ -8,11 +8,11 @@ import { usePathname } from "next/navigation"
 import { useAppContext } from "@/context/appstate.provider"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
-  user: <User />,
-  privacy: <ShieldCheck />,
-  subscription: <CalendarClock />,
-  sustainability: <Leaf />,
-  about: <Info />,
+  user: <User className="h-4 w-4" />,
+  privacy: <ShieldCheck className="h-4 w-4" />,
+  subscription: <CalendarClock className="h-4 w-4" />,
+  sustainability: <Leaf className="h-4 w-4" />,
+  about: <Info className="h-4 w-4" />,
 }
 
 export default function SetingsLayout({ children }: { children: ReactNode }) {
@@ -24,11 +24,11 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
       <Link
         key={tab}
         className={`cursor-pointer flex capitalize ${
-          pathname.includes(tab) ? "text-primary" : "text-zinc-200"
+          pathname.includes(tab) ? "text-primary" : "text-neutral-200"
         }`}
         href={`/settings/${tab}`}
       >
-        <div className="me-2 scale-75 -mt-0.5">{mapTabIcons[tab]}</div>
+        <div className="me-2 mt-0.5">{mapTabIcons[tab]}</div>
         <p>{tab}</p>
       </Link>
     )
@@ -42,9 +42,9 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
             <Button
               variant="default"
               size="icon"
-              className="rounded-full bg-border"
+              className="rounded-full bg-neutral-800"
             >
-              <User className="scale-75 text-primary" />
+              <User className="h-4 w-4 text-primary" />
             </Button>
             <div className="text-white">
               <p className="text-sm font-semibold">{user.name}</p>

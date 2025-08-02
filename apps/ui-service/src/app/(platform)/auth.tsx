@@ -79,7 +79,7 @@ export default function AuthenticationPage({
     <>
       <MarketingHeader />
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
-        <Card className="mx-auto max-w-sm bg-main border-none text-white">
+        <Card className="mx-auto max-w-sm bg-background border-border text-white">
           <CardHeader>
             <CardTitle className="text-2xl">{appName}</CardTitle>
             <CardDescription className="text-primary">
@@ -187,7 +187,7 @@ export default function AuthenticationPage({
                 </form>
               </Show>
             </div>
-            <div className="mt-4 text-sm text-zinc-300">
+            <div className="mt-4 text-sm text-neutral-300">
               {uiConstants.privacyPolicyStatement}
             </div>
           </CardContent>

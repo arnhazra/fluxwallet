@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
-import { CreateActivityCommand } from "../impl/create-activity.command"
+import objectId from "@/shared/utils/convert-objectid"
 import { ActivityRepository } from "../../activity.repository"
-import objectId from "src/shared/utils/convert-objectid"
+import { CreateActivityCommand } from "../impl/create-activity.command"
 
 @CommandHandler(CreateActivityCommand)
 export class CreateActivityCommandHandler

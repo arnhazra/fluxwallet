@@ -59,7 +59,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     <div className="mx-auto grid w-full items-start gap-6">
       <section>
         <SectionPanel
-          icon={<Building className="scale-75 text-primary" />}
+          icon={<Building className="h-4 w-4 text-primary" />}
           title={portfolio.data?.portfolioName || ""}
           content={portfolio.data?.institutionType || ""}
           actionComponents={[
@@ -69,16 +69,16 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               }
               variant="default"
               size="icon"
-              className="bg-border text-white"
+              className="bg-neutral-800 text-white"
             >
-              <Pen className="scale-50" />
+              <Pen className="h-3 w-3" />
             </Button>,
             <Button
               onClick={handleDeletePortfolio}
               variant="destructive"
               size="icon"
             >
-              <Trash className="scale-50" />
+              <Trash className="h-3 w-3" />
             </Button>,
           ]}
         />

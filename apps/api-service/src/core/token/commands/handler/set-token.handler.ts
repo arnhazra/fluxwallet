@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { SetTokenCommand } from "../impl/set-token.command"
 import { TokenRepository } from "../../token.repository"
-import objectId from "src/shared/utils/convert-objectid"
+import objectId from "@/shared/utils/convert-objectid"
 
 @CommandHandler(SetTokenCommand)
 export class SetTokenCommandHandler

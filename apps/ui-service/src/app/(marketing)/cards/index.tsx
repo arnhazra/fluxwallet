@@ -1,5 +1,5 @@
 import { BrainCircuit, Check, Cog } from "lucide-react"
-import { Button } from "../ui/button"
+import { Button } from "../../../shared/components/ui/button"
 import { appName } from "@/shared/constants/global-constants"
 
 export function OverviewCard() {
@@ -59,8 +59,8 @@ export function IntelligenceCard() {
               <BrainCircuit />
             </svg>
           </div>
-          <div className="absolute top-12 left-4 w-48 h-4 bg-zinc-100 rounded" />
-          <div className="absolute top-20 left-4 w-36 h-4 bg-zinc-100 rounded" />
+          <div className="absolute top-12 left-4 w-48 h-4 bg-neutral-600 rounded" />
+          <div className="absolute top-20 left-4 w-36 h-4 bg-neutral-600 rounded" />
         </div>
       </div>
       <p className="text-md leading-relaxed">
@@ -88,22 +88,22 @@ export function ControlCard() {
       <div className="grid grid-cols-2 gap-4 mb-8 max-w-[200px] mx-auto">
         <div className="space-y-4">
           <div className="w-16 h-16">
-            <div className="w-16 h-8 bg-zinc-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-main rounded-b-full" />
+            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
+            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
           </div>
           <div className="w-16 h-16">
-            <div className="w-16 h-8 bg-zinc-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-main rounded-b-full" />
+            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
+            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
           </div>
         </div>
         <div className="space-y-4">
           <div className="w-16 h-16">
-            <div className="w-16 h-8 bg-zinc-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-main rounded-b-full" />
+            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
+            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
           </div>
           <div className="w-16 h-16 relative">
-            <div className="w-16 h-8 bg-zinc-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-main rounded-b-full" />
+            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
+            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
             <div className="absolute bottom-0 right-0 bg-primary p-1 rounded-lg">
               <svg
                 width="16"

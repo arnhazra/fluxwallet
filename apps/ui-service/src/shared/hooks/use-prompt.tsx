@@ -13,17 +13,26 @@ import { Input } from "@/shared/components/ui/input"
 export default function usePrompt() {
   const [show, setShow] = useState(false)
   const [message, setMessage] = useState<string>("")
-  const [value, setValue] = useState<string>("")
+  const [defaultValueState, setDefaultValue] = useState<
+    number | undefined | null
+  >(undefined)
+  const [value, setValue] = useState<number>(0)
   const [resolveCallback, setResolveCallback] = useState<
-    (choice: { hasConfirmed: boolean; value: string }) => void
+    (choice: { hasConfirmed: boolean; value: number }) => void
   >(() => {})
 
   const handleClose = () => setShow(false)
 
   const prompt = (
-    message: string
+    message: string,
+    defaultValue?: number | null
   ): Promise<{ hasConfirmed: boolean; value: number }> => {
     setMessage(message)
+    setDefaultValue(defaultValue)
+    if (defaultValue) {
+      setValue(defaultValue)
+    }
+
     setShow(true)
 
     return new Promise((resolve) => {
@@ -50,18 +59,24 @@ export default function usePrompt() {
     }
   }
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(Number(e.target.value))
+  }
+
   const promptDialog = () => (
     <AlertDialog open={show}>
       <AlertDialogContent className="bg-background text-white border-border">
         <AlertDialogHeader className="mb-2">
           <AlertDialogTitle className="mb-2">{message}</AlertDialogTitle>
           <Input
-            className="prompt-input bg-background border-border"
+            min={0}
+            defaultValue={defaultValueState ? defaultValueState : ""}
+            className="h-12 bg-background border-border"
             required
-            type="text"
+            type="number"
             placeholder={`Enter ${message}`}
             autoComplete={"off"}
-            onChange={(e) => setValue(e.target.value)}
+            onChange={handleChange}
           />
         </AlertDialogHeader>
         <AlertDialogFooter>
@@ -86,5 +101,8 @@ export default function usePrompt() {
 
 export type PromptProps = {
   promptDialog: () => React.ReactNode
-  prompt: (message: string) => Promise<{ hasConfirmed: boolean; value: number }>
+  prompt: (
+    message: string,
+    defaultValue?: number | null | undefined
+  ) => Promise<{ hasConfirmed: boolean; value: number }>
 }
