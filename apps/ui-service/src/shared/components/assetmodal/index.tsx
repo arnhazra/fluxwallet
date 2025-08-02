@@ -72,14 +72,14 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
       <DialogTrigger asChild onClick={() => setOpen(true)}>
         {children}
       </DialogTrigger>
-      <DialogContent className="max-w-[25rem] bg-background border-lightborder outline-none text-white -mb-4 asset-modal">
+      <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4 asset-modal">
         <DialogHeader>
           <div className="flex justify-between">
             <div>
               <DialogTitle>{assetDetails?.assetName}</DialogTitle>
               <Badge
                 variant="default"
-                className="w-fit bg-border text-primary mt-2"
+                className="w-fit bg-neutral-800 text-primary mt-2"
               >
                 {assetDetails?.assetType}
               </Badge>
@@ -92,7 +92,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
                 }
                 variant="default"
                 size="icon"
-                className="bg-border text-white"
+                className="bg-neutral-800 text-white"
               >
                 <Pen className="h-3 w-3" />
               </Button>

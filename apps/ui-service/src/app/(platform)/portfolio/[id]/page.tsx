@@ -69,7 +69,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               }
               variant="default"
               size="icon"
-              className="bg-border text-white"
+              className="bg-neutral-800 text-white"
             >
               <Pen className="h-3 w-3" />
             </Button>,

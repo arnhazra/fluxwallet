@@ -148,7 +148,7 @@ export default function Intelligence() {
                 {suggestedPrompts.map((item, index) => (
                   <Badge
                     key={index}
-                    className="text-primary bg-border p-1 ps-4 pe-4 ms-2 mb-2 cursor-pointer"
+                    className="text-primary bg-neutral-800 p-1 ps-4 pe-4 ms-2 mb-2 cursor-pointer"
                     onClick={(e): void => {
                       setPrompt(item)
                     }}

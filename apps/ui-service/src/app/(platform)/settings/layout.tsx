@@ -42,7 +42,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
             <Button
               variant="default"
               size="icon"
-              className="rounded-full bg-border"
+              className="rounded-full bg-neutral-800"
             >
               <User className="h-4 w-4 text-primary" />
             </Button>
