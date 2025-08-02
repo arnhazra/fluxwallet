@@ -238,7 +238,7 @@ export class IntelligenceAgent {
       schema: z.object({
         email: z.string().describe("email of the user"),
         subject: z.string().describe("a valid email subject"),
-        body: z.string().describe("a proper formatted email"),
+        body: z.string().describe("an email body in HTML tabular format"),
       }),
     }
   )
