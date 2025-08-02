@@ -1,8 +1,9 @@
 # Changelog
 
-## v1.5
+## v1.6
 
 - Updates in asset valuation calculation logic
+- Bug fixes and performance improvements
 
 ## v1.5
 
