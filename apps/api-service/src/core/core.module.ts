@@ -7,7 +7,7 @@ import { ActivityModule } from "./activity/activity.module"
 import { TokenModule } from "./token/token.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { EmailModule } from "./email/email.module"
-import { PortfolioModule } from "./portfolio/portfolio.module"
+import { InstitutionModule } from "./institution/institution.module"
 import { AssetModule } from "./asset/asset.module"
 import { ValuationModule } from "./valuation/valuation.module"
 
@@ -19,7 +19,7 @@ import { ValuationModule } from "./valuation/valuation.module"
     UserModule,
     TokenModule,
     EmailModule,
-    PortfolioModule,
+    InstitutionModule,
     AssetModule,
     ValuationModule,
   ],

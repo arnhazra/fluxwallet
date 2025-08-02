@@ -1,4 +1,4 @@
-import { Portfolio } from "@/core/portfolio/schemas/portfolio.schema"
+import { Institution } from "@/core/institution/schemas/institution.schema"
 import { Currency } from "@/shared/constants/types"
 import { EventMap } from "@/shared/utils/event.map"
 import { tool } from "@langchain/core/tools"
@@ -22,94 +22,98 @@ export class IntelligenceAgent {
       }
     },
     {
-      name: "get_total_portfolio_wealth_by_userid",
-      description: "Get total portfolio wealth for a user",
+      name: "get_total_institution_wealth_by_userid",
+      description: "Get total institution wealth for a user",
       schema: z.object({
         userId: z.string().describe("_id of the user"),
       }),
     }
   )
 
-  public getPortfolioValuationAgent = tool(
+  public getInstitutionValuationAgent = tool(
     async ({
       userId,
-      portfolioName,
+      institutionName,
     }: {
       userId: string
-      portfolioName: string
+      institutionName: string
     }) => {
       try {
-        const portfolio: any = (
+        const institution: any = (
           await this.eventEmitter.emitAsync(
-            EventMap.FindPortfolioByName,
+            EventMap.FindInstitutionByName,
             userId,
-            portfolioName
+            institutionName
           )
         ).shift()
-        const valuation = portfolio.presentValuation ?? 0
+        const valuation = institution.presentValuation ?? 0
         return `Valuation is ${valuation}`
       } catch (error) {
         return "Unable to get the valuation"
       }
     },
     {
-      name: "get_portfolio_valuation_by_portfolio_name",
-      description: "Get portfolio valuation for a specific portfolio",
+      name: "get_institution_valuation_by_institution_name",
+      description: "Get institution valuation for a specific institution",
       schema: z.object({
         userId: z.string().describe("_id of the user"),
-        portfolioName: z.string().describe("portfolio name given by the user"),
+        institutionName: z
+          .string()
+          .describe("institution name given by the user"),
       }),
     }
   )
 
-  public getPortfolioListAgent = tool(
+  public getInstitutionListAgent = tool(
     async ({ userId }: { userId: string }) => {
       try {
-        const portfolios: Portfolio[] = await this.eventEmitter.emitAsync(
-          EventMap.GetPortfolioList,
+        const institutions: Institution[] = await this.eventEmitter.emitAsync(
+          EventMap.GetInstitutionList,
           userId
         )
 
-        return JSON.stringify(portfolios)
+        return JSON.stringify(institutions)
       } catch (error) {
-        return "Unable to get the portfolio list"
+        return "Unable to get the institution list"
       }
     },
     {
-      name: "get_portfolio-list",
-      description: "Get portfolio list for a user",
+      name: "get_institution-list",
+      description: "Get institution list for a user",
       schema: z.object({
         userId: z.string().describe("_id of the user"),
       }),
     }
   )
 
-  public createPortfolioAgent = tool(
+  public createInstitutionAgent = tool(
     async ({
       userId,
-      portfolioName,
+      institutionName,
       institutionType,
     }: {
       userId: string
-      portfolioName: string
+      institutionName: string
       institutionType: string
     }) => {
       try {
-        await this.eventEmitter.emitAsync(EventMap.CreatePortfolio, userId, {
-          portfolioName,
+        await this.eventEmitter.emitAsync(EventMap.CreateInstitution, userId, {
+          institutionName,
           institutionType,
         })
-        return "Portfolio created successfully"
+        return "Institution created successfully"
       } catch (error) {
-        return "Failed to create the portfolio"
+        return "Failed to create the institution"
       }
     },
     {
-      name: "create_a_portfolio",
-      description: "Create a portfolio for a user",
+      name: "create_a_institution",
+      description: "Create a institution for a user",
       schema: z.object({
         userId: z.string().describe("_id of the user"),
-        portfolioName: z.string().describe("portfolio name given by the user"),
+        institutionName: z
+          .string()
+          .describe("institution name given by the user"),
         institutionType: z
           .string()
           .describe("institution type given by the user"),

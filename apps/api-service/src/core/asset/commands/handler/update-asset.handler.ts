@@ -11,11 +11,11 @@ export class UpdateAssetCommandHandler
 
   async execute(command: UpdateAssetCommand) {
     const { assetId, dto } = command
-    const { portfolioId, ...otherFields } = dto
+    const { institutionId, ...otherFields } = dto
     return await this.repository.update(
       { _id: objectId(assetId) },
       {
-        portfolioId: objectId(portfolioId),
+        institutionId: objectId(institutionId),
         ...otherFields,
       }
     )

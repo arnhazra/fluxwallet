@@ -64,10 +64,10 @@ export class ValuationService {
     }
   }
 
-  async calculatePortfolioValuation(portfolioId: string) {
+  async calculateInstitutionValuation(institutionId: string) {
     try {
       const assets = await this.repository.find({
-        portfolioId: objectId(portfolioId),
+        institutionId: objectId(institutionId),
       })
 
       const valuations = await Promise.all(

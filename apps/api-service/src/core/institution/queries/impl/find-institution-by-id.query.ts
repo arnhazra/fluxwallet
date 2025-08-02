@@ -1,4 +1,4 @@
-export class FindAllAssetQuery {
+export class FindInstitutionByIdQuery {
   constructor(
     public readonly userId: string,
     public readonly institutionId: string

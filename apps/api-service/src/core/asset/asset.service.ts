@@ -28,10 +28,10 @@ export class AssetService {
     }
   }
 
-  async findMyAssetsByPortfolioId(userId: string, portfolioId: string) {
+  async findMyAssetsByInstitutionId(userId: string, institutionId: string) {
     try {
       const assets = await this.queryBus.execute<FindAllAssetQuery, Asset[]>(
-        new FindAllAssetQuery(userId, portfolioId)
+        new FindAllAssetQuery(userId, institutionId)
       )
 
       return await Promise.all(

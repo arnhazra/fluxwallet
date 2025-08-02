@@ -1,9 +1,9 @@
 import { InstitutionType } from "@/shared/constants/types"
 import { IsNotEmpty } from "class-validator"
 
-export class CreatePortfolioRequestDto {
+export class CreateInstitutionRequestDto {
   @IsNotEmpty()
-  portfolioName: string
+  institutionName: string
 
   @IsNotEmpty()
   institutionType: InstitutionType

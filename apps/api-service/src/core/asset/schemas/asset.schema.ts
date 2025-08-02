@@ -1,4 +1,4 @@
-import { Portfolio } from "@/core/portfolio/schemas/portfolio.schema"
+import { Institution } from "@/core/institution/schemas/institution.schema"
 import { User } from "@/core/user/schemas/user.schema"
 import { AssetType, RecurringFrequency } from "@/shared/constants/types"
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
@@ -15,10 +15,10 @@ export class Asset extends Document {
 
   @Prop({
     type: Types.ObjectId,
-    ref: Portfolio.name,
+    ref: Institution.name,
     required: true,
   })
-  portfolioId: Types.ObjectId // COMMON
+  institutionId: Types.ObjectId // COMMON
 
   @Prop({ required: true })
   assetType: AssetType // COMMON

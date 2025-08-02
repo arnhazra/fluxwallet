@@ -8,8 +8,8 @@ export enum EventMap {
   GetSubscriptionDetails = "getSubscriptionDetails",
   ActivateInitialFreeSubscription = "activateInitialFreeSubscription",
   GetTotalWealth = "getTotalWealth",
-  FindPortfolioByName = "findPortfolioByName",
-  CreatePortfolio = "createPortfolio",
-  GetPortfolioList = "getPortfolioList",
+  FindInstitutionByName = "findInstitutionByName",
+  CreateInstitution = "createInstitution",
+  GetInstitutionList = "getInstitutionList",
   UpdateAttribute = "updateAttribute",
 }

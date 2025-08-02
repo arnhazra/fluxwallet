@@ -35,12 +35,12 @@ export class AssetController {
 
   @UseGuards(TokenGuard)
   @Get("institution/:institutionId")
-  async findMyAssetsByPortfolioId(
+  async findMyAssetsByInstitutionId(
     @Request() request: ModRequest,
     @Param() params: any
   ) {
     try {
-      return await this.service.findMyAssetsByPortfolioId(
+      return await this.service.findMyAssetsByInstitutionId(
         request.user.userId,
         params.institutionId
       )

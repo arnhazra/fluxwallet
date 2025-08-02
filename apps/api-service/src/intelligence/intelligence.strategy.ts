@@ -33,9 +33,9 @@ export class IntelligenceStrategy {
       llm,
       tools: [
         this.agent.getTotalWealthAgent,
-        this.agent.createPortfolioAgent,
-        this.agent.getPortfolioValuationAgent,
-        this.agent.getPortfolioListAgent,
+        this.agent.createInstitutionAgent,
+        this.agent.getInstitutionValuationAgent,
+        this.agent.getInstitutionListAgent,
         this.agent.changeBaseCurrencyAgent,
         this.agent.updateLiabilityAgent,
         this.agent.updateWealthGoalAgent,

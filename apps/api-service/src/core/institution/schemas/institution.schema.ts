@@ -5,18 +5,18 @@ import { Document, Types } from "mongoose"
 
 @Schema({
   versionKey: false,
-  collection: "portfolios",
+  collection: "institutions",
   timestamps: { createdAt: true, updatedAt: false },
 })
-export class Portfolio extends Document {
+export class Institution extends Document {
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
   userId: Types.ObjectId
 
   @Prop({ required: true })
-  portfolioName: string
+  institutionName: string
 
   @Prop({ enum: InstitutionType, default: InstitutionType.OTHER })
   institutionType: InstitutionType
 }
 
-export const PortfolioSchema = SchemaFactory.createForClass(Portfolio)
+export const InstitutionSchema = SchemaFactory.createForClass(Institution)

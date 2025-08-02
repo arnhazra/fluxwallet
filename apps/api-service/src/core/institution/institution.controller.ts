@@ -10,24 +10,24 @@ import {
   Body,
   Put,
 } from "@nestjs/common"
-import { PortfolioService } from "./portfolio.service"
+import { InstitutionService } from "./institution.service"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { TokenGuard } from "@/shared/auth/token.guard"
 import { ModRequest } from "@/shared/auth/types/mod-request.interface"
-import { CreatePortfolioRequestDto } from "./dto/request/create-portfolio.request.dto"
+import { CreateInstitutionRequestDto } from "./dto/request/create-institution.request.dto"
 
-@Controller("portfolio")
-export class PortfolioController {
-  constructor(private readonly service: PortfolioService) {}
+@Controller("institution")
+export class InstitutionController {
+  constructor(private readonly service: InstitutionService) {}
 
   @UseGuards(TokenGuard)
   @Post()
-  async createPortfolio(
-    @Body() requestBody: CreatePortfolioRequestDto,
+  async createInstitution(
+    @Body() requestBody: CreateInstitutionRequestDto,
     @Request() request: ModRequest
   ) {
     try {
-      return await this.service.createPortfolio(
+      return await this.service.createInstitution(
         request.user.userId,
         requestBody
       )
@@ -38,43 +38,43 @@ export class PortfolioController {
 
   @UseGuards(TokenGuard)
   @Get()
-  async findMyPortfolios(@Request() request: ModRequest) {
+  async findMyInstitutions(@Request() request: ModRequest) {
     try {
-      return await this.service.findMyPortfolios(request.user.userId)
+      return await this.service.findMyInstitutions(request.user.userId)
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
 
   @UseGuards(TokenGuard)
-  @Get("/:portfolioId")
-  async findPortfolioById(
+  @Get("/:institutionId")
+  async findInstitutionById(
     @Request() request: ModRequest,
     @Param() params: any
   ) {
     try {
-      const portfolio = await this.service.findPortfolioById(
+      const institution = await this.service.findInstitutionById(
         request.user.userId,
-        params.portfolioId
+        params.institutionId
       )
-      if (!portfolio) throw new Error()
-      return portfolio
+      if (!institution) throw new Error()
+      return institution
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
 
   @UseGuards(TokenGuard)
-  @Put(":portfolioId")
-  async updatePortfolioById(
-    @Body() requestBody: CreatePortfolioRequestDto,
+  @Put(":institutionId")
+  async updateInstitutionById(
+    @Body() requestBody: CreateInstitutionRequestDto,
     @Param() params: any,
     @Request() request: ModRequest
   ) {
     try {
-      return await this.service.updatePortfolioById(
+      return await this.service.updateInstitutionById(
         request.user.userId,
-        params.portfolioId,
+        params.institutionId,
         requestBody
       )
     } catch (error) {
@@ -83,12 +83,15 @@ export class PortfolioController {
   }
 
   @UseGuards(TokenGuard)
-  @Delete("/:portfolioId")
-  async deletePortfolio(@Request() request: ModRequest, @Param() params: any) {
+  @Delete("/:institutionId")
+  async deleteInstitution(
+    @Request() request: ModRequest,
+    @Param() params: any
+  ) {
     try {
-      return await this.service.deletePortfolio(
+      return await this.service.deleteInstitution(
         request.user.userId,
-        params.portfolioId
+        params.institutionId
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
