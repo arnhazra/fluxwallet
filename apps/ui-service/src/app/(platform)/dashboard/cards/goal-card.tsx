@@ -10,7 +10,7 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
 import ky from "ky"
-import { PenIcon, Target } from "lucide-react"
+import { Pen, Target } from "lucide-react"
 import { useEffect, useState } from "react"
 
 export default function GoalCard({
@@ -63,9 +63,9 @@ export default function GoalCard({
           <Button
             onClick={editGoal}
             size="icon"
-            className="p-2 bg-green-500/20 rounded-lg"
+            className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
           >
-            <PenIcon className="text-green-400 h-4 w-4" />
+            <Pen className="text-green-400 h-4 w-4" />
           </Button>
         </div>
         <div className="space-y-3">

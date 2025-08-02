@@ -1,6 +1,6 @@
 import { Currency } from "@/shared/types"
 import { Button } from "../ui/button"
-import { PenIcon } from "lucide-react"
+import { Pen } from "lucide-react"
 import { useState } from "react"
 import {
   DialogHeader,
@@ -53,11 +53,11 @@ export default function EditCurrency({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="bg-primary hover:bg-primary"
+          className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
           variant="default"
           size="icon"
         >
-          <PenIcon className="h-3 w-3" />
+          <Pen className="text-green-400 h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-background border-border">

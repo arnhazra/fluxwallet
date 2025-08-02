@@ -9,7 +9,7 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
 import ky from "ky"
-import { CreditCardIcon, PenIcon } from "lucide-react"
+import { CreditCard, Pen } from "lucide-react"
 
 export default function LiabilityCard() {
   const [{ user }, dispatch] = useAppContext()
@@ -43,16 +43,16 @@ export default function LiabilityCard() {
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <div className="p-2 bg-green-500/20 rounded-lg">
-              <CreditCardIcon className="h-5 w-5 text-green-400" />
+              <CreditCard className="h-5 w-5 text-green-400" />
             </div>
             <span className="text-sm text-neutral-400">Total Liabilities</span>
           </div>
           <Button
             onClick={editLiabilities}
             size="icon"
-            className="p-2 bg-green-500/20 rounded-lg"
+            className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
           >
-            <PenIcon className="text-green-400 h-4 w-4" />
+            <Pen className="text-green-400 h-4 w-4" />
           </Button>
         </div>
         <div className="space-y-3">

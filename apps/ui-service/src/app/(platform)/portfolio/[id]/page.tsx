@@ -69,9 +69,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               }
               variant="default"
               size="icon"
-              className="bg-neutral-800 text-white"
+              className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
             >
-              <Pen className="h-3 w-3" />
+              <Pen className="text-green-400 h-4 w-4" />
             </Button>,
             <Button
               onClick={handleDeletePortfolio}
