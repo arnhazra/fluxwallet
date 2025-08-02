@@ -19,7 +19,7 @@ export const systemPrompt = (user: User): string => {
   Available asset types:
   - FD, RD, SIP, LUMPSUM
   - METAL, PROPERTY, BOND
-  - EPF, PPF, CASH, EQUITY, CRYPTO, OTHER
+  - EPF, PPF, CASH, SAVINGS, EQUITY, CRYPTO, OTHER
 
   Users may ask questions such as but not limited to:
   - "List my portfolios" or "Show my assets"

@@ -16,6 +16,7 @@ export enum AssetType {
   EPF = "EPF",
   PPF = "PPF",
   CASH = "CASH",
+  SAVINGS = "SAVINGS",
   EQUITY = "EQUITY",
   CRYPTO = "CRYPTO",
   OTHER = "OTHER",
@@ -256,7 +257,7 @@ export type Asset = {
   contributionAmount?: number // RD, SIP
   contributionFrequency?: RecurringFrequency // RD, SIP
   valuationOnPurchase?: number // PROPERTY, BOND, METAL, OTHER
-  currentValuation?: number // EPF, PPF, CASH, PROPERTY, BOND, METAL, OTHER
+  currentValuation?: number // EPF, PPF, CASH, SAVINGS, PROPERTY, BOND, METAL, OTHER
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
 }

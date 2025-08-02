@@ -18,6 +18,7 @@ export class ValuationService {
         AssetType.EPF,
         AssetType.PPF,
         AssetType.CASH,
+        AssetType.SAVINGS,
         AssetType.PROPERTY,
         AssetType.BOND,
         AssetType.METAL,
