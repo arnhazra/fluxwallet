@@ -1,5 +1,5 @@
 "use client"
-import { useState, useRef, useEffect, FormEventHandler } from "react"
+import { useState, useRef, useEffect } from "react"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
 import {
