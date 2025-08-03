@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.7
+
+- Added asset maturity warnings in app
+
 ## v1.6
 
 - Updates in asset valuation calculation logic
