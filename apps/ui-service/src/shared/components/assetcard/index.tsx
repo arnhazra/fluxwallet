@@ -6,15 +6,35 @@ import {
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
 import { Asset } from "@/shared/types"
-import { Coins, Plus } from "lucide-react"
+import { Coins, OctagonAlert, Plus } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { useAppContext } from "@/context/appstate.provider"
 import { AssetModal } from "../assetmodal"
+import Show from "../show"
+import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 
 export function AssetCard({ asset }: { asset: Asset }) {
   const [{ user }] = useAppContext()
+
+  const isAssetMatured = (): boolean => {
+    return !!asset.maturityDate && new Date() >= new Date(asset.maturityDate)
+  }
+
+  const isAssetAboutToMature = (): boolean => {
+    if (!asset.maturityDate || isAssetMatured()) {
+      return false
+    }
+
+    const now = new Date()
+    const maturity = new Date(asset.maturityDate)
+
+    const thirtyDaysLater = new Date()
+    thirtyDaysLater.setDate(now.getDate() + 30)
+
+    return maturity <= thirtyDaysLater
+  }
 
   return (
     <AssetModal assetDetails={asset} key={asset._id}>
@@ -26,12 +46,34 @@ export function AssetCard({ asset }: { asset: Asset }) {
             </CardTitle>
             <Coins className="text-primary w-6 h-6" />
           </div>
-          <Badge
-            variant="default"
-            className="w-fit bg-neutral-800 text-primary"
-          >
-            {asset.assetType}
-          </Badge>
+          <div className="flex items-center justify-between">
+            <Badge
+              variant="default"
+              className="w-fit bg-neutral-800 text-primary -ms-1"
+            >
+              {asset.assetType}
+            </Badge>
+            <Show condition={isAssetMatured()}>
+              <Tooltip>
+                <TooltipTrigger>
+                  <OctagonAlert className="h-4 w-4 text-secondary" />
+                </TooltipTrigger>
+                <TooltipContent className="bg-background text-white border-border">
+                  This asset is matured
+                </TooltipContent>
+              </Tooltip>
+            </Show>
+            <Show condition={isAssetAboutToMature()}>
+              <Tooltip>
+                <TooltipTrigger>
+                  <OctagonAlert className="h-4 w-4 text-amber-400" />
+                </TooltipTrigger>
+                <TooltipContent className="bg-background text-white border-border">
+                  This asset is about to mature
+                </TooltipContent>
+              </Tooltip>
+            </Show>
+          </div>
         </CardHeader>
 
         <CardContent className="space-y-4">
