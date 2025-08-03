@@ -3,7 +3,7 @@ export const appName = process.env.NEXT_PUBLIC_APP_NAME!
 export const uiConstants = {
   homeHeader: "Invest for future",
   homeIntro:
-    "Effortlessly manage your wealth — track assets, monitor net worth, and unlock real-time insights.",
+    "Effortlessly manage your wealth — track assets, monitor net worth, liabilities and set a goal to unlock real-time insights.",
   homePricing: "Enjoy your first year for FREE. Just $29/year afterwards.",
   connectionErrorMessage: "Unable to connect. Please check your internet.",
   authVerificationMessage: "Checking your credentials",

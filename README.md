@@ -1,6 +1,6 @@
 ## FluxWallet
 
-This platform helps you organize and manage your entire financial life in one place. Add assets across categories, monitor your net worth, and gain valuable insights into your financial health. Whether you're planning, growing, or preserving wealth — stay informed and in control with a unified, intuitive experience.
+This platform helps you organize and manage your entire financial life in one place. Add assets across categories, monitor your net worth, liabilities and gain valuable insights into your financial health. Whether you're planning, growing, or preserving wealth — stay informed and in control with a unified, intuitive experience.
 
 ### What is the cost of using this platform ?
 
