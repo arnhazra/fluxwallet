@@ -1,7 +1,7 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
-import { FindAllAssetQuery } from "./queries/impl/find-all-assets.query"
+import { FindAssetsByInstitutionQuery } from "./queries/impl/find-assets-by-institution.query"
 import { FindAssetByIdQuery } from "./queries/impl/find-asset-by-id.query"
 import { Asset } from "./schemas/asset.schema"
 import { DeleteAssetCommand } from "./commands/impl/delete-asset.command"
@@ -9,6 +9,9 @@ import { CreateAssetCommand } from "./commands/impl/create-asset.command"
 import { CreateAssetRequestDto } from "./dto/request/create-asset.request.dto"
 import { UpdateAssetCommand } from "./commands/impl/update-asset.command"
 import { ValuationService } from "../valuation/valuation.service"
+import { FindAssetsByUserQuery } from "./queries/impl/find-assets-by-user.query"
+import { OnEvent } from "@nestjs/event-emitter"
+import { EventMap } from "@/shared/utils/event.map"
 
 @Injectable()
 export class AssetService {
@@ -30,9 +33,33 @@ export class AssetService {
 
   async findMyAssetsByInstitutionId(userId: string, institutionId: string) {
     try {
-      const assets = await this.queryBus.execute<FindAllAssetQuery, Asset[]>(
-        new FindAllAssetQuery(userId, institutionId)
+      const assets = await this.queryBus.execute<
+        FindAssetsByInstitutionQuery,
+        Asset[]
+      >(new FindAssetsByInstitutionQuery(userId, institutionId))
+
+      return await Promise.all(
+        assets.map(async (asset) => {
+          const valuation =
+            await this.valuationService.calculateAssetValuation(asset)
+          return {
+            ...(asset.toObject?.() ?? asset),
+            presentValuation: valuation,
+          }
+        })
       )
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @OnEvent(EventMap.GetAssetList)
+  async findAllMyAssets(userId: string) {
+    try {
+      const assets = await this.queryBus.execute<
+        FindAssetsByUserQuery,
+        Asset[]
+      >(new FindAssetsByUserQuery(userId))
 
       return await Promise.all(
         assets.map(async (asset) => {

@@ -40,6 +40,7 @@ export class IntelligenceStrategy {
         this.agent.updateLiabilityAgent,
         this.agent.updateWealthGoalAgent,
         this.agent.sendEmailAgent,
+        this.agent.getAssetListAgent,
       ],
     })
 

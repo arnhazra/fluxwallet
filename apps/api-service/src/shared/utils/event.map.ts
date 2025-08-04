@@ -11,5 +11,6 @@ export enum EventMap {
   FindInstitutionByName = "findInstitutionByName",
   CreateInstitution = "createInstitution",
   GetInstitutionList = "getInstitutionList",
+  GetAssetList = "getAssetList",
   UpdateAttribute = "updateAttribute",
 }

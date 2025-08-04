@@ -1,3 +1,4 @@
+import { Asset } from "@/core/asset/schemas/asset.schema"
 import { Institution } from "@/core/institution/schemas/institution.schema"
 import { Currency } from "@/shared/constants/types"
 import { EventMap } from "@/shared/utils/event.map"
@@ -80,6 +81,28 @@ export class IntelligenceAgent {
     {
       name: "get_institution-list",
       description: "Get institution list for a user",
+      schema: z.object({
+        userId: z.string().describe("_id of the user"),
+      }),
+    }
+  )
+
+  public getAssetListAgent = tool(
+    async ({ userId }: { userId: string }) => {
+      try {
+        const assets: Asset[] = await this.eventEmitter.emitAsync(
+          EventMap.GetAssetList,
+          userId
+        )
+
+        return JSON.stringify(assets)
+      } catch (error) {
+        return "Unable to get the institution list"
+      }
+    },
+    {
+      name: "get_asset_list",
+      description: "Get asset list for a user",
       schema: z.object({
         userId: z.string().describe("_id of the user"),
       }),
