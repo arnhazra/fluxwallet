@@ -1,6 +1,6 @@
 {
   "name": "fluxwallet",
-  "version": "1.7",
+  "version": "1.6",
   "description": "a saas product",
   "scripts": {
     "api-service": "npm run dev --prefix apps/api-service",

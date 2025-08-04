@@ -1,11 +1,8 @@
 # Changelog
 
-## v1.7
-
-- Added asset maturity warnings in app
-
 ## v1.6
 
+- Added asset maturity warnings in app
 - Updates in asset valuation calculation logic
 - Bug fixes and performance improvements
 - Added new agentic workflows
