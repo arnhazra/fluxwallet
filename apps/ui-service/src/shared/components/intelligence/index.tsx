@@ -92,7 +92,7 @@ export default function Intelligence() {
         })
       })
     } catch (error: any) {
-      setMessages((prevMessages) => [...prevMessages, "An error occurred"])
+      setMessages((prevMessages) => [...prevMessages, "Request timed out"])
     } finally {
       setLoading(false)
     }

@@ -1,6 +1,6 @@
 import { Currency } from "../types"
 
-const MAX_STANDARD_AMOUNT = 999999
+const MAX_STANDARD_AMOUNT = 99999
 
 export function formatCurrency(amount: number, currency: Currency): string {
   return new Intl.NumberFormat("en-US", {
