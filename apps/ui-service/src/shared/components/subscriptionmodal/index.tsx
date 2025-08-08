@@ -8,10 +8,8 @@ import {
   DialogOverlay,
   DialogTitle,
 } from "@/shared/components/ui/dialog"
-import useQuery from "@/shared/hooks/use-query"
 import { SubscriptionConfig } from "@/shared/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import HTTPMethods from "@/shared/constants/http-methods"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
@@ -21,11 +19,11 @@ import Show from "../show"
 import { useState } from "react"
 import LoaderIcon from "../loaderIcon"
 
-export function SubscriptionModal({
-  data,
-}: {
+interface SubscriptionModalProps {
   data: SubscriptionConfig | undefined
-}) {
+}
+
+export function SubscriptionModal({ data }: SubscriptionModalProps) {
   const [{ isSubscriptionActive, user }, dispatch] = useAppContext()
   const [isLoading, setLoading] = useState(false)
 

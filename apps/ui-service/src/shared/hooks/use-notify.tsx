@@ -7,7 +7,7 @@ type ToastType = "success" | "error" | "info" | "warning"
 
 const typeConfig: Record<ToastType, { icon: JSX.Element; color: string }> = {
   success: {
-    icon: <CheckCircle className="text-green-500 h-4 w-4 me-4" />,
+    icon: <CheckCircle className="text-primary h-4 w-4 me-4" />,
     color: "text-green-400",
   },
   error: {
