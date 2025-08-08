@@ -5,6 +5,7 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
+  DialogOverlay,
   DialogTitle,
 } from "@/shared/components/ui/dialog"
 import useQuery from "@/shared/hooks/use-query"
@@ -67,13 +68,14 @@ export function SubscriptionModal() {
 
   return (
     <Dialog open={!isSubscriptionActive} onOpenChange={(): void => undefined}>
+      <DialogOverlay className="bg-black/40 backdrop-blur-sm" />
       <DialogContent
-        className="max-w-[22rem] bg-background border-border text-white -mb-4"
+        className="max-w-[22rem] bg-background/60 backdrop-blur-md border-border text-white -mb-4"
         onInteractOutside={(event) => event.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle className="flex gap-2">
-            <WalletMinimal className="text-primary h-4 w-4" />
+          <DialogTitle className="flex items-center gap-2 text-lg">
+            <WalletMinimal className="text-primary h-6 w-6" />
             {appName} Subscription
           </DialogTitle>
           <DialogDescription className="text-neutral-300">
@@ -109,7 +111,7 @@ export function SubscriptionModal() {
         </div>
         <div className="flex flex-col gap-4 text-center -mb-2">
           <Button
-            className="bg-primary hover:bg-primary focus-visible:outline-none"
+            className="bg-primary hover:bg-primary focus:outline-none focus-visible:outline-none"
             onClick={activateSubscription}
             disabled={isLoading}
           >
