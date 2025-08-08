@@ -39,7 +39,8 @@ export default function Page() {
           {uiConstants.homeIntro}
         </p>
         <p className="max-w-[35rem] leading-normal text-primary sm:text-lg sm:leading-8 mb-6">
-          {uiConstants.homePricing}
+          {uiConstants.homePricing} Just ${subscriptionPricing?.data?.price}
+          /year afterwards.
         </p>
         <Link
           href="/dashboard"

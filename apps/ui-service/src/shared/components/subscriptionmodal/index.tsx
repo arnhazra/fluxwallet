@@ -21,15 +21,13 @@ import Show from "../show"
 import { useState } from "react"
 import LoaderIcon from "../loaderIcon"
 
-export function SubscriptionModal() {
+export function SubscriptionModal({
+  data,
+}: {
+  data: SubscriptionConfig | undefined
+}) {
   const [{ isSubscriptionActive, user }, dispatch] = useAppContext()
   const [isLoading, setLoading] = useState(false)
-  const subscriptionPricing = useQuery<SubscriptionConfig>({
-    queryKey: ["pricing-settings"],
-    queryUrl: endPoints.getSubscriptionPricing,
-    method: HTTPMethods.GET,
-    suspense: false,
-  })
 
   const activateSubscription = async () => {
     if (user.hasTrial) {
@@ -88,19 +86,19 @@ export function SubscriptionModal() {
           </DialogDescription>
           <Show condition={!user.hasTrial}>
             <h4 className="text-4xl font-bold text-primary">
-              ${subscriptionPricing.data?.price}
+              ${data?.price}
               <span className="text-base font-normal ml-1">/year</span>
             </h4>
           </Show>
           <Show condition={user.hasTrial}>
             <h4 className="text-xl font-bold text-primary">
-              Free subscription worth ${subscriptionPricing.data?.price}
+              Free subscription worth ${data?.price}
             </h4>
           </Show>
         </DialogHeader>
         <div className="grid gap-6">
           <ul className="grid gap-3 text-sm text-muted-foreground">
-            {subscriptionPricing.data?.features.map((feature) => {
+            {data?.features.map((feature) => {
               return (
                 <li className="flex items-center" key={feature}>
                   <Check className="mr-2 h-4 w-4" /> {feature}

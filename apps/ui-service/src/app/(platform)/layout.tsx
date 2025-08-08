@@ -6,14 +6,16 @@ import { ReactNode, useState } from "react"
 import Show from "@/shared/components/show"
 import AuthProvider from "./auth"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { Subscription, User } from "@/shared/types"
+import { Subscription, SubscriptionConfig, User } from "@/shared/types"
 import Loading from "../loading"
-import { useQuery } from "@tanstack/react-query"
+import { useQuery as useBaseQuery } from "@tanstack/react-query"
 import PlatformHeader from "@/shared/components/platformheader"
 import { useAppContext } from "@/context/appstate.provider"
 import Intelligence from "@/shared/components/intelligence"
 import { SubscriptionModal } from "@/shared/components/subscriptionmodal"
 import notify from "@/shared/hooks/use-notify"
+import useQuery from "@/shared/hooks/use-query"
+import HTTPMethods from "@/shared/constants/http-methods"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [, dispatch] = useAppContext()
@@ -52,12 +54,19 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     }
   }
 
-  const { isLoading, isFetching } = useQuery({
+  const { isLoading, isFetching } = useBaseQuery({
     queryKey: ["user-details", isAuthorized],
     queryFn: getUserDetails,
     refetchInterval: 0,
     refetchOnWindowFocus: false,
     refetchOnMount: true,
+  })
+
+  const subscriptionPricing = useQuery<SubscriptionConfig>({
+    queryKey: ["pricing-settings"],
+    queryUrl: endPoints.getSubscriptionPricing,
+    method: HTTPMethods.GET,
+    suspense: false,
   })
 
   const appLayout = (
@@ -67,12 +76,15 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         {children}
       </div>
       <Intelligence />
-      <SubscriptionModal />
+      <SubscriptionModal data={subscriptionPricing.data} />
     </div>
   )
 
   return (
-    <Show condition={!isLoading && !isFetching} fallback={<Loading />}>
+    <Show
+      condition={!isLoading && !isFetching && !subscriptionPricing.isLoading}
+      fallback={<Loading />}
+    >
       <Show condition={!isAuthorized} fallback={appLayout}>
         <AuthProvider onAuthorized={(auth: boolean) => setAuthorized(auth)} />
       </Show>

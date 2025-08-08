@@ -4,7 +4,7 @@ export const uiConstants = {
   homeHeader: "Invest for future",
   homeIntro:
     "Effortlessly manage your wealth — track assets, monitor net worth, liabilities and set a goal to unlock real-time insights.",
-  homePricing: "Enjoy your first year for FREE. Just $29/year afterwards.",
+  homePricing: "Enjoy your first year for FREE.",
   connectionErrorMessage: "Unable to connect. Please check your internet.",
   authVerificationMessage: "Checking your credentials",
   errorMessage: "Page not found",
