@@ -77,8 +77,8 @@ export class SubscriptionService {
     }
   }
 
-  @OnEvent(EventMap.ActivateInitialFreeSubscription)
-  async activateInitialFreeSubscription(userId: string) {
+  @OnEvent(EventMap.ActivateTrial)
+  async activateTrial(userId: string) {
     try {
       await this.commandBus.execute(new CreateSubscriptionCommand(userId, 0))
       return { success: true }

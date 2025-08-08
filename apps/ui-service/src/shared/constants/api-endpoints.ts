@@ -16,6 +16,7 @@ export const endPoints = {
   generateOTP: `${apiHost}/user/generateotp`,
   validateOTP: `${apiHost}/user/validateotp`,
   userDetails: `${apiHost}/user/userdetails`,
+  activateTrial: `${apiHost}/user/activatetrial`,
   signOut: `${apiHost}/user/signout`,
   updateAttribute: `${apiHost}/user/attribute`,
 }

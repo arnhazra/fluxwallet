@@ -1,4 +1,4 @@
-import { Check } from "lucide-react"
+import { Check, WalletMinimal } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Dialog,
@@ -16,9 +16,13 @@ import ky from "ky"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { useAppContext } from "@/context/appstate.provider"
 import notify from "@/shared/hooks/use-notify"
+import Show from "../show"
+import { useState } from "react"
+import LoaderIcon from "../loaderIcon"
 
 export function SubscriptionModal() {
-  const [{ isSubscriptionActive }] = useAppContext()
+  const [{ isSubscriptionActive, user }, dispatch] = useAppContext()
+  const [isLoading, setLoading] = useState(false)
   const subscriptionPricing = useQuery<SubscriptionConfig>({
     queryKey: ["pricing-settings"],
     queryUrl: endPoints.getSubscriptionPricing,
@@ -27,15 +31,32 @@ export function SubscriptionModal() {
   })
 
   const activateSubscription = async () => {
-    try {
-      const response: any = await ky
-        .post(endPoints.createCheckoutSession, {
-          timeout: FETCH_TIMEOUT,
-        })
-        .json()
-      window.location = response.redirectUrl
-    } catch (error) {
-      notify(uiConstants.subscriptionFailed, "error")
+    if (user.hasTrial) {
+      try {
+        setLoading(true)
+        await ky
+          .post(endPoints.activateTrial, {
+            timeout: FETCH_TIMEOUT,
+          })
+          .json()
+        dispatch("setSubscriptionActive", true)
+        notify(uiConstants.subscriptionSuccess, "success")
+      } catch (error) {
+        notify(uiConstants.subscriptionFailed, "error")
+      } finally {
+        setLoading(false)
+      }
+    } else {
+      try {
+        const response: any = await ky
+          .post(endPoints.createCheckoutSession, {
+            timeout: FETCH_TIMEOUT,
+          })
+          .json()
+        window.location = response.redirectUrl
+      } catch (error) {
+        notify(uiConstants.subscriptionFailed, "error")
+      }
     }
   }
 
@@ -51,14 +72,29 @@ export function SubscriptionModal() {
         onInteractOutside={(event) => event.preventDefault()}
       >
         <DialogHeader>
-          <DialogTitle>{appName} Subscription</DialogTitle>
+          <DialogTitle className="flex gap-2">
+            <WalletMinimal className="text-primary h-4 w-4" />
+            {appName} Subscription
+          </DialogTitle>
           <DialogDescription className="text-neutral-300">
-            You need to subscribe before you use
+            <Show
+              condition={!user.hasTrial}
+              fallback="Activate your free subscription"
+            >
+              You need to subscribe before you use
+            </Show>
           </DialogDescription>
-          <h4 className="text-4xl font-bold">
-            ${subscriptionPricing.data?.price}
-            <span className="text-base font-normal ml-1">/year</span>
-          </h4>
+          <Show condition={!user.hasTrial}>
+            <h4 className="text-4xl font-bold text-primary">
+              ${subscriptionPricing.data?.price}
+              <span className="text-base font-normal ml-1">/year</span>
+            </h4>
+          </Show>
+          <Show condition={user.hasTrial}>
+            <h4 className="text-xl font-bold text-primary">
+              Free subscription worth ${subscriptionPricing.data?.price}
+            </h4>
+          </Show>
         </DialogHeader>
         <div className="grid gap-6">
           <ul className="grid gap-3 text-sm text-muted-foreground">
@@ -75,8 +111,20 @@ export function SubscriptionModal() {
           <Button
             className="bg-primary hover:bg-primary focus-visible:outline-none"
             onClick={activateSubscription}
+            disabled={isLoading}
           >
-            Activate Subscription
+            <Show condition={user.hasTrial} fallback="Activate Subscription">
+              <Show
+                condition={!isLoading}
+                fallback={
+                  <>
+                    <LoaderIcon /> Claim Now
+                  </>
+                }
+              >
+                Claim Now
+              </Show>
+            </Show>
           </Button>
           <Button variant="link" className="text-primary" onClick={signOut}>
             Sign Out

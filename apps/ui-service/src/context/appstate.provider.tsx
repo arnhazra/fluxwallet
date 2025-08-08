@@ -22,6 +22,7 @@ const initialState: AppState = {
     reduceCarbonEmissions: true,
     role: "",
     currentLiabilities: 0,
+    hasTrial: false,
   },
   subscription: null,
   isSubscriptionActive: false,

@@ -7,7 +7,6 @@ import {
   Patch,
   Request,
   UseGuards,
-  Param,
 } from "@nestjs/common"
 import { UserService } from "./user.service"
 import { GenerateOTPDto } from "./dto/generate-otp.dto"
@@ -16,10 +15,15 @@ import { statusMessages } from "@/shared/constants/status-messages"
 import { TokenGuard } from "@/shared/auth/token.guard"
 import { ModRequest } from "@/shared/auth/types/mod-request.interface"
 import { UpdateAttributeDto } from "./dto/update-attribute.dto"
+import { EventEmitter2 } from "@nestjs/event-emitter"
+import { EventMap } from "@/shared/utils/event.map"
 
 @Controller("user")
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(
+    private readonly userService: UserService,
+    private readonly eventEmitter: EventEmitter2
+  ) {}
 
   @Post("generateotp")
   async generateOTP(@Body() generateOTPDto: GenerateOTPDto) {
@@ -90,6 +94,35 @@ export class UserController {
         attributeName,
         attributeValue
       )
+    } catch (error) {
+      throw new BadRequestException(statusMessages.invalidUser)
+    }
+  }
+
+  @UseGuards(TokenGuard)
+  @Post("activatetrial")
+  async activateTrial(@Request() request: ModRequest) {
+    try {
+      const { user } = await this.userService.getUserDetails(
+        request.user.userId
+      )
+
+      if (!user.hasTrial) {
+        throw new Error()
+      }
+
+      await this.eventEmitter.emitAsync(
+        EventMap.ActivateTrial,
+        request.user.userId
+      )
+
+      await this.userService.updateAttribute(
+        request.user.userId,
+        "hasTrial",
+        false
+      )
+
+      return { success: true }
     } catch (error) {
       throw new BadRequestException(statusMessages.invalidUser)
     }

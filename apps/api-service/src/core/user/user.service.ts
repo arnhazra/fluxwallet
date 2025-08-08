@@ -122,10 +122,6 @@ export class UserService {
             userId: newUser.id,
             token: refreshToken,
           })
-          await this.eventEmitter.emitAsync(
-            EventMap.ActivateInitialFreeSubscription,
-            newUser.id
-          )
           return { accessToken, refreshToken, user: newUser, success: true }
         }
       } else {
@@ -178,10 +174,10 @@ export class UserService {
   }
 
   @OnEvent(EventMap.UpdateAttribute)
-  async updateAttribute(
+  async updateAttribute<K extends keyof User>(
     userId: string,
-    attributeName: keyof User,
-    attributeValue: string | number | boolean | null | Currency
+    attributeName: K,
+    attributeValue: User[K]
   ) {
     try {
       await this.commandBus.execute<UpdateAttributeCommand, User>(

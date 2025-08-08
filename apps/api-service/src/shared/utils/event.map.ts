@@ -6,7 +6,7 @@ export enum EventMap {
   CreateActivity = "createActivity",
   GetUserDetails = "getUserDetails",
   GetSubscriptionDetails = "getSubscriptionDetails",
-  ActivateInitialFreeSubscription = "activateInitialFreeSubscription",
+  ActivateTrial = "activateTrial",
   GetTotalWealth = "getTotalWealth",
   FindInstitutionByName = "findInstitutionByName",
   CreateInstitution = "createInstitution",

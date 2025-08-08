@@ -31,6 +31,9 @@ export class User extends Document {
 
   @Prop({ type: Boolean, default: true })
   activityLog: boolean
+
+  @Prop({ type: Boolean, default: true })
+  hasTrial: boolean
 }
 
 export const UserSchema = SchemaFactory.createForClass(User)
