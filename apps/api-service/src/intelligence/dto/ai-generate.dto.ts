@@ -1,8 +1,8 @@
 import { IsNotEmpty } from "class-validator"
 
 export enum AIModel {
-  Gemini = "gemini-2.5-flash-lite",
   GPT = "openai/gpt-4o-mini",
+  Gemini = "gemini-2.5-flash-lite",
 }
 
 export class AIGenerationDto {

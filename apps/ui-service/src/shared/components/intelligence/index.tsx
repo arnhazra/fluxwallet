@@ -22,8 +22,8 @@ import { Badge } from "../ui/badge"
 import { Thread } from "@/shared/types"
 
 enum Model {
-  Gemini = "gemini-2.5-flash-lite",
   GPT = "openai/gpt-4o-mini",
+  Gemini = "gemini-2.5-flash-lite",
 }
 
 export default function Intelligence() {
@@ -33,7 +33,7 @@ export default function Intelligence() {
   const [isLoading, setLoading] = useState(false)
   const [messages, setMessages] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const [model, setModel] = useState<Model>(Model.Gemini)
+  const [model, setModel] = useState<Model>(Model.GPT)
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -248,7 +248,7 @@ export default function Intelligence() {
                       type="submit"
                       disabled={isLoading || !prompt.trim()}
                       size="icon"
-                      className="bg-neutral-700 hover:bg-neutral-600 text-white h-8 w-8"
+                      className="bg-neutral-700 hover:bg-neutral-600 text-white h-8 w-8 rounded-full"
                     >
                       <ArrowUp className="h-4 w-4" />
                     </Button>
@@ -256,7 +256,7 @@ export default function Intelligence() {
 
                   <div className="flex justify-start -ms-3">
                     <Select
-                      defaultValue={Model.Gemini}
+                      defaultValue={model}
                       onValueChange={(value: Model) => setModel(value)}
                     >
                       <SelectTrigger className="w-auto bg-transparent border-none text-neutral-300 hover:text-white focus:ring-0 focus:ring-offset-0">
@@ -267,16 +267,16 @@ export default function Intelligence() {
                       </SelectTrigger>
                       <SelectContent className="bg-neutral-800 border-neutral-700">
                         <SelectItem
-                          value={Model.Gemini}
-                          className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
-                        >
-                          Gemini 2.5
-                        </SelectItem>
-                        <SelectItem
                           value={Model.GPT}
                           className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
                         >
                           GPT 4o
+                        </SelectItem>
+                        <SelectItem
+                          value={Model.Gemini}
+                          className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
+                        >
+                          Gemini 2.5
                         </SelectItem>
                       </SelectContent>
                     </Select>

@@ -70,16 +70,17 @@ export class IntelligenceService {
         threadId,
         user,
       }
-      if (args.genericName === AIModel.Gemini) {
-        const { response } = await this.strategy.googleStrategy(args)
+
+      if (args.genericName === AIModel.GPT) {
+        const { response } = await this.strategy.azureStrategy(args)
         await this.commandBus.execute<CreateThreadCommand, Thread>(
           new CreateThreadCommand(String(user.id), threadId, prompt, response)
         )
         return { response, threadId }
       }
 
-      if (args.genericName === AIModel.GPT) {
-        const { response } = await this.strategy.azureStrategy(args)
+      if (args.genericName === AIModel.Gemini) {
+        const { response } = await this.strategy.googleStrategy(args)
         await this.commandBus.execute<CreateThreadCommand, Thread>(
           new CreateThreadCommand(String(user.id), threadId, prompt, response)
         )
