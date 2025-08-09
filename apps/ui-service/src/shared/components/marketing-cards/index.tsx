@@ -1,5 +1,5 @@
 import { BrainCircuit, Check, Cog } from "lucide-react"
-import { Button } from "../../../shared/components/ui/button"
+import { Button } from "../ui/button"
 import { appName } from "@/shared/constants/global-constants"
 
 export function OverviewCard() {

@@ -7,9 +7,9 @@ import {
   InstitutionCard,
   AddInstitutionCard,
 } from "@/shared/components/institutioncard"
-import WealthCard from "./cards/wealth-card"
-import LiabilityCard from "./cards/liability-card"
-import GoalCard from "./cards/goal-card"
+import WealthCard from "../../../shared/components/dashboard-cards/wealth-card"
+import LiabilityCard from "../../../shared/components/dashboard-cards/liability-card"
+import GoalCard from "../../../shared/components/dashboard-cards/goal-card"
 import { useRouter, useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import notify from "@/shared/hooks/use-notify"
