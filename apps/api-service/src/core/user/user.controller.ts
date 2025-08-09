@@ -12,7 +12,7 @@ import { UserService } from "./user.service"
 import { GenerateOTPDto } from "./dto/generate-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import { statusMessages } from "@/shared/constants/status-messages"
-import { TokenGuard } from "@/shared/auth/token.guard"
+import { AuthGuard } from "@/shared/auth/auth.guard"
 import { ModRequest } from "@/shared/auth/types/mod-request.interface"
 import { UpdateAttributeDto } from "./dto/update-attribute.dto"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -53,7 +53,7 @@ export class UserController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Get("userdetails")
   async getUserDetails(@Request() request: ModRequest) {
     try {
@@ -70,7 +70,7 @@ export class UserController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Post("signout")
   async signOut(@Request() request: ModRequest) {
     try {
@@ -81,7 +81,7 @@ export class UserController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Patch("attribute")
   async updateAttribute(
     @Request() request: ModRequest,
@@ -99,7 +99,7 @@ export class UserController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Post("activatetrial")
   async activateTrial(@Request() request: ModRequest) {
     try {

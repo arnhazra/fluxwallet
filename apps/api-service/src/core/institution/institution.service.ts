@@ -126,9 +126,9 @@ export class InstitutionService {
           new DeleteInstitutionCommand(institutionId)
         )
         return { success: true }
-      } else {
-        throw new BadRequestException(statusMessages.connectionError)
       }
+
+      throw new BadRequestException(statusMessages.connectionError)
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

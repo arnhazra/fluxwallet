@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardFooter,
 } from "@/shared/components/ui/card"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 
 export default function Error({ error }: { error?: Error }) {
   const router = useRouter()

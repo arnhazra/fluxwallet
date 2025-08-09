@@ -12,7 +12,7 @@ import {
 } from "@nestjs/common"
 import { InstitutionService } from "./institution.service"
 import { statusMessages } from "@/shared/constants/status-messages"
-import { TokenGuard } from "@/shared/auth/token.guard"
+import { AuthGuard } from "@/shared/auth/auth.guard"
 import { ModRequest } from "@/shared/auth/types/mod-request.interface"
 import { CreateInstitutionRequestDto } from "./dto/request/create-institution.request.dto"
 
@@ -20,7 +20,7 @@ import { CreateInstitutionRequestDto } from "./dto/request/create-institution.re
 export class InstitutionController {
   constructor(private readonly service: InstitutionService) {}
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Post()
   async createInstitution(
     @Body() requestBody: CreateInstitutionRequestDto,
@@ -36,7 +36,7 @@ export class InstitutionController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Get()
   async findMyInstitutions(@Request() request: ModRequest) {
     try {
@@ -46,7 +46,7 @@ export class InstitutionController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Get("/:institutionId")
   async findInstitutionById(
     @Request() request: ModRequest,
@@ -64,7 +64,7 @@ export class InstitutionController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Put(":institutionId")
   async updateInstitutionById(
     @Body() requestBody: CreateInstitutionRequestDto,
@@ -82,7 +82,7 @@ export class InstitutionController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Delete("/:institutionId")
   async deleteInstitution(
     @Request() request: ModRequest,

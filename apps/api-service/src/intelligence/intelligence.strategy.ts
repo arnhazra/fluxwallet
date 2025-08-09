@@ -5,7 +5,7 @@ import { ChatOpenAI } from "@langchain/openai"
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
-import { systemPrompt } from "./prompts/system-prompt"
+import { systemPrompt } from "./data/system-prompt"
 import { User } from "../core/user/schemas/user.schema"
 import { IntelligenceAgent } from "./intelligence.agent"
 

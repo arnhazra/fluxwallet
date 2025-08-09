@@ -14,8 +14,8 @@ import {
   ControlCard,
   IntelligenceCard,
   OverviewCard,
-} from "@/app/(marketing)/cards"
-import { useRouter } from "next/navigation"
+} from "@/shared/components/marketing-cards"
+import { useRouter } from "nextjs-toploader/app"
 import { useEffect, useState } from "react"
 import MarketingHeader from "@/shared/components/marketingheader"
 

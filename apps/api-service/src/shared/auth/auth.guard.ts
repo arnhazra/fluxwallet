@@ -16,7 +16,7 @@ import { prodUIURI } from "../constants/other-constants"
 import { config } from "@/config"
 
 @Injectable()
-export class TokenGuard implements CanActivate {
+export class AuthGuard implements CanActivate {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
   async canActivate(context: ExecutionContext): Promise<boolean> {

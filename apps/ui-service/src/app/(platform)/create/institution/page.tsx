@@ -22,7 +22,7 @@ import { Package } from "lucide-react"
 import { InstitutionType, Institution } from "@/shared/types"
 import ky, { KyResponse } from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 
 const institutions = Object.values(InstitutionType)
 

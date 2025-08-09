@@ -1,5 +1,5 @@
-import { BrainCircuit, Check, Cog } from "lucide-react"
-import { Button } from "../../../shared/components/ui/button"
+import { Brain, Check, Cog } from "lucide-react"
+import { Button } from "../ui/button"
 import { appName } from "@/shared/constants/global-constants"
 
 export function OverviewCard() {
@@ -42,7 +42,7 @@ export function IntelligenceCard() {
           size="icon"
           className="rounded-full bg-primary hover:bg-primary"
         >
-          <BrainCircuit className="h-4 w-4 text-white" />
+          <Brain className="h-4 w-4 text-white" />
           <span className="sr-only">{appName} Intelligence</span>
         </Button>
       </div>
@@ -56,7 +56,7 @@ export function IntelligenceCard() {
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
             >
-              <BrainCircuit />
+              <Brain />
             </svg>
           </div>
           <div className="absolute top-12 left-4 w-48 h-4 bg-neutral-600 rounded" />

@@ -115,9 +115,9 @@ export class AssetService {
       if (userId.toString() === reqUserId) {
         await this.commandBus.execute(new DeleteAssetCommand(assetId))
         return { success: true }
-      } else {
-        throw new BadRequestException(statusMessages.connectionError)
       }
+
+      throw new BadRequestException(statusMessages.connectionError)
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

@@ -12,7 +12,7 @@ import {
 } from "@nestjs/common"
 import { AssetService } from "./asset.service"
 import { statusMessages } from "@/shared/constants/status-messages"
-import { TokenGuard } from "@/shared/auth/token.guard"
+import { AuthGuard } from "@/shared/auth/auth.guard"
 import { ModRequest } from "@/shared/auth/types/mod-request.interface"
 import { CreateAssetRequestDto } from "./dto/request/create-asset.request.dto"
 
@@ -20,7 +20,7 @@ import { CreateAssetRequestDto } from "./dto/request/create-asset.request.dto"
 export class AssetController {
   constructor(private readonly service: AssetService) {}
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Post()
   async createAsset(
     @Body() requestBody: CreateAssetRequestDto,
@@ -33,7 +33,7 @@ export class AssetController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Get("institution/:institutionId")
   async findMyAssetsByInstitutionId(
     @Request() request: ModRequest,
@@ -49,7 +49,7 @@ export class AssetController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Get("/:assetId")
   async findAssetById(@Request() request: ModRequest, @Param() params: any) {
     try {
@@ -62,7 +62,7 @@ export class AssetController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Put(":assetId")
   async updateAssetById(
     @Body() requestBody: CreateAssetRequestDto,
@@ -80,7 +80,7 @@ export class AssetController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Delete("/:assetId")
   async deleteAsset(@Request() request: ModRequest, @Param() params: any) {
     try {

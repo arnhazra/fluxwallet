@@ -10,13 +10,13 @@ import {
 import { IntelligenceService } from "./intelligence.service"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { ModRequest } from "src/shared/auth/types/mod-request.interface"
-import { TokenGuard } from "@/shared/auth/token.guard"
+import { AuthGuard } from "@/shared/auth/auth.guard"
 
 @Controller("intelligence")
 export class IntelligenceController {
   constructor(private readonly service: IntelligenceService) {}
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Post()
   async generateRecommendation(
     @Request() request: ModRequest,
@@ -32,7 +32,7 @@ export class IntelligenceController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Get(":threadId")
   async getThreadById(
     @Request() request: ModRequest,

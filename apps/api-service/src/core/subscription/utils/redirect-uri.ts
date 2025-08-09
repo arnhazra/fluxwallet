@@ -9,12 +9,12 @@ import {
 export function getRediretURIUI(success: boolean) {
   if (success) {
     return config.NODE_ENV === "development"
-      ? `${devUIURI}/settings/subscription?subscriptionSuccess=true`
-      : `${prodUIURI}/settings/subscription?subscriptionSuccess=true`
+      ? `${devUIURI}/dashboard?subscriptionSuccess=true`
+      : `${prodUIURI}/dashboard?subscriptionSuccess=true`
   } else {
     return config.NODE_ENV === "development"
-      ? `${devUIURI}/settings/subscription?subscriptionSuccess=false`
-      : `${prodUIURI}/settings/subscription?subscriptionSuccess=false`
+      ? `${devUIURI}/dashboard?subscriptionSuccess=false`
+      : `${prodUIURI}/dashboard?subscriptionSuccess=false`
   }
 }
 

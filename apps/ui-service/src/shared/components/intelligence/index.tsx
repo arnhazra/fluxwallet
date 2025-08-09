@@ -10,7 +10,14 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import { PanelRightClose, Bot, User, ArrowUp, BrainCircuit } from "lucide-react"
+import {
+  PanelRightClose,
+  Bot,
+  User,
+  ArrowUp,
+  Brain,
+  SquareArrowOutUpRight,
+} from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -20,6 +27,7 @@ import Show from "../show"
 import { suggestedPrompts } from "./suggested-prompts"
 import { Badge } from "../ui/badge"
 import { Thread } from "@/shared/types"
+import { useRouter } from "nextjs-toploader/app"
 
 enum Model {
   GPT = "openai/gpt-4o-mini",
@@ -34,6 +42,7 @@ export default function Intelligence() {
   const [messages, setMessages] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [model, setModel] = useState<Model>(Model.GPT)
+  const router = useRouter()
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -106,7 +115,7 @@ export default function Intelligence() {
         size="icon"
         className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary rounded-full"
       >
-        <BrainCircuit className="h-4 w-4 text-white" />
+        <Brain className="h-4 w-4 text-white" />
       </Button>
 
       {isOpen && (
@@ -130,13 +139,28 @@ export default function Intelligence() {
           >
             <PanelRightClose className="h-5 w-5" />
           </Button>
+          <Button
+            variant="ghost"
+            size="sm"
+            onClick={() => {
+              router.push(
+                threadId
+                  ? `/intelligence?threadId=${threadId}`
+                  : "/intelligence"
+              )
+              setIsOpen(false)
+            }}
+            className="text-neutral-400 hover:text-white bg-none hover:bg-background"
+          >
+            <SquareArrowOutUpRight className="h-5 w-5" />
+          </Button>
         </div>
 
         <ScrollArea className="flex-1 p-4 overflow-y-auto">
           <div className="space-y-4">
             <Show condition={messages.length === 0}>
               <div className="text-center mt-8">
-                <BrainCircuit className="h-12 w-12 mx-auto mb-4 text-primary" />
+                <Brain className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <p className="text-primary">{appName} Intelligence</p>
                 <p className="text-sm mt-2 text-white p-6">
                   {appName} Intelligence is an agentic workflow powered by AI,
@@ -261,7 +285,7 @@ export default function Intelligence() {
                     >
                       <SelectTrigger className="w-auto bg-transparent border-none text-neutral-300 hover:text-white focus:ring-0 focus:ring-offset-0">
                         <div className="flex items-center gap-2">
-                          <BrainCircuit className="h-4 w-4 text-primary" />
+                          <Brain className="h-4 w-4 text-primary" />
                           <SelectValue />
                         </div>
                       </SelectTrigger>
@@ -270,13 +294,13 @@ export default function Intelligence() {
                           value={Model.GPT}
                           className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
                         >
-                          GPT 4o
+                          OpenAI GPT 4o
                         </SelectItem>
                         <SelectItem
                           value={Model.Gemini}
                           className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
                         >
-                          Gemini 2.5
+                          Google Gemini 2.5
                         </SelectItem>
                       </SelectContent>
                     </Select>
