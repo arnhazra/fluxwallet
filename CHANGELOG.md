@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.7
+
+- Introduced full chat page
+- Code refactoring & bug fixes
+
 ## v1.6
 
 - Added asset maturity warnings in app
