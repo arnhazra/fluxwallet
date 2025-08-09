@@ -270,13 +270,13 @@ export default function Intelligence() {
                           value={Model.GPT}
                           className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
                         >
-                          GPT 4o
+                          OpenAI GPT 4o
                         </SelectItem>
                         <SelectItem
                           value={Model.Gemini}
                           className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
                         >
-                          Gemini 2.5
+                          Google Gemini 2.5
                         </SelectItem>
                       </SelectContent>
                     </Select>
