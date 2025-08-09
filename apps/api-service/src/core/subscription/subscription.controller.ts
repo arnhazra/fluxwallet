@@ -8,7 +8,7 @@ import {
   Request,
 } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
-import { TokenGuard } from "src/shared/auth/token.guard"
+import { AuthGuard } from "@/shared/auth/auth.guard"
 import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 import { getRediretURIUI } from "./utils/redirect-uri"
 
@@ -25,7 +25,7 @@ export class SubscriptionController {
     }
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Post("checkout")
   async createCheckoutSession(@Request() request: ModRequest) {
     try {

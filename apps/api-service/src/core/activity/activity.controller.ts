@@ -10,7 +10,7 @@ import { CreateActivityDto } from "./dto/create-activity.dto"
 import { EventMap } from "../../shared/utils/event.map"
 import { OnEvent } from "@nestjs/event-emitter"
 import { GetCountDto } from "./dto/get-count.dto"
-import { TokenGuard } from "@/shared/auth/token.guard"
+import { AuthGuard } from "@/shared/auth/auth.guard"
 
 @Controller("activity")
 export class ActivityController {
@@ -21,7 +21,7 @@ export class ActivityController {
     this.activityService.createActivity(createActivityDto)
   }
 
-  @UseGuards(TokenGuard)
+  @UseGuards(AuthGuard)
   @Post("trends")
   async getActivityCount(@Body() getCountDto: GetCountDto) {
     try {
