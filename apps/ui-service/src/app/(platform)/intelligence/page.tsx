@@ -123,14 +123,19 @@ export default function Intelligence() {
   return (
     <div className="h-full flex flex-col w-full max-w-4xl mx-auto">
       <ScrollArea
-        className="flex-1 p-4 overflow-y-auto"
-        style={{ paddingBottom: "8rem" }}
+        className={`flex-1 p-4 overflow-y-auto ${
+          messages.length > 0 ? "pb-32" : ""
+        }`}
       >
         <div className="space-y-4">
           <Show condition={messages.length === 0}>
             <div className="text-center mt-8 max-w-xl mx-auto">
               <Brain className="h-12 w-12 mx-auto mb-4 text-primary" />
               <p className="text-primary">{appName} Intelligence</p>
+              <p className="text-sm mt-2 text-white p-6">
+                {appName} Intelligence is an agentic workflow powered by AI, so
+                mistakes are possible. Please use carefully.
+              </p>
               <p className="text-4xl mt-4">
                 What's on your mind, {user.name.split(" ")[0]}?
               </p>
