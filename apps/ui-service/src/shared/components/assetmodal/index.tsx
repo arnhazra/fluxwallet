@@ -16,7 +16,7 @@ import ky from "ky"
 import notify from "@/shared/hooks/use-notify"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useAppContext } from "@/context/appstate.provider"
 

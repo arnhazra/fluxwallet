@@ -10,10 +10,11 @@ import {
 import WealthCard from "../../../shared/components/dashboard-cards/wealth-card"
 import LiabilityCard from "../../../shared/components/dashboard-cards/liability-card"
 import GoalCard from "../../../shared/components/dashboard-cards/goal-card"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import { useEffect } from "react"
 import notify from "@/shared/hooks/use-notify"
 import { uiConstants } from "@/shared/constants/global-constants"
+import { useSearchParams } from "next/navigation"
 
 export default function Page() {
   const searchParams = useSearchParams()
