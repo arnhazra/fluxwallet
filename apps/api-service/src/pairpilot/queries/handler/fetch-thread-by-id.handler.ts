@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
-import { IntelligenceRepository } from "../../intelligence.repository"
+import { PairPilotRepository } from "../../pairpilot.repository"
 import { FetchThreadByIdQuery } from "../impl/fetch-thread-by-id.query"
 import objectId from "@/shared/utils/convert-objectid"
 
@@ -7,7 +7,7 @@ import objectId from "@/shared/utils/convert-objectid"
 export class FetchThreadByIdQueryHandler
   implements IQueryHandler<FetchThreadByIdQuery>
 {
-  constructor(private readonly repository: IntelligenceRepository) {}
+  constructor(private readonly repository: PairPilotRepository) {}
 
   async execute(query: FetchThreadByIdQuery) {
     const { threadId } = query

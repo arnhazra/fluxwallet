@@ -33,7 +33,7 @@ enum Model {
   Gemini = "gemini-2.5-flash-lite",
 }
 
-export default function Intelligence() {
+export default function PairPilot() {
   const [isOpen, setIsOpen] = useState(false)
   const [threadId, setThreadId] = useState<string | null>(null)
   const [prompt, setPrompt] = useState("")
@@ -79,7 +79,7 @@ export default function Intelligence() {
 
     try {
       const res: Thread = await ky
-        .post(`${endPoints.intelligence}`, {
+        .post(`${endPoints.pairpilot}`, {
           json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })
@@ -144,10 +144,10 @@ export default function Intelligence() {
             <Show condition={messages.length === 0}>
               <div className="text-center mt-8">
                 <Brain className="h-12 w-12 mx-auto mb-4 text-primary" />
-                <p className="text-primary">{appName} Intelligence</p>
+                <p className="text-primary">{appName} PairPilot</p>
                 <p className="text-sm mt-2 text-white p-6">
-                  {appName} Intelligence is an agentic workflow powered by AI,
-                  so mistakes are possible. Please use carefully.
+                  {appName} PairPilot is an agentic workflow powered by AI, so
+                  mistakes are possible. Please use carefully.
                 </p>
                 <p className="text-sm mt-2 text-neutral-400 mb-4">
                   Try these actions

@@ -7,14 +7,14 @@ import {
   Get,
   Param,
 } from "@nestjs/common"
-import { IntelligenceService } from "./intelligence.service"
+import { PairPilotService } from "./pairpilot.service"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { ModRequest } from "src/shared/auth/types/mod-request.interface"
 import { AuthGuard } from "@/shared/auth/auth.guard"
 
-@Controller("intelligence")
-export class IntelligenceController {
-  constructor(private readonly service: IntelligenceService) {}
+@Controller("pairpilot")
+export class PairPilotController {
+  constructor(private readonly service: PairPilotService) {}
 
   @UseGuards(AuthGuard)
   @Post()

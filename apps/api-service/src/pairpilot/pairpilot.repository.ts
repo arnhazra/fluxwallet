@@ -6,7 +6,7 @@ import { Model } from "mongoose"
 import { EntityRepository } from "@/shared/entity/entity.repository"
 
 @Injectable()
-export class IntelligenceRepository extends EntityRepository<Thread> {
+export class PairPilotRepository extends EntityRepository<Thread> {
   constructor(
     @InjectModel(Thread.name, DbConnectionMap.Primary)
     private threadModel: Model<Thread>

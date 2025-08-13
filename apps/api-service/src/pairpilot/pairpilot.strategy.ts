@@ -7,9 +7,9 @@ import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { systemPrompt } from "./data/system-prompt"
 import { User } from "../core/user/schemas/user.schema"
-import { IntelligenceAgent } from "./intelligence.agent"
+import { PairPilotAgent } from "./pairpilot.agent"
 
-export interface IntelligenceStrategyType {
+export interface PairPilotStrategyType {
   genericName: string
   temperature: number
   topP: number
@@ -20,13 +20,10 @@ export interface IntelligenceStrategyType {
 }
 
 @Injectable()
-export class IntelligenceStrategy {
-  constructor(private readonly agent: IntelligenceAgent) {}
+export class PairPilotStrategy {
+  constructor(private readonly agent: PairPilotAgent) {}
 
-  private async runAgent(
-    llm: LanguageModelLike,
-    args: IntelligenceStrategyType
-  ) {
+  private async runAgent(llm: LanguageModelLike, args: PairPilotStrategyType) {
     const { thread, prompt, user } = args
 
     const agent = createReactAgent({
@@ -60,7 +57,7 @@ export class IntelligenceStrategy {
     return messages[messages.length - 1]?.content.toString()
   }
 
-  private buildAzureLLM(opts: IntelligenceStrategyType) {
+  private buildAzureLLM(opts: PairPilotStrategyType) {
     return new ChatOpenAI({
       model: opts.genericName,
       temperature: opts.temperature,
@@ -73,7 +70,7 @@ export class IntelligenceStrategy {
     })
   }
 
-  private buildGoogleLLM(opts: IntelligenceStrategyType) {
+  private buildGoogleLLM(opts: PairPilotStrategyType) {
     return new ChatGoogleGenerativeAI({
       model: opts.genericName,
       temperature: opts.temperature,
@@ -82,13 +79,13 @@ export class IntelligenceStrategy {
     })
   }
 
-  async azureStrategy(args: IntelligenceStrategyType) {
+  async azureStrategy(args: PairPilotStrategyType) {
     const llm = this.buildAzureLLM(args)
     const response = await this.runAgent(llm, args)
     return { response }
   }
 
-  async googleStrategy(args: IntelligenceStrategyType) {
+  async googleStrategy(args: PairPilotStrategyType) {
     const llm = this.buildGoogleLLM(args)
     const response = await this.runAgent(llm, args)
     return { response }
