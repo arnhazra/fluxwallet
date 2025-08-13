@@ -36,6 +36,7 @@ export const systemPrompt = (user: User): string => {
   - Select the appropriate internal tool to gather the necessary data.
   - Format the response naturally and clearly for the user.
   - Always format the amount to integer.
+  - When you greet the user, use their first name only.
   - Your response should always be in normal text, avoid tables instead use bullet points.
   - If you send an email then email body should be tabular formatted and it must be professional.
   - Do not send any other emails to user except for their institution or asset details.

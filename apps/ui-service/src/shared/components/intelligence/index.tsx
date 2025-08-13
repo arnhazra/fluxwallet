@@ -27,7 +27,6 @@ import Show from "../show"
 import { suggestedPrompts } from "./suggested-prompts"
 import { Badge } from "../ui/badge"
 import { Thread } from "@/shared/types"
-import { useRouter } from "nextjs-toploader/app"
 
 enum Model {
   GPT = "openai/gpt-4o-mini",
@@ -42,7 +41,6 @@ export default function Intelligence() {
   const [messages, setMessages] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const [model, setModel] = useState<Model>(Model.GPT)
-  const router = useRouter()
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -138,21 +136,6 @@ export default function Intelligence() {
             className="text-neutral-400 hover:text-white bg-none hover:bg-background"
           >
             <PanelRightClose className="h-5 w-5" />
-          </Button>
-          <Button
-            variant="ghost"
-            size="sm"
-            onClick={() => {
-              router.push(
-                threadId
-                  ? `/intelligence?threadId=${threadId}`
-                  : "/intelligence"
-              )
-              setIsOpen(false)
-            }}
-            className="text-neutral-400 hover:text-white bg-none hover:bg-background"
-          >
-            <SquareArrowOutUpRight className="h-5 w-5" />
           </Button>
         </div>
 
