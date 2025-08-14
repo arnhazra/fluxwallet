@@ -15,6 +15,7 @@ export const endPoints = {
   createCheckoutSession: `${apiHost}/subscription/checkout`,
   generateOTP: `${apiHost}/user/generateotp`,
   validateOTP: `${apiHost}/user/validateotp`,
+  googleOAuthLogin: `${apiHost}/user/googleoauth`,
   userDetails: `${apiHost}/user/userdetails`,
   activateTrial: `${apiHost}/user/activatetrial`,
   signOut: `${apiHost}/user/signout`,

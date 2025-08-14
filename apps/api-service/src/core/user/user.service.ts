@@ -21,8 +21,10 @@ import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
 import { randomUUID } from "crypto"
 import { Subscription } from "../subscription/schemas/subscription.schema"
-import { Currency } from "@/shared/constants/types"
 import { Token } from "../token/schemas/token.schema"
+import { GoogleOAuthDto } from "./dto/google-oauth.dto"
+import { HttpService } from "@nestjs/axios"
+import { lastValueFrom } from "rxjs"
 
 @Injectable()
 export class UserService {
@@ -31,9 +33,84 @@ export class UserService {
   constructor(
     private readonly eventEmitter: EventEmitter2,
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
+    private readonly httpService: HttpService
   ) {
     this.jwtSecret = config.JWT_SECRET
+  }
+
+  async googleOAuth(googleOAuthDto: GoogleOAuthDto) {
+    try {
+      const response$ = this.httpService.get(
+        config.GOOGLE_OAUTH_VERIFICATION_API,
+        { headers: { Authorization: `Bearer ${googleOAuthDto.token}` } }
+      )
+      const { data } = await lastValueFrom(response$)
+
+      const user = await this.queryBus.execute<FindUserByEmailQuery, User>(
+        new FindUserByEmailQuery(data.email)
+      )
+
+      if (user) {
+        const refreshTokenFromDB: Token = (
+          await this.eventEmitter.emitAsync(EventMap.GetToken, {
+            userId: user.id,
+          })
+        ).shift()
+
+        if (refreshTokenFromDB) {
+          const refreshToken = refreshTokenFromDB.token
+          const tokenPayload = {
+            id: user.id,
+            email: user.email,
+            iss: prodUIURI,
+          }
+          const accessToken = jwt.sign(tokenPayload, this.jwtSecret, {
+            algorithm: "HS512",
+            expiresIn: "5m",
+          })
+          return { accessToken, refreshToken, user, success: true }
+        } else {
+          const tokenPayload = {
+            id: user.id,
+            email: user.email,
+            iss: prodUIURI,
+          }
+          const accessToken = jwt.sign(tokenPayload, this.jwtSecret, {
+            algorithm: "HS512",
+            expiresIn: "5m",
+          })
+          const refreshToken = `rtwm${randomUUID()}`
+          await this.eventEmitter.emitAsync(EventMap.SetToken, {
+            userId: user.id,
+            token: refreshToken,
+          })
+          return { accessToken, refreshToken, user, success: true }
+        }
+      } else {
+        const newUser = await this.commandBus.execute<CreateUserCommand, User>(
+          new CreateUserCommand(data.email, data.name)
+        )
+
+        const tokenPayload = {
+          id: newUser.id,
+          email: newUser.email,
+          iss: prodUIURI,
+        }
+        const accessToken = jwt.sign(tokenPayload, this.jwtSecret, {
+          algorithm: "HS512",
+          expiresIn: "5m",
+        })
+        const refreshToken = `rtwm${randomUUID()}`
+        await this.eventEmitter.emitAsync(EventMap.SetToken, {
+          userId: newUser.id,
+          token: refreshToken,
+        })
+        return { accessToken, refreshToken, user: newUser, success: true }
+      }
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
   }
 
   async generateOTP(generateOTPDto: GenerateOTPDto) {

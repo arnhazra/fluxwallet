@@ -17,6 +17,7 @@ import { ModRequest } from "@/shared/auth/types/mod-request.interface"
 import { UpdateAttributeDto } from "./dto/update-attribute.dto"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
+import { GoogleOAuthDto } from "./dto/google-oauth.dto"
 
 @Controller("user")
 export class UserController {
@@ -24,6 +25,22 @@ export class UserController {
     private readonly userService: UserService,
     private readonly eventEmitter: EventEmitter2
   ) {}
+
+  @Post("googleoauth")
+  async googleOAuth(@Body() googleOAuthDto: GoogleOAuthDto) {
+    try {
+      const response = await this.userService.googleOAuth(googleOAuthDto)
+      const { accessToken, refreshToken, user, success } = response
+
+      if (success) {
+        return { accessToken, refreshToken, user }
+      } else {
+        throw new BadRequestException(statusMessages.invalidOTP)
+      }
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
 
   @Post("generateotp")
   async generateOTP(@Body() generateOTPDto: GenerateOTPDto) {

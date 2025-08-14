@@ -18,6 +18,7 @@ import {
 } from "@/shared/components/ui/card"
 import MarketingHeader from "@/shared/components/marketingheader"
 import notify from "@/shared/hooks/use-notify"
+import GoogleOAuth from "./google-oauth"
 
 interface AuthProviderProps {
   onAuthorized: (isAuthorized: boolean) => void
@@ -66,6 +67,21 @@ export default function AuthenticationPage({
         .json()
       localStorage.setItem("accessToken", response.accessToken)
       localStorage.setItem("refreshToken", response.refreshToken)
+      onAuthorized(true)
+    } catch (error: any) {
+      notify(uiConstants.invalidOTP, "error")
+      onAuthorized(false)
+    } finally {
+      setAuthLoading(false)
+    }
+  }
+
+  const onGoogleOAuthSuccess = (userData: any) => {
+    setAuthLoading(true)
+
+    try {
+      localStorage.setItem("accessToken", userData.accessToken)
+      localStorage.setItem("refreshToken", userData.refreshToken)
       onAuthorized(true)
     } catch (error: any) {
       notify(uiConstants.invalidOTP, "error")
@@ -129,6 +145,7 @@ export default function AuthenticationPage({
                     </Show>
                   </Button>
                 </form>
+                <GoogleOAuth handleSuccess={onGoogleOAuthSuccess} />
               </Show>
               <Show condition={authStep === 2}>
                 <form onSubmit={validateOTP}>

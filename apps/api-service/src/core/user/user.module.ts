@@ -10,10 +10,12 @@ import { FindUserByEmailQueryHandler } from "./queries/handler/find-user-by-emai
 import { FindUserByIdQueryHandler } from "./queries/handler/find-user-by-id.handler"
 import { UpdateAttributeCommandHandler } from "./commands/handler/update-attribute.handler"
 import { EntityModule } from "@/shared/entity/entity.module"
+import { HttpModule } from "@nestjs/axios"
 
 @Module({
   imports: [
     CqrsModule,
+    HttpModule,
     EntityModule.forFeature(
       [{ name: User.name, schema: UserSchema }],
       DbConnectionMap.Primary
