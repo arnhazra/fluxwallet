@@ -130,7 +130,7 @@ export default function AuthenticationPage({
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full h-11 mt-2 bg-primary hover:bg-primary"
+                    className="w-full h-11 mt-2 bg-neutral-700 hover:bg-neutral-700"
                     disabled={isAuthLoading}
                   >
                     <Show
@@ -145,6 +145,15 @@ export default function AuthenticationPage({
                     </Show>
                   </Button>
                 </form>
+                <div className="relative text-center text-sm">
+                  <div className="relative z-0 flex items-center">
+                    <div className="flex-grow border-t border-border"></div>
+                    <span className="bg-card text-muted-foreground px-2 z-10">
+                      Or continue with
+                    </span>
+                    <div className="flex-grow border-t border-border"></div>
+                  </div>
+                </div>
                 <GoogleOAuth handleSuccess={onGoogleOAuthSuccess} />
               </Show>
               <Show condition={authStep === 2}>
@@ -185,7 +194,7 @@ export default function AuthenticationPage({
                       variant="default"
                       type="submit"
                       disabled={isAuthLoading}
-                      className="w-full h-11 mt-2 bg-primary hover:bg-primary"
+                      className="w-full h-11 mt-2 bg-neutral-700 hover:bg-neutral-700"
                     >
                       <Show
                         condition={!isAuthLoading}
@@ -204,7 +213,7 @@ export default function AuthenticationPage({
                 </form>
               </Show>
             </div>
-            <div className="mt-4 text-sm text-neutral-300">
+            <div className="mt-4 text-sm text-neutral-500">
               {uiConstants.privacyPolicyStatement}
             </div>
           </CardContent>
