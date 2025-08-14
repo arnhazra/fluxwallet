@@ -1,6 +1,5 @@
 import { Module } from "@nestjs/common"
 import { SubscriptionModule } from "./subscription/subscription.module"
-import { UserModule } from "./user/user.module"
 import { config } from "src/config"
 import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { ActivityModule } from "./activity/activity.module"
@@ -16,7 +15,6 @@ import { ValuationModule } from "./valuation/valuation.module"
     EntityModule.forRoot(config.PRIMARY_DATABASE_URI, DbConnectionMap.Primary),
     ActivityModule,
     SubscriptionModule,
-    UserModule,
     TokenModule,
     EmailModule,
     InstitutionModule,

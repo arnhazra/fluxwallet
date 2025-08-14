@@ -1,5 +1,5 @@
 import { config } from "@/config"
-import { User } from "@/core/user/schemas/user.schema"
+import { User } from "@/auth/schemas/user.schema"
 
 export const systemPrompt = (user: User): string => {
   return `

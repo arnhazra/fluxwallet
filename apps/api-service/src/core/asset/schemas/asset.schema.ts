@@ -1,5 +1,5 @@
 import { Institution } from "@/core/institution/schemas/institution.schema"
-import { User } from "@/core/user/schemas/user.schema"
+import { User } from "@/auth/schemas/user.schema"
 import { AssetType, RecurringFrequency } from "@/shared/constants/types"
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document, Types } from "mongoose"

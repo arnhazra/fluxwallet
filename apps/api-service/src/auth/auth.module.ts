@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common"
-import { UserService } from "./user.service"
-import { UserController } from "./user.controller"
-import { UserRepository } from "./user.repository"
+import { AuthService } from "./auth.service"
+import { AuthController } from "./auth.controller"
+import { AuthRepository } from "./auth.repository"
 import { User, UserSchema } from "./schemas/user.schema"
 import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { CqrsModule } from "@nestjs/cqrs"
@@ -21,14 +21,14 @@ import { HttpModule } from "@nestjs/axios"
       DbConnectionMap.Primary
     ),
   ],
-  controllers: [UserController],
+  controllers: [AuthController],
   providers: [
-    UserService,
-    UserRepository,
+    AuthService,
+    AuthRepository,
     CreateUserCommandHandler,
     UpdateAttributeCommandHandler,
     FindUserByEmailQueryHandler,
     FindUserByIdQueryHandler,
   ],
 })
-export class UserModule {}
+export class AuthModule {}

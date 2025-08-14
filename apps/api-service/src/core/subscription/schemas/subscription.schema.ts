@@ -1,4 +1,4 @@
-import { User } from "@/core/user/schemas/user.schema"
+import { User } from "@/auth/schemas/user.schema"
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document, Types } from "mongoose"
 

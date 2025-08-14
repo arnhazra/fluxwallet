@@ -8,7 +8,7 @@ import {
   verifyOTP,
   generateOTPEmailBody,
   generateOTPEmailSubject,
-} from "./user.util"
+} from "./auth.util"
 import { prodUIURI } from "@/shared/constants/other-constants"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
@@ -20,14 +20,14 @@ import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
 import { randomUUID } from "crypto"
-import { Subscription } from "../subscription/schemas/subscription.schema"
-import { Token } from "../token/schemas/token.schema"
+import { Subscription } from "../core/subscription/schemas/subscription.schema"
+import { Token } from "../core/token/schemas/token.schema"
 import { GoogleOAuthDto } from "./dto/google-oauth.dto"
 import { HttpService } from "@nestjs/axios"
 import { lastValueFrom } from "rxjs"
 
 @Injectable()
-export class UserService {
+export class AuthService {
   private readonly jwtSecret: string
 
   constructor(

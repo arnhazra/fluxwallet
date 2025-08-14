@@ -9,7 +9,7 @@ import { EntityRepository } from "@/shared/entity/entity.repository"
 import objectId from "@/shared/utils/convert-objectid"
 
 @Injectable()
-export class UserRepository extends EntityRepository<User> {
+export class AuthRepository extends EntityRepository<User> {
   constructor(
     @InjectModel(User.name, DbConnectionMap.Primary)
     private userModel: Model<User>

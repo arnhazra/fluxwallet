@@ -8,7 +8,7 @@ import {
   Request,
   UseGuards,
 } from "@nestjs/common"
-import { UserService } from "./user.service"
+import { AuthService } from "./auth.service"
 import { GenerateOTPDto } from "./dto/generate-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import { statusMessages } from "@/shared/constants/status-messages"
@@ -19,17 +19,17 @@ import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
 import { GoogleOAuthDto } from "./dto/google-oauth.dto"
 
-@Controller("user")
-export class UserController {
+@Controller("auth")
+export class AuthController {
   constructor(
-    private readonly userService: UserService,
+    private readonly service: AuthService,
     private readonly eventEmitter: EventEmitter2
   ) {}
 
   @Post("googleoauth")
   async googleOAuth(@Body() googleOAuthDto: GoogleOAuthDto) {
     try {
-      const response = await this.userService.googleOAuth(googleOAuthDto)
+      const response = await this.service.googleOAuth(googleOAuthDto)
       const { accessToken, refreshToken, user, success } = response
 
       if (success) {
@@ -45,7 +45,7 @@ export class UserController {
   @Post("generateotp")
   async generateOTP(@Body() generateOTPDto: GenerateOTPDto) {
     try {
-      const { user, hash } = await this.userService.generateOTP(generateOTPDto)
+      const { user, hash } = await this.service.generateOTP(generateOTPDto)
       if (!user)
         return { hash, message: statusMessages.otpEmail, newUser: true }
       return { hash, message: statusMessages.otpEmail, newUser: false }
@@ -57,7 +57,7 @@ export class UserController {
   @Post("validateotp")
   async validateOTP(@Body() validateOTPDto: VerifyOTPDto) {
     try {
-      const response = await this.userService.verifyOTP(validateOTPDto)
+      const response = await this.service.verifyOTP(validateOTPDto)
       const { accessToken, refreshToken, user } = response
 
       if (response.success) {
@@ -75,7 +75,7 @@ export class UserController {
   async getUserDetails(@Request() request: ModRequest) {
     try {
       const { user, subscription, isSubscriptionActive } =
-        await this.userService.getUserDetails(request.user.userId)
+        await this.service.getUserDetails(request.user.userId)
 
       if (user) {
         return { user, subscription, isSubscriptionActive }
@@ -91,7 +91,7 @@ export class UserController {
   @Post("signout")
   async signOut(@Request() request: ModRequest) {
     try {
-      await this.userService.signOut(request.user.userId)
+      await this.service.signOut(request.user.userId)
       return { message: statusMessages.signOutSuccess }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
@@ -106,7 +106,7 @@ export class UserController {
   ) {
     try {
       const { attributeName, attributeValue } = updateAttributeDto
-      return await this.userService.updateAttribute(
+      return await this.service.updateAttribute(
         request.user.userId,
         attributeName,
         attributeValue
@@ -120,9 +120,7 @@ export class UserController {
   @Post("activatetrial")
   async activateTrial(@Request() request: ModRequest) {
     try {
-      const { user } = await this.userService.getUserDetails(
-        request.user.userId
-      )
+      const { user } = await this.service.getUserDetails(request.user.userId)
 
       if (!user.hasTrial) {
         throw new Error()
@@ -133,11 +131,7 @@ export class UserController {
         request.user.userId
       )
 
-      await this.userService.updateAttribute(
-        request.user.userId,
-        "hasTrial",
-        false
-      )
+      await this.service.updateAttribute(request.user.userId, "hasTrial", false)
 
       return { success: true }
     } catch (error) {

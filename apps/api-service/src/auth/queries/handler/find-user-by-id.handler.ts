@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
-import { UserRepository } from "../../user.repository"
+import { AuthRepository } from "../../auth.repository"
 import { FindUserByIdQuery } from "../impl/find-user-by-id.query"
 import objectId from "@/shared/utils/convert-objectid"
 
@@ -7,7 +7,7 @@ import objectId from "@/shared/utils/convert-objectid"
 export class FindUserByIdQueryHandler
   implements IQueryHandler<FindUserByIdQuery>
 {
-  constructor(private readonly repository: UserRepository) {}
+  constructor(private readonly repository: AuthRepository) {}
 
   async execute(query: FindUserByIdQuery) {
     const { userId } = query

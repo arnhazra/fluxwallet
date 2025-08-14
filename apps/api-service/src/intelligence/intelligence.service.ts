@@ -11,7 +11,7 @@ import {
   IntelligenceStrategy,
   IntelligenceStrategyType,
 } from "./intelligence.strategy"
-import { User } from "../core/user/schemas/user.schema"
+import { User } from "../auth/schemas/user.schema"
 
 @Injectable()
 export class IntelligenceService {
