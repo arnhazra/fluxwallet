@@ -3,7 +3,6 @@ import { SubscriptionModule } from "./subscription/subscription.module"
 import { config } from "src/config"
 import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { ActivityModule } from "./activity/activity.module"
-import { TokenModule } from "./token/token.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { EmailModule } from "./email/email.module"
 import { InstitutionModule } from "./institution/institution.module"
@@ -15,7 +14,6 @@ import { ValuationModule } from "./valuation/valuation.module"
     EntityModule.forRoot(config.PRIMARY_DATABASE_URI, DbConnectionMap.Primary),
     ActivityModule,
     SubscriptionModule,
-    TokenModule,
     EmailModule,
     InstitutionModule,
     AssetModule,

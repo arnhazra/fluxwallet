@@ -1,6 +1,6 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { DeleteTokenCommand } from "../impl/delete-token.command"
-import { TokenRepository } from "../../token.repository"
+import { TokenRepository } from "../../repositories/token.repository"
 import objectId from "@/shared/utils/convert-objectid"
 
 @CommandHandler(DeleteTokenCommand)

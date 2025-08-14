@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
-import { User } from "./schemas/user.schema"
+import { User } from "../schemas/user.schema"
 import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { FilterQuery, Model } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
@@ -9,7 +9,7 @@ import { EntityRepository } from "@/shared/entity/entity.repository"
 import objectId from "@/shared/utils/convert-objectid"
 
 @Injectable()
-export class AuthRepository extends EntityRepository<User> {
+export class UserRepository extends EntityRepository<User> {
   constructor(
     @InjectModel(User.name, DbConnectionMap.Primary)
     private userModel: Model<User>

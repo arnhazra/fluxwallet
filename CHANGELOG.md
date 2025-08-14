@@ -2,8 +2,8 @@
 
 ## v1.7
 
-- New improved authentication workflow
-- Added Google OAuth Login workflow
+- New improved & secure authentication workflow
+- Added Google OAuth workflow
 
 ## v1.6
 

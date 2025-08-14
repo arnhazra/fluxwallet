@@ -21,10 +21,16 @@ import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
 import { randomUUID } from "crypto"
 import { Subscription } from "../core/subscription/schemas/subscription.schema"
-import { Token } from "../core/token/schemas/token.schema"
+import { Token } from "./schemas/token.schema"
 import { GoogleOAuthDto } from "./dto/google-oauth.dto"
 import { HttpService } from "@nestjs/axios"
 import { lastValueFrom } from "rxjs"
+import { SetTokenDto } from "./dto/set-token.dto"
+import { GetTokenDto } from "./dto/get-token.dto"
+import { DeleteTokenDto } from "./dto/delete-token.dto"
+import { SetTokenCommand } from "./commands/impl/set-token.command"
+import { GetTokenQuery } from "./queries/impl/get-token.query"
+import { DeleteTokenCommand } from "./commands/impl/delete-token.command"
 
 @Injectable()
 export class AuthService {
@@ -52,11 +58,7 @@ export class AuthService {
       )
 
       if (user) {
-        const refreshTokenFromDB: Token = (
-          await this.eventEmitter.emitAsync(EventMap.GetToken, {
-            userId: user.id,
-          })
-        ).shift()
+        const refreshTokenFromDB = await this.getToken({ userId: user.id })
 
         if (refreshTokenFromDB) {
           const refreshToken = refreshTokenFromDB.token
@@ -81,10 +83,7 @@ export class AuthService {
             expiresIn: "5m",
           })
           const refreshToken = `rtwm${randomUUID()}`
-          await this.eventEmitter.emitAsync(EventMap.SetToken, {
-            userId: user.id,
-            token: refreshToken,
-          })
+          await this.setToken({ userId: user.id, token: refreshToken })
           return { accessToken, refreshToken, user, success: true }
         }
       } else {
@@ -102,10 +101,7 @@ export class AuthService {
           expiresIn: "5m",
         })
         const refreshToken = `rtwm${randomUUID()}`
-        await this.eventEmitter.emitAsync(EventMap.SetToken, {
-          userId: newUser.id,
-          token: refreshToken,
-        })
+        await this.setToken({ userId: newUser.id, token: refreshToken })
         return { accessToken, refreshToken, user: newUser, success: true }
       }
     } catch (error) {
@@ -144,11 +140,7 @@ export class AuthService {
         )
 
         if (user) {
-          const refreshTokenFromDB: Token = (
-            await this.eventEmitter.emitAsync(EventMap.GetToken, {
-              userId: user.id,
-            })
-          ).shift()
+          const refreshTokenFromDB = await this.getToken({ userId: user.id })
 
           if (refreshTokenFromDB) {
             const refreshToken = refreshTokenFromDB.token
@@ -173,10 +165,7 @@ export class AuthService {
               expiresIn: "5m",
             })
             const refreshToken = `rtwm${randomUUID()}`
-            await this.eventEmitter.emitAsync(EventMap.SetToken, {
-              userId: user.id,
-              token: refreshToken,
-            })
+            await this.setToken({ userId: user.id, token: refreshToken })
             return { accessToken, refreshToken, user, success: true }
           }
         } else {
@@ -195,10 +184,7 @@ export class AuthService {
             expiresIn: "5m",
           })
           const refreshToken = `rtwm${randomUUID()}`
-          await this.eventEmitter.emitAsync(EventMap.SetToken, {
-            userId: newUser.id,
-            token: refreshToken,
-          })
+          await this.setToken({ userId: newUser.id, token: refreshToken })
           return { accessToken, refreshToken, user: newUser, success: true }
         }
       } else {
@@ -244,7 +230,7 @@ export class AuthService {
 
   async signOut(userId: string) {
     try {
-      await this.eventEmitter.emitAsync(EventMap.DeleteToken, { userId })
+      await this.deleteToken({ userId })
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
@@ -262,6 +248,37 @@ export class AuthService {
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async setToken(setTokenDto: SetTokenDto) {
+    try {
+      const { userId, token } = setTokenDto
+      return await this.commandBus.execute(new SetTokenCommand(userId, token))
+    } catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  @OnEvent(EventMap.GetToken)
+  async getToken(getTokenDto: GetTokenDto) {
+    try {
+      const { userId } = getTokenDto
+      return await this.queryBus.execute<GetTokenQuery, Token>(
+        new GetTokenQuery(userId)
+      )
+    } catch (error) {
+      console.log(error)
+      throw new BadRequestException()
+    }
+  }
+
+  async deleteToken(deleteTokenDto: DeleteTokenDto) {
+    try {
+      const { userId } = deleteTokenDto
+      return await this.commandBus.execute(new DeleteTokenCommand(userId))
+    } catch (error) {
+      throw new BadRequestException()
     }
   }
 }

@@ -11,7 +11,7 @@ import { EventMap } from "../shared/utils/event.map"
 import { ModRequest } from "./types/mod-request.interface"
 import { User } from "@/auth/schemas/user.schema"
 import { Response } from "express"
-import { Token } from "@/core/token/schemas/token.schema"
+import { Token } from "./schemas/token.schema"
 import { prodUIURI } from "../shared/constants/other-constants"
 import { config } from "@/config"
 
