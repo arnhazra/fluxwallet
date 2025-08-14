@@ -45,16 +45,10 @@ export class AuthService {
     this.jwtSecret = config.JWT_SECRET
   }
 
-  async googleOAuth(googleOAuthDto: GoogleOAuthDto) {
+  async userRegistrationOrLogin(email: string, name?: string) {
     try {
-      const response$ = this.httpService.get(
-        config.GOOGLE_OAUTH_VERIFICATION_API,
-        { headers: { Authorization: `Bearer ${googleOAuthDto.token}` } }
-      )
-      const { data } = await lastValueFrom(response$)
-
       const user = await this.queryBus.execute<FindUserByEmailQuery, User>(
-        new FindUserByEmailQuery(data.email)
+        new FindUserByEmailQuery(email)
       )
 
       if (user) {
@@ -88,7 +82,7 @@ export class AuthService {
         }
       } else {
         const newUser = await this.commandBus.execute<CreateUserCommand, User>(
-          new CreateUserCommand(data.email, data.name)
+          new CreateUserCommand(email, name)
         )
 
         const tokenPayload = {
@@ -104,6 +98,19 @@ export class AuthService {
         await this.setToken({ userId: newUser.id, token: refreshToken })
         return { accessToken, refreshToken, user: newUser, success: true }
       }
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async googleOAuth(googleOAuthDto: GoogleOAuthDto) {
+    try {
+      const response$ = this.httpService.get(
+        config.GOOGLE_OAUTH_VERIFICATION_API,
+        { headers: { Authorization: `Bearer ${googleOAuthDto.token}` } }
+      )
+      const { data } = await lastValueFrom(response$)
+      return await this.userRegistrationOrLogin(data.email, data.name)
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
@@ -135,58 +142,7 @@ export class AuthService {
       const isOTPValid = verifyOTP(email, hash, otp)
 
       if (isOTPValid) {
-        const user = await this.queryBus.execute<FindUserByEmailQuery, User>(
-          new FindUserByEmailQuery(email)
-        )
-
-        if (user) {
-          const refreshTokenFromDB = await this.getToken({ userId: user.id })
-
-          if (refreshTokenFromDB) {
-            const refreshToken = refreshTokenFromDB.token
-            const tokenPayload = {
-              id: user.id,
-              email: user.email,
-              iss: prodUIURI,
-            }
-            const accessToken = jwt.sign(tokenPayload, this.jwtSecret, {
-              algorithm: "HS512",
-              expiresIn: "5m",
-            })
-            return { accessToken, refreshToken, user, success: true }
-          } else {
-            const tokenPayload = {
-              id: user.id,
-              email: user.email,
-              iss: prodUIURI,
-            }
-            const accessToken = jwt.sign(tokenPayload, this.jwtSecret, {
-              algorithm: "HS512",
-              expiresIn: "5m",
-            })
-            const refreshToken = `rtwm${randomUUID()}`
-            await this.setToken({ userId: user.id, token: refreshToken })
-            return { accessToken, refreshToken, user, success: true }
-          }
-        } else {
-          const newUser = await this.commandBus.execute<
-            CreateUserCommand,
-            User
-          >(new CreateUserCommand(email, name))
-
-          const tokenPayload = {
-            id: newUser.id,
-            email: newUser.email,
-            iss: prodUIURI,
-          }
-          const accessToken = jwt.sign(tokenPayload, this.jwtSecret, {
-            algorithm: "HS512",
-            expiresIn: "5m",
-          })
-          const refreshToken = `rtwm${randomUUID()}`
-          await this.setToken({ userId: newUser.id, token: refreshToken })
-          return { accessToken, refreshToken, user: newUser, success: true }
-        }
+        return await this.userRegistrationOrLogin(email, name)
       } else {
         throw new BadRequestException(statusMessages.connectionError)
       }
