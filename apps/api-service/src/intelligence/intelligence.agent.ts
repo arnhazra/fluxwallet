@@ -8,7 +8,7 @@ import { EventEmitter2 } from "@nestjs/event-emitter"
 import { z } from "zod"
 
 @Injectable()
-export class PairPilotAgent {
+export class IntelligenceAgent {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
   public getTotalWealthAgent = tool(

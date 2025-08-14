@@ -11,7 +11,7 @@ import Loading from "../loading"
 import { useQuery as useBaseQuery } from "@tanstack/react-query"
 import PlatformHeader from "@/shared/components/platformheader"
 import { useAppContext } from "@/context/appstate.provider"
-import PairPilot from "@/shared/components/pairpilot"
+import Intelligence from "@/shared/components/intelligence"
 import { SubscriptionModal } from "@/shared/components/subscriptionmodal"
 import notify from "@/shared/hooks/use-notify"
 import useQuery from "@/shared/hooks/use-query"
@@ -75,7 +75,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       <div className="w-full px-4 sm:container sm:max-w-[90rem] mt-4">
         {children}
       </div>
-      <PairPilot />
+      <Intelligence />
       <SubscriptionModal data={subscriptionPricing.data} />
     </div>
   )

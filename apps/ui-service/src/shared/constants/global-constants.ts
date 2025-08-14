@@ -28,5 +28,5 @@ export const uiConstants = {
   pricingTitle: `${appName} Pricing`,
   privacyPolicyStatement: `By using ${appName}, you agree to our Terms of Service and Privacy Policy.`,
   verifyEmailStatement: `Enter the OTP we’ve sent to your email to verify your identity.`,
-  aiSafetyStatement: `${appName} PairPilot is AI-powered and may make mistakes. Please review results carefully.`,
+  aiSafetyStatement: `${appName} Intelligence is AI-powered and may make mistakes. Please review results carefully.`,
 }

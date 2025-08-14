@@ -7,15 +7,18 @@ import { EventMap } from "@/shared/utils/event.map"
 import { AIGenerationDto, AIModel } from "./dto/ai-generate.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
-import { PairPilotStrategy, PairPilotStrategyType } from "./pairpilot.strategy"
+import {
+  IntelligenceStrategy,
+  IntelligenceStrategyType,
+} from "./intelligence.strategy"
 import { User } from "../core/user/schemas/user.schema"
 
 @Injectable()
-export class PairPilotService {
+export class IntelligenceService {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-    private readonly strategy: PairPilotStrategy,
+    private readonly strategy: IntelligenceStrategy,
     private readonly eventEmitter: EventEmitter2
   ) {}
 
@@ -58,7 +61,7 @@ export class PairPilotService {
         })
       ).shift()
 
-      const args: PairPilotStrategyType = {
+      const args: IntelligenceStrategyType = {
         genericName: model,
         temperature: 1.0,
         topP: 1.0,

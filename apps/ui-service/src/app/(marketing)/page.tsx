@@ -12,7 +12,7 @@ import Loading from "../loading"
 import useQuery from "@/shared/hooks/use-query"
 import {
   ControlCard,
-  PairPilotCard,
+  IntelligenceCard,
   OverviewCard,
 } from "@/shared/components/marketing-cards"
 import { useRouter } from "nextjs-toploader/app"
@@ -140,7 +140,7 @@ export default function Page() {
           </div>
           <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
             <OverviewCard />
-            <PairPilotCard />
+            <IntelligenceCard />
             <ControlCard />
           </div>
         </section>

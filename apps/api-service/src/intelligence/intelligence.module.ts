@@ -1,16 +1,16 @@
 import { Module } from "@nestjs/common"
-import { PairPilotService } from "./pairpilot.service"
-import { PairPilotController } from "./pairpilot.controller"
+import { IntelligenceService } from "./intelligence.service"
+import { IntelligenceController } from "./intelligence.controller"
 import { CqrsModule } from "@nestjs/cqrs"
 import { DbConnectionMap } from "src/shared/utils/db-connection.map"
 import { Thread, ThreadSchema } from "./schemas/thread.schema"
 import { CreateThreadCommandHandler } from "./commands/handler/create-thread.handler"
-import { PairPilotRepository } from "./pairpilot.repository"
+import { IntelligenceRepository } from "./intelligence.repository"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { FetchThreadByIdQueryHandler } from "./queries/handler/fetch-thread-by-id.handler"
 import { HttpModule } from "@nestjs/axios"
-import { PairPilotStrategy } from "./pairpilot.strategy"
-import { PairPilotAgent } from "./pairpilot.agent"
+import { IntelligenceStrategy } from "./intelligence.strategy"
+import { IntelligenceAgent } from "./intelligence.agent"
 
 @Module({
   imports: [
@@ -21,14 +21,14 @@ import { PairPilotAgent } from "./pairpilot.agent"
       DbConnectionMap.Primary
     ),
   ],
-  controllers: [PairPilotController],
+  controllers: [IntelligenceController],
   providers: [
-    PairPilotService,
-    PairPilotRepository,
-    PairPilotStrategy,
-    PairPilotAgent,
+    IntelligenceService,
+    IntelligenceRepository,
+    IntelligenceStrategy,
+    IntelligenceAgent,
     CreateThreadCommandHandler,
     FetchThreadByIdQueryHandler,
   ],
 })
-export class PairPilotModule {}
+export class IntelligenceModule {}
