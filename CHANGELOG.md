@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.7
+
+- New improved authentication workflow
+- Added Google OAuth Login workflow
+
 ## v1.6
 
 - Added asset maturity warnings in app
