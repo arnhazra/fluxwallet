@@ -12,8 +12,8 @@ import {
 } from "@nestjs/common"
 import { InstitutionService } from "./institution.service"
 import { statusMessages } from "@/shared/constants/status-messages"
-import { AuthGuard } from "@/shared/auth/auth.guard"
-import { ModRequest } from "@/shared/auth/types/mod-request.interface"
+import { AuthGuard } from "@/auth/auth.guard"
+import { ModRequest } from "@/auth/types/mod-request.interface"
 import { CreateInstitutionRequestDto } from "./dto/request/create-institution.request.dto"
 
 @Controller("institution")
