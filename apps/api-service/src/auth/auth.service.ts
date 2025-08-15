@@ -224,7 +224,6 @@ export class AuthService {
         new GetTokenQuery(userId)
       )
     } catch (error) {
-      console.log(error)
       throw new BadRequestException()
     }
   }
