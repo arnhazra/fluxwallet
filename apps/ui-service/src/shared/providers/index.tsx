@@ -10,8 +10,6 @@ import { GoogleOAuthProvider } from "@react-oauth/google"
 
 export default function Providers({ children }: { children: ReactNode }) {
   const oAuthClientId = process.env.NEXT_PUBLIC_CLIENT_ID
-  console.log(process.env.NEXT_PUBLIC_CLIENT_ID)
-  console.log(oAuthClientId)
   return (
     <GoogleOAuthProvider clientId={oAuthClientId ?? ""}>
       <TooltipProvider>
