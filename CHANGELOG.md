@@ -4,6 +4,7 @@
 
 - New improved & secure authentication workflow
 - Added Google OAuth workflow
+- Updated required dependencies
 
 ## v1.6
 
