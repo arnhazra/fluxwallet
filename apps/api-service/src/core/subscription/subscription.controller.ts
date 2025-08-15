@@ -8,8 +8,8 @@ import {
   Request,
 } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
-import { AuthGuard } from "@/shared/auth/auth.guard"
-import { ModRequest } from "src/shared/auth/types/mod-request.interface"
+import { AuthGuard } from "@/auth/auth.guard"
+import { ModRequest } from "@/auth/types/mod-request.interface"
 import { getRediretURIUI } from "./utils/redirect-uri"
 
 @Controller("subscription")

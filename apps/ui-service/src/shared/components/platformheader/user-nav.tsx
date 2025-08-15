@@ -1,6 +1,5 @@
 "use client"
 import { useAppContext } from "@/context/appstate.provider"
-import { Button } from "@/shared/components/ui/button"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,6 +11,7 @@ import {
 } from "@/shared/components/ui/dropdown-menu"
 import { User } from "lucide-react"
 import Link from "next/link"
+import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar"
 
 export function UserNav() {
   const [{ user }] = useAppContext()
@@ -24,13 +24,12 @@ export function UserNav() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button
-          variant="default"
-          size="icon"
-          className="overflow-hidden rounded-full bg-neutral-800 hover:bg-neutral-800"
-        >
-          <User className="h-4 w-4 text-primary" />
-        </Button>
+        <Avatar className="h-9 w-9 cursor-pointer">
+          <AvatarImage src={user.avatar ?? ""} alt={user.name} />
+          <AvatarFallback>
+            <User className="h-4 w-4 text-primary" />
+          </AvatarFallback>
+        </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
         className="w-56 bg-background border-border text-white"

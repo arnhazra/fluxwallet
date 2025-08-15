@@ -19,11 +19,9 @@ import EditCurrency from "@/shared/components/editcurrency"
 export default function Page() {
   const [{ user }] = useAppContext()
 
-  const signOut = async (signOutOption: string) => {
+  const signOut = async () => {
     try {
-      if (signOutOption === "all") {
-        await ky.post(endPoints.signOut, { timeout: FETCH_TIMEOUT })
-      }
+      await ky.post(endPoints.signOut, { timeout: FETCH_TIMEOUT })
       localStorage.clear()
       window.location.replace("/")
     } catch (error) {
@@ -68,7 +66,7 @@ export default function Page() {
           <Button
             size="icon"
             variant="destructive"
-            onClick={(): Promise<void> => signOut("all")}
+            onClick={(): Promise<void> => signOut()}
           >
             <CircleArrowRight className="h-4 w-4" />
           </Button>,

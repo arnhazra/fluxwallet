@@ -205,6 +205,7 @@ export type User = {
   hasTrial: boolean
   currentLiabilities: number
   createdAt: string
+  avatar: string | null | undefined
 }
 
 export type SubscriptionConfig = {

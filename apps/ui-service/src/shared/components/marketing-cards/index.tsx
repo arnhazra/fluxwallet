@@ -32,18 +32,18 @@ export function OverviewCard() {
   )
 }
 
-export function PairPilotCard() {
+export function IntelligenceCard() {
   return (
     <div className="bg-background border-border p-8 rounded-lg">
       <div className="flex justify-between items-center mb-12">
-        <h2 className="text-3xl">PairPilot</h2>
+        <h2 className="text-3xl">Intelligence</h2>
         <Button
           variant="ghost"
           size="icon"
           className="rounded-full bg-primary hover:bg-primary"
         >
           <Brain className="h-4 w-4 text-white" />
-          <span className="sr-only">{appName} PairPilot</span>
+          <span className="sr-only">{appName} Intelligence</span>
         </Button>
       </div>
       <div className="flex justify-center mb-8">

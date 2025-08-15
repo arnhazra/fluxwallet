@@ -10,7 +10,7 @@ import { CreateActivityDto } from "./dto/create-activity.dto"
 import { EventMap } from "../../shared/utils/event.map"
 import { OnEvent } from "@nestjs/event-emitter"
 import { GetCountDto } from "./dto/get-count.dto"
-import { AuthGuard } from "@/shared/auth/auth.guard"
+import { AuthGuard } from "@/auth/auth.guard"
 
 @Controller("activity")
 export class ActivityController {

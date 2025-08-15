@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.7
+
+- New improved & secure authentication workflow
+- Added Google OAuth workflow
+- Updated required dependencies
+
 ## v1.6
 
 - Added asset maturity warnings in app
@@ -36,9 +42,9 @@
 
 - Bug fixes & performance improvements
 - Added liability support
-- Better training for pairpilot model
+- Better training for intelligence model
 - Added new agentic workflows
-- Added multimodel support for pairpilot
+- Added multimodel support for intelligence
 - Migrated from Redis to MongoDB for token storage due to frequent redis disconnection issue
 
 ## v1.0
@@ -50,4 +56,4 @@
 - Added institutions & assets
 - Added goal settings
 - Added multi currency support
-- Added first usable version of natural pairpilot
+- Added first usable version of natural intelligence
