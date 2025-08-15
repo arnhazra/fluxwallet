@@ -6,7 +6,7 @@ function generateRandomOTP(): string {
   return randomInt(111111, 999999).toString()
 }
 
-export function generateOTP(email: string) {
+export function requestOTP(email: string) {
   const otp = generateRandomOTP()
   const ttl = 5 * 60 * 1000
   const expires = Date.now() + ttl
@@ -30,11 +30,11 @@ export function verifyOTP(email: string, hash: string, otp: string): boolean {
   return false
 }
 
-export function generateOTPEmailSubject() {
+export function requestOTPEmailSubject() {
   return `${config.APP_NAME} OTP`
 }
 
-export function generateOTPEmailBody(otp: string) {
+export function requestOTPEmailBody(otp: string) {
   return `<!DOCTYPE html>
 <html lang="en">
   <head>

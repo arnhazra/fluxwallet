@@ -34,14 +34,14 @@ export default function AuthenticationPage({
   const [newUser, setNewUser] = useState(false)
   const [name, setName] = useState("")
 
-  const generateOTP = async (event: any) => {
+  const requestOTP = async (event: any) => {
     event.preventDefault()
     setAlert(uiConstants.authVerificationMessage)
     setAuthLoading(true)
 
     try {
       const response: any = await ky
-        .post(endPoints.generateOTP, { json: state, timeout: FETCH_TIMEOUT })
+        .post(endPoints.requestOTP, { json: state, timeout: FETCH_TIMEOUT })
         .json()
       setState({ ...state, hash: response.hash })
       setNewUser(response.newUser)
@@ -110,7 +110,7 @@ export default function AuthenticationPage({
           <CardContent>
             <div className="grid gap-4">
               <Show condition={authStep === 1}>
-                <form onSubmit={generateOTP}>
+                <form onSubmit={requestOTP}>
                   <div className="grid gap-2">
                     <Label htmlFor="email">Email</Label>
                     <Input

@@ -1,12 +1,12 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
-import { GenerateOTPDto } from "./dto/generate-otp.dto"
+import { RequestOTPDto } from "./dto/request-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import { config } from "src/config"
 import {
-  generateOTP,
+  requestOTP,
   verifyOTP,
-  generateOTPEmailBody,
-  generateOTPEmailSubject,
+  requestOTPEmailBody,
+  requestOTPEmailSubject,
 } from "./otp.util"
 import { prodUIURI } from "@/shared/constants/other-constants"
 import { statusMessages } from "@/shared/constants/status-messages"
@@ -115,15 +115,15 @@ export class AuthService {
     }
   }
 
-  async generateOTP(generateOTPDto: GenerateOTPDto) {
+  async requestOTP(requestOTPDto: RequestOTPDto) {
     try {
-      const { email } = generateOTPDto
+      const { email } = requestOTPDto
       const user = await this.queryBus.execute<FindUserByEmailQuery, User>(
         new FindUserByEmailQuery(email)
       )
-      const { fullHash: hash, otp } = generateOTP(email)
-      const subject: string = generateOTPEmailSubject()
-      const body: string = generateOTPEmailBody(otp)
+      const { fullHash: hash, otp } = requestOTP(email)
+      const subject: string = requestOTPEmailSubject()
+      const body: string = requestOTPEmailBody(otp)
       await this.eventEmitter.emitAsync(EventMap.SendEmail, {
         email,
         subject,

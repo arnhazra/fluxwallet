@@ -9,7 +9,7 @@ import {
   UseGuards,
 } from "@nestjs/common"
 import { AuthService } from "./auth.service"
-import { GenerateOTPDto } from "./dto/generate-otp.dto"
+import { RequestOTPDto } from "./dto/request-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { AuthGuard } from "@/auth/auth.guard"
@@ -42,10 +42,10 @@ export class AuthController {
     }
   }
 
-  @Post("generateotp")
-  async generateOTP(@Body() generateOTPDto: GenerateOTPDto) {
+  @Post("requestotp")
+  async requestOTP(@Body() requestOTPDto: RequestOTPDto) {
     try {
-      const { user, hash } = await this.service.generateOTP(generateOTPDto)
+      const { user, hash } = await this.service.requestOTP(requestOTPDto)
       if (!user)
         return { hash, message: statusMessages.otpEmail, newUser: true }
       return { hash, message: statusMessages.otpEmail, newUser: false }

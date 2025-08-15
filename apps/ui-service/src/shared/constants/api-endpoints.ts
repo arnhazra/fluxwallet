@@ -13,7 +13,7 @@ export const endPoints = {
   institution: `${apiHost}/institution`,
   getSubscriptionPricing: `${apiHost}/subscription/pricing`,
   createCheckoutSession: `${apiHost}/subscription/checkout`,
-  generateOTP: `${apiHost}/auth/generateotp`,
+  requestOTP: `${apiHost}/auth/requestotp`,
   validateOTP: `${apiHost}/auth/validateotp`,
   googleOAuthLogin: `${apiHost}/auth/googleoauth`,
   userDetails: `${apiHost}/auth/userdetails`,
