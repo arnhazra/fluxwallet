@@ -22,15 +22,19 @@ export default function GoalCard({
   const goalPercentage = (presentValuation * 100) / (user.wealthGoal ?? 0)
 
   const editGoal = async () => {
-    const { hasConfirmed, value } = await prompt("Wealth Goal", user.wealthGoal)
+    const { hasConfirmed, value } = await prompt(
+      true,
+      "Wealth Goal",
+      user.wealthGoal
+    )
 
     if (hasConfirmed) {
       try {
-        dispatch("setUser", { wealthGoal: value })
+        dispatch("setUser", { wealthGoal: Number(value) })
         await ky.patch(endPoints.updateAttribute, {
           json: {
             attributeName: "wealthGoal",
-            attributeValue: value,
+            attributeValue: Number(value),
           },
           timeout: FETCH_TIMEOUT,
         })

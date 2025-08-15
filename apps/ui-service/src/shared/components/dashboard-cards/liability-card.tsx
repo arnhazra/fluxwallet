@@ -17,17 +17,18 @@ export default function LiabilityCard() {
 
   const editLiabilities = async () => {
     const { hasConfirmed, value } = await prompt(
+      true,
       "Total Liabilities",
       user.currentLiabilities
     )
 
     if (hasConfirmed) {
       try {
-        dispatch("setUser", { currentLiabilities: value })
+        dispatch("setUser", { currentLiabilities: Number(value) })
         await ky.patch(endPoints.updateAttribute, {
           json: {
             attributeName: "currentLiabilities",
-            attributeValue: value,
+            attributeValue: Number(value),
           },
           timeout: FETCH_TIMEOUT,
         })
