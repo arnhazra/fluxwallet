@@ -45,16 +45,15 @@ export function generateOTPEmailBody(otp: string) {
       body {
         margin: 0;
         padding: 0;
-        background-color: #18181b;
-        color: #f4f4f5;
+        background-color: #ffffff;
+        color: #000000;
       }
 
       .container {
         max-width: 600px;
         margin: auto;
         padding: 40px 20px;
-        background-color: #18181b;
-        border: 1px solid #27272a;
+        background-color: #f4f4f5;
         border-radius: 12px;
       }
 
@@ -70,7 +69,7 @@ export function generateOTPEmailBody(otp: string) {
         font-size: 1rem;
         line-height: 1.6;
         margin: 12px 0;
-        color: #e4e4e7;
+        color: #000000;
       }
 
       .otp {
@@ -88,9 +87,8 @@ export function generateOTPEmailBody(otp: string) {
       .footer {
         text-align: center;
         font-size: 0.85rem;
-        color: #a1a1aa;
+        color: #000000;
         margin-top: 40px;
-        border-top: 1px solid #27272a;
         padding-top: 20px;
       }
 

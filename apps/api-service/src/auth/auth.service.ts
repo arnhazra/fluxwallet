@@ -7,7 +7,7 @@ import {
   verifyOTP,
   generateOTPEmailBody,
   generateOTPEmailSubject,
-} from "./auth.util"
+} from "./otp.util"
 import { prodUIURI } from "@/shared/constants/other-constants"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
@@ -29,7 +29,7 @@ import { DeleteTokenDto } from "./dto/delete-token.dto"
 import { SetTokenCommand } from "./commands/impl/set-token.command"
 import { GetTokenQuery } from "./queries/impl/get-token.query"
 import { DeleteTokenCommand } from "./commands/impl/delete-token.command"
-import { generateToken, TokenType } from "@/shared/utils/jwt-util"
+import { generateToken, TokenType } from "@/auth/jwt.util"
 
 @Injectable()
 export class AuthService {
