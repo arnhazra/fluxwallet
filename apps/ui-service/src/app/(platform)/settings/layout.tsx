@@ -1,11 +1,15 @@
 "use client"
 import { ReactElement, ReactNode } from "react"
-import { Button } from "@/shared/components/ui/button"
 import { CalendarClock, Info, Leaf, ShieldCheck, User } from "lucide-react"
 import { Tabs, tabsList } from "./data"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { useAppContext } from "@/context/appstate.provider"
+import {
+  Avatar,
+  AvatarFallback,
+  AvatarImage,
+} from "@/shared/components/ui/avatar"
 
 const mapTabIcons: Record<Tabs, ReactElement> = {
   user: <User className="h-4 w-4" />,
@@ -39,13 +43,12 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
       <div className="mx-auto grid w-full gap-2">
         <div className="flex justify-between">
           <div className="flex gap-4 mb-4">
-            <Button
-              variant="default"
-              size="icon"
-              className="rounded-full bg-neutral-800"
-            >
-              <User className="h-4 w-4 text-primary" />
-            </Button>
+            <Avatar className="h-9 w-9 cursor-pointer">
+              <AvatarImage src={user.avatar ?? ""} alt={user.name} />
+              <AvatarFallback>
+                <User className="h-4 w-4 text-primary" />
+              </AvatarFallback>
+            </Avatar>
             <div className="text-white">
               <p className="text-sm font-semibold">{user.name}</p>
               <p className="text-sm font-semibold">{user.email}</p>

@@ -23,6 +23,7 @@ const initialState: AppState = {
     role: "",
     currentLiabilities: 0,
     hasTrial: false,
+    avatar: null,
   },
   subscription: null,
   isSubscriptionActive: false,

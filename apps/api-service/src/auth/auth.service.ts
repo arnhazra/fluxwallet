@@ -104,7 +104,12 @@ export class AuthService {
         { headers: { Authorization: `Bearer ${googleOAuthDto.token}` } }
       )
       const { data } = await lastValueFrom(response$)
-      return await this.userRegistrationOrLogin(data.email, data.name)
+      const resp = await this.userRegistrationOrLogin(data.email, data.name)
+      const {
+        user: { _id: derivedUserId },
+      } = resp
+      this.updateAttribute(derivedUserId as string, "avatar", data.picture)
+      return resp
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

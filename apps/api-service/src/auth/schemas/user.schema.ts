@@ -23,6 +23,9 @@ export class User extends Document {
   @Prop({ default: null })
   wealthGoal: number | null
 
+  @Prop({ default: null })
+  avatar: string | null
+
   @Prop({ default: 0 })
   currentLiabilities: number
 
