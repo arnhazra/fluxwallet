@@ -1,7 +1,6 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
 import { GenerateOTPDto } from "./dto/generate-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
-import * as jwt from "jsonwebtoken"
 import { config } from "src/config"
 import {
   generateOTP,
@@ -19,7 +18,6 @@ import { User } from "./schemas/user.schema"
 import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
-import { randomUUID } from "crypto"
 import { Subscription } from "../core/subscription/schemas/subscription.schema"
 import { Token } from "./schemas/token.schema"
 import { GoogleOAuthDto } from "./dto/google-oauth.dto"
@@ -31,19 +29,16 @@ import { DeleteTokenDto } from "./dto/delete-token.dto"
 import { SetTokenCommand } from "./commands/impl/set-token.command"
 import { GetTokenQuery } from "./queries/impl/get-token.query"
 import { DeleteTokenCommand } from "./commands/impl/delete-token.command"
+import { generateToken, TokenType } from "@/shared/utils/jwt-util"
 
 @Injectable()
 export class AuthService {
-  private readonly jwtSecret: string
-
   constructor(
     private readonly eventEmitter: EventEmitter2,
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
     private readonly httpService: HttpService
-  ) {
-    this.jwtSecret = config.JWT_SECRET
-  }
+  ) {}
 
   async userRegistrationOrLogin(email: string, name?: string) {
     try {
@@ -52,7 +47,9 @@ export class AuthService {
       )
 
       if (user) {
-        const refreshTokenFromDB = await this.getToken({ userId: user.id })
+        const refreshTokenFromDB = await this.getRefreshToken({
+          userId: user.id,
+        })
 
         if (refreshTokenFromDB) {
           const refreshToken = refreshTokenFromDB.token
@@ -61,10 +58,7 @@ export class AuthService {
             email: user.email,
             iss: prodUIURI,
           }
-          const accessToken = jwt.sign(tokenPayload, this.jwtSecret, {
-            algorithm: "HS512",
-            expiresIn: "5m",
-          })
+          const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
           return { accessToken, refreshToken, user, success: true }
         } else {
           const tokenPayload = {
@@ -72,12 +66,12 @@ export class AuthService {
             email: user.email,
             iss: prodUIURI,
           }
-          const accessToken = jwt.sign(tokenPayload, this.jwtSecret, {
-            algorithm: "HS512",
-            expiresIn: "5m",
-          })
-          const refreshToken = `rtwm${randomUUID()}`
-          await this.setToken({ userId: user.id, token: refreshToken })
+          const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
+          const refreshToken = generateToken(
+            tokenPayload,
+            TokenType.RefreshToken
+          )
+          await this.setRefreshToken({ userId: user.id, token: refreshToken })
           return { accessToken, refreshToken, user, success: true }
         }
       } else {
@@ -90,12 +84,12 @@ export class AuthService {
           email: newUser.email,
           iss: prodUIURI,
         }
-        const accessToken = jwt.sign(tokenPayload, this.jwtSecret, {
-          algorithm: "HS512",
-          expiresIn: "5m",
+        const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
+        const refreshToken = generateToken(tokenPayload, TokenType.RefreshToken)
+        await this.setRefreshToken({
+          userId: newUser.id,
+          token: refreshToken,
         })
-        const refreshToken = `rtwm${randomUUID()}`
-        await this.setToken({ userId: newUser.id, token: refreshToken })
         return { accessToken, refreshToken, user: newUser, success: true }
       }
     } catch (error) {
@@ -186,7 +180,7 @@ export class AuthService {
 
   async signOut(userId: string) {
     try {
-      await this.deleteToken({ userId })
+      await this.deleteRefreshToken({ userId })
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
@@ -207,7 +201,7 @@ export class AuthService {
     }
   }
 
-  async setToken(setTokenDto: SetTokenDto) {
+  async setRefreshToken(setTokenDto: SetTokenDto) {
     try {
       const { userId, token } = setTokenDto
       return await this.commandBus.execute(new SetTokenCommand(userId, token))
@@ -216,8 +210,8 @@ export class AuthService {
     }
   }
 
-  @OnEvent(EventMap.GetToken)
-  async getToken(getTokenDto: GetTokenDto) {
+  @OnEvent(EventMap.GetRefreshToken)
+  async getRefreshToken(getTokenDto: GetTokenDto) {
     try {
       const { userId } = getTokenDto
       return await this.queryBus.execute<GetTokenQuery, Token>(
@@ -228,7 +222,7 @@ export class AuthService {
     }
   }
 
-  async deleteToken(deleteTokenDto: DeleteTokenDto) {
+  async deleteRefreshToken(deleteTokenDto: DeleteTokenDto) {
     try {
       const { userId } = deleteTokenDto
       return await this.commandBus.execute(new DeleteTokenCommand(userId))

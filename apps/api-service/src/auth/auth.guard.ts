@@ -4,7 +4,6 @@ import {
   Injectable,
   UnauthorizedException,
 } from "@nestjs/common"
-import * as jwt from "jsonwebtoken"
 import { statusMessages } from "../shared/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "../shared/utils/event.map"
@@ -13,7 +12,13 @@ import { User } from "@/auth/schemas/user.schema"
 import { Response } from "express"
 import { Token } from "./schemas/token.schema"
 import { prodUIURI } from "../shared/constants/other-constants"
-import { config } from "@/config"
+import {
+  decodeAccessToken,
+  generateToken,
+  TokenType,
+  verifyAccessToken,
+} from "@/shared/utils/jwt-util"
+import * as jwt from "jsonwebtoken"
 
 @Injectable()
 export class AuthGuard implements CanActivate {
@@ -29,10 +34,8 @@ export class AuthGuard implements CanActivate {
       if (!accessToken || !refreshToken) {
         throw new UnauthorizedException(statusMessages.unauthorized)
       } else {
-        const decodedAccessToken = jwt.verify(accessToken, config.JWT_SECRET, {
-          algorithms: ["HS512"],
-        })
-        const userId = (decodedAccessToken as any).id
+        const decodedAccessToken = verifyAccessToken(accessToken)
+        const userId = decodedAccessToken.id
         const userResponse: User[] = await this.eventEmitter.emitAsync(
           EventMap.GetUserDetails,
           { _id: userId }
@@ -58,10 +61,10 @@ export class AuthGuard implements CanActivate {
       }
     } catch (error) {
       if (error instanceof jwt.TokenExpiredError) {
-        const decodedAccessToken = jwt.decode(String(accessToken))
-        const userId = (decodedAccessToken as any).id
+        const decodedAccessToken = decodeAccessToken(accessToken)
+        const userId = decodedAccessToken.id
         const refreshTokenFromDB: Token = (
-          await this.eventEmitter.emitAsync(EventMap.GetToken, {
+          await this.eventEmitter.emitAsync(EventMap.GetRefreshToken, {
             userId,
           })
         ).shift()
@@ -90,10 +93,10 @@ export class AuthGuard implements CanActivate {
             email,
             iss: prodUIURI,
           }
-          const newAccessToken = jwt.sign(tokenPayload, config.JWT_SECRET, {
-            algorithm: "HS512",
-            expiresIn: "5m",
-          })
+          const newAccessToken = generateToken(
+            tokenPayload,
+            TokenType.AccessToken
+          )
           globalResponse.setHeader("token", newAccessToken)
           return true
         }
