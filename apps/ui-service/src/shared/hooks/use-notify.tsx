@@ -2,6 +2,7 @@ import { toast } from "sonner"
 import { XCircle, Info, AlertTriangle, CircleCheck } from "lucide-react"
 import { JSX } from "react"
 import { uiConstants } from "../constants/global-constants"
+import { quickSand } from "@/app/layout"
 
 type ToastType = "success" | "error" | "info" | "warning"
 
@@ -30,6 +31,7 @@ const useNotify = () => {
 
     toast(uiConstants.notification, {
       icon,
+      className: quickSand.className,
       description: <p className={color}>{message}</p>,
     })
   }

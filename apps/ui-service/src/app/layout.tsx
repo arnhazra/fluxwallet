@@ -5,7 +5,7 @@ import Providers from "@/shared/providers"
 import NextTopLoader from "nextjs-toploader"
 import "../shared/styles/globals.sass"
 
-const quickSand = Quicksand({ subsets: ["latin"], weight: ["700"] })
+export const quickSand = Quicksand({ subsets: ["latin"], weight: ["700"] })
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

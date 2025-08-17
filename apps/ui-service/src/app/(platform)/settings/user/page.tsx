@@ -27,7 +27,6 @@ export default function Page() {
     const { hasConfirmed, value } = await prompt(false, "Your Name", user.name)
 
     if (hasConfirmed) {
-      console.log(value)
       try {
         dispatch("setUser", { name: value as string })
         await ky.patch(endPoints.updateAttribute, {
