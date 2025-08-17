@@ -45,7 +45,7 @@ export default function SetingsLayout({ children }: { children: ReactNode }) {
           <div className="flex gap-4 mb-4">
             <Avatar className="h-9 w-9 cursor-pointer">
               <AvatarImage src={user.avatar ?? ""} alt={user.name} />
-              <AvatarFallback>
+              <AvatarFallback className="bg-neutral-800">
                 <User className="h-4 w-4 text-primary" />
               </AvatarFallback>
             </Avatar>
