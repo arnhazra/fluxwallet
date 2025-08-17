@@ -16,7 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/components/ui/card"
-import MarketingHeader from "@/shared/components/marketingheader"
+import MarketingHeader from "@/shared/components/marketing-header"
 import notify from "@/shared/hooks/use-notify"
 import GoogleOAuth from "./google-oauth"
 
