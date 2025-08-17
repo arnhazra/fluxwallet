@@ -77,35 +77,35 @@ export class AuthGuard implements CanActivate {
 
         if (!refreshTokenFromDB || refreshToken !== refreshTokenFromDB.token) {
           throw new UnauthorizedException(statusMessages.unauthorized)
-        } else {
-          const user: User[] = await this.eventEmitter.emitAsync(
-            EventMap.GetUserDetails,
-            { _id: userId }
-          )
-          const { activityLog, email, role } = user?.shift()
-          request.user = { userId, role }
-
-          if (activityLog) {
-            const { method, url: apiUri } = request
-            this.eventEmitter.emit(EventMap.CreateActivity, {
-              userId,
-              method,
-              apiUri,
-            })
-          }
-
-          const tokenPayload = {
-            id: userId,
-            email,
-            iss: prodUIURI,
-          }
-          const newAccessToken = generateToken(
-            tokenPayload,
-            TokenType.AccessToken
-          )
-          globalResponse.setHeader("token", newAccessToken)
-          return true
         }
+
+        const user: User[] = await this.eventEmitter.emitAsync(
+          EventMap.GetUserDetails,
+          { _id: userId }
+        )
+        const { activityLog, email, role } = user?.shift()
+        request.user = { userId, role }
+
+        if (activityLog) {
+          const { method, url: apiUri } = request
+          this.eventEmitter.emit(EventMap.CreateActivity, {
+            userId,
+            method,
+            apiUri,
+          })
+        }
+
+        const tokenPayload = {
+          id: userId,
+          email,
+          iss: prodUIURI,
+        }
+        const newAccessToken = generateToken(
+          tokenPayload,
+          TokenType.AccessToken
+        )
+        globalResponse.setHeader("token", newAccessToken)
+        return true
       } else {
         throw new UnauthorizedException(statusMessages.unauthorized)
       }
