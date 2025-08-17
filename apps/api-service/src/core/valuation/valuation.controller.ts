@@ -7,8 +7,7 @@ import {
 } from "@nestjs/common"
 import { ValuationService } from "./valuation.service"
 import { statusMessages } from "@/shared/constants/status-messages"
-import { AuthGuard } from "@/auth/auth.guard"
-import { ModRequest } from "@/auth/types/mod-request.interface"
+import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 
 @Controller("valuation")
 export class ValuationController {

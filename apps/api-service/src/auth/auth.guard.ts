@@ -7,9 +7,8 @@ import {
 import { statusMessages } from "../shared/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "../shared/utils/event.map"
-import { ModRequest } from "./types/mod-request.interface"
 import { User } from "@/auth/schemas/user.schema"
-import { Response } from "express"
+import { Response, Request } from "express"
 import { Token } from "./schemas/token.schema"
 import { prodUIURI } from "../shared/constants/other-constants"
 import {
@@ -19,6 +18,13 @@ import {
   verifyAccessToken,
 } from "@/auth/utils/jwt.util"
 import * as jwt from "jsonwebtoken"
+
+export interface ModRequest extends Request {
+  user: {
+    userId: string
+    role: string
+  }
+}
 
 @Injectable()
 export class AuthGuard implements CanActivate {

@@ -3,6 +3,8 @@
 ## v0.9
 
 - Added more security to OTP authentication workflow
+- Dependency updates & bug fixes
+- Code refactoring
 
 ## v0.8
 

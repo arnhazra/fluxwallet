@@ -12,8 +12,7 @@ import {
 } from "@nestjs/common"
 import { AssetService } from "./asset.service"
 import { statusMessages } from "@/shared/constants/status-messages"
-import { AuthGuard } from "@/auth/auth.guard"
-import { ModRequest } from "@/auth/types/mod-request.interface"
+import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { CreateAssetRequestDto } from "./dto/request/create-asset.request.dto"
 
 @Controller("asset")
