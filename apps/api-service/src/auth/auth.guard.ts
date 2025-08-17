@@ -17,7 +17,7 @@ import {
   generateToken,
   TokenType,
   verifyAccessToken,
-} from "@/auth/jwt.util"
+} from "@/auth/utils/jwt.util"
 import * as jwt from "jsonwebtoken"
 
 @Injectable()

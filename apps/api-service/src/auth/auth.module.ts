@@ -12,10 +12,15 @@ import { UpdateAttributeCommandHandler } from "./commands/handler/update-attribu
 import { EntityModule } from "@/shared/entity/entity.module"
 import { HttpModule } from "@nestjs/axios"
 import { SetTokenCommandHandler } from "./commands/handler/set-token.handler"
+import { GetOTPQueryHandler } from "./queries/handler/get-otp.handler"
 import { GetTokenQueryHandler } from "./queries/handler/get-token.handler"
 import { DeleteTokenCommandHandler } from "./commands/handler/delete-token.handler"
 import { Token, TokenSchema } from "./schemas/token.schema"
 import { TokenRepository } from "./repositories/token.repository"
+import { OTPRepository } from "./repositories/otp.repository"
+import { SetOTPCommandHandler } from "./commands/handler/set-otp.handler"
+import { OneTimePassword, OTPSchema } from "./schemas/otp.schema"
+import { DeleteOTPCommandHandler } from "./commands/handler/delete-otp.handler"
 
 @Module({
   imports: [
@@ -29,12 +34,17 @@ import { TokenRepository } from "./repositories/token.repository"
       [{ name: Token.name, schema: TokenSchema }],
       DbConnectionMap.Primary
     ),
+    EntityModule.forFeature(
+      [{ name: OneTimePassword.name, schema: OTPSchema }],
+      DbConnectionMap.Primary
+    ),
   ],
   controllers: [AuthController],
   providers: [
     AuthService,
     UserRepository,
     TokenRepository,
+    OTPRepository,
     CreateUserCommandHandler,
     UpdateAttributeCommandHandler,
     FindUserByEmailQueryHandler,
@@ -42,6 +52,9 @@ import { TokenRepository } from "./repositories/token.repository"
     SetTokenCommandHandler,
     GetTokenQueryHandler,
     DeleteTokenCommandHandler,
+    SetOTPCommandHandler,
+    GetOTPQueryHandler,
+    DeleteOTPCommandHandler,
   ],
 })
 export class AuthModule {}

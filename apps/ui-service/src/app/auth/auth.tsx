@@ -29,7 +29,7 @@ export default function AuthenticationPage({
 }: AuthProviderProps) {
   const [isAuthLoading, setAuthLoading] = useState<boolean>(false)
   const [authStep, setAuthStep] = useState(1)
-  const [state, setState] = useState({ email: "", hash: "", otp: "" })
+  const [state, setState] = useState({ email: "", otp: "" })
   const [alert, setAlert] = useState("")
   const [newUser, setNewUser] = useState(false)
   const [name, setName] = useState("")
@@ -43,7 +43,6 @@ export default function AuthenticationPage({
       const response: any = await ky
         .post(endPoints.requestOTP, { json: state, timeout: FETCH_TIMEOUT })
         .json()
-      setState({ ...state, hash: response.hash })
       setNewUser(response.newUser)
       setAuthStep(2)
     } catch (error) {

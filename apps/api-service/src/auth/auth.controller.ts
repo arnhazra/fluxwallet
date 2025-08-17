@@ -45,10 +45,9 @@ export class AuthController {
   @Post("requestotp")
   async requestOTP(@Body() requestOTPDto: RequestOTPDto) {
     try {
-      const { user, hash } = await this.service.requestOTP(requestOTPDto)
-      if (!user)
-        return { hash, message: statusMessages.otpEmail, newUser: true }
-      return { hash, message: statusMessages.otpEmail, newUser: false }
+      const { user } = await this.service.requestOTP(requestOTPDto)
+      if (!user) return { message: statusMessages.otpEmail, newUser: true }
+      return { message: statusMessages.otpEmail, newUser: false }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
