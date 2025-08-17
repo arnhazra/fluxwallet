@@ -26,7 +26,7 @@ export function InstitutionCard({ institution }: { institution: Institution }) {
           </div>
           <Badge
             variant="default"
-            className="w-fit bg-neutral-800 text-primary"
+            className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary"
           >
             {institution.institutionType}
           </Badge>
