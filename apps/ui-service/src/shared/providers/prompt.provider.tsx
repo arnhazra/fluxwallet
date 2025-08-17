@@ -83,7 +83,8 @@ function usePrompt() {
     <AlertDialog open={show}>
       <AlertDialogContent className="bg-background text-white border-border">
         <AlertDialogHeader className="mb-2">
-          <AlertDialogTitle className="mb-2">{message}</AlertDialogTitle>
+          <AlertDialogTitle>{message}</AlertDialogTitle>
+          <p className="text-primary text-sm -mt-2">{`Enter ${message}`}</p>
           <Input
             min={0}
             defaultValue={defaultValue ? defaultValue : ""}
