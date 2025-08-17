@@ -7,7 +7,7 @@ import {
   verifyOTP,
   requestOTPEmailBody,
   requestOTPEmailSubject,
-} from "./otp.util"
+} from "./utils/otp.util"
 import { prodUIURI } from "@/shared/constants/other-constants"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
@@ -29,7 +29,11 @@ import { DeleteTokenDto } from "./dto/delete-token.dto"
 import { SetTokenCommand } from "./commands/impl/set-token.command"
 import { GetTokenQuery } from "./queries/impl/get-token.query"
 import { DeleteTokenCommand } from "./commands/impl/delete-token.command"
-import { generateToken, TokenType } from "@/auth/jwt.util"
+import { generateToken, TokenType } from "@/auth/utils/jwt.util"
+import { SetOTPCommand } from "./commands/impl/set-otp.command"
+import { GetOTPQuery } from "./queries/impl/get-otp.query"
+import { OneTimePassword } from "./schemas/otp.schema"
+import { DeleteOTPCommand } from "./commands/impl/delete-otp.command"
 
 @Injectable()
 export class AuthService {
@@ -129,7 +133,8 @@ export class AuthService {
         subject,
         body,
       })
-      return { user, hash }
+      await this.setOTP(email, hash)
+      return { user }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
@@ -137,10 +142,12 @@ export class AuthService {
 
   async verifyOTP(verifyOTPDto: VerifyOTPDto) {
     try {
-      const { email, hash, otp, name } = verifyOTPDto
-      const isOTPValid = verifyOTP(email, hash, otp)
+      const { email, otp, name } = verifyOTPDto
+      const { hashedOTP } = await this.getOTP(email)
+      const isOTPValid = verifyOTP(email, hashedOTP, otp)
 
       if (isOTPValid) {
+        this.deleteOTP(email)
         return await this.userRegistrationOrLogin(email, name)
       } else {
         throw new BadRequestException(statusMessages.connectionError)
@@ -231,6 +238,36 @@ export class AuthService {
     try {
       const { userId } = deleteTokenDto
       return await this.commandBus.execute(new DeleteTokenCommand(userId))
+    } catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async setOTP(email: string, otpHash: string) {
+    try {
+      return await this.commandBus.execute(new SetOTPCommand(email, otpHash))
+    } catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async getOTP(email: string) {
+    try {
+      const response = await this.queryBus.execute<
+        GetOTPQuery,
+        OneTimePassword
+      >(new GetOTPQuery(email))
+
+      if (!response) throw new BadRequestException()
+      return response
+    } catch (error) {
+      throw new BadRequestException()
+    }
+  }
+
+  async deleteOTP(email: string) {
+    try {
+      return await this.commandBus.execute(new DeleteOTPCommand(email))
     } catch (error) {
       throw new BadRequestException()
     }

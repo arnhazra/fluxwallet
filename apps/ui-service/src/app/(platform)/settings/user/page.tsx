@@ -3,7 +3,7 @@ import CopyToClipboard from "@/shared/components/copy"
 import SectionPanel from "../../../../shared/components/sectionpanel"
 import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import { appName } from "@/shared/constants/global-constants"
+import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { useAppContext } from "@/context/appstate.provider"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
@@ -13,11 +13,34 @@ import {
   AtSign,
   CircleArrowRight,
   DollarSign,
+  Pen,
 } from "lucide-react"
 import EditCurrency from "@/shared/components/editcurrency"
+import { usePromptContext } from "@/shared/providers/prompt.provider"
+import notify from "@/shared/hooks/use-notify"
 
 export default function Page() {
-  const [{ user }] = useAppContext()
+  const [{ user }, dispatch] = useAppContext()
+  const { prompt } = usePromptContext()
+
+  const editName = async () => {
+    const { hasConfirmed, value } = await prompt(false, "Your Name", user.name)
+
+    if (hasConfirmed) {
+      try {
+        dispatch("setUser", { name: value as string })
+        await ky.patch(endPoints.updateAttribute, {
+          json: {
+            attributeName: "name",
+            attributeValue: value,
+          },
+          timeout: FETCH_TIMEOUT,
+        })
+      } catch (error) {
+        notify(uiConstants.genericError, "error")
+      }
+    }
+  }
 
   const signOut = async () => {
     try {
@@ -36,6 +59,16 @@ export default function Page() {
         icon={<User className="h-4 w-4" />}
         title="Your Name"
         content={user.name}
+        actionComponents={[
+          <Button
+            onClick={editName}
+            className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
+            variant="default"
+            size="icon"
+          >
+            <Pen className="text-green-400 h-4 w-4" />
+          </Button>,
+        ]}
       />
       <SectionPanel
         icon={<IdCard className="h-4 w-4" />}

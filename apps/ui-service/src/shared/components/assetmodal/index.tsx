@@ -79,7 +79,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
               <DialogTitle>{assetDetails?.assetName}</DialogTitle>
               <Badge
                 variant="default"
-                className="w-fit bg-neutral-800 text-primary mt-2"
+                className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary mt-2"
               >
                 {assetDetails?.assetType}
               </Badge>

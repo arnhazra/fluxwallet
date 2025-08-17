@@ -9,8 +9,7 @@ import {
 } from "@nestjs/common"
 import { IntelligenceService } from "./intelligence.service"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
-import { ModRequest } from "@/auth/types/mod-request.interface"
-import { AuthGuard } from "@/auth/auth.guard"
+import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 
 @Controller("intelligence")
 export class IntelligenceController {

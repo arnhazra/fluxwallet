@@ -49,7 +49,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
           <div className="flex items-center justify-between">
             <Badge
               variant="default"
-              className="w-fit bg-neutral-800 text-primary -ms-1"
+              className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary -ms-1"
             >
               {asset.assetType}
             </Badge>

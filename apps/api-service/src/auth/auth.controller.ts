@@ -12,8 +12,7 @@ import { AuthService } from "./auth.service"
 import { RequestOTPDto } from "./dto/request-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import { statusMessages } from "@/shared/constants/status-messages"
-import { AuthGuard } from "@/auth/auth.guard"
-import { ModRequest } from "@/auth/types/mod-request.interface"
+import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { UpdateAttributeDto } from "./dto/update-attribute.dto"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
@@ -45,10 +44,9 @@ export class AuthController {
   @Post("requestotp")
   async requestOTP(@Body() requestOTPDto: RequestOTPDto) {
     try {
-      const { user, hash } = await this.service.requestOTP(requestOTPDto)
-      if (!user)
-        return { hash, message: statusMessages.otpEmail, newUser: true }
-      return { hash, message: statusMessages.otpEmail, newUser: false }
+      const { user } = await this.service.requestOTP(requestOTPDto)
+      if (!user) return { message: statusMessages.otpEmail, newUser: true }
+      return { message: statusMessages.otpEmail, newUser: false }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

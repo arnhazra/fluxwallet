@@ -1,13 +1,11 @@
-import { PartialType } from "@nestjs/mapped-types"
-import { RequestOTPDto } from "./request-otp.dto"
-import { IsNotEmpty } from "class-validator"
+import { IsEmail, IsNotEmpty } from "class-validator"
 
-export class VerifyOTPDto extends PartialType(RequestOTPDto) {
+export class VerifyOTPDto {
+  @IsEmail()
+  readonly email: string
+
   @IsNotEmpty()
   readonly otp: string
-
-  @IsNotEmpty()
-  readonly hash: string
 
   readonly name?: string
 }

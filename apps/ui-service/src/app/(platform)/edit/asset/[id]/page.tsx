@@ -81,6 +81,8 @@ const frequencyLabels = {
   [RecurringFrequency.YEARLY]: "Yearly",
 }
 
+type MessageType = "success" | "error"
+
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: assetId = "" } = use(params)
 
@@ -96,7 +98,10 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     assetName: "",
     identifier: "",
   })
-  const [message, setMessage] = useState<string>("")
+  const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
+    msg: "",
+    type: "success",
+  })
 
   useEffect(() => {
     if (asset.data) {
@@ -131,9 +136,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         timeout: FETCH_TIMEOUT,
         json: formData,
       })
-      setMessage("Asset updated successfully!")
+      setMessage({ msg: "Asset updated successfully!", type: "success" })
     } catch (error) {
-      setMessage("Failed to update asset. Please try again.")
+      setMessage({
+        msg: "Failed to update asset. Please try again.",
+        type: "error",
+      })
     }
   }
 
@@ -607,9 +615,11 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               </div>
             </form>
 
-            {message && (
-              <div className="mt-4 text-sm text-green-400 bg-green-950/20 border border-green-800 rounded-md p-3">
-                {message}
+            {message.msg && (
+              <div
+                className={`mt-4 text-sm ${message.type === "success" ? "text-primary" : "text-secondary"}`}
+              >
+                {message.msg}
               </div>
             )}
           </CardContent>
