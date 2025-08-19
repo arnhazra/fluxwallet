@@ -3,7 +3,7 @@ import { InstitutionService } from "./institution.service"
 import { InstitutionController } from "./institution.controller"
 import { CqrsModule } from "@nestjs/cqrs"
 import { Institution, InstitutionSchema } from "./schemas/institution.schema"
-import { DbConnectionMap } from "src/shared/utils/db-connection.map"
+import { ProductsDbConnectionMap } from "src/shared/utils/db-connection.map"
 import { InstitutionRepository } from "./institution.repository"
 import { CreateInstitutionCommandHandler } from "./commands/handler/create-institution.handler"
 import { DeleteInstitutionCommandHandler } from "./commands/handler/delete-institution.handler"
@@ -20,7 +20,7 @@ import { ValuationModule } from "../valuation/valuation.module"
     ValuationModule,
     EntityModule.forFeature(
       [{ name: Institution.name, schema: InstitutionSchema }],
-      DbConnectionMap.Primary
+      ProductsDbConnectionMap.AssetManager
     ),
   ],
   controllers: [InstitutionController],

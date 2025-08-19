@@ -3,7 +3,7 @@ import { ValuationService } from "./valuation.service"
 import { ValuationController } from "./valuation.controller"
 import { CqrsModule } from "@nestjs/cqrs"
 import { Asset, AssetSchema } from "../asset/schemas/asset.schema"
-import { DbConnectionMap } from "src/shared/utils/db-connection.map"
+import { ProductsDbConnectionMap } from "src/shared/utils/db-connection.map"
 import { ValuationRepository } from "./valuation.repository"
 import { EntityModule } from "@/shared/entity/entity.module"
 
@@ -12,7 +12,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
     CqrsModule,
     EntityModule.forFeature(
       [{ name: Asset.name, schema: AssetSchema }],
-      DbConnectionMap.Primary
+      ProductsDbConnectionMap.AssetManager
     ),
   ],
   controllers: [ValuationController],

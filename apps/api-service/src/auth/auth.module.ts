@@ -3,7 +3,7 @@ import { AuthService } from "./auth.service"
 import { AuthController } from "./auth.controller"
 import { UserRepository } from "./repositories/user.repository"
 import { User, UserSchema } from "./schemas/user.schema"
-import { DbConnectionMap } from "src/shared/utils/db-connection.map"
+import { GeneralDbConnectionMap } from "src/shared/utils/db-connection.map"
 import { CqrsModule } from "@nestjs/cqrs"
 import { CreateUserCommandHandler } from "./commands/handler/create-user.handler"
 import { FindUserByEmailQueryHandler } from "./queries/handler/find-user-by-email.handler"
@@ -21,22 +21,24 @@ import { OTPRepository } from "./repositories/otp.repository"
 import { SetOTPCommandHandler } from "./commands/handler/set-otp.handler"
 import { OneTimePassword, OTPSchema } from "./schemas/otp.schema"
 import { DeleteOTPCommandHandler } from "./commands/handler/delete-otp.handler"
+import { config } from "@/config"
 
 @Module({
   imports: [
     CqrsModule,
     HttpModule,
+    EntityModule.forRoot(config.AUTH_DATABASE_URI, GeneralDbConnectionMap.Auth),
     EntityModule.forFeature(
       [{ name: User.name, schema: UserSchema }],
-      DbConnectionMap.Primary
+      GeneralDbConnectionMap.Auth
     ),
     EntityModule.forFeature(
       [{ name: Token.name, schema: TokenSchema }],
-      DbConnectionMap.Primary
+      GeneralDbConnectionMap.Auth
     ),
     EntityModule.forFeature(
       [{ name: OneTimePassword.name, schema: OTPSchema }],
-      DbConnectionMap.Primary
+      GeneralDbConnectionMap.Auth
     ),
   ],
   controllers: [AuthController],

@@ -6,7 +6,7 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { systemPrompt } from "./data/system-prompt"
-import { User } from "../auth/schemas/user.schema"
+import { User } from "@/auth/schemas/user.schema"
 import { IntelligenceAgent } from "./intelligence.agent"
 
 export interface IntelligenceStrategyType {

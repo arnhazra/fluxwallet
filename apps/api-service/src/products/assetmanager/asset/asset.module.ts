@@ -3,7 +3,7 @@ import { AssetService } from "./asset.service"
 import { AssetController } from "./asset.controller"
 import { CqrsModule } from "@nestjs/cqrs"
 import { Asset, AssetSchema } from "./schemas/asset.schema"
-import { DbConnectionMap } from "src/shared/utils/db-connection.map"
+import { ProductsDbConnectionMap } from "src/shared/utils/db-connection.map"
 import { AssetRepository } from "./asset.repository"
 import { CreateAssetCommandHandler } from "./commands/handler/create-asset.handler"
 import { DeleteAssetCommandHandler } from "./commands/handler/delete-asset.handler"
@@ -20,7 +20,7 @@ import { FindAssetsByUserQueryHandler } from "./queries/handler/find-assets-by-u
     ValuationModule,
     EntityModule.forFeature(
       [{ name: Asset.name, schema: AssetSchema }],
-      DbConnectionMap.Primary
+      ProductsDbConnectionMap.AssetManager
     ),
   ],
   controllers: [AssetController],

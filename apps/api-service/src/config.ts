@@ -4,8 +4,9 @@ envConfig({ path: "./.env.development" })
 export const config = {
   NODE_ENV: process.env.NODE_ENV,
   APP_NAME: process.env.APP_NAME,
-  PRIMARY_DATABASE_URI: process.env.PRIMARY_DATABASE_URI,
-  REPLICA_DATABASE_URI: process.env.REPLICA_DATABASE_URI,
+  AUTH_DATABASE_URI: process.env.AUTH_DATABASE_URI,
+  CORE_DATABASE_URI: process.env.CORE_DATABASE_URI,
+  PRODUCTS_DATABASE_URI: process.env.PRODUCTS_DATABASE_URI,
   AZURE_API_KEY: process.env.AZURE_API_KEY,
   GCP_API_KEY: process.env.GCP_API_KEY,
   AZURE_DEPLOYMENT_URI: process.env.AZURE_DEPLOYMENT_URI,

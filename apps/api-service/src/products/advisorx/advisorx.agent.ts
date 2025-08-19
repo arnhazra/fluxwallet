@@ -1,5 +1,5 @@
-import { Asset } from "@/core/asset/schemas/asset.schema"
-import { Institution } from "@/core/institution/schemas/institution.schema"
+import { Asset } from "../assetmanager/asset/schemas/asset.schema"
+import { Institution } from "../assetmanager/institution/schemas/institution.schema"
 import { Currency } from "@/shared/constants/types"
 import { EventMap } from "@/shared/utils/event.map"
 import { tool } from "@langchain/core/tools"
@@ -8,7 +8,7 @@ import { EventEmitter2 } from "@nestjs/event-emitter"
 import { z } from "zod"
 
 @Injectable()
-export class IntelligenceAgent {
+export class AdvisorXAgent {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
   public getTotalWealthAgent = tool(
