@@ -75,6 +75,8 @@ const frequencyLabels = {
   [RecurringFrequency.YEARLY]: "Yearly",
 }
 
+type MessageType = "success" | "error"
+
 export default function Page() {
   const [formData, setFormData] = useState<AssetFormData>({
     institutionId: "",
@@ -82,7 +84,11 @@ export default function Page() {
     assetName: "",
     identifier: "",
   })
-  const [message, setMessage] = useState<string>("")
+
+  const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
+    msg: "",
+    type: "success",
+  })
 
   const institutions = useQuery<Institution[]>({
     queryKey: ["get-institutions-build-asset"],
@@ -104,9 +110,12 @@ export default function Page() {
         timeout: FETCH_TIMEOUT,
         json: formData,
       })
-      setMessage("Asset added successfully!")
+      setMessage({ msg: "Asset added successfully!", type: "success" })
     } catch (error) {
-      setMessage("Failed to add asset. Please try again.")
+      setMessage({
+        msg: "Failed to add asset. Please try again.",
+        type: "error",
+      })
     }
   }
 
@@ -591,9 +600,11 @@ export default function Page() {
               </div>
             </form>
 
-            {message && (
-              <div className="mt-4 text-sm text-green-400 bg-green-950/20 border border-green-800 rounded-md p-3">
-                {message}
+            {message.msg && (
+              <div
+                className={`mt-4 text-sm ${message.type === "success" ? "text-primary" : "text-secondary"}`}
+              >
+                {message.msg}
               </div>
             )}
           </CardContent>

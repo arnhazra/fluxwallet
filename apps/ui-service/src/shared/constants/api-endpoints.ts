@@ -6,13 +6,7 @@ const apiHost =
     : `https://api-${appName.toLowerCase()}.vercel.app`
 
 export const endPoints = {
-  activityTrends: `${apiHost}/activity/trends`,
-  asset: `${apiHost}/asset`,
-  getTotalWealth: `${apiHost}/valuation/wealth`,
-  intelligence: `${apiHost}/intelligence`,
-  institution: `${apiHost}/institution`,
-  getSubscriptionPricing: `${apiHost}/subscription/pricing`,
-  createCheckoutSession: `${apiHost}/subscription/checkout`,
+  // Auth Service
   requestOTP: `${apiHost}/auth/requestotp`,
   validateOTP: `${apiHost}/auth/validateotp`,
   googleOAuthLogin: `${apiHost}/auth/googleoauth`,
@@ -20,4 +14,13 @@ export const endPoints = {
   activateTrial: `${apiHost}/auth/activatetrial`,
   signOut: `${apiHost}/auth/signout`,
   updateAttribute: `${apiHost}/auth/attribute`,
+  // Core Service
+  activityTrends: `${apiHost}/activity/trends`,
+  getSubscriptionPricing: `${apiHost}/subscription/pricing`,
+  createCheckoutSession: `${apiHost}/subscription/checkout`,
+  // Products Service
+  asset: `${apiHost}/asset`,
+  getTotalWealth: `${apiHost}/valuation/wealth`,
+  intelligence: `${apiHost}/intelligence`,
+  institution: `${apiHost}/institution`,
 }
