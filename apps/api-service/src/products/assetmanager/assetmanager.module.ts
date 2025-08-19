@@ -8,13 +8,13 @@ import { ProductsDbConnectionMap } from "@/shared/utils/db-connection.map"
 
 @Module({
   imports: [
-    InstitutionModule,
-    AssetModule,
-    ValuationModule,
     EntityModule.forRoot(
       config.PRODUCTS_DATABASE_URI,
       ProductsDbConnectionMap.AssetManager
     ),
+    InstitutionModule,
+    AssetModule,
+    ValuationModule,
   ],
 })
 export class AssetManagerModule {}
