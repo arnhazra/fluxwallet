@@ -29,9 +29,9 @@ const useNotify = () => {
   return (message: string, type: ToastType = "info") => {
     const { icon, color } = typeConfig[type]
 
-    toast(uiConstants.notification, {
+    toast(<p className="text-white">{uiConstants.notification}</p>, {
       icon,
-      className: quickSand.className,
+      className: `${quickSand.className} bg-background border-border`,
       description: <p className={color}>{message}</p>,
     })
   }
