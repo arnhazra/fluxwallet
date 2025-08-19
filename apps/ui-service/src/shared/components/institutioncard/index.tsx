@@ -16,7 +16,7 @@ export function InstitutionCard({ institution }: { institution: Institution }) {
 
   return (
     <Link href={`/institution/${institution._id}`}>
-      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white">
+      <Card className="w-full max-w-sm bg-background border-none text-white hover:shadow-md hover:shadow-primary/20 duration-400">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold truncate text-white">
@@ -55,7 +55,7 @@ export function InstitutionCard({ institution }: { institution: Institution }) {
 export function AddInstitutionCard() {
   return (
     <Link href="/create/institution">
-      <Card className="w-full max-w-sm h-[147px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white">
+      <Card className="w-full max-w-sm h-[147px] flex items-center justify-center hover:shadow-md hover:shadow-primary/20 duration-400 bg-background border-none text-white">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>

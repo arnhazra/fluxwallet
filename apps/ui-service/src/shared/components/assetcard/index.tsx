@@ -38,7 +38,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
 
   return (
     <AssetModal assetDetails={asset} key={asset._id}>
-      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white cursor-pointer">
+      <Card className="w-full max-w-sm bg-background border-none text-white cursor-pointer hover:shadow-md hover:shadow-primary/20 duration-400">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold truncate text-white">
@@ -105,7 +105,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
 export function AddAssetCard() {
   return (
     <Link href={`/create/asset`}>
-      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white">
+      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center bg-background border-none text-white hover:shadow-md hover:shadow-primary/20 duration-400">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>

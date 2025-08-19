@@ -24,7 +24,7 @@ export default function Error({ error }: { error?: Error }) {
         <CardFooter>
           <Button
             size="lg"
-            className="w-full bg-primary hover:bg-primary"
+            className="w-full bg-primary hover:bg-primary text-black"
             onClick={(): void => router.push("/dashboard")}
           >
             Back to Dashboard

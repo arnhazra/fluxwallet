@@ -47,7 +47,8 @@ export default function Page() {
           className={cn(
             buttonVariants({
               variant: "default",
-              className: "bg-primary hover:bg-primary",
+              className:
+                "bg-primary hover:bg-primary text-black rounded-full h-11",
             })
           )}
         >
@@ -85,7 +86,7 @@ export default function Page() {
           className={cn(
             buttonVariants({
               size: "lg",
-              className: "bg-primary hover:bg-primary",
+              className: "bg-primary hover:bg-primary text-black",
             })
           )}
         >
@@ -126,24 +127,26 @@ export default function Page() {
       <div className="min-h-screen w-full text-white">
         <MarketingHeader />
         {renderHeroSection}
-        <section
-          id="product"
-          className="mt-8 container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-lg"
-        >
-          <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-            <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
-              Choose the Right Approach
-            </h2>
-            <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-              {uiConstants.productHeader}
-            </p>
-          </div>
-          <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
-            <OverviewCard />
-            <IntelligenceCard />
-            <ControlCard />
-          </div>
-        </section>
+        <div className="bg-geometric-pattern">
+          <section
+            id="solutions"
+            className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-lg"
+          >
+            <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+              <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
+                Choose the Right Approach
+              </h2>
+              <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
+                {uiConstants.productHeader}
+              </p>
+            </div>
+            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
+              <OverviewCard />
+              <IntelligenceCard />
+              <ControlCard />
+            </div>
+          </section>
+        </div>
         <section
           id="pricing"
           className="container py-8 md:py-12 lg:py-24 md:max-w-[64rem]"
@@ -156,7 +159,7 @@ export default function Page() {
               Get full platform access {uiConstants.homePricing}
             </p>
           </div>
-          <div className="grid w-full items-start gap-10 rounded-lg bg-background border-none p-10 md:grid-cols-[1fr_200px]">
+          <div className="grid w-full items-start gap-10 rounded-lg bg-background border-none p-10 md:grid-cols-[1fr_200px] hover:shadow-md hover:shadow-primary/20">
             {renderSubscription}
           </div>
         </section>

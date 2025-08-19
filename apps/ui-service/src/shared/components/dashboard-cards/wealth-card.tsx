@@ -14,7 +14,7 @@ export default function WealthCard({
   const [{ user }] = useAppContext()
 
   return (
-    <Card className="bg-background border-none relative overflow-hidden">
+    <Card className="bg-background border-none relative overflow-hidden hover:shadow-md hover:shadow-primary/20">
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
