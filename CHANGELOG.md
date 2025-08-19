@@ -1,8 +1,12 @@
 # Changelog
 
+## v1.0
+
+- Major changes in architecture & Code refactoring
+
 ## v0.9
 
-- Added more security to OTP authentication workflow
+- Added secure OTP authentication workflow
 - Dependency updates & bug fixes
 - Code refactoring
 
