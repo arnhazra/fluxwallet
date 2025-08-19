@@ -4,7 +4,7 @@ import { appName } from "@/shared/constants/global-constants"
 
 export function OverviewCard() {
   return (
-    <div className="bg-background border-white p-8 rounded-lg">
+    <div className="bg-background border-white p-8 rounded-lg flex flex-col">
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">Overview</h2>
         <Button
@@ -24,9 +24,10 @@ export function OverviewCard() {
         <div className="w-16 h-16 bg-primary rounded-full" />
         <div className="w-16 h-16 bg-white rounded-full" />
       </div>
-      <p className="text-md leading-relaxed">
-        See your entire financial landscape at a glance — assets, liabilities,
-        and net worth all organized in one clean view.
+      <p className="text-md leading-relaxed mt-auto">
+        View your entire financial picture in one place. Track assets,
+        liabilities, and net worth effortlessly, giving you clarity and
+        confidence to plan ahead.
       </p>
     </div>
   )
@@ -34,7 +35,7 @@ export function OverviewCard() {
 
 export function IntelligenceCard() {
   return (
-    <div className="bg-background border-border p-8 rounded-lg">
+    <div className="bg-background border-border p-8 rounded-lg flex flex-col">
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">Intelligence</h2>
         <Button
@@ -49,23 +50,16 @@ export function IntelligenceCard() {
       <div className="flex justify-center mb-8">
         <div className="w-64 h-32 relative">
           <div className="absolute top-0 left-0 bg-primary p-2 rounded-lg">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <Brain />
-            </svg>
+            <Brain />
           </div>
           <div className="absolute top-12 left-4 w-48 h-4 bg-neutral-600 rounded" />
           <div className="absolute top-20 left-4 w-36 h-4 bg-neutral-600 rounded" />
         </div>
       </div>
-      <p className="text-md leading-relaxed">
-        Leverage AI-powered insights to identify trends, uncover opportunities,
-        and get personalized suggestions to grow and protect your wealth.
+      <p className="text-md leading-relaxed mt-auto">
+        Unlock smarter decisions with AI-powered insights. Discover trends,
+        anticipate risks, and receive personalized suggestions designed to grow
+        and protect your financial future.
       </p>
     </div>
   )
@@ -73,7 +67,7 @@ export function IntelligenceCard() {
 
 export function ControlCard() {
   return (
-    <div className="bg-background p-8 rounded-lg">
+    <div className="bg-background p-8 rounded-lg flex flex-col">
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">Control</h2>
         <Button
@@ -124,9 +118,10 @@ export function ControlCard() {
           </div>
         </div>
       </div>
-      <p className="text-md leading-relaxed">
-        Easily manage all your assets — add, edit, or remove entries anytime
-        with full flexibility and total peace of mind.
+      <p className="text-md leading-relaxed mt-auto">
+        Stay in charge of your portfolio. Add, edit, or remove entries anytime,
+        ensuring your financial records remain accurate, flexible, and always up
+        to date.
       </p>
     </div>
   )
