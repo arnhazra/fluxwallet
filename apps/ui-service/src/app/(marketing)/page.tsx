@@ -52,7 +52,8 @@ export default function Page() {
             })
           )}
         >
-          <Play className="me-2 h-4 w-4" /> {uiConstants.getStartedButton}
+          <Play className="me-2 h-4 w-4 fill-black" />{" "}
+          {uiConstants.getStartedButton}
         </Link>
       </div>
     </section>
