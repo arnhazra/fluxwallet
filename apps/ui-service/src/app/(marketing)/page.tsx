@@ -48,12 +48,11 @@ export default function Page() {
             buttonVariants({
               variant: "default",
               className:
-                "bg-primary hover:bg-primary text-black rounded-full h-11",
+                "bg-primary hover:bg-primary text-black rounded-full h-11 w-40",
             })
           )}
         >
-          <Play className="me-2 h-4 w-4 fill-black" />{" "}
-          {uiConstants.getStartedButton}
+          <Play className="me-2 h-4 w-4" /> {uiConstants.getStartedButton}
         </Link>
       </div>
     </section>
@@ -156,8 +155,9 @@ export default function Page() {
             <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
               {uiConstants.pricingTitle}
             </h2>
-            <p className="max-w-[85%] text-2xl sm:text-lg sm:leading-7">
-              Get full platform access {uiConstants.homePricing}
+            <p className="max-w-[85%] text-2xl sm:text-lg sm:leading-7 text-primary">
+              {uiConstants.homePricing} ${subscriptionPricing?.data?.price}
+              /year afterwards.
             </p>
           </div>
           <div className="grid w-full items-start gap-10 rounded-3xl bg-background border border-border p-10 md:grid-cols-[1fr_200px] hover:shadow-md hover:shadow-primary/20">
