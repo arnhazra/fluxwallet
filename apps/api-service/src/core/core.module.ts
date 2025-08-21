@@ -5,6 +5,8 @@ import { GeneralDbConnectionMap } from "src/shared/utils/db-connection.map"
 import { ActivityModule } from "./activity/activity.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { EmailModule } from "./email/email.module"
+import { ProductsModule } from "./products/products.module"
+import { SolutionModule } from "./solutions/solution.module"
 
 @Module({
   imports: [
@@ -12,6 +14,8 @@ import { EmailModule } from "./email/email.module"
     ActivityModule,
     SubscriptionModule,
     EmailModule,
+    ProductsModule,
+    SolutionModule,
   ],
 })
 export class CoreModule {}
