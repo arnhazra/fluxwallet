@@ -10,6 +10,7 @@ import {
 import { generalUserLinks } from "./data"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { cn } from "@/shared/lib/tw-class-util"
+import IconContainer from "../iconcontainer"
 
 export default function MarketingHeader() {
   return (
@@ -19,7 +20,9 @@ export default function MarketingHeader() {
           href="/"
           className="flex items-center gap-2 text-xl font-semibold me-8"
         >
-          <WalletMinimal className="text-primary h-6 w-6" />
+          <IconContainer>
+            <WalletMinimal className="h-4 w-4" />
+          </IconContainer>
           {appName}
         </Link>
         <nav className="hidden md:flex items-center justify-start gap-3 flex-1">
@@ -70,7 +73,9 @@ export default function MarketingHeader() {
                   href="/"
                   className="flex items-center gap-2 text-lg font-semibold"
                 >
-                  <WalletMinimal className="text-primary h-6 w-6" />
+                  <IconContainer>
+                    <WalletMinimal className="h-4 w-4" />
+                  </IconContainer>
                 </Link>
                 {generalUserLinks.map((item, index) => (
                   <Link

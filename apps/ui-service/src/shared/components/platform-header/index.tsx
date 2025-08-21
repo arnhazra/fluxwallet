@@ -2,6 +2,7 @@ import Link from "next/link"
 import { WalletMinimal } from "lucide-react"
 import { appName } from "@/shared/constants/global-constants"
 import { UserNav } from "./user-nav"
+import IconContainer from "../iconcontainer"
 
 export default function PlatformHeader() {
   return (
@@ -11,7 +12,9 @@ export default function PlatformHeader() {
           href="/dashboard"
           className="flex items-center gap-2 text-lg font-semibold"
         >
-          <WalletMinimal className="text-primary h-6 w-6" />
+          <IconContainer>
+            <WalletMinimal className="h-4 w-4" />
+          </IconContainer>
           {appName}
         </Link>
         <nav className="flex items-center justify-end flex-1">

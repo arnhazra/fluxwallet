@@ -1,4 +1,5 @@
 "use client"
+import IconContainer from "@/shared/components/iconcontainer"
 import { Progress } from "@/shared/components/ui/progress"
 import { appName } from "@/shared/constants/global-constants"
 import { WalletMinimal } from "lucide-react"
@@ -6,7 +7,9 @@ import { WalletMinimal } from "lucide-react"
 export default function Loading() {
   return (
     <div className="fixed inset-0 flex flex-col justify-center items-center z-50 bg-main space-y-4">
-      <WalletMinimal className="text-primary" width={48} height={48} />
+      <IconContainer>
+        <WalletMinimal className="text-black" width={24} height={24} />
+      </IconContainer>
       <p className="text-white">Loading {appName}</p>
       <Progress
         indeterminate

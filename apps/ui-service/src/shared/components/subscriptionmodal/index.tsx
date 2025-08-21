@@ -18,6 +18,7 @@ import notify from "@/shared/hooks/use-notify"
 import Show from "../show"
 import { useState } from "react"
 import LoaderIcon from "../loaderIcon"
+import IconContainer from "../iconcontainer"
 
 interface SubscriptionModalProps {
   data: SubscriptionConfig | undefined
@@ -71,7 +72,9 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
       >
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-lg">
-            <WalletMinimal className="text-primary h-6 w-6" />
+            <IconContainer>
+              <WalletMinimal className="h-4 w-4" />
+            </IconContainer>
             {appName} Subscription
           </DialogTitle>
           <DialogDescription className="text-neutral-300">
@@ -107,7 +110,7 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
         </div>
         <div className="flex flex-col gap-4 text-center -mb-2">
           <Button
-            className="bg-primary hover:bg-primary focus:outline-none focus-visible:outline-none"
+            className="bg-primary hover:bg-primary focus:outline-none focus-visible:outline-none text-black"
             onClick={activateSubscription}
             disabled={isLoading}
           >
