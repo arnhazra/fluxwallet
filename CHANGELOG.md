@@ -3,6 +3,7 @@
 ## v1.0
 
 - Major changes in architecture & Code refactoring
+- Major UI improvements
 
 ## v0.9
 

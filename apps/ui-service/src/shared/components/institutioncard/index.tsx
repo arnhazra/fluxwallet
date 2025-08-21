@@ -6,10 +6,11 @@ import {
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
 import { Institution } from "@/shared/types"
-import { Landmark, Plus } from "lucide-react"
+import { Building, Plus } from "lucide-react"
 import Link from "next/link"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { useAppContext } from "@/context/appstate.provider"
+import IconContainer from "../iconcontainer"
 
 export function InstitutionCard({ institution }: { institution: Institution }) {
   const [{ user }] = useAppContext()
@@ -22,7 +23,9 @@ export function InstitutionCard({ institution }: { institution: Institution }) {
             <CardTitle className="text-lg font-semibold truncate text-white">
               {institution.institutionName}
             </CardTitle>
-            <Landmark className="text-primary w-6 h-6" />
+            <IconContainer>
+              <Building className="h-4 w-4" />
+            </IconContainer>
           </div>
           <Badge
             variant="default"

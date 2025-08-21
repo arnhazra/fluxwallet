@@ -18,6 +18,7 @@ import {
 import EditCurrency from "@/shared/components/editcurrency"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
 import notify from "@/shared/hooks/use-notify"
+import IconContainer from "@/shared/components/iconcontainer"
 
 export default function Page() {
   const [{ user }, dispatch] = useAppContext()
@@ -56,7 +57,11 @@ export default function Page() {
   return (
     <section className="grid gap-2">
       <SectionPanel
-        icon={<User className="h-4 w-4" />}
+        icon={
+          <IconContainer>
+            <User className="h-4 w-4" />
+          </IconContainer>
+        }
         title="Your Name"
         content={user.name}
         actionComponents={[
@@ -71,20 +76,32 @@ export default function Page() {
         ]}
       />
       <SectionPanel
-        icon={<IdCard className="h-4 w-4" />}
+        icon={
+          <IconContainer>
+            <IdCard className="h-4 w-4" />
+          </IconContainer>
+        }
         title={`${appName} ID`}
         content={user._id}
         masked
         actionComponents={[<CopyToClipboard value={user._id} />]}
       />
       <SectionPanel
-        icon={<AtSign className="h-4 w-4" />}
+        icon={
+          <IconContainer>
+            <AtSign className="h-4 w-4" />
+          </IconContainer>
+        }
         title="Your Email"
         content={user.email}
         actionComponents={[<CopyToClipboard value={user.email} />]}
       />
       <SectionPanel
-        icon={<DollarSign className="h-4 w-4" />}
+        icon={
+          <IconContainer>
+            <DollarSign className="h-4 w-4" />
+          </IconContainer>
+        }
         title="Base Currency"
         content={user.baseCurrency}
         actionComponents={[
@@ -92,7 +109,11 @@ export default function Page() {
         ]}
       />
       <SectionPanel
-        icon={<CircleArrowRight className="h-4 w-4" />}
+        icon={
+          <IconContainer>
+            <CircleArrowRight className="h-4 w-4" />
+          </IconContainer>
+        }
         title="Sign Out"
         content="Sign out from all logged in devices"
         actionComponents={[

@@ -10,7 +10,8 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
 import ky from "ky"
-import { Pen, Target } from "lucide-react"
+import { BanknoteIcon, Pen, Target } from "lucide-react"
+import IconContainer from "../iconcontainer"
 
 export default function GoalCard({
   presentValuation,
@@ -49,17 +50,17 @@ export default function GoalCard({
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-green-500/20 rounded-3xl">
-              <Target className="h-5 w-5 text-green-400" />
-            </div>
+            <IconContainer>
+              <Target className="h-5 w-5" />
+            </IconContainer>
             <span className="text-sm text-neutral-400">Goal Progress</span>
           </div>
           <Button
             onClick={editGoal}
             size="icon"
-            className="p-2 bg-green-500/20 hover:bg-green-500/20"
+            className="p-2 bg-primary/80 hover:bg-primary/80 text-black"
           >
-            <Pen className="text-green-400 h-4 w-4" />
+            <Pen className="h-4 w-4" />
           </Button>
         </div>
         <div className="space-y-3">
@@ -84,7 +85,7 @@ export default function GoalCard({
             </div>
           </div>
         </div>
-        <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -translate-y-10 translate-x-10"></div>
+        <div className="absolute top-0 right-0 w-20 h-20 bg-primary/20 rounded-full -translate-y-10 translate-x-10"></div>
       </CardContent>
     </Card>
   )

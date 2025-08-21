@@ -3,6 +3,7 @@ import { useAppContext } from "@/context/appstate.provider"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { BanknoteIcon } from "lucide-react"
+import IconContainer from "../iconcontainer"
 
 export default function WealthCard({
   presentValuation,
@@ -18,9 +19,9 @@ export default function WealthCard({
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-green-500/20 rounded-3xl">
-              <BanknoteIcon className="h-5 w-5 text-primary" />
-            </div>
+            <IconContainer>
+              <BanknoteIcon className="h-5 w-5" />
+            </IconContainer>
             <span className="text-sm text-neutral-400">Total Assets</span>
           </div>
         </div>
@@ -33,7 +34,7 @@ export default function WealthCard({
             Across {institutionCount ?? 0} active holding institutions
           </span>
         </div>
-        <div className="absolute top-0 right-0 w-20 h-20 bg-green-500/10 rounded-full -translate-y-10 translate-x-10"></div>
+        <div className="absolute top-0 right-0 w-20 h-20 bg-primary/20 rounded-full -translate-y-10 translate-x-10"></div>
       </CardContent>
     </Card>
   )

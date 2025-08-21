@@ -593,7 +593,7 @@ export default function Page() {
                 <Button
                   type="submit"
                   variant="default"
-                  className="bg-primary hover:bg-primary ml-auto"
+                  className="bg-primary hover:bg-primary ml-auto text-black"
                 >
                   Add Asset
                 </Button>

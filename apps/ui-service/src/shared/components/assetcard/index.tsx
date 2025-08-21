@@ -14,6 +14,7 @@ import { useAppContext } from "@/context/appstate.provider"
 import { AssetModal } from "../assetmodal"
 import Show from "../show"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import IconContainer from "../iconcontainer"
 
 export function AssetCard({ asset }: { asset: Asset }) {
   const [{ user }] = useAppContext()
@@ -44,7 +45,9 @@ export function AssetCard({ asset }: { asset: Asset }) {
             <CardTitle className="text-lg font-semibold truncate text-white">
               {asset.assetName}
             </CardTitle>
-            <Coins className="text-primary w-6 h-6" />
+            <IconContainer>
+              <Coins className="h-4 w-4" />
+            </IconContainer>
           </div>
           <div className="flex items-center justify-between">
             <Badge

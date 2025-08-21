@@ -13,6 +13,7 @@ import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import ky from "ky"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
+import IconContainer from "@/shared/components/iconcontainer"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: institutionId = "" } = use(params)
@@ -59,7 +60,11 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     <div className="mx-auto grid w-full items-start gap-6">
       <section>
         <SectionPanel
-          icon={<Building className="h-4 w-4 text-primary" />}
+          icon={
+            <IconContainer>
+              <Building className="h-4 w-4" />
+            </IconContainer>
+          }
           title={institution.data?.institutionName || ""}
           content={institution.data?.institutionType || ""}
           actionComponents={[

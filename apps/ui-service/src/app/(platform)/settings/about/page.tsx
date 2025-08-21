@@ -1,11 +1,16 @@
 import { appName } from "@/shared/constants/global-constants"
 import SectionPanel from "../../../../shared/components/sectionpanel"
-import { InfoIcon } from "lucide-react"
+import { Info } from "lucide-react"
+import IconContainer from "@/shared/components/iconcontainer"
 
 export default function Page() {
   return (
     <SectionPanel
-      icon={<InfoIcon className="h-4 w-4" />}
+      icon={
+        <IconContainer>
+          <Info className="h-4 w-4" />
+        </IconContainer>
+      }
       title={`${appName} App Version`}
       content="1.0"
     />

@@ -127,7 +127,7 @@ export default function Page() {
 
             <div className="flex">
               <Button
-                className="ml-auto bg-primary hover:bg-primary text-white"
+                className="ml-auto bg-primary hover:bg-primary text-black"
                 type="submit"
                 disabled={isSubmitting}
               >
