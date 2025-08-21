@@ -102,7 +102,7 @@ function usePrompt() {
           </Button>
           <Button
             type="submit"
-            className="bg-primary hover:bg-primary"
+            className="bg-primary hover:bg-primary text-black"
             variant="default"
             onClick={() => handleConfirm(true)}
           >

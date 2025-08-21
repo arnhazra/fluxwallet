@@ -53,11 +53,11 @@ export default function EditCurrency({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-3xl"
+          className="p-2 bg-primary hover:bg-primary text-black"
           variant="default"
           size="icon"
         >
-          <Pen className="text-green-400 h-4 w-4" />
+          <Pen className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="bg-background border-border">

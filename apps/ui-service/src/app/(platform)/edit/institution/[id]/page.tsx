@@ -142,7 +142,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
             <div className="flex">
               <Button
-                className="ml-auto bg-primary hover:bg-primary text-white"
+                className="ml-auto bg-primary hover:bg-primary text-black"
                 type="submit"
                 disabled={isSubmitting}
               >

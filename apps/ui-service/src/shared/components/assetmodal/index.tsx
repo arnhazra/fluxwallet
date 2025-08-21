@@ -92,9 +92,9 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
                 }
                 variant="default"
                 size="icon"
-                className="p-2 bg-green-500/20 hover:bg-green-500/20"
+                className="p-2 bg-primary hover:bg-primary"
               >
-                <Pen className="text-green-400 h-4 w-4" />
+                <Pen className="text-black h-4 w-4" />
               </Button>
               <Button onClick={deleteAsset} variant="destructive" size="icon">
                 <Trash className="h-4 w-4" />
