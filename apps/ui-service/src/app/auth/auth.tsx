@@ -129,7 +129,7 @@ export default function AuthenticationPage({
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full h-12 mt-4 bg-primary hover:bg-primary text-black"
+                    className="w-full h-12 mt-4 bg-primary hover:bg-primary text-black rounded-full"
                     disabled={isAuthLoading}
                   >
                     <Show
@@ -193,7 +193,7 @@ export default function AuthenticationPage({
                       variant="default"
                       type="submit"
                       disabled={isAuthLoading}
-                      className="w-full h-12 mt-2 bg-primary hover:bg-primary text-black"
+                      className="w-full h-12 mt-2 bg-primary hover:bg-primary text-black rounded-full"
                     >
                       <Show
                         condition={!isAuthLoading}

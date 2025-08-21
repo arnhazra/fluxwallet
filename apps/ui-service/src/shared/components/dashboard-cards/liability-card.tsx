@@ -43,7 +43,7 @@ export default function LiabilityCard() {
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-green-500/20 rounded-lg">
+            <div className="p-2 bg-green-500/20 rounded-3xl">
               <CreditCard className="h-5 w-5 text-green-400" />
             </div>
             <span className="text-sm text-neutral-400">Total Liabilities</span>
@@ -51,7 +51,7 @@ export default function LiabilityCard() {
           <Button
             onClick={editLiabilities}
             size="icon"
-            className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
+            className="p-2 bg-green-500/20 hover:bg-green-500/20"
           >
             <Pen className="text-green-400 h-4 w-4" />
           </Button>

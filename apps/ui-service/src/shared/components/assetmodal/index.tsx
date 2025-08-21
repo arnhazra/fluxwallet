@@ -92,7 +92,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
                 }
                 variant="default"
                 size="icon"
-                className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
+                className="p-2 bg-green-500/20 hover:bg-green-500/20"
               >
                 <Pen className="text-green-400 h-4 w-4" />
               </Button>

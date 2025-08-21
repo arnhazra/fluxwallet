@@ -19,8 +19,8 @@ export default function SectionPanel({
   icon,
 }: SectionPanelProps) {
   return (
-    <section className="grid gap-6 bg-background border-none text-white rounded-lg">
-      <div className="flex flex-row items-center justify-between rounded-lg border-none p-4">
+    <section className="grid gap-6 bg-background border-none text-white rounded-3xl">
+      <div className="flex flex-row items-center justify-between rounded-3xl border-none p-4">
         <div className="flex flex-row items-center gap-4">
           {icon}
           <div className="space-y-0.5">

@@ -62,7 +62,7 @@ export default function Page() {
         actionComponents={[
           <Button
             onClick={editName}
-            className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
+            className="p-2 bg-green-500/20 hover:bg-green-500/20"
             variant="default"
             size="icon"
           >

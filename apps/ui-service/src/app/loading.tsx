@@ -10,7 +10,7 @@ export default function Loading() {
       <p className="text-white">Loading {appName}</p>
       <Progress
         indeterminate
-        className="xl:w-[20%] lg:w-[25%] md:w-[30%] w-[50%] rounded-xs"
+        className="xl:w-[20%] lg:w-[25%] md:w-[30%] w-[50%] rounded-3xl"
       />
     </div>
   )

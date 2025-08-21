@@ -49,7 +49,7 @@ export default function GoalCard({
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
-            <div className="p-2 bg-green-500/20 rounded-lg">
+            <div className="p-2 bg-green-500/20 rounded-3xl">
               <Target className="h-5 w-5 text-green-400" />
             </div>
             <span className="text-sm text-neutral-400">Goal Progress</span>
@@ -57,7 +57,7 @@ export default function GoalCard({
           <Button
             onClick={editGoal}
             size="icon"
-            className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
+            className="p-2 bg-green-500/20 hover:bg-green-500/20"
           >
             <Pen className="text-green-400 h-4 w-4" />
           </Button>

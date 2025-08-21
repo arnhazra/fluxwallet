@@ -53,7 +53,7 @@ export default function EditCurrency({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
+          className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-3xl"
           variant="default"
           size="icon"
         >

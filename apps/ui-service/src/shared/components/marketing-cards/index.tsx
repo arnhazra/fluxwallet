@@ -4,7 +4,7 @@ import { appName } from "@/shared/constants/global-constants"
 
 export function OverviewCard() {
   return (
-    <div className="bg-background border-white p-8 rounded-lg flex flex-col hover:shadow-lg hover:shadow-primary/20">
+    <div className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20">
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">Overview</h2>
         <Button
@@ -35,7 +35,7 @@ export function OverviewCard() {
 
 export function IntelligenceCard() {
   return (
-    <div className="bg-background border-border p-8 rounded-lg flex flex-col hover:shadow-lg hover:shadow-primary/20">
+    <div className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20">
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">Intelligence</h2>
         <Button
@@ -49,11 +49,11 @@ export function IntelligenceCard() {
       </div>
       <div className="flex justify-center mb-8">
         <div className="w-64 h-32 relative">
-          <div className="absolute top-0 left-0 bg-primary p-2 rounded-lg text-black">
+          <div className="absolute top-0 left-0 bg-primary p-2 rounded-3xl text-black">
             <Brain />
           </div>
-          <div className="absolute top-12 left-4 w-48 h-4 bg-neutral-600 rounded" />
-          <div className="absolute top-20 left-4 w-36 h-4 bg-neutral-600 rounded" />
+          <div className="absolute top-12 left-4 w-48 h-4 bg-neutral-300" />
+          <div className="absolute top-20 left-4 w-36 h-4 bg-neutral-400" />
         </div>
       </div>
       <p className="text-md leading-relaxed mt-auto">
@@ -67,7 +67,7 @@ export function IntelligenceCard() {
 
 export function ControlCard() {
   return (
-    <div className="bg-background p-8 rounded-lg flex flex-col hover:shadow-lg hover:shadow-primary/20">
+    <div className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20">
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">Control</h2>
         <Button
@@ -83,22 +83,22 @@ export function ControlCard() {
         <div className="space-y-4">
           <div className="w-16 h-16">
             <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
+            <div className="w-16 h-8 bg-neutral-400 rounded-b-full" />
           </div>
           <div className="w-16 h-16">
             <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
+            <div className="w-16 h-8 bg-neutral-400 rounded-b-full" />
           </div>
         </div>
         <div className="space-y-4">
           <div className="w-16 h-16">
-            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
+            <div className="w-16 h-8 bg-neutral-300 rounded-t-full" />
+            <div className="w-16 h-8 bg-neutral-100 rounded-b-full" />
           </div>
           <div className="w-16 h-16 relative">
-            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
-            <div className="absolute bottom-0 right-0 bg-primary p-1 rounded-lg">
+            <div className="w-16 h-8 bg-neutral-300 rounded-t-full" />
+            <div className="w-16 h-8 bg-neutral-400 rounded-b-full" />
+            <div className="absolute bottom-0 right-0 bg-primary p-1 rounded-3xl">
               <svg
                 width="16"
                 height="16"

@@ -10,14 +10,7 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import {
-  PanelRightClose,
-  Bot,
-  User,
-  ArrowUp,
-  Brain,
-  SquareArrowOutUpRight,
-} from "lucide-react"
+import { PanelRightClose, Bot, User, ArrowUp, Brain } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -113,7 +106,7 @@ export default function Intelligence() {
         size="icon"
         className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary rounded-full"
       >
-        <Brain className="h-4 w-4 text-white" />
+        <Brain className="h-4 w-4 text-black" />
       </Button>
 
       {isOpen && (
@@ -179,7 +172,7 @@ export default function Intelligence() {
                 )}
 
                 <div
-                  className={`max-w-[80%] p-3 rounded-lg ${
+                  className={`max-w-[80%] p-3 rounded-3xl ${
                     index % 2 === 0 ? "text-white" : "text-neutral-100"
                   }`}
                   style={{
@@ -210,7 +203,7 @@ export default function Intelligence() {
                   <Bot className="h-4 w-4 text-white" />
                 </div>
                 <div
-                  className="p-3 rounded-lg"
+                  className="p-3 rounded-3xl"
                   style={{
                     backgroundColor: "#121212",
                     border: "1px solid #27272a",
@@ -238,7 +231,7 @@ export default function Intelligence() {
         <div className="p-4 border-none">
           <form onSubmit={hitAPI}>
             <div className="w-full max-w-4xl mx-auto">
-              <div className="relative bg-neutral-900 border border-neutral-700 rounded-2xl p-2 ps-4 pe-4 shadow-lg">
+              <div className="relative bg-neutral-900 border border-neutral-700 rounded-3xl p-2 ps-4 pe-4 shadow-lg">
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-3">
                     <div className="flex-1">

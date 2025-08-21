@@ -87,7 +87,7 @@ export default function Page() {
           className={cn(
             buttonVariants({
               size: "lg",
-              className: "bg-primary hover:bg-primary text-black",
+              className: "bg-primary hover:bg-primary text-black rounded-full",
             })
           )}
         >
@@ -131,7 +131,7 @@ export default function Page() {
         <div className="bg-geometric-pattern">
           <section
             id="solutions"
-            className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-lg"
+            className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-3xl"
           >
             <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
               <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
@@ -160,7 +160,7 @@ export default function Page() {
               Get full platform access {uiConstants.homePricing}
             </p>
           </div>
-          <div className="grid w-full items-start gap-10 rounded-lg bg-background border-none p-10 md:grid-cols-[1fr_200px] hover:shadow-md hover:shadow-primary/20">
+          <div className="grid w-full items-start gap-10 rounded-3xl bg-background border border-border p-10 md:grid-cols-[1fr_200px] hover:shadow-md hover:shadow-primary/20">
             {renderSubscription}
           </div>
         </section>
