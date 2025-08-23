@@ -5,7 +5,7 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import { use } from "react"
 import { Asset, Institution } from "@/shared/types"
 import { AddAssetCard, AssetCard } from "@/shared/components/assetcard"
-import SectionPanel from "@/shared/components/sectionpanel"
+import SectionPanel from "@/shared/components/section-panel"
 import { Building, Pen, Trash } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import { useRouter } from "nextjs-toploader/app"
@@ -13,7 +13,7 @@ import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import ky from "ky"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
-import IconContainer from "@/shared/components/iconcontainer"
+import IconContainer from "@/shared/components/icon-container"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: institutionId = "" } = use(params)

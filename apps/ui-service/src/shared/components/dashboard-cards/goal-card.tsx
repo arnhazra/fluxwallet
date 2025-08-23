@@ -11,7 +11,7 @@ import { formatCurrency } from "@/shared/lib/format-currency"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
 import ky from "ky"
 import { BanknoteIcon, Pen, Target } from "lucide-react"
-import IconContainer from "../iconcontainer"
+import IconContainer from "../icon-container"
 
 export default function GoalCard({
   presentValuation,

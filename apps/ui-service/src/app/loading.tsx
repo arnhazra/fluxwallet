@@ -1,5 +1,5 @@
 "use client"
-import IconContainer from "@/shared/components/iconcontainer"
+import IconContainer from "@/shared/components/icon-container"
 import { Progress } from "@/shared/components/ui/progress"
 import { appName } from "@/shared/constants/global-constants"
 import { WalletMinimal } from "lucide-react"

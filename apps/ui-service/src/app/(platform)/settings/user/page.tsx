@@ -1,6 +1,6 @@
 "use client"
 import CopyToClipboard from "@/shared/components/copy"
-import SectionPanel from "../../../../shared/components/sectionpanel"
+import SectionPanel from "../../../../shared/components/section-panel"
 import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
@@ -9,16 +9,16 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
 import {
   User,
-  IdCard,
+  IdCardLanyard,
   AtSign,
   CircleArrowRight,
-  DollarSign,
+  CircleDollarSign,
   Pen,
 } from "lucide-react"
 import EditCurrency from "@/shared/components/editcurrency"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
 import notify from "@/shared/hooks/use-notify"
-import IconContainer from "@/shared/components/iconcontainer"
+import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
   const [{ user }, dispatch] = useAppContext()
@@ -78,7 +78,7 @@ export default function Page() {
       <SectionPanel
         icon={
           <IconContainer>
-            <IdCard className="h-4 w-4" />
+            <IdCardLanyard className="h-4 w-4" />
           </IconContainer>
         }
         title={`${appName} ID`}
@@ -99,7 +99,7 @@ export default function Page() {
       <SectionPanel
         icon={
           <IconContainer>
-            <DollarSign className="h-4 w-4" />
+            <CircleDollarSign className="h-4 w-4" />
           </IconContainer>
         }
         title="Base Currency"

@@ -1,14 +1,14 @@
 import { appName } from "@/shared/constants/global-constants"
-import SectionPanel from "../../../../shared/components/sectionpanel"
-import { Info } from "lucide-react"
-import IconContainer from "@/shared/components/iconcontainer"
+import SectionPanel from "../../../../shared/components/section-panel"
+import { GitCompare } from "lucide-react"
+import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
   return (
     <SectionPanel
       icon={
         <IconContainer>
-          <Info className="h-4 w-4" />
+          <GitCompare className="h-4 w-4" />
         </IconContainer>
       }
       title={`${appName} App Version`}

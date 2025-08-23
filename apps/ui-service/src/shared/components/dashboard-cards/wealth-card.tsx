@@ -3,7 +3,7 @@ import { useAppContext } from "@/context/appstate.provider"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { BanknoteIcon } from "lucide-react"
-import IconContainer from "../iconcontainer"
+import IconContainer from "../icon-container"
 
 export default function WealthCard({
   presentValuation,

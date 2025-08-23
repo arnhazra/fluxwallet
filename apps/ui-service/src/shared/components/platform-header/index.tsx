@@ -2,7 +2,7 @@ import Link from "next/link"
 import { WalletMinimal } from "lucide-react"
 import { appName } from "@/shared/constants/global-constants"
 import { UserNav } from "./user-nav"
-import IconContainer from "../iconcontainer"
+import IconContainer from "../icon-container"
 
 export default function PlatformHeader() {
   return (

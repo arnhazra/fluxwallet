@@ -18,7 +18,7 @@ import notify from "@/shared/hooks/use-notify"
 import Show from "../show"
 import { useState } from "react"
 import LoaderIcon from "../loaderIcon"
-import IconContainer from "../iconcontainer"
+import IconContainer from "../icon-container"
 
 interface SubscriptionModalProps {
   data: SubscriptionConfig | undefined

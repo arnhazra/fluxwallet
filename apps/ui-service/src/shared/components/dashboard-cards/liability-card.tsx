@@ -10,7 +10,7 @@ import { formatCurrency } from "@/shared/lib/format-currency"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
 import ky from "ky"
 import { CreditCard, Pen } from "lucide-react"
-import IconContainer from "../iconcontainer"
+import IconContainer from "../icon-container"
 
 export default function LiabilityCard() {
   const [{ user }, dispatch] = useAppContext()

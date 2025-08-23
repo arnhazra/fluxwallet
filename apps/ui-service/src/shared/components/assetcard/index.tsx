@@ -14,7 +14,7 @@ import { useAppContext } from "@/context/appstate.provider"
 import { AssetModal } from "../assetmodal"
 import Show from "../show"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
-import IconContainer from "../iconcontainer"
+import IconContainer from "../icon-container"
 
 export function AssetCard({ asset }: { asset: Asset }) {
   const [{ user }] = useAppContext()

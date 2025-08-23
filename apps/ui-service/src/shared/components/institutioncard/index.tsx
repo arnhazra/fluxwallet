@@ -10,7 +10,7 @@ import { Building, Plus } from "lucide-react"
 import Link from "next/link"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { useAppContext } from "@/context/appstate.provider"
-import IconContainer from "../iconcontainer"
+import IconContainer from "../icon-container"
 
 export function InstitutionCard({ institution }: { institution: Institution }) {
   const [{ user }] = useAppContext()

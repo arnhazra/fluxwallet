@@ -10,7 +10,7 @@ import {
 import { generalUserLinks } from "./data"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { cn } from "@/shared/lib/tw-class-util"
-import IconContainer from "../iconcontainer"
+import IconContainer from "../icon-container"
 
 export default function MarketingHeader() {
   return (

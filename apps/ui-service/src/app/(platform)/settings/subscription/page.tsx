@@ -3,8 +3,8 @@ import Show from "@/shared/components/show"
 import { format } from "date-fns"
 import { Bolt, CalendarClock } from "lucide-react"
 import { useAppContext } from "@/context/appstate.provider"
-import SectionPanel from "@/shared/components/sectionpanel"
-import IconContainer from "@/shared/components/iconcontainer"
+import SectionPanel from "@/shared/components/section-panel"
+import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
   const [{ subscription, isSubscriptionActive }] = useAppContext()

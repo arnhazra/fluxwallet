@@ -1,6 +1,6 @@
 "use client"
 import CopyToClipboard from "@/shared/components/copy"
-import SectionPanel from "../../../../shared/components/sectionpanel"
+import SectionPanel from "../../../../shared/components/section-panel"
 import { Switch } from "@/shared/components/ui/switch"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
@@ -9,7 +9,7 @@ import ky from "ky"
 import { PieChart, Fingerprint, ScanFace } from "lucide-react"
 import { useAppContext } from "@/context/appstate.provider"
 import notify from "@/shared/hooks/use-notify"
-import IconContainer from "@/shared/components/iconcontainer"
+import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
   const [{ user }, dispatch] = useAppContext()
