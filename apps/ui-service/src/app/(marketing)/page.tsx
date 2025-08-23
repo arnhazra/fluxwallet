@@ -74,7 +74,7 @@ export default function Page() {
       </div>
       <div className="flex flex-col gap-4 text-center">
         <div>
-          <h4 className="text-xl font-bold">Free for a year</h4>
+          <h4 className="text-lg font-bold">Free for first 3 months</h4>
           <p className="text-sm font-medium text-muted-foreground">and then</p>
           <h4 className="text-2xl font-bold">
             $ {subscriptionPricing.data?.price}

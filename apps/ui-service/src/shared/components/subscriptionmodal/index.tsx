@@ -93,7 +93,7 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
           </Show>
           <Show condition={user.hasTrial}>
             <h4 className="text-xl font-bold text-primary">
-              Free subscription worth ${data?.price}
+              Free subscription for 3 months
             </h4>
           </Show>
         </DialogHeader>
@@ -119,11 +119,11 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
                 condition={!isLoading}
                 fallback={
                   <>
-                    <LoaderIcon /> Claim Now
+                    <LoaderIcon />
                   </>
                 }
               >
-                Claim Now
+                Claim For FREE
               </Show>
             </Show>
           </Button>

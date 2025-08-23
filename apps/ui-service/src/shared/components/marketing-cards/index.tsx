@@ -1,4 +1,4 @@
-import { Brain, Check, Cog } from "lucide-react"
+import { Activity, Brain, Cog } from "lucide-react"
 import { Button } from "../ui/button"
 import { appName } from "@/shared/constants/global-constants"
 
@@ -12,7 +12,7 @@ export function OverviewCard() {
           size="icon"
           className="rounded-full text-white bg-primary hover:bg-primary"
         >
-          <Check className="h-4 w-4 text-black" />
+          <Activity className="h-4 w-4 text-black" />
           <span className="sr-only">Your finance dashboard</span>
         </Button>
       </div>
@@ -49,11 +49,9 @@ export function IntelligenceCard() {
       </div>
       <div className="flex justify-center mb-8">
         <div className="w-64 h-32 relative">
-          <div className="absolute top-0 left-0 bg-primary p-2 rounded-3xl text-black">
-            <Brain />
-          </div>
-          <div className="absolute top-12 left-4 w-48 h-4 bg-neutral-300" />
-          <div className="absolute top-20 left-4 w-36 h-4 bg-neutral-400" />
+          <div className="left-4 w-48 h-4 bg-neutral-500" />
+          <div className="mt-2 left-4 w-36 h-4 bg-neutral-700" />
+          <div className="mt-2 left-4 w-24 h-4 bg-primary" />
         </div>
       </div>
       <p className="text-md leading-relaxed mt-auto">
@@ -82,39 +80,22 @@ export function ControlCard() {
       <div className="grid grid-cols-2 gap-4 mb-8 max-w-[200px] mx-auto">
         <div className="space-y-4">
           <div className="w-16 h-16">
-            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-neutral-400 rounded-b-full" />
+            <div className="w-16 h-8 bg-neutral-400 rounded-t-full" />
+            <div className="w-16 h-8 bg-neutral-500 rounded-b-full" />
           </div>
           <div className="w-16 h-16">
-            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
+            <div className="w-16 h-8 bg-neutral-500 rounded-t-full" />
             <div className="w-16 h-8 bg-neutral-400 rounded-b-full" />
           </div>
         </div>
         <div className="space-y-4">
           <div className="w-16 h-16">
-            <div className="w-16 h-8 bg-neutral-300 rounded-t-full" />
-            <div className="w-16 h-8 bg-neutral-100 rounded-b-full" />
+            <div className="w-16 h-8 bg-neutral-400 rounded-t-full" />
+            <div className="w-16 h-8 bg-neutral-500 rounded-b-full" />
           </div>
           <div className="w-16 h-16 relative">
-            <div className="w-16 h-8 bg-neutral-300 rounded-t-full" />
+            <div className="w-16 h-8 bg-neutral-500 rounded-t-full" />
             <div className="w-16 h-8 bg-neutral-400 rounded-b-full" />
-            <div className="absolute bottom-0 right-0 bg-primary p-1 rounded-3xl">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20 6L9 17L4 12"
-                  stroke="black"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
           </div>
         </div>
       </div>
