@@ -6,10 +6,10 @@ import { ProductCard } from "@/shared/components/marketing-cards"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Institution, ProductConfig, Valuation } from "@/shared/types"
+import { Institution, ProductsConfig, Valuation } from "@/shared/types"
 
 export default function Page() {
-  const { data } = useQuery<ProductConfig[]>({
+  const { data } = useQuery<ProductsConfig>({
     queryKey: ["getProductConfig"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
@@ -28,7 +28,7 @@ export default function Page() {
   })
 
   const renderProductCards = () => {
-    return data?.map((product) => (
+    return data?.products?.map((product) => (
       <ProductCard key={product.productName} product={product} />
     ))
   }

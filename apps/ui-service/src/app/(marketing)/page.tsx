@@ -1,7 +1,11 @@
 "use client"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { ProductConfig, SubscriptionConfig } from "@/shared/types"
+import {
+  ProductsConfig,
+  SolutionConfig,
+  SubscriptionConfig,
+} from "@/shared/types"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { Check, Play } from "lucide-react"
 import Link from "next/link"
@@ -10,12 +14,7 @@ import { buttonVariants } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
 import Loading from "../loading"
 import useQuery from "@/shared/hooks/use-query"
-import {
-  ControlCard,
-  IntelligenceCard,
-  OverviewCard,
-  ProductCard,
-} from "@/shared/components/marketing-cards"
+import { SolutionCard, ProductCard } from "@/shared/components/marketing-cards"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect, useState } from "react"
 import MarketingHeader from "@/shared/components/marketing-header"
@@ -30,9 +29,16 @@ export default function Page() {
     suspense: false,
   })
 
-  const products = useQuery<ProductConfig[]>({
+  const products = useQuery<ProductsConfig>({
     queryKey: ["getProductConfig"],
     queryUrl: endPoints.getProductConfig,
+    method: HTTPMethods.GET,
+    suspense: false,
+  })
+
+  const solutions = useQuery<SolutionConfig>({
+    queryKey: ["getSolutionConfig"],
+    queryUrl: endPoints.getSolutionConfig,
     method: HTTPMethods.GET,
     suspense: false,
   })
@@ -66,12 +72,6 @@ export default function Page() {
     </section>
   )
 
-  const renderProductCards = () => {
-    return products?.data?.map((product) => (
-      <ProductCard key={product.productName} product={product} />
-    ))
-  }
-
   const renderProductsSection = (
     <section
       id="solutions"
@@ -79,14 +79,16 @@ export default function Page() {
     >
       <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
         <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
-          Choose the Right Approach
+          {products?.data?.title}
         </h2>
         <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-          {uiConstants.productHeader}
+          {products?.data?.desc}
         </p>
       </div>
       <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
-        {renderProductCards()}
+        {products?.data?.products?.map((product) => (
+          <ProductCard key={product.productName} product={product} />
+        ))}
       </div>
     </section>
   )
@@ -99,57 +101,19 @@ export default function Page() {
       >
         <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
           <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
-            Products
+            {solutions?.data?.title}
           </h2>
           <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-            {uiConstants.productHeader}
+            {solutions?.data?.desc}
           </p>
         </div>
         <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
-          <OverviewCard />
-          <IntelligenceCard />
-          <ControlCard />
+          {solutions?.data?.solutions?.map((solution) => (
+            <SolutionCard key={solution.displayName} solution={solution} />
+          ))}
         </div>
       </section>
     </div>
-  )
-
-  const renderSubscription = (
-    <>
-      <div className="grid gap-6">
-        <h3 className="text-xl font-bold sm:text-2xl">What's included</h3>
-        <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
-          {subscriptionPricing.data?.features.map((feature) => {
-            return (
-              <li className="flex items-center" key={feature}>
-                <Check className="mr-2 h-4 w-4" /> {feature}
-              </li>
-            )
-          })}
-        </ul>
-      </div>
-      <div className="flex flex-col gap-4 text-center">
-        <div>
-          <h4 className="text-lg font-bold">Free for first 3 months</h4>
-          <p className="text-sm font-medium text-muted-foreground">and then</p>
-          <h4 className="text-2xl font-bold">
-            $ {subscriptionPricing.data?.price}
-            <span className="text-base font-normal ml-1">/year</span>
-          </h4>
-        </div>
-        <Link
-          href="/dashboard"
-          className={cn(
-            buttonVariants({
-              size: "lg",
-              className: "bg-primary hover:bg-primary text-black rounded-full",
-            })
-          )}
-        >
-          <Play className="me-2 h-4 w-4" /> {uiConstants.getStartedButton}
-        </Link>
-      </div>
-    </>
   )
 
   const renderPricingSection = (
@@ -167,7 +131,44 @@ export default function Page() {
         </p>
       </div>
       <div className="grid w-full items-start gap-10 rounded-3xl bg-background border border-border p-10 md:grid-cols-[1fr_200px] hover:shadow-md hover:shadow-primary/20">
-        {renderSubscription}
+        <>
+          <div className="grid gap-6">
+            <h3 className="text-xl font-bold sm:text-2xl">What's included</h3>
+            <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
+              {subscriptionPricing.data?.features.map((feature) => {
+                return (
+                  <li className="flex items-center" key={feature}>
+                    <Check className="mr-2 h-4 w-4" /> {feature}
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+          <div className="flex flex-col gap-4 text-center">
+            <div>
+              <h4 className="text-lg font-bold">Free for first 3 months</h4>
+              <p className="text-sm font-medium text-muted-foreground">
+                and then
+              </p>
+              <h4 className="text-2xl font-bold">
+                $ {subscriptionPricing.data?.price}
+                <span className="text-base font-normal ml-1">/year</span>
+              </h4>
+            </div>
+            <Link
+              href="/dashboard"
+              className={cn(
+                buttonVariants({
+                  size: "lg",
+                  className:
+                    "bg-primary hover:bg-primary text-black rounded-full",
+                })
+              )}
+            >
+              <Play className="me-2 h-4 w-4" /> {uiConstants.getStartedButton}
+            </Link>
+          </div>
+        </>
       </div>
     </section>
   )
@@ -200,7 +201,11 @@ export default function Page() {
 
   return (
     <Show
-      condition={!subscriptionPricing.isLoading && !products.isLoading}
+      condition={
+        !subscriptionPricing.isLoading &&
+        !products.isLoading &&
+        !solutions.isLoading
+      }
       fallback={<Loading />}
     >
       <div className="min-h-screen w-full text-white">

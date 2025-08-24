@@ -5,14 +5,6 @@ export enum InstitutionType {
   OTHER = "OTHER",
 }
 
-export interface ProductConfig {
-  productName: string
-  displayName: string
-  description: string
-  icon: string
-  url: string
-}
-
 export enum AssetType {
   FD = "FD",
   RD = "RD",
@@ -273,4 +265,31 @@ export type Asset = {
 
 export type Valuation = {
   presentValuation: number | null | undefined
+}
+
+export interface Product {
+  productName: string
+  displayName: string
+  description: string
+  icon: string
+  url: string
+}
+
+export interface ProductsConfig {
+  title: string
+  desc: string
+  products: Product[]
+}
+
+export interface Solution {
+  displayName: string
+  description: string
+  icon: string
+  vector: string
+}
+
+export interface SolutionConfig {
+  title: string
+  desc: string
+  solutions: Solution[]
 }
