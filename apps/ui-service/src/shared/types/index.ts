@@ -10,6 +10,7 @@ export interface ProductConfig {
   displayName: string
   description: string
   icon: string
+  url: string
 }
 
 export enum AssetType {
