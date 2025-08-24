@@ -2,9 +2,9 @@
 
 ## v1.0
 
-- Introduced the app as a platform and separated products
-- Major changes in architecture & Code refactoring
-- Major UI improvements
+- Launched the app as a unified platform with separated products
+- Revamped architecture with major code refactoring for better scalability
+- Significant UI improvements for a smoother user experience
 
 ## v0.9
 
