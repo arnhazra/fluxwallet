@@ -1,16 +1,15 @@
 import { Controller, BadRequestException, UseGuards, Get } from "@nestjs/common"
 import { ConfigService } from "./config.service"
-import { AuthGuard } from "@/auth/auth.guard"
+import { ProductConfig } from "./data/products.config"
 
 @Controller("config")
 export class ConfigController {
   constructor(private readonly service: ConfigService) {}
 
-  @UseGuards(AuthGuard)
-  @Get()
-  async getConfig() {
+  @Get("products")
+  getProductConfig(): ProductConfig[] {
     try {
-      return await this.service.getConfig()
+      return this.service.getProductConfig()
     } catch (error) {
       throw new BadRequestException()
     }

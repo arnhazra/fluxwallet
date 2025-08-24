@@ -1,10 +1,11 @@
 import { BadRequestException, Injectable } from "@nestjs/common"
+import { productConfig } from "./data/products.config"
 
 @Injectable()
 export class ConfigService {
-  async getConfig() {
+  getProductConfig() {
     try {
-      return {}
+      return productConfig
     } catch (error) {
       throw new BadRequestException()
     }

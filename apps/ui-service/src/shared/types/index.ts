@@ -5,6 +5,13 @@ export enum InstitutionType {
   OTHER = "OTHER",
 }
 
+export interface ProductConfig {
+  productName: string
+  displayName: string
+  description: string
+  icon: string
+}
+
 export enum AssetType {
   FD = "FD",
   RD = "RD",

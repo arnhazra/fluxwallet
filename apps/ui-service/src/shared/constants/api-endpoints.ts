@@ -18,6 +18,7 @@ export const endPoints = {
   activityTrends: `${apiHost}/activity/trends`,
   getSubscriptionPricing: `${apiHost}/subscription/pricing`,
   createCheckoutSession: `${apiHost}/subscription/checkout`,
+  getProductConfig: `${apiHost}/config/products`,
   // Products Service
   asset: `${apiHost}/asset`,
   getTotalWealth: `${apiHost}/valuation/wealth`,

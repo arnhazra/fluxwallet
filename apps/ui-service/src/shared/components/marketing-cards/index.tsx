@@ -1,20 +1,36 @@
-import { Activity, Brain, Cog } from "lucide-react"
-import { Button } from "../ui/button"
-import { appName } from "@/shared/constants/global-constants"
+import * as Icons from "lucide-react"
+import { ProductConfig } from "@/shared/types"
+import IconContainer from "../icon-container"
+import { useRouter } from "nextjs-toploader/app"
+
+export function ProductCard({ product }: { product: ProductConfig }) {
+  const LucideIcon = (Icons as any)[product.icon] || Icons.HelpCircle
+  const router = useRouter()
+
+  return (
+    <div
+      className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
+      onClick={() => router.push(product.productName)}
+    >
+      <div className="flex justify-between items-center mb-12">
+        <h2 className="text-2xl">{product.displayName}</h2>
+        <IconContainer>
+          <LucideIcon className="h-4 w-4 text-black" />
+        </IconContainer>
+      </div>
+      <p className="text-sm leading-relaxed justify">{product.description}</p>
+    </div>
+  )
+}
 
 export function OverviewCard() {
   return (
     <div className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20">
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">Overview</h2>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full text-white bg-primary hover:bg-primary"
-        >
-          <Activity className="h-4 w-4 text-black" />
-          <span className="sr-only">Your finance dashboard</span>
-        </Button>
+        <IconContainer>
+          <Icons.Activity className="h-4 w-4 text-black" />
+        </IconContainer>
       </div>
       <div className="flex gap-8 mb-8 justify-center">
         <div className="w-16 h-16 bg-white rounded-full" />
@@ -38,14 +54,9 @@ export function IntelligenceCard() {
     <div className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20">
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">Intelligence</h2>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full bg-primary hover:bg-primary"
-        >
-          <Brain className="h-4 w-4 text-black" />
-          <span className="sr-only">{appName} Intelligence</span>
-        </Button>
+        <IconContainer>
+          <Icons.Brain className="h-4 w-4 text-black" />
+        </IconContainer>
       </div>
       <div className="flex justify-center mb-8">
         <div className="w-64 h-32 relative">
@@ -68,14 +79,9 @@ export function ControlCard() {
     <div className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20">
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">Control</h2>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full bg-primary hover:bg-primary"
-        >
-          <Cog className="h-4 w-4 text-black" />
-          <span className="sr-only">Learn more about control</span>
-        </Button>
+        <IconContainer>
+          <Icons.Cog className="h-4 w-4 text-black" />
+        </IconContainer>
       </div>
       <div className="grid grid-cols-2 gap-4 mb-8 max-w-[200px] mx-auto">
         <div className="space-y-4">
