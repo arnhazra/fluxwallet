@@ -2,6 +2,7 @@
 
 ## v1.0
 
+- Introduced the app as a platform and separated products
 - Major changes in architecture & Code refactoring
 - Major UI improvements
 
