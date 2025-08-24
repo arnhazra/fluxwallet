@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Walllet } from "lucide-react"
+import { Wallet } from "lucide-react"
 import { appName } from "@/shared/constants/global-constants"
 import { UserNav } from "./user-nav"
 import IconContainer from "../icon-container"
@@ -13,7 +13,7 @@ export default function PlatformHeader() {
           className="flex items-center gap-2 text-lg font-semibold"
         >
           <IconContainer>
-            <Walllet className="h-4 w-4" />
+            <Wallet className="h-4 w-4" />
           </IconContainer>
           {appName}
         </Link>
