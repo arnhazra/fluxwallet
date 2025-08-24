@@ -7,6 +7,7 @@ import {
   IntelligenceVector,
   OverviewVector,
 } from "@/shared/assets/svg"
+import { appName } from "@/shared/constants/global-constants"
 
 const VisualComponents: Record<string, React.FC> = {
   overview: OverviewVector,
@@ -24,7 +25,10 @@ export function ProductCard({ product }: { product: Product }) {
       onClick={() => router.push(product.url)}
     >
       <div className="flex justify-between items-center mb-12">
-        <h2 className="text-2xl">{product.displayName}</h2>
+        <div>
+          <h2 className="text-2xl">{product.displayName}</h2>
+          <p className="text-xs">By {appName}</p>
+        </div>
         <IconContainer>
           <LucideIcon className="h-4 w-4 text-black" />
         </IconContainer>
