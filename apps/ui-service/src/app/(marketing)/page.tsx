@@ -1,7 +1,7 @@
 "use client"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { SubscriptionConfig } from "@/shared/types"
+import { ProductConfig, SubscriptionConfig } from "@/shared/types"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { Check, Play } from "lucide-react"
 import Link from "next/link"
@@ -14,6 +14,7 @@ import {
   ControlCard,
   IntelligenceCard,
   OverviewCard,
+  ProductCard,
 } from "@/shared/components/marketing-cards"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect, useState } from "react"
@@ -25,6 +26,13 @@ export default function Page() {
   const subscriptionPricing = useQuery<SubscriptionConfig>({
     queryKey: ["subscription-pricing"],
     queryUrl: endPoints.getSubscriptionPricing,
+    method: HTTPMethods.GET,
+    suspense: false,
+  })
+
+  const products = useQuery<ProductConfig[]>({
+    queryKey: ["getProductConfig"],
+    queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
     suspense: false,
   })
@@ -56,6 +64,54 @@ export default function Page() {
         </Link>
       </div>
     </section>
+  )
+
+  const renderProductCards = () => {
+    return products?.data?.map((product) => (
+      <ProductCard key={product.productName} product={product} />
+    ))
+  }
+
+  const renderProductsSection = (
+    <section
+      id="solutions"
+      className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-3xl"
+    >
+      <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+        <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
+          Choose the Right Approach
+        </h2>
+        <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
+          {uiConstants.productHeader}
+        </p>
+      </div>
+      <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
+        {renderProductCards()}
+      </div>
+    </section>
+  )
+
+  const renderSolutionsSection = (
+    <div className="bg-geometric-pattern">
+      <section
+        id="solutions"
+        className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-3xl"
+      >
+        <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+          <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
+            Products
+          </h2>
+          <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
+            {uiConstants.productHeader}
+          </p>
+        </div>
+        <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
+          <OverviewCard />
+          <IntelligenceCard />
+          <ControlCard />
+        </div>
+      </section>
+    </div>
   )
 
   const renderSubscription = (
@@ -96,6 +152,26 @@ export default function Page() {
     </>
   )
 
+  const renderPricingSection = (
+    <section
+      id="pricing"
+      className="container py-8 md:py-12 lg:py-24 md:max-w-[64rem]"
+    >
+      <div className="mx-auto flex max-w-[64rem] flex-col items-center justify-center gap-4 text-center mb-8">
+        <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
+          {uiConstants.pricingTitle}
+        </h2>
+        <p className="max-w-[85%] text-2xl sm:text-lg sm:leading-7 text-primary">
+          {uiConstants.homePricing} ${subscriptionPricing?.data?.price}
+          /year afterwards.
+        </p>
+      </div>
+      <div className="grid w-full items-start gap-10 rounded-3xl bg-background border border-border p-10 md:grid-cols-[1fr_200px] hover:shadow-md hover:shadow-primary/20">
+        {renderSubscription}
+      </div>
+    </section>
+  )
+
   const renderFooterSection = (
     <footer>
       <div className="text-white">
@@ -123,47 +199,16 @@ export default function Page() {
   if (!checked) return <Loading />
 
   return (
-    <Show condition={!subscriptionPricing.isLoading} fallback={<Loading />}>
+    <Show
+      condition={!subscriptionPricing.isLoading && !products.isLoading}
+      fallback={<Loading />}
+    >
       <div className="min-h-screen w-full text-white">
         <MarketingHeader />
         {renderHeroSection}
-        <div className="bg-geometric-pattern">
-          <section
-            id="solutions"
-            className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-3xl"
-          >
-            <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-              <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
-                Choose the Right Approach
-              </h2>
-              <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-                {uiConstants.productHeader}
-              </p>
-            </div>
-            <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
-              <OverviewCard />
-              <IntelligenceCard />
-              <ControlCard />
-            </div>
-          </section>
-        </div>
-        <section
-          id="pricing"
-          className="container py-8 md:py-12 lg:py-24 md:max-w-[64rem]"
-        >
-          <div className="mx-auto flex max-w-[64rem] flex-col items-center justify-center gap-4 text-center mb-8">
-            <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
-              {uiConstants.pricingTitle}
-            </h2>
-            <p className="max-w-[85%] text-2xl sm:text-lg sm:leading-7 text-primary">
-              {uiConstants.homePricing} ${subscriptionPricing?.data?.price}
-              /year afterwards.
-            </p>
-          </div>
-          <div className="grid w-full items-start gap-10 rounded-3xl bg-background border border-border p-10 md:grid-cols-[1fr_200px] hover:shadow-md hover:shadow-primary/20">
-            {renderSubscription}
-          </div>
-        </section>
+        {renderProductsSection}
+        {renderSolutionsSection}
+        {renderPricingSection}
       </div>
       {renderFooterSection}
     </Show>

@@ -217,7 +217,6 @@ export type User = {
 }
 
 export type SubscriptionConfig = {
-  subscriptionName: string
   price: string
   features: string[]
 }

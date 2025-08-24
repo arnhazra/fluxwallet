@@ -1,13 +1,12 @@
-import { Controller, BadRequestException, UseGuards, Get } from "@nestjs/common"
+import { Controller, BadRequestException, Get } from "@nestjs/common"
 import { ConfigService } from "./config.service"
-import { ProductConfig } from "./data/products.config"
 
 @Controller("config")
 export class ConfigController {
   constructor(private readonly service: ConfigService) {}
 
   @Get("products")
-  getProductConfig(): ProductConfig[] {
+  getProductConfig() {
     try {
       return this.service.getProductConfig()
     } catch (error) {
