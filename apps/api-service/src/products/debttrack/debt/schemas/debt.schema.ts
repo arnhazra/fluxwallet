@@ -28,9 +28,6 @@ export class Debt extends Document {
 
   @Prop()
   interestRate: number
-
-  @Prop()
-  installment: number
 }
 
 export const DebtSchema = SchemaFactory.createForClass(Debt)

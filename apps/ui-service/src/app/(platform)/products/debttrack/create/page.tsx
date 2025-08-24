@@ -1,6 +1,6 @@
 "use client"
 import type React from "react"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Card,
@@ -11,13 +11,6 @@ import {
 } from "@/shared/components/ui/card"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/components/ui/select"
 import { CalendarIcon, BadgeDollarSign } from "lucide-react"
 import {
   Popover,
@@ -38,7 +31,6 @@ interface DebtFormData {
   endDate?: Date
   principalAmount?: number
   interestRate?: number
-  installment?: number
 }
 
 type MessageType = "success" | "error"
@@ -47,7 +39,6 @@ export default function Page() {
   const [formData, setFormData] = useState<DebtFormData>({
     debtPurpose: "",
     identifier: "",
-    installment: 0,
   })
 
   const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
@@ -77,47 +68,6 @@ export default function Page() {
       })
     }
   }
-
-  const getDurationInYears = (start: Date, end: Date) => {
-    return (end.getTime() - start.getTime()) / (1000 * 3600 * 24 * 365.25)
-  }
-
-  const getFrequencyCount = (start: Date, end: Date) => {
-    const years = getDurationInYears(start, end)
-    return Math.ceil(years * 12) + 1
-  }
-
-  useEffect(() => {
-    const { principalAmount, interestRate, startDate, endDate } = formData
-    if (
-      principalAmount &&
-      interestRate &&
-      startDate &&
-      endDate &&
-      endDate > startDate
-    ) {
-      const totalInterest =
-        principalAmount *
-        (interestRate / 100) *
-        getDurationInYears(startDate, endDate)
-      const totalAmount = principalAmount + totalInterest
-      console.log("Total Amount:", totalAmount)
-      const frequencyCount = getFrequencyCount(startDate, endDate)
-      console.log("Frequency Count:", frequencyCount)
-      const installment = totalAmount / frequencyCount
-      setFormData((prev) => ({
-        ...prev,
-        installment: parseFloat(installment.toFixed(2)),
-      }))
-    } else {
-      setFormData((prev) => ({ ...prev, installment: 0 }))
-    }
-  }, [
-    formData.principalAmount,
-    formData.interestRate,
-    formData.startDate,
-    formData.endDate,
-  ])
 
   return (
     <div className="min-h-screen p-6">
@@ -272,29 +222,6 @@ export default function Page() {
                     onChange={(e) =>
                       handleInputChange(
                         "interestRate",
-                        Number.parseFloat(e.target.value)
-                      )
-                    }
-                    placeholder="0.00"
-                    className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
-                  />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                <div className="space-y-2">
-                  <Label htmlFor="installment" className="text-neutral-200">
-                    Installment Amount
-                  </Label>
-                  <Input
-                    id="installment"
-                    disabled
-                    type="number"
-                    step="0.01"
-                    value={formData.installment || ""}
-                    onChange={(e) =>
-                      handleInputChange(
-                        "installment",
                         Number.parseFloat(e.target.value)
                       )
                     }
