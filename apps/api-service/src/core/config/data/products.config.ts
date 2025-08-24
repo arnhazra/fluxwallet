@@ -10,35 +10,35 @@ export const productConfig: ProductConfig[] = [
     productName: "assetmanager",
     displayName: "Asset Manager",
     description:
-      "A complete tool for organizing, monitoring, and analyzing financial assets. Asset Manager delivers real-time tracking, insightful reports, and simplified management for individuals and organizations managing portfolios, investments, or property efficiently.",
+      "A complete tool for organizing, monitoring, and analyzing financial assets. Delivering real-time tracking and simplified management.",
     icon: "Banknote",
   },
   {
     productName: "debttrack",
     displayName: "Debt Track",
     description:
-      "Debt Track simplifies loan and liability management by tracking repayments, due dates, and interest rates. It provides clear visibility, progress monitoring, and structured strategies to help users stay organized and debt-free.",
+      "Track your liabilities, repayments, and interest with clarity. Stay organized, monitor progress, and achieve debt-free living.",
     icon: "CreditCard",
   },
   {
     productName: "goals",
     displayName: "Goals",
     description:
-      "Goals empowers users to define, track, and achieve financial objectives. From retirement savings to education funding, it provides predictive analysis, actionable tracking, and discipline to stay aligned with long-term aspirations.",
+      "Define, track, and achieve financial goals with predictive analysis, actionable tracking, and long-term discipline.",
     icon: "Target",
   },
   {
     productName: "intelligence",
     displayName: "Intelligence",
     description:
-      "Intelligence transforms financial data into actionable insights using AI-driven analytics and visual dashboards. It helps uncover opportunities, assess risks, and optimize strategies for smarter, data-backed financial and investment decisions.",
+      "Transform financial data into insights with AI analytics. Uncover opportunities, assess risks, and optimize strategies.",
     icon: "Brain",
   },
   {
     productName: "advisorx",
     displayName: "AdvisorX",
     description:
-      "AdvisorX connects financial advisors with clients through secure collaboration, personalized recommendations, and real-time updates. It enhances communication, builds trust, and enables advisors to deliver effective, client-focused financial strategies digitally.",
+      "AI-powered advisor offering personalized financial guidance, real-time recommendations, and smart collaboration for clients.",
     icon: "Users",
   },
 ]
