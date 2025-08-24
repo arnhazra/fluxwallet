@@ -11,7 +11,7 @@ export const productConfig: ProductConfig[] = [
     displayName: "Asset Manager",
     description:
       "A complete tool for organizing, monitoring, and analyzing financial assets. Asset Manager delivers real-time tracking, insightful reports, and simplified management for individuals and organizations managing portfolios, investments, or property efficiently.",
-    icon: "Wallet",
+    icon: "Banknote",
   },
   {
     productName: "debttrack",
