@@ -15,15 +15,6 @@ import { getRediretURIUI } from "./utils/redirect-uri"
 export class SubscriptionController {
   constructor(private readonly subscriptionService: SubscriptionService) {}
 
-  @Get("pricing")
-  getSubscriptionPricing() {
-    try {
-      return this.subscriptionService.getSubscriptionPricing()
-    } catch (error) {
-      throw error
-    }
-  }
-
   @UseGuards(AuthGuard)
   @Post("checkout")
   async createCheckoutSession(@Request() request: ModRequest) {

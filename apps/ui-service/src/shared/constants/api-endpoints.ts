@@ -16,10 +16,10 @@ export const endPoints = {
   updateAttribute: `${apiHost}/auth/attribute`,
   // Core Service
   activityTrends: `${apiHost}/activity/trends`,
-  getSubscriptionPricing: `${apiHost}/subscription/pricing`,
   createCheckoutSession: `${apiHost}/subscription/checkout`,
   getProductConfig: `${apiHost}/config/products`,
   getSolutionConfig: `${apiHost}/config/solutions`,
+  getSubscriptionPricing: `${apiHost}/config/subscription`,
   // Products Service
   asset: `${apiHost}/asset`,
   getTotalWealth: `${apiHost}/valuation/wealth`,

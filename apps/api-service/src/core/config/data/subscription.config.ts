@@ -5,7 +5,7 @@ export interface SubscriptionConfig {
   features: string[]
 }
 
-export const subscriptionPricing: SubscriptionConfig = {
+export const subscriptionConfig: SubscriptionConfig = {
   price: config.SUBSCRIPTION_PRICE,
   features: [
     "Unified Financial Dashboard",

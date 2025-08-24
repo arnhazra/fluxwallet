@@ -4,11 +4,11 @@ import { statusMessages } from "@/shared/constants/status-messages"
 import { config } from "src/config"
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
-import { subscriptionPricing } from "./subscription.config"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.command"
 import { FindSubscriptionByUserIdQuery } from "./queries/impl/find-subscription-by-user-id.query"
 import { getRediretURIAPI } from "./utils/redirect-uri"
+import { subscriptionConfig } from "../config/data/subscription.config"
 
 @Injectable()
 export class SubscriptionService {
@@ -21,19 +21,11 @@ export class SubscriptionService {
     this.stripe = new Stripe(config.STRIPE_SECRET_KEY)
   }
 
-  getSubscriptionPricing() {
-    try {
-      return subscriptionPricing
-    } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
-    }
-  }
-
   async createCheckoutSession(
     userId: string
   ): Promise<Stripe.Checkout.Session> {
     try {
-      const { price } = subscriptionPricing
+      const { price } = subscriptionConfig
       const session = await this.stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
