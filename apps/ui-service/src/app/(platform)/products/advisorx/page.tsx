@@ -102,7 +102,7 @@ export default function Page() {
 
       if (!threadId) {
         setThreadId(res.threadId)
-        router.push(`/products/intelligence?threadId=${res.threadId}`)
+        router.push(`/products/advisorx?threadId=${res.threadId}`)
       }
 
       setMessages((prevMessages) => [...prevMessages, ""])
@@ -132,9 +132,9 @@ export default function Page() {
           <Show condition={messages.length === 0}>
             <div className="text-center mt-8 max-w-xl mx-auto">
               <Brain className="h-12 w-12 mx-auto mb-4 text-primary" />
-              <p className="text-primary">{appName} Intelligence</p>
+              <p className="text-primary">{appName} AdvisorX</p>
               <p className="text-sm mt-2 text-white p-6">
-                {appName} Intelligence is an agentic workflow powered by AI, so
+                {appName} AdvisorX is an agentic workflow powered by AI, so
                 mistakes are possible. Please use carefully.
               </p>
               <p className="text-4xl mt-4">
