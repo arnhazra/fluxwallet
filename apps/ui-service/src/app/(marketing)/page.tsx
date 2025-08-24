@@ -74,7 +74,7 @@ export default function Page() {
 
   const renderProductsSection = (
     <section
-      id="solutions"
+      id="products"
       className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-3xl"
     >
       <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
@@ -122,7 +122,7 @@ export default function Page() {
       className="container py-8 md:py-12 lg:py-24 md:max-w-[64rem]"
     >
       <div className="mx-auto flex max-w-[64rem] flex-col items-center justify-center gap-4 text-center mb-8">
-        <h2 className="font-heading text-3xl leading-[1.1] sm:text-3xl md:text-5xl">
+        <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
           {uiConstants.pricingTitle}
         </h2>
         <p className="max-w-[85%] text-2xl sm:text-lg sm:leading-7 text-primary">

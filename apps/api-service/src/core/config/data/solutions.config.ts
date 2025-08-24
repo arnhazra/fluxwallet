@@ -1,3 +1,5 @@
+import { config } from "@/config"
+
 interface Solution {
   displayName: string
   description: string
@@ -13,7 +15,7 @@ export interface SolutionConfig {
 
 export const solutionConfig: SolutionConfig = {
   title: "Solutions",
-  desc: "Solutions",
+  desc: `${config.APP_NAME} brings all your finances together — add and track assets, view your net worth, and gain smart insights. Whether you're planning, growing, or preserving wealth, stay informed with a unified, intuitive experience.`,
   solutions: [
     {
       displayName: "Overview",
