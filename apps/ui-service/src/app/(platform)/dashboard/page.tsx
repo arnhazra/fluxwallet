@@ -3,6 +3,7 @@ import GoalCard from "@/shared/components/dashboard-cards/goal-card"
 import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
 import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
 import { ProductCard } from "@/shared/components/marketing-cards"
+import { Badge } from "@/shared/components/ui/badge"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
@@ -48,7 +49,6 @@ export default function Page() {
         </div>
       </section>
       <section>
-        <p className="text-2xl ms-2 mb-2 -mt-3">Products</p>
         <div className="mx-auto grid justify-center gap-4 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-4">
           {renderProductCards()}
         </div>
