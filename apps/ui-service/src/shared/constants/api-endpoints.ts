@@ -22,6 +22,7 @@ export const endPoints = {
   getSubscriptionPricing: `${apiHost}/config/subscription`,
   // Products Service
   asset: `${apiHost}/asset`,
+  debt: `${apiHost}/debt`,
   getTotalWealth: `${apiHost}/valuation/wealth`,
   intelligence: `${apiHost}/intelligence`,
   advisorX: `${apiHost}/advisorx`,

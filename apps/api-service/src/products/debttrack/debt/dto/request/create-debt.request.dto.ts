@@ -1,11 +1,4 @@
-import {
-  IsEnum,
-  IsNotEmpty,
-  IsNumber,
-  IsString,
-  IsDateString,
-} from "class-validator"
-import { RecurringFrequency } from "@/shared/constants/types"
+import { IsNotEmpty, IsNumber, IsString, IsDateString } from "class-validator"
 
 export class CreateDebtRequestDto {
   @IsNotEmpty()
@@ -23,11 +16,8 @@ export class CreateDebtRequestDto {
   endDate: Date
 
   @IsNumber()
-  amountOwe: number
+  principalAmount: number
 
   @IsNumber()
   interestRate: number
-
-  @IsEnum(RecurringFrequency)
-  returnFrequency: RecurringFrequency
 }

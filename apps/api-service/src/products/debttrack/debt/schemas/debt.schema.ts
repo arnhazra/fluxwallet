@@ -1,5 +1,4 @@
 import { User } from "@/auth/schemas/user.schema"
-import { RecurringFrequency } from "@/shared/constants/types"
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document, Types } from "mongoose"
 
@@ -25,16 +24,13 @@ export class Debt extends Document {
   endDate: Date
 
   @Prop()
-  amountOwe: number
+  principalAmount: number
 
   @Prop()
   interestRate: number
 
   @Prop()
   installment: number
-
-  @Prop()
-  returnFrequency: RecurringFrequency
 }
 
 export const DebtSchema = SchemaFactory.createForClass(Debt)
