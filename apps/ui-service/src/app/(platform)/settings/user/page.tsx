@@ -12,7 +12,7 @@ import {
   IdCardLanyard,
   AtSign,
   CircleArrowRight,
-  CircleDollarSign,
+  Globe,
   Pen,
 } from "lucide-react"
 import EditCurrency from "@/shared/components/editcurrency"
@@ -99,7 +99,7 @@ export default function Page() {
       <SectionPanel
         icon={
           <IconContainer>
-            <CircleDollarSign className="h-4 w-4" />
+            <Globe className="h-4 w-4" />
           </IconContainer>
         }
         title="Base Currency"

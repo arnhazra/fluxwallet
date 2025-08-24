@@ -88,7 +88,9 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
             <div className="flex gap-2">
               <Button
                 onClick={(): void =>
-                  router.push(`/edit/asset/${assetDetails._id}`)
+                  router.push(
+                    `/products/assetmanager/edit/asset/${assetDetails._id}`
+                  )
                 }
                 variant="default"
                 size="icon"

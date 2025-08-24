@@ -10,7 +10,7 @@ export function ProductCard({ product }: { product: ProductConfig }) {
   return (
     <div
       className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
-      onClick={() => router.push(product.productName)}
+      onClick={() => router.push(`/products/${product.productName}/dashboard`)}
     >
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-2xl">{product.displayName}</h2>

@@ -1,53 +1,37 @@
 "use client"
+import GoalCard from "@/shared/components/dashboard-cards/goal-card"
+import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
+import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
+import { ProductCard } from "@/shared/components/marketing-cards"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Institution, Valuation } from "@/shared/types"
-import {
-  InstitutionCard,
-  AddInstitutionCard,
-} from "@/shared/components/institutioncard"
-import WealthCard from "../../../shared/components/dashboard-cards/wealth-card"
-import LiabilityCard from "../../../shared/components/dashboard-cards/liability-card"
-import GoalCard from "../../../shared/components/dashboard-cards/goal-card"
-import { useRouter } from "nextjs-toploader/app"
-import { useEffect } from "react"
-import notify from "@/shared/hooks/use-notify"
-import { uiConstants } from "@/shared/constants/global-constants"
-import { useSearchParams } from "next/navigation"
+import { Institution, ProductConfig, Valuation } from "@/shared/types"
 
 export default function Page() {
-  const searchParams = useSearchParams()
-  const router = useRouter()
+  const { data } = useQuery<ProductConfig[]>({
+    queryKey: ["getProductConfig"],
+    queryUrl: endPoints.getProductConfig,
+    method: HTTPMethods.GET,
+  })
+
   const institutions = useQuery<Institution[]>({
     queryKey: ["get-institutions"],
     queryUrl: endPoints.institution,
     method: HTTPMethods.GET,
   })
 
-  const { data } = useQuery<Valuation>({
+  const { data: totalWealth } = useQuery<Valuation>({
     queryKey: ["get-total-wealth"],
     queryUrl: `${endPoints.getTotalWealth}`,
     method: HTTPMethods.GET,
   })
 
-  const renderInstitutions = institutions?.data?.map((institution) => (
-    <InstitutionCard institution={institution} key={institution._id} />
-  ))
-
-  useEffect(() => {
-    const subscriptionSuccess = searchParams.get("subscriptionSuccess")
-    if (subscriptionSuccess !== null) {
-      if (subscriptionSuccess === "true") {
-        notify(uiConstants.subscriptionSuccess, "success")
-      }
-
-      if (subscriptionSuccess === "false") {
-        notify(uiConstants.subscriptionFailed, "error")
-      }
-      router.push("/dashboard")
-    }
-  }, [searchParams])
+  const renderProductCards = () => {
+    return data?.map((product) => (
+      <ProductCard key={product.productName} product={product} />
+    ))
+  }
 
   return (
     <div className="mx-auto grid w-full items-start gap-6">
@@ -56,17 +40,17 @@ export default function Page() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <WealthCard
               institutionCount={institutions.data?.length}
-              presentValuation={data?.presentValuation}
+              presentValuation={totalWealth?.presentValuation}
             />
             <LiabilityCard />
-            <GoalCard presentValuation={data?.presentValuation ?? 0} />
+            <GoalCard presentValuation={totalWealth?.presentValuation ?? 0} />
           </div>
         </div>
       </section>
       <section>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4">
-          <AddInstitutionCard />
-          {renderInstitutions}
+        <p className="text-2xl ms-2 mb-2 -mt-3">Products</p>
+        <div className="mx-auto grid justify-center gap-4 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-4">
+          {renderProductCards()}
         </div>
       </section>
     </div>
