@@ -89,7 +89,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
               <Button
                 onClick={(): void =>
                   router.push(
-                    `/products/assetmanager/edit/asset/${assetDetails._id}`
+                    `/products/wealthanalyzer/edit/asset/${assetDetails._id}`
                   )
                 }
                 variant="default"

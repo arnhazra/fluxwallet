@@ -107,7 +107,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
 
 export function AddAssetCard() {
   return (
-    <Link href={`/products/assetmanager/create/asset`}>
+    <Link href={`/products/wealthanalyzer/create/asset`}>
       <Card className="w-full max-w-sm h-[174px] flex items-center justify-center bg-background border-none text-white hover:shadow-md hover:shadow-primary/20 duration-400">
         <Plus className="w-20 h-20 text-primary" />
       </Card>

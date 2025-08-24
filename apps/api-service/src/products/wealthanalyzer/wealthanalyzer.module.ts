@@ -10,11 +10,11 @@ import { ProductsDbConnectionMap } from "@/shared/utils/db-connection.map"
   imports: [
     EntityModule.forRoot(
       config.PRODUCTS_DATABASE_URI,
-      ProductsDbConnectionMap.AssetManager
+      ProductsDbConnectionMap.WealthAnalyzer
     ),
     InstitutionModule,
     AssetModule,
     ValuationModule,
   ],
 })
-export class AssetManagerModule {}
+export class WealthAnalyzerModule {}

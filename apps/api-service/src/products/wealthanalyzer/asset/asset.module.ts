@@ -20,7 +20,7 @@ import { FindAssetsByUserQueryHandler } from "./queries/handler/find-assets-by-u
     ValuationModule,
     EntityModule.forFeature(
       [{ name: Asset.name, schema: AssetSchema }],
-      ProductsDbConnectionMap.AssetManager
+      ProductsDbConnectionMap.WealthAnalyzer
     ),
   ],
   controllers: [AssetController],

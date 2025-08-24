@@ -20,7 +20,7 @@ import { ValuationModule } from "../valuation/valuation.module"
     ValuationModule,
     EntityModule.forFeature(
       [{ name: Institution.name, schema: InstitutionSchema }],
-      ProductsDbConnectionMap.AssetManager
+      ProductsDbConnectionMap.WealthAnalyzer
     ),
   ],
   controllers: [InstitutionController],

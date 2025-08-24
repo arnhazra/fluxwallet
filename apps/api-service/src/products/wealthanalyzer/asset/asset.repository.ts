@@ -1,16 +1,16 @@
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
-import { Institution } from "./schemas/institution.schema"
+import { Asset } from "./schemas/asset.schema"
 import { ProductsDbConnectionMap } from "src/shared/utils/db-connection.map"
 import { Model } from "mongoose"
 import { EntityRepository } from "@/shared/entity/entity.repository"
 
 @Injectable()
-export class InstitutionRepository extends EntityRepository<Institution> {
+export class AssetRepository extends EntityRepository<Asset> {
   constructor(
-    @InjectModel(Institution.name, ProductsDbConnectionMap.AssetManager)
-    private institutionModel: Model<Institution>
+    @InjectModel(Asset.name, ProductsDbConnectionMap.WealthAnalyzer)
+    private assetModel: Model<Asset>
   ) {
-    super(institutionModel)
+    super(assetModel)
   }
 }

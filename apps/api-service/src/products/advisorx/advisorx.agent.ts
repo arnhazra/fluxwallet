@@ -1,5 +1,5 @@
-import { Asset } from "../assetmanager/asset/schemas/asset.schema"
-import { Institution } from "../assetmanager/institution/schemas/institution.schema"
+import { Asset } from "../wealthanalyzer/asset/schemas/asset.schema"
+import { Institution } from "../wealthanalyzer/institution/schemas/institution.schema"
 import { EventMap } from "@/shared/utils/event.map"
 import { tool } from "@langchain/core/tools"
 import { Injectable } from "@nestjs/common"

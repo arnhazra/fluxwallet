@@ -12,7 +12,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
     CqrsModule,
     EntityModule.forFeature(
       [{ name: Asset.name, schema: AssetSchema }],
-      ProductsDbConnectionMap.AssetManager
+      ProductsDbConnectionMap.WealthAnalyzer
     ),
   ],
   controllers: [ValuationController],

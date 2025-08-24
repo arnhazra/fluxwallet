@@ -49,7 +49,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     if (confirmed) {
       try {
         await ky.delete(`${endPoints.institution}/${institutionId}`)
-        router.push("/products/assetmanager/dashboard")
+        router.push("/products/wealthanalyzer/dashboard")
       } catch (error) {
         notify(uiConstants.institutionDeleteFailed, "error")
       }
@@ -71,7 +71,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
             <Button
               onClick={(): void =>
                 router.push(
-                  `/products/assetmanager/edit/institution/${institutionId}`
+                  `/products/wealthanalyzer/edit/institution/${institutionId}`
                 )
               }
               variant="default"

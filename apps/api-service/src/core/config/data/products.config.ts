@@ -17,12 +17,12 @@ export const productConfig: ProductsConfig = {
   desc: "Bring all your finances together in one place—add assets, track net worth, and unlock actionable insights. Plan, grow, and preserve wealth with clarity through a unified, intuitive experience.",
   products: [
     {
-      productName: "assetmanager",
-      displayName: "Asset Manager",
+      productName: "wealthanalyzer",
+      displayName: "WealthAnalyzer",
       description:
         "A complete tool for organizing, monitoring, and analyzing financial assets. Delivering real-time tracking and simplified management.",
       icon: "Banknote",
-      url: "/products/assetmanager/dashboard",
+      url: "/products/wealthanalyzer/dashboard",
     },
     {
       productName: "debttrack",
