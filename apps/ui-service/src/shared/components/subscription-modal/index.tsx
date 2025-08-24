@@ -1,4 +1,4 @@
-import { Check, WalletMinimal } from "lucide-react"
+import { Check, Walllet } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Dialog,
@@ -73,7 +73,7 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-lg">
             <IconContainer>
-              <WalletMinimal className="h-4 w-4" />
+              <Walllet className="h-4 w-4" />
             </IconContainer>
             {appName} Subscription
           </DialogTitle>

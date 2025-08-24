@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { WalletMinimal, PanelLeft, Play } from "lucide-react"
+import { Walllet, PanelLeft, Play } from "lucide-react"
 import { Button, buttonVariants } from "@/shared/components/ui/button"
 import {
   Sheet,
@@ -21,7 +21,7 @@ export default function MarketingHeader() {
           className="flex items-center gap-2 text-xl font-semibold me-8"
         >
           <IconContainer>
-            <WalletMinimal className="h-4 w-4" />
+            <Walllet className="h-4 w-4" />
           </IconContainer>
           {appName}
         </Link>
@@ -74,7 +74,7 @@ export default function MarketingHeader() {
                   className="flex items-center gap-2 text-lg font-semibold"
                 >
                   <IconContainer>
-                    <WalletMinimal className="h-4 w-4" />
+                    <Walllet className="h-4 w-4" />
                   </IconContainer>
                 </Link>
                 {generalUserLinks.map((item, index) => (
