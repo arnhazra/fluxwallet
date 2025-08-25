@@ -37,8 +37,6 @@ export class IntelligenceStrategy {
         this.agent.getInstitutionValuationAgent,
         this.agent.getInstitutionListAgent,
         this.agent.changeBaseCurrencyAgent,
-        this.agent.updateLiabilityAgent,
-        this.agent.updateWealthGoalAgent,
         this.agent.sendEmailAgent,
         this.agent.getAssetListAgent,
       ],

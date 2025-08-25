@@ -1,10 +1,9 @@
 "use client"
 import { useAppContext } from "@/context/appstate.provider"
 import Show from "@/shared/components/show"
-import { Button } from "@/shared/components/ui/button"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { formatCurrency } from "@/shared/lib/format-currency"
-import { Pen, Target } from "lucide-react"
+import { Target } from "lucide-react"
 import IconContainer from "../icon-container"
 
 export default function GoalCard({
@@ -37,7 +36,7 @@ export default function GoalCard({
             <div className="flex gap-1 text-sm">
               <span className="text-neutral-400">Wealth Goal:</span>
               <span className="text-primary">
-                {formatCurrency(user.wealthGoal ?? 0, user.baseCurrency)}
+                {formatCurrency(0, user.baseCurrency)}
               </span>
             </div>
             <div className="w-full bg-neutral-700 rounded-full h-2">

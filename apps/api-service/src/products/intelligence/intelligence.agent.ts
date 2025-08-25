@@ -176,64 +176,6 @@ export class IntelligenceAgent {
     }
   )
 
-  public updateLiabilityAgent = tool(
-    async ({
-      userId,
-      currentLiabilities,
-    }: {
-      userId: string
-      currentLiabilities: number
-    }) => {
-      try {
-        await this.eventEmitter.emitAsync(
-          EventMap.UpdateAttribute,
-          userId,
-          "currentLiabilities",
-          currentLiabilities
-        )
-        return "success"
-      } catch (error) {
-        return "failure"
-      }
-    },
-    {
-      name: "update_liability_for_user",
-      description: "Update the liability value for a user",
-      schema: z.object({
-        userId: z.string().describe("_id of the user"),
-        currentLiabilities: z
-          .number()
-          .describe("new current liabilities value given by the user"),
-      }),
-    }
-  )
-
-  public updateWealthGoalAgent = tool(
-    async ({ userId, wealthGoal }: { userId: string; wealthGoal: number }) => {
-      try {
-        await this.eventEmitter.emitAsync(
-          EventMap.UpdateAttribute,
-          userId,
-          "wealthGoal",
-          wealthGoal
-        )
-        return "success"
-      } catch (error) {
-        return "failure"
-      }
-    },
-    {
-      name: "update_wealth_goal_for_user",
-      description: "Update the wealth goal value for a user",
-      schema: z.object({
-        userId: z.string().describe("_id of the user"),
-        wealthGoal: z
-          .number()
-          .describe("new wealth goal value given by the user"),
-      }),
-    }
-  )
-
   public sendEmailAgent = tool(
     async ({
       email,

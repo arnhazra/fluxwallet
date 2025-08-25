@@ -21,7 +21,7 @@ export default function LiabilityCard() {
         </div>
         <div className="space-y-3">
           <p className="text-3xl font-bold text-white">
-            {formatCurrency(user.currentLiabilities, user.baseCurrency)}
+            {formatCurrency(0, user.baseCurrency)}
           </p>
           <div className="space-y-2">
             <p className="text-sm text-neutral-400">Your total liabilities</p>

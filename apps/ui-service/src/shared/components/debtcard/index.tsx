@@ -36,7 +36,7 @@ export function DebtCard({ debt }: { debt: Debt }) {
               variant="default"
               className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary -ms-1"
             >
-              {debt.identifier}
+              LOAN
             </Badge>
             <Show condition={debt.isLoanExpired}>
               <Tooltip>

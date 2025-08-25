@@ -29,6 +29,126 @@ export enum RecurringFrequency {
   YEARLY = "YEARLY",
 }
 
+export type User = {
+  _id: string
+  email: string
+  name: string
+  role: string
+  baseCurrency: Currency
+  avatar: string | null | undefined
+  reduceCarbonEmissions: boolean
+  activityLog: boolean
+  hasTrial: boolean
+  createdAt: string
+}
+
+export type SubscriptionConfig = {
+  price: string
+  features: string[]
+}
+
+export type Subscription = {
+  _id: string
+  userId: string
+  price: number
+  createdAt: string
+  endsAt: string
+}
+
+export type ActivityTrends = {
+  totalUsage: number
+}
+
+export type Thread = {
+  _id: string
+  threadId: string
+  userId: string
+  prompt: string | null | undefined
+  response: string | null | undefined
+  createdAt: string
+}
+
+export type Institution = {
+  _id: string
+  userId: string
+  institutionName: string
+  presentValuation: number | null | undefined
+  institutionType: InstitutionType
+  createdAt: string
+}
+
+export type Asset = {
+  _id: string
+  userId: string
+  institutionId: string
+  assetType: AssetType
+  assetName: string
+  identifier: string
+  presentValuation: number | null | undefined
+  startDate?: Date // FD, RD, SIP, LUMPSUM
+  maturityDate?: Date // FD, RD, SIP, LUMPSUM
+  amountInvested?: number // FD, LUMPSUM
+  expectedReturnRate?: number // FD, RD, SIP, LUMPSUM
+  contributionAmount?: number // RD, SIP
+  contributionFrequency?: RecurringFrequency // RD, SIP
+  valuationOnPurchase?: number // PROPERTY, BOND, METAL, OTHER
+  currentValuation?: number // EPF, PPF, CASH, SAVINGS, PROPERTY, BOND, METAL, OTHER
+  units?: number // EQUITY, CRYPTO
+  unitPurchasePrice?: number // EQUITY, CRYPTO
+}
+
+export type Debt = {
+  _id: string
+  userId: string
+  debtPurpose: string
+  identifier: string
+  startDate: Date
+  endDate: Date
+  principalAmount: number
+  interestRate: number
+  createdAt: string
+  emi: number
+  totalRepayment: number
+  totalInterest: number
+  totalEmis: number
+  pendingEmis: number
+  paidEmis: number
+  nextEmiDate: string
+  isLoanAboutToEnd: boolean
+  isLoanExpired: boolean
+}
+
+export type Valuation = {
+  presentValuation: number | null | undefined
+}
+
+export interface Product {
+  productName: string
+  displayName: string
+  description: string
+  icon: string
+  url: string
+}
+
+export interface ProductsConfig {
+  title: string
+  desc: string
+  products: Product[]
+}
+
+export interface Solution {
+  displayName: string
+  description: string
+  icon: string
+  vector: string
+}
+
+export interface SolutionConfig {
+  title: string
+  desc: string
+  solutions: Solution[]
+}
+
 export enum Currency {
   AED = "AED",
   AFN = "AFN",
@@ -191,126 +311,4 @@ export enum Currency {
   ZAR = "ZAR",
   ZMW = "ZMW",
   ZWL = "ZWL",
-}
-
-export type User = {
-  _id: string
-  email: string
-  name: string
-  role: string
-  baseCurrency: Currency
-  wealthGoal: number | null
-  reduceCarbonEmissions: boolean
-  activityLog: boolean
-  hasTrial: boolean
-  currentLiabilities: number
-  createdAt: string
-  avatar: string | null | undefined
-}
-
-export type SubscriptionConfig = {
-  price: string
-  features: string[]
-}
-
-export type Subscription = {
-  _id: string
-  userId: string
-  price: number
-  createdAt: string
-  endsAt: string
-}
-
-export type ActivityTrends = {
-  totalUsage: number
-}
-
-export type Thread = {
-  _id: string
-  threadId: string
-  userId: string
-  prompt: string | null | undefined
-  response: string | null | undefined
-  createdAt: string
-}
-
-export type Institution = {
-  _id: string
-  userId: string
-  institutionName: string
-  presentValuation: number | null | undefined
-  institutionType: InstitutionType
-  createdAt: string
-}
-
-export type Asset = {
-  _id: string
-  userId: string
-  institutionId: string
-  assetType: AssetType
-  assetName: string
-  identifier: string
-  presentValuation: number | null | undefined
-  startDate?: Date // FD, RD, SIP, LUMPSUM
-  maturityDate?: Date // FD, RD, SIP, LUMPSUM
-  amountInvested?: number // FD, LUMPSUM
-  expectedReturnRate?: number // FD, RD, SIP, LUMPSUM
-  contributionAmount?: number // RD, SIP
-  contributionFrequency?: RecurringFrequency // RD, SIP
-  valuationOnPurchase?: number // PROPERTY, BOND, METAL, OTHER
-  currentValuation?: number // EPF, PPF, CASH, SAVINGS, PROPERTY, BOND, METAL, OTHER
-  units?: number // EQUITY, CRYPTO
-  unitPurchasePrice?: number // EQUITY, CRYPTO
-}
-
-export type Debt = {
-  _id: string
-  userId: string
-  debtPurpose: string
-  identifier: string
-  startDate: Date
-  endDate: Date
-  principalAmount: number
-  interestRate: number
-  createdAt: string
-  emi: number
-  totalRepayment: number
-  totalInterest: number
-  totalEmis: number
-  pendingEmis: number
-  paidEmis: number
-  nextEmiDate: string
-  isLoanAboutToEnd: boolean
-  isLoanExpired: boolean
-}
-
-export type Valuation = {
-  presentValuation: number | null | undefined
-}
-
-export interface Product {
-  productName: string
-  displayName: string
-  description: string
-  icon: string
-  url: string
-}
-
-export interface ProductsConfig {
-  title: string
-  desc: string
-  products: Product[]
-}
-
-export interface Solution {
-  displayName: string
-  description: string
-  icon: string
-  vector: string
-}
-
-export interface SolutionConfig {
-  title: string
-  desc: string
-  solutions: Solution[]
 }
