@@ -2,11 +2,7 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Institution, Valuation } from "@/shared/types"
-import {
-  InstitutionCard,
-  AddInstitutionCard,
-} from "@/shared/components/institutioncard"
+import { Debt, Valuation } from "@/shared/types"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect } from "react"
 import notify from "@/shared/hooks/use-notify"
@@ -15,13 +11,14 @@ import { useSearchParams } from "next/navigation"
 import GoalCard from "@/shared/components/dashboard-cards/goal-card"
 import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
 import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
+import { AddDebtCard, DebtCard } from "@/shared/components/debtcard"
 
 export default function Page() {
   const searchParams = useSearchParams()
   const router = useRouter()
-  const institutions = useQuery<Institution[]>({
-    queryKey: ["get-institutions"],
-    queryUrl: endPoints.institution,
+  const debts = useQuery<Debt[]>({
+    queryKey: ["get-debts"],
+    queryUrl: endPoints.debt,
     method: HTTPMethods.GET,
   })
 
@@ -31,8 +28,8 @@ export default function Page() {
     method: HTTPMethods.GET,
   })
 
-  const renderInstitutions = institutions?.data?.map((institution) => (
-    <InstitutionCard institution={institution} key={institution._id} />
+  const renderDebts = debts?.data?.map((debt) => (
+    <DebtCard debt={debt} key={debt._id} />
   ))
 
   useEffect(() => {
@@ -55,7 +52,7 @@ export default function Page() {
         <div className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <WealthCard
-              institutionCount={institutions.data?.length}
+              institutionCount={0}
               presentValuation={data?.presentValuation}
             />
             <LiabilityCard />
@@ -65,8 +62,8 @@ export default function Page() {
       </section>
       <section>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4">
-          <AddInstitutionCard />
-          {renderInstitutions}
+          <AddDebtCard />
+          {renderDebts}
         </div>
       </section>
     </div>

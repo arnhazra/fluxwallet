@@ -16,6 +16,64 @@ export class DebtService {
     private readonly commandBus: CommandBus
   ) {}
 
+  private calculateDebtDetails(debt: Debt) {
+    const { startDate, endDate, interestRate, principalAmount } = debt
+
+    const months =
+      (endDate.getFullYear() - startDate.getFullYear()) * 12 +
+      (endDate.getMonth() - startDate.getMonth()) +
+      1
+
+    const monthlyRate = interestRate / 12 / 100
+
+    let emi = 0
+    if (monthlyRate === 0) {
+      emi = principalAmount / months
+    } else {
+      emi =
+        (principalAmount * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+        (Math.pow(1 + monthlyRate, months) - 1)
+    }
+
+    const totalRepayment = emi * months
+    const totalInterest = totalRepayment - principalAmount
+
+    const today = new Date()
+    const totalEmis = months
+
+    let paidEmis = 0
+    if (today > startDate) {
+      paidEmis =
+        (today.getFullYear() - startDate.getFullYear()) * 12 +
+        (today.getMonth() - startDate.getMonth())
+      paidEmis = Math.min(Math.max(paidEmis, 0), totalEmis)
+    }
+
+    const pendingEmis = totalEmis - paidEmis
+
+    let nextEmiDate: Date | null = null
+    if (pendingEmis > 0) {
+      nextEmiDate = new Date(startDate)
+      nextEmiDate.setMonth(startDate.getMonth() + paidEmis)
+    }
+
+    const diffInDays = Math.ceil(
+      (endDate.getTime() - today.getTime()) / (1000 * 3600 * 24)
+    )
+    const isLoanAboutToEnd = diffInDays <= 60 && diffInDays > 0
+
+    return {
+      emi,
+      totalRepayment,
+      totalInterest,
+      totalEmis,
+      pendingEmis,
+      paidEmis,
+      nextEmiDate,
+      isLoanAboutToEnd,
+    }
+  }
+
   async createDebt(userId: string, requestBody: CreateDebtRequestDto) {
     try {
       return await this.commandBus.execute<CreateDebtCommand, Debt>(
@@ -34,9 +92,10 @@ export class DebtService {
 
       return await Promise.all(
         debts.map(async (debt) => {
+          const debtDetails = this.calculateDebtDetails(debt)
           return {
             ...(debt.toObject?.() ?? debt),
-            presentValuation: 0, //tbd
+            ...debtDetails,
           }
         })
       )
@@ -50,10 +109,11 @@ export class DebtService {
       const debt = await this.queryBus.execute<FindDebtByIdQuery, Debt>(
         new FindDebtByIdQuery(reqUserId, debtId)
       )
+      const debtDetails = this.calculateDebtDetails(debt)
 
       return {
         ...(debt.toObject?.() ?? debt),
-        presentValuation: 0, //tbd
+        ...debtDetails,
       }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)

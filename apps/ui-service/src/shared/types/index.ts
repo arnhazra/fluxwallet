@@ -263,6 +263,27 @@ export type Asset = {
   unitPurchasePrice?: number // EQUITY, CRYPTO
 }
 
+export type Debt = {
+  _id: string
+  userId: string
+  debtPurpose: string
+  identifier: string
+  startDate: Date
+  endDate: Date
+  principalAmount: number
+  interestRate: number
+  createdAt: string
+  emi: number
+  totalRepayment: number
+  totalInterest: number
+  totalEmis: number
+  pendingEmis: number
+  paidEmis: number
+  nextEmiDate: string
+  isLoanAboutToEnd: boolean
+  isLoanExpired: boolean
+}
+
 export type Valuation = {
   presentValuation: number | null | undefined
 }
