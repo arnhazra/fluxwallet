@@ -14,7 +14,7 @@ import IconContainer from "../icon-container"
 
 export default function MarketingHeader() {
   return (
-    <header className="relative z-50 top-0 flex h-[64px] items-center bg-black text-white px-4 md:px-6">
+    <header className="relative z-50 top-0 flex h-[64px] items-center bg-main text-white px-4 md:px-6">
       <div className="flex w-full items-center justify-between lg:container lg:max-w-[90rem]">
         <Link
           href="/"
