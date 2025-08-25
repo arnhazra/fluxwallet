@@ -33,12 +33,12 @@ export const productConfig: ProductsConfig = {
       url: "/products/debttrack/dashboard",
     },
     {
-      productName: "goals",
-      displayName: "Goals",
+      productName: "wealthgoal",
+      displayName: "WealthGoal",
       description:
         "Define, track, and achieve financial goals with predictive analysis, actionable tracking, and long-term discipline.",
       icon: "Target",
-      url: "/products/goals/dashboard",
+      url: "/products/wealthgoal/dashboard",
     },
     {
       productName: "intelligence",

@@ -26,8 +26,8 @@ export function ProductCard({ product }: { product: Product }) {
     >
       <div className="flex justify-between items-center mb-12">
         <div>
-          <h2 className="text-2xl">{product.displayName}</h2>
-          <p className="text-xs">By {appName}</p>
+          <p className="text-xs">{appName}</p>
+          <h2 className="text-xl">{product.displayName}</h2>
         </div>
         <IconContainer>
           <LucideIcon className="h-4 w-4 text-black" />
