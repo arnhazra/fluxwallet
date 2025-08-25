@@ -113,6 +113,8 @@ export type Debt = {
   totalEmis: number
   pendingEmis: number
   paidEmis: number
+  remainingPrincipal: number
+  remainingTotal: number
   nextEmiDate: string
   isLoanAboutToEnd: boolean
   isLoanExpired: boolean

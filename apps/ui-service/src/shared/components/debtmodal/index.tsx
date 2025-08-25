@@ -9,7 +9,6 @@ import { Debt } from "@/shared/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { DialogDescription, DialogTrigger } from "@radix-ui/react-dialog"
 import { ReactNode, useState } from "react"
-import { Badge } from "../ui/badge"
 import { formatKey, formatValue } from "@/shared/lib/format-key-value"
 import { Pen, Trash } from "lucide-react"
 import ky from "ky"
@@ -25,7 +24,15 @@ interface DebtModalProps {
   children: ReactNode
 }
 
-const excludedKeys = ["_id", "userId", "debtPurpose", "createdAt"]
+const excludedKeys = [
+  "_id",
+  "userId",
+  "debtPurpose",
+  "createdAt",
+  "isLoanExpired",
+  "isLoanAboutToEnd",
+  "isLoanExpired",
+]
 
 export function DebtModal({ debtDetails, children }: DebtModalProps) {
   const [open, setOpen] = useState(false)
@@ -54,6 +61,8 @@ export function DebtModal({ debtDetails, children }: DebtModalProps) {
     "totalRepayment",
     "totalInterest",
     "emi",
+    "remainingPrincipal",
+    "remainingTotal",
   ])
 
   const isAmount = (key: keyof Debt): boolean => amountKeys.has(key)
