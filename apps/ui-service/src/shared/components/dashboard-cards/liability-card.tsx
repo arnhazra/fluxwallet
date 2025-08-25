@@ -1,43 +1,12 @@
 "use client"
 import { useAppContext } from "@/context/appstate.provider"
-import { Button } from "@/shared/components/ui/button"
 import { Card, CardContent } from "@/shared/components/ui/card"
-import { endPoints } from "@/shared/constants/api-endpoints"
-import { uiConstants } from "@/shared/constants/global-constants"
-import notify from "@/shared/hooks/use-notify"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { formatCurrency } from "@/shared/lib/format-currency"
-import { usePromptContext } from "@/shared/providers/prompt.provider"
-import ky from "ky"
-import { CreditCard, Pen } from "lucide-react"
+import { CreditCard } from "lucide-react"
 import IconContainer from "../icon-container"
 
 export default function LiabilityCard() {
-  const [{ user }, dispatch] = useAppContext()
-  const { prompt } = usePromptContext()
-
-  const editLiabilities = async () => {
-    const { hasConfirmed, value } = await prompt(
-      true,
-      "Total Liabilities",
-      user.currentLiabilities
-    )
-
-    if (hasConfirmed) {
-      try {
-        dispatch("setUser", { currentLiabilities: Number(value) })
-        await ky.patch(endPoints.updateAttribute, {
-          json: {
-            attributeName: "currentLiabilities",
-            attributeValue: Number(value),
-          },
-          timeout: FETCH_TIMEOUT,
-        })
-      } catch (error) {
-        notify(uiConstants.genericError, "error")
-      }
-    }
-  }
+  const [{ user }] = useAppContext()
 
   return (
     <Card className="bg-background border-none relative overflow-hidden hover:shadow-md hover:shadow-primary/20">
@@ -49,13 +18,6 @@ export default function LiabilityCard() {
             </IconContainer>
             <span className="text-sm text-neutral-400">Total Liabilities</span>
           </div>
-          <Button
-            onClick={editLiabilities}
-            size="icon"
-            className="p-2 bg-primary/80 hover:bg-primary/80 text-black"
-          >
-            <Pen className="h-4 w-4" />
-          </Button>
         </div>
         <div className="space-y-3">
           <p className="text-3xl font-bold text-white">
