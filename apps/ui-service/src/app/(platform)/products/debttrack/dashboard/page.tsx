@@ -2,7 +2,7 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Debt, Valuation } from "@/shared/types"
+import { Debt } from "@/shared/types"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect } from "react"
 import notify from "@/shared/hooks/use-notify"
@@ -19,12 +19,6 @@ export default function Page() {
   const debts = useQuery<Debt[]>({
     queryKey: ["get-debts"],
     queryUrl: endPoints.debt,
-    method: HTTPMethods.GET,
-  })
-
-  const { data } = useQuery<Valuation>({
-    queryKey: ["get-total-wealth"],
-    queryUrl: `${endPoints.getTotalWealth}`,
     method: HTTPMethods.GET,
   })
 
@@ -51,12 +45,9 @@ export default function Page() {
       <section>
         <div className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <WealthCard
-              institutionCount={0}
-              presentValuation={data?.presentValuation}
-            />
+            <WealthCard />
             <LiabilityCard />
-            <GoalCard presentValuation={data?.presentValuation ?? 0} />
+            <GoalCard presentValuation={0} />
           </div>
         </div>
       </section>

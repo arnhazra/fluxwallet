@@ -21,12 +21,6 @@ export default function Page() {
     method: HTTPMethods.GET,
   })
 
-  const { data: totalWealth } = useQuery<Valuation>({
-    queryKey: ["get-total-wealth"],
-    queryUrl: `${endPoints.getTotalWealth}`,
-    method: HTTPMethods.GET,
-  })
-
   const renderProductCards = () => {
     return data?.products?.map((product) => (
       <ProductCard key={product.productName} product={product} />
@@ -38,12 +32,9 @@ export default function Page() {
       <section>
         <div className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <WealthCard
-              institutionCount={institutions.data?.length}
-              presentValuation={totalWealth?.presentValuation}
-            />
+            <WealthCard />
             <LiabilityCard />
-            <GoalCard presentValuation={totalWealth?.presentValuation ?? 0} />
+            <GoalCard presentValuation={0} />
           </div>
         </div>
       </section>

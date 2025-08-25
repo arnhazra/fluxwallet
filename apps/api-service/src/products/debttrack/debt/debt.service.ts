@@ -8,6 +8,8 @@ import { CreateDebtRequestDto } from "./dto/request/create-debt.request.dto"
 import { UpdateDebtCommand } from "./commands/impl/update-debt.command"
 import { FindDebtsByUserQuery } from "./queries/impl/find-debt-by-user.query"
 import { FindDebtByIdQuery } from "./queries/impl/find-debt-by-id.query"
+import { OnEvent } from "@nestjs/event-emitter"
+import { EventMap } from "@/shared/utils/event.map"
 
 @Injectable()
 export class DebtService {
@@ -87,6 +89,21 @@ export class DebtService {
       }
 
       throw new BadRequestException(statusMessages.connectionError)
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  @OnEvent(EventMap.GetTotalDebt)
+  async calculateTotalDebt(reqUserId: string) {
+    try {
+      const debts = await this.findMyDebts(reqUserId)
+
+      const valuations = await Promise.all(
+        debts.map((debt) => this.calculateDebtDetails(debt))
+      )
+      const total = valuations.reduce((sum, val) => sum + val.remainingTotal, 0)
+      return total
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

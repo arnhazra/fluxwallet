@@ -79,4 +79,17 @@ export class DebtController {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
+
+  @UseGuards(AuthGuard)
+  @Post("total")
+  async calculateTotalDebt(@Request() request: ModRequest) {
+    try {
+      const totalDebt = await this.service.calculateTotalDebt(
+        request.user.userId
+      )
+      return { totalDebt }
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
 }

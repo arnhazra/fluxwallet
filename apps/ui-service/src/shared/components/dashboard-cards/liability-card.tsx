@@ -4,9 +4,20 @@ import { Card, CardContent } from "@/shared/components/ui/card"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { CreditCard } from "lucide-react"
 import IconContainer from "../icon-container"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
+import useQuery from "@/shared/hooks/use-query"
 
 export default function LiabilityCard() {
   const [{ user }] = useAppContext()
+
+  const { data } = useQuery<{
+    totalDebt: number | null | undefined
+  }>({
+    queryKey: ["get-total-debt"],
+    queryUrl: `${endPoints.debt}/total`,
+    method: HTTPMethods.POST,
+  })
 
   return (
     <Card className="bg-background border-none relative overflow-hidden hover:shadow-md hover:shadow-primary/20">
@@ -21,7 +32,7 @@ export default function LiabilityCard() {
         </div>
         <div className="space-y-3">
           <p className="text-3xl font-bold text-white">
-            {formatCurrency(0, user.baseCurrency)}
+            {formatCurrency(data?.totalDebt ?? 0, user.baseCurrency)}
           </p>
           <div className="space-y-2">
             <p className="text-sm text-neutral-400">Your total liabilities</p>

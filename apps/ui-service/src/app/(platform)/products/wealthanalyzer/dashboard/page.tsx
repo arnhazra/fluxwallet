@@ -2,7 +2,7 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Institution, Valuation } from "@/shared/types"
+import { Institution } from "@/shared/types"
 import {
   InstitutionCard,
   AddInstitutionCard,
@@ -22,12 +22,6 @@ export default function Page() {
   const institutions = useQuery<Institution[]>({
     queryKey: ["get-institutions"],
     queryUrl: endPoints.institution,
-    method: HTTPMethods.GET,
-  })
-
-  const { data } = useQuery<Valuation>({
-    queryKey: ["get-total-wealth"],
-    queryUrl: `${endPoints.getTotalWealth}`,
     method: HTTPMethods.GET,
   })
 
@@ -54,12 +48,9 @@ export default function Page() {
       <section>
         <div className="space-y-8">
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <WealthCard
-              institutionCount={institutions.data?.length}
-              presentValuation={data?.presentValuation}
-            />
+            <WealthCard />
             <LiabilityCard />
-            <GoalCard presentValuation={data?.presentValuation ?? 0} />
+            <GoalCard presentValuation={0} />
           </div>
         </div>
       </section>
