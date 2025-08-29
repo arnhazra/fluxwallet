@@ -18,6 +18,7 @@ import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useAppContext } from "@/context/appstate.provider"
+import { format } from "date-fns"
 
 interface GoalModalProps {
   goalDetails: Goal
@@ -61,7 +62,7 @@ export function GoalModal({ goalDetails, children }: GoalModalProps) {
         <DialogHeader>
           <div className="flex justify-between">
             <div>
-              <DialogTitle>{goalDetails?.goalDate}</DialogTitle>
+              <DialogTitle>{format(goalDetails?.goalDate, "PPP")}</DialogTitle>
               <DialogDescription></DialogDescription>
             </div>
             <div className="flex gap-2">
