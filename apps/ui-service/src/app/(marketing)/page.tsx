@@ -130,6 +130,12 @@ export default function Page() {
           {uiConstants.pricingTitle}
         </Badge>
 
+        <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
+          Your finances deserve both intelligence and protection. FluxWallet
+          combines real-time tracking, smart categorization, and insightful
+          reporting, all built on a privacy-first foundation that respects your
+          data and puts you in charge.
+        </p>
         <p className="max-w-[85%] text-2xl sm:text-lg sm:leading-7 text-primary">
           {uiConstants.homePricing} ${subscriptionPricing?.data?.price}
           /year afterwards.
