@@ -10,7 +10,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
 @Module({
   imports: [
     CqrsModule,
-    EntityModule.forFeature(
+    EntityModule.forFeatureAsync(
       [{ name: Asset.name, schema: AssetSchema }],
       ProductsDbConnectionMap.WealthAnalyzer
     ),

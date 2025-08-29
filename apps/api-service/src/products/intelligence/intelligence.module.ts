@@ -21,8 +21,14 @@ import { config } from "@/config"
       config.PRODUCTS_DATABASE_URI,
       ProductsDbConnectionMap.Intelligence
     ),
-    EntityModule.forFeature(
-      [{ name: Thread.name, schema: ThreadSchema }],
+    EntityModule.forFeatureAsync(
+      [
+        {
+          name: Thread.name,
+          schema: ThreadSchema,
+          encryptedFields: ["prompt", "response"],
+        },
+      ],
       ProductsDbConnectionMap.Intelligence
     ),
   ],

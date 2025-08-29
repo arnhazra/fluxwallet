@@ -28,15 +28,15 @@ import { config } from "@/config"
     CqrsModule,
     HttpModule,
     EntityModule.forRoot(config.AUTH_DATABASE_URI, GeneralDbConnectionMap.Auth),
-    EntityModule.forFeature(
+    EntityModule.forFeatureAsync(
       [{ name: User.name, schema: UserSchema }],
       GeneralDbConnectionMap.Auth
     ),
-    EntityModule.forFeature(
+    EntityModule.forFeatureAsync(
       [{ name: Token.name, schema: TokenSchema }],
       GeneralDbConnectionMap.Auth
     ),
-    EntityModule.forFeature(
+    EntityModule.forFeatureAsync(
       [{ name: OneTimePassword.name, schema: OTPSchema }],
       GeneralDbConnectionMap.Auth
     ),

@@ -12,7 +12,7 @@ import { GetActivityQueryHandler } from "./queries/handler/get-activity-count.ha
 @Module({
   imports: [
     CqrsModule,
-    EntityModule.forFeature(
+    EntityModule.forFeatureAsync(
       [{ name: Activity.name, schema: ActivitySchema }],
       GeneralDbConnectionMap.Core
     ),

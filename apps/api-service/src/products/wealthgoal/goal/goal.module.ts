@@ -16,8 +16,14 @@ import { FindNearestGoalQueryHandler } from "./queries/handler/find-nearest-goal
 @Module({
   imports: [
     CqrsModule,
-    EntityModule.forFeature(
-      [{ name: Goal.name, schema: GoalSchema }],
+    EntityModule.forFeatureAsync(
+      [
+        {
+          name: Goal.name,
+          schema: GoalSchema,
+          encryptedFields: ["goalAmount"],
+        },
+      ],
       ProductsDbConnectionMap.WealthGoal
     ),
   ],

@@ -18,7 +18,7 @@ import { ValuationModule } from "../valuation/valuation.module"
   imports: [
     CqrsModule,
     ValuationModule,
-    EntityModule.forFeature(
+    EntityModule.forFeatureAsync(
       [{ name: Institution.name, schema: InstitutionSchema }],
       ProductsDbConnectionMap.WealthAnalyzer
     ),
