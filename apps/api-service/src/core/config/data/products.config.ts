@@ -37,7 +37,7 @@ export const productConfig: ProductsConfig = {
       displayName: "WealthGoal",
       description:
         "Define, track, and achieve financial goals with predictive analysis, actionable tracking, and long-term discipline.",
-      icon: "Target",
+      icon: "Goal",
       url: "/products/wealthgoal/dashboard",
     },
     {

@@ -20,6 +20,7 @@ export const uiConstants = {
   getStartedButton: "Start Free",
   assetDeleted: "Successfully deleted the asset",
   debtDeleted: "Successfully deleted the debt",
+  goalDeleted: "Successfully deleted the goal",
   linkedinURI: "https://www.linkedin.com/in/arnhazra",
   confirmDescription:
     "This action cannot be undone. Click continue to proceed, or cancel to go back.",

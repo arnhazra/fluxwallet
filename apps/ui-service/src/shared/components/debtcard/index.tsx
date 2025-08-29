@@ -6,7 +6,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
 import { Debt } from "@/shared/types"
-import { Coins, OctagonAlert, Plus } from "lucide-react"
+import { CreditCard, OctagonAlert, Plus } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"
 import { formatCurrency } from "@/shared/lib/format-currency"
@@ -28,7 +28,7 @@ export function DebtCard({ debt }: { debt: Debt }) {
               {debt.debtPurpose}
             </CardTitle>
             <IconContainer>
-              <Coins className="h-4 w-4" />
+              <CreditCard className="h-4 w-4" />
             </IconContainer>
           </div>
           <div className="flex items-center justify-between">

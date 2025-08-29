@@ -3,7 +3,7 @@ import { useAppContext } from "@/context/appstate.provider"
 import Show from "@/shared/components/show"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { formatCurrency } from "@/shared/lib/format-currency"
-import { Target } from "lucide-react"
+import { GoalIcon } from "lucide-react"
 import IconContainer from "../icon-container"
 
 export default function GoalCard({
@@ -20,7 +20,7 @@ export default function GoalCard({
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
             <IconContainer>
-              <Target className="h-5 w-5" />
+              <GoalIcon className="h-5 w-5" />
             </IconContainer>
             <span className="text-sm text-neutral-400">Goal Progress</span>
           </div>

@@ -120,6 +120,14 @@ export type Debt = {
   isLoanExpired: boolean
 }
 
+export type Goal = {
+  _id: string
+  userId: string
+  goalDate: Date
+  goalAmount: number
+  createdAt: string
+}
+
 export type Valuation = {
   presentValuation: number | null | undefined
 }
