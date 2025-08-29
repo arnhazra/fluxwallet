@@ -16,12 +16,7 @@ import { FindDebtsByUserQueryHandler } from "./queries/handler/find-debt-by-user
   imports: [
     CqrsModule,
     EntityModule.forFeature(
-      [
-        {
-          name: Debt.name,
-          schema: DebtSchema,
-        },
-      ],
+      [{ name: Debt.name, schema: DebtSchema }],
       ProductsDbConnectionMap.DebtTrack
     ),
   ],
