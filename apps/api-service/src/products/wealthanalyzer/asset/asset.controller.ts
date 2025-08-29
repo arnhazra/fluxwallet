@@ -88,4 +88,18 @@ export class AssetController {
       throw new BadRequestException(statusMessages.connectionError)
     }
   }
+
+  @UseGuards(AuthGuard)
+  @Post("total-wealth")
+  async calculateTotalWealth(@Request() request: ModRequest) {
+    try {
+      const presentValuation = await this.service.calculateTotalWealth(
+        request.user.userId
+      )
+      return { presentValuation }
+    } catch (error) {
+      console.log(error)
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
 }

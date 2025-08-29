@@ -25,7 +25,7 @@ export default function GoalDashboardCard() {
     presentValuation: number | null | undefined
   }>({
     queryKey: ["get-total-wealth"],
-    queryUrl: `${endPoints.getTotalWealth}`,
+    queryUrl: `${endPoints.asset}/total-wealth`,
     method: HTTPMethods.GET,
   })
 

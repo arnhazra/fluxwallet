@@ -15,8 +15,8 @@ export default function WealthCard() {
     presentValuation: number | null | undefined
   }>({
     queryKey: ["get-total-wealth"],
-    queryUrl: `${endPoints.getTotalWealth}`,
-    method: HTTPMethods.GET,
+    queryUrl: `${endPoints.asset}/total-wealth`,
+    method: HTTPMethods.POST,
   })
 
   return (

@@ -11,14 +11,14 @@ import { UpdateInstitutionCommand } from "./commands/impl/update-institution.com
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
 import { FindInstitutionByNameQuery } from "./queries/impl/find-institution-by-name.query"
-import { ValuationService } from "../valuation/valuation.service"
+import { AssetService } from "../asset/asset.service"
 
 @Injectable()
 export class InstitutionService {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
-    private readonly valuationService: ValuationService
+    private readonly assetService: AssetService
   ) {}
 
   @OnEvent(EventMap.CreateInstitution)
@@ -45,10 +45,10 @@ export class InstitutionService {
 
     const institutionsWithValuation = await Promise.all(
       institutions.map(async (institution) => {
-        const valuation =
-          await this.valuationService.calculateInstitutionValuation(
-            institution._id.toString()
-          )
+        const valuation = await this.assetService.calculateInstitutionValuation(
+          userId,
+          institution._id.toString()
+        )
         return {
           ...(institution.toObject?.() ?? institution),
           presentValuation: valuation,
@@ -66,10 +66,10 @@ export class InstitutionService {
         Institution
       >(new FindInstitutionByIdQuery(reqUserId, institutionId))
 
-      const valuation =
-        await this.valuationService.calculateInstitutionValuation(
-          institution._id.toString()
-        )
+      const valuation = await this.assetService.calculateInstitutionValuation(
+        reqUserId,
+        institution._id.toString()
+      )
       return {
         ...(institution.toObject?.() ?? institution),
         presentValuation: valuation,
@@ -87,10 +87,10 @@ export class InstitutionService {
         Institution
       >(new FindInstitutionByNameQuery(reqUserId, institutionName))
 
-      const valuation =
-        await this.valuationService.calculateInstitutionValuation(
-          institution._id.toString()
-        )
+      const valuation = await this.assetService.calculateInstitutionValuation(
+        reqUserId,
+        institution._id.toString()
+      )
       return {
         ...(institution.toObject?.() ?? institution),
         presentValuation: valuation,

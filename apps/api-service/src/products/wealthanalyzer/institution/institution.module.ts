@@ -12,12 +12,12 @@ import { FindInstitutionByIdQueryHandler } from "./queries/handler/find-institut
 import { EntityModule } from "@/shared/entity/entity.module"
 import { UpdateInstitutionCommandHandler } from "./commands/handler/update-institution.handler"
 import { FindInstitutionByNameQueryHandler } from "./queries/handler/find-institution-by-name.handler"
-import { ValuationModule } from "../valuation/valuation.module"
+import { AssetModule } from "../asset/asset.module"
 
 @Module({
   imports: [
     CqrsModule,
-    ValuationModule,
+    AssetModule,
     EntityModule.forFeatureAsync(
       [{ name: Institution.name, schema: InstitutionSchema }],
       ProductsDbConnectionMap.WealthAnalyzer

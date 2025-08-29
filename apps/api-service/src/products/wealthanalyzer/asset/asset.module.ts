@@ -11,13 +11,11 @@ import { FindAssetsByInstitutionQueryHandler } from "./queries/handler/find-asse
 import { FindAssetByIdQueryHandler } from "./queries/handler/find-asset-by-id.handler"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { UpdateAssetCommandHandler } from "./commands/handler/update-asset.handler"
-import { ValuationModule } from "../valuation/valuation.module"
 import { FindAssetsByUserQueryHandler } from "./queries/handler/find-assets-by-user.handler"
 
 @Module({
   imports: [
     CqrsModule,
-    ValuationModule,
     EntityModule.forFeatureAsync(
       [{ name: Asset.name, schema: AssetSchema }],
       ProductsDbConnectionMap.WealthAnalyzer
@@ -34,5 +32,6 @@ import { FindAssetsByUserQueryHandler } from "./queries/handler/find-assets-by-u
     FindAssetsByUserQueryHandler,
     FindAssetByIdQueryHandler,
   ],
+  exports: [AssetService],
 })
 export class AssetModule {}
