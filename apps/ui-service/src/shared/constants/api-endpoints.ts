@@ -20,7 +20,6 @@ export const endPoints = {
   getProductConfig: `${apiHost}/config/products`,
   getSolutionConfig: `${apiHost}/config/solutions`,
   getSubscriptionConfig: `${apiHost}/config/subscription`,
-  getTechnologyConfig: `${apiHost}/config/technology`,
   // Products Service
   asset: `${apiHost}/asset`,
   debt: `${apiHost}/debt`,

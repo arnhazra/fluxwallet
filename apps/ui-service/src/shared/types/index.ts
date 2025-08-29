@@ -159,17 +159,6 @@ export interface SolutionConfig {
   solutions: Solution[]
 }
 
-export interface TechnologyConfig {
-  title: string
-  desc: string
-  cardTitle: string
-  cardDesc: string
-  cards: {
-    title: string
-    desc: string
-  }[]
-}
-
 export interface TotalDebtDetails {
   remainingDebt: number
   totalEMI: number
