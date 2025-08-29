@@ -25,7 +25,7 @@ export const uiConstants = {
   confirmDescription:
     "This action cannot be undone. Click continue to proceed, or cancel to go back.",
   copyrightText: `${appName} Inc. All rights reserved.`,
-  pricingTitle: `${appName} Pricing`,
+  pricingTitle: `Pricing`,
   privacyPolicyStatement: `By using ${appName}, you agree to our Terms of Service and Privacy Policy.`,
   verifyEmailStatement: `Enter the OTP we've sent to your email to verify your identity.`,
   aiSafetyStatement: `${appName} Intelligence is AI-powered and may make mistakes. Please review results carefully.`,

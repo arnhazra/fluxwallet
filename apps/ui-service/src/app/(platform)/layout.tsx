@@ -64,7 +64,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
 
   const subscriptionPricing = useQuery<SubscriptionConfig>({
     queryKey: ["pricing-settings"],
-    queryUrl: endPoints.getSubscriptionPricing,
+    queryUrl: endPoints.getSubscriptionConfig,
     method: HTTPMethods.GET,
     suspense: false,
   })

@@ -2,6 +2,7 @@ import { BadRequestException, Injectable } from "@nestjs/common"
 import { productConfig } from "./data/products.config"
 import { solutionConfig } from "./data/solutions.config"
 import { subscriptionConfig } from "./data/subscription.config"
+import { technologyConfig } from "./data/technology.config"
 
 @Injectable()
 export class ConfigService {
@@ -15,6 +16,9 @@ export class ConfigService {
       }
       if (configName === "subscription") {
         return subscriptionConfig
+      }
+      if (configName === "technology") {
+        return technologyConfig
       }
       throw new Error()
     } catch (error) {

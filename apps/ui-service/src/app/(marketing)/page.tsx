@@ -5,9 +5,10 @@ import {
   ProductsConfig,
   SolutionConfig,
   SubscriptionConfig,
+  TechnologyConfig,
 } from "@/shared/types"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
-import { Check, Play } from "lucide-react"
+import { Check, Lightbulb, Play, Shield } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/tw-class-util"
 import { buttonVariants } from "@/shared/components/ui/button"
@@ -18,13 +19,23 @@ import { SolutionCard, ProductCard } from "@/shared/components/marketing-cards"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect, useState } from "react"
 import MarketingHeader from "@/shared/components/marketing-header"
+import { Badge } from "@/shared/components/ui/badge"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card"
+import IconContainer from "@/shared/components/icon-container"
+import FeatureItem from "@/shared/components/featureitem"
 
 export default function Page() {
   const router = useRouter()
   const [checked, setChecked] = useState(false)
   const subscriptionPricing = useQuery<SubscriptionConfig>({
     queryKey: ["subscription-pricing"],
-    queryUrl: endPoints.getSubscriptionPricing,
+    queryUrl: endPoints.getSubscriptionConfig,
     method: HTTPMethods.GET,
     suspense: false,
   })
@@ -39,6 +50,13 @@ export default function Page() {
   const solutions = useQuery<SolutionConfig>({
     queryKey: ["getSolutionConfig"],
     queryUrl: endPoints.getSolutionConfig,
+    method: HTTPMethods.GET,
+    suspense: false,
+  })
+
+  const technology = useQuery<TechnologyConfig>({
+    queryKey: ["getTechnologyConfig"],
+    queryUrl: endPoints.getTechnologyConfig,
     method: HTTPMethods.GET,
     suspense: false,
   })
@@ -94,23 +112,67 @@ export default function Page() {
   )
 
   const renderSolutionsSection = (
+    <section
+      id="solutions"
+      className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-3xl"
+    >
+      <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
+        <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
+          {solutions?.data?.title}
+        </h2>
+        <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
+          {solutions?.data?.desc}
+        </p>
+      </div>
+      <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
+        {solutions?.data?.solutions?.map((solution) => (
+          <SolutionCard key={solution.displayName} solution={solution} />
+        ))}
+      </div>
+    </section>
+  )
+
+  const renderTechnologySection = (
     <div className="bg-geometric-pattern">
       <section
-        id="solutions"
+        id="technology"
         className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-3xl"
       >
-        <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-          <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
-            {solutions?.data?.title}
-          </h2>
+        <div className="mx-auto flex max-w-[50rem] flex-col items-center space-y-4 text-center">
+          <Badge className="p-2 ps-4 pe-4 text-md bg-background text-primary border border-border rounded-full">
+            <Lightbulb className="h-4 w-4 me-2" />
+            {technology?.data?.title}
+          </Badge>
           <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-            {solutions?.data?.desc}
+            {technology?.data?.desc}
           </p>
         </div>
-        <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
-          {solutions?.data?.solutions?.map((solution) => (
-            <SolutionCard key={solution.displayName} solution={solution} />
-          ))}
+        <div className="mx-auto max-w-3xl">
+          <Card className="bg-background text-white border border-border hover:shadow-md hover:shadow-primary/20">
+            <CardHeader className="flex flex-row items-center gap-4">
+              <IconContainer>
+                <Shield className="h-4 w-4" />
+              </IconContainer>
+              <div className="flex-1">
+                <CardTitle className="text-lg">
+                  {technology?.data?.cardTitle}
+                </CardTitle>
+                <CardDescription className="text-neutral-300">
+                  {technology?.data?.cardDesc}
+                </CardDescription>
+              </div>
+            </CardHeader>
+
+            <CardContent className="space-y-6">
+              <ul className="grid grid-cols-1 gap-3 md:grid-cols-2">
+                {technology?.data?.cards?.map((card) => (
+                  <FeatureItem key={card.title} title={card.title}>
+                    {card.desc}
+                  </FeatureItem>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
         </div>
       </section>
     </div>
@@ -213,6 +275,7 @@ export default function Page() {
         {renderHeroSection}
         {renderProductsSection}
         {renderSolutionsSection}
+        {renderTechnologySection}
         {renderPricingSection}
       </div>
       {renderFooterSection}
