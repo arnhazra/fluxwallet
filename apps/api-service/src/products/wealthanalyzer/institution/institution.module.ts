@@ -18,7 +18,7 @@ import { AssetModule } from "../asset/asset.module"
   imports: [
     CqrsModule,
     AssetModule,
-    EntityModule.forFeatureAsync(
+    EntityModule.forFeature(
       [{ name: Institution.name, schema: InstitutionSchema }],
       ProductsDbConnectionMap.WealthAnalyzer
     ),

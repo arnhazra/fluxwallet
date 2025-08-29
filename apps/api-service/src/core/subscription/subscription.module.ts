@@ -12,7 +12,7 @@ import { GeneralDbConnectionMap } from "src/shared/utils/db-connection.map"
 @Module({
   imports: [
     CqrsModule,
-    EntityModule.forFeatureAsync(
+    EntityModule.forFeature(
       [{ name: Subscription.name, schema: SubscriptionSchema }],
       GeneralDbConnectionMap.Core
     ),

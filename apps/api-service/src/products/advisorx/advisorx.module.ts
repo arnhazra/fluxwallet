@@ -17,12 +17,11 @@ import { config } from "@/config"
   imports: [
     HttpModule,
     CqrsModule,
-    EntityModule.forFeatureAsync(
+    EntityModule.forFeature(
       [
         {
           name: Thread.name,
           schema: ThreadSchema,
-          encryptedFields: ["prompt", "response"],
         },
       ],
       ProductsDbConnectionMap.AdvisorX

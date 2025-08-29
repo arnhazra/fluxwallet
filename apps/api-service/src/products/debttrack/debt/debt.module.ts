@@ -15,17 +15,11 @@ import { FindDebtsByUserQueryHandler } from "./queries/handler/find-debt-by-user
 @Module({
   imports: [
     CqrsModule,
-    EntityModule.forFeatureAsync(
+    EntityModule.forFeature(
       [
         {
           name: Debt.name,
           schema: DebtSchema,
-          encryptedFields: [
-            "debtPurpose",
-            "identifier",
-            "principalAmount",
-            "interestRate",
-          ],
         },
       ],
       ProductsDbConnectionMap.DebtTrack

@@ -2,7 +2,6 @@
 
 ## v1.0
 
-- Introduced HyperSec for encryption & decryption
 - Launched the app as a unified platform with separated products
 - Revamped architecture with major code refactoring for better scalability
 - Significant UI improvements for a smoother user experience

@@ -16,7 +16,7 @@ import { FindAssetsByUserQueryHandler } from "./queries/handler/find-assets-by-u
 @Module({
   imports: [
     CqrsModule,
-    EntityModule.forFeatureAsync(
+    EntityModule.forFeature(
       [{ name: Asset.name, schema: AssetSchema }],
       ProductsDbConnectionMap.WealthAnalyzer
     ),
