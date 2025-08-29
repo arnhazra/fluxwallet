@@ -17,6 +17,10 @@ import { config } from "@/config"
   imports: [
     HttpModule,
     CqrsModule,
+    EntityModule.forRoot(
+      config.PRODUCTS_DATABASE_URI,
+      ProductsDbConnectionMap.AdvisorX
+    ),
     EntityModule.forFeature(
       [
         {
@@ -24,10 +28,6 @@ import { config } from "@/config"
           schema: ThreadSchema,
         },
       ],
-      ProductsDbConnectionMap.AdvisorX
-    ),
-    EntityModule.forRoot(
-      config.PRODUCTS_DATABASE_URI,
       ProductsDbConnectionMap.AdvisorX
     ),
   ],
