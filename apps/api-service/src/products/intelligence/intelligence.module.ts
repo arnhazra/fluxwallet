@@ -22,12 +22,7 @@ import { config } from "@/config"
       ProductsDbConnectionMap.Intelligence
     ),
     EntityModule.forFeature(
-      [
-        {
-          name: Thread.name,
-          schema: ThreadSchema,
-        },
-      ],
+      [{ name: Thread.name, schema: ThreadSchema }],
       ProductsDbConnectionMap.Intelligence
     ),
   ],
