@@ -8,7 +8,7 @@ import {
   TechnologyConfig,
 } from "@/shared/types"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
-import { Check, Lightbulb, Play, Shield } from "lucide-react"
+import { BoxIcon, Check, Coins, Lightbulb, Play, Shield } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/tw-class-util"
 import { buttonVariants } from "@/shared/components/ui/button"
@@ -96,9 +96,10 @@ export default function Page() {
       className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-3xl"
     >
       <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-        <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
+        <Badge className="p-2 ps-4 pe-4 text-md bg-background text-primary border border-border rounded-full">
+          <BoxIcon className="h-4 w-4 me-2" />
           {products?.data?.title}
-        </h2>
+        </Badge>
         <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
           {products?.data?.desc}
         </p>
@@ -117,9 +118,10 @@ export default function Page() {
       className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-3xl"
     >
       <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
-        <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
+        <Badge className="p-2 ps-4 pe-4 text-md bg-background text-primary border border-border rounded-full">
+          <Lightbulb className="h-4 w-4 me-2" />
           {solutions?.data?.title}
-        </h2>
+        </Badge>
         <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
           {solutions?.data?.desc}
         </p>
@@ -140,7 +142,7 @@ export default function Page() {
       >
         <div className="mx-auto flex max-w-[50rem] flex-col items-center space-y-4 text-center">
           <Badge className="p-2 ps-4 pe-4 text-md bg-background text-primary border border-border rounded-full">
-            <Lightbulb className="h-4 w-4 me-2" />
+            <Shield className="h-4 w-4 me-2" />
             {technology?.data?.title}
           </Badge>
           <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
@@ -184,9 +186,11 @@ export default function Page() {
       className="container py-8 md:py-12 lg:py-24 md:max-w-[64rem]"
     >
       <div className="mx-auto flex max-w-[64rem] flex-col items-center justify-center gap-4 text-center mb-8">
-        <h2 className="font-heading text-xl leading-[1.1] sm:text-2xl md:text-4xl">
+        <Badge className="p-2 ps-4 pe-4 text-md bg-background text-primary border border-border rounded-full">
+          <Coins className="h-4 w-4 me-2" />
           {uiConstants.pricingTitle}
-        </h2>
+        </Badge>
+
         <p className="max-w-[85%] text-2xl sm:text-lg sm:leading-7 text-primary">
           {uiConstants.homePricing} ${subscriptionPricing?.data?.price}
           /year afterwards.

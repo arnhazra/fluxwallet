@@ -10,11 +10,11 @@ export default function FeatureItem({
   return (
     <li className="flex items-start gap-3">
       <span className="mt-0.5 inline-flex h-5 w-5 items-center justify-center">
-        <ShieldCheck className="h-4 w-4" />
+        <ShieldCheck className="h-4 w-4 text-primary" />
       </span>
       <div>
         <p className="text-sm font-medium text-primary">{title}</p>
-        <p className="text-sm leading-relaxed text-neutral-300">{children}</p>
+        <p className="text-sm leading-relaxed text-neutral-200">{children}</p>
       </div>
     </li>
   )
