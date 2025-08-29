@@ -34,6 +34,7 @@ export function GoalModal({ goalDetails, children }: GoalModalProps) {
   const { confirm } = useConfirmContext()
 
   const deleteGoal = async (): Promise<void> => {
+    setOpen(false)
     const confirmed = await confirm({
       title: "Delete Goal",
       desc: "Are you sure you want to delete this goal?",

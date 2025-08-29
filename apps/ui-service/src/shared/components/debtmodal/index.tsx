@@ -41,6 +41,7 @@ export function DebtModal({ debtDetails, children }: DebtModalProps) {
   const { confirm } = useConfirmContext()
 
   const deleteDebt = async (): Promise<void> => {
+    setOpen(false)
     const confirmed = await confirm({
       title: "Delete Debt",
       desc: "Are you sure you want to delete this debt?",

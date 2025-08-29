@@ -60,7 +60,7 @@ function useConfirm() {
           </Button>
           <Button
             variant="default"
-            className="bg-primary text-white hover:bg-primary"
+            className="bg-primary text-black hover:bg-primary"
             onClick={() => handleConfirm(true)}
           >
             Continue

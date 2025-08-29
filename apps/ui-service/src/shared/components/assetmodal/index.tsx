@@ -41,6 +41,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
   const { confirm } = useConfirmContext()
 
   const deleteAsset = async (): Promise<void> => {
+    setOpen(false)
     const confirmed = await confirm({
       title: "Delete Asset",
       desc: "Are you sure you want to delete this asset?",
