@@ -8,6 +8,7 @@ import { CreateGoalRequestDto } from "./dto/request/create-goal.request.dto"
 import { UpdateGoalCommand } from "./commands/impl/update-goal.command"
 import { FindGoalsByUserQuery } from "./queries/impl/find-goal-by-user.query"
 import { FindGoalByIdQuery } from "./queries/impl/find-goal-by-id.query"
+import { FindNearestGoalQuery } from "./queries/impl/find-nearest-goal.query"
 
 @Injectable()
 export class GoalService {
@@ -30,6 +31,16 @@ export class GoalService {
     try {
       return await this.queryBus.execute<FindGoalsByUserQuery, Goal[]>(
         new FindGoalsByUserQuery(userId)
+      )
+    } catch (error) {
+      throw new BadRequestException(statusMessages.connectionError)
+    }
+  }
+
+  async findNearestGoal(userId: string) {
+    try {
+      return await this.queryBus.execute<FindNearestGoalQuery, Goal>(
+        new FindNearestGoalQuery(userId)
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
