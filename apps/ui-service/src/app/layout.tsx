@@ -16,12 +16,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
           name="viewport"
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
         />
-        <meta name="theme-color" content="#18181b" />
+        <meta name="theme-color" content="#121212" />
         <meta name="description" content={uiConstants.homeIntro} />
       </head>
       <body className={quickSand.className}>
         <Providers>
-          <NextTopLoader color="#1db954" showSpinner={false} height={2} />
+          <NextTopLoader color="#08f468" showSpinner={false} height={2} />
           <main className="min-h-screen w-full bg-main">{children}</main>
         </Providers>
       </body>

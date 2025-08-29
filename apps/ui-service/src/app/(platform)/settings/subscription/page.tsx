@@ -3,7 +3,8 @@ import Show from "@/shared/components/show"
 import { format } from "date-fns"
 import { Bolt, CalendarClock } from "lucide-react"
 import { useAppContext } from "@/context/appstate.provider"
-import SectionPanel from "@/shared/components/sectionpanel"
+import SectionPanel from "@/shared/components/section-panel"
+import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
   const [{ subscription, isSubscriptionActive }] = useAppContext()
@@ -12,7 +13,11 @@ export default function Page() {
     <>
       <Show condition={!isSubscriptionActive}>
         <SectionPanel
-          icon={<CalendarClock className="h-4 w-4" />}
+          icon={
+            <IconContainer>
+              <CalendarClock className="h-4 w-4" />
+            </IconContainer>
+          }
           title="Your Subscription"
           content="You don't have a subscription"
         />
@@ -20,12 +25,20 @@ export default function Page() {
       <Show condition={!!isSubscriptionActive}>
         <section className="grid gap-2">
           <SectionPanel
-            icon={<Bolt className="h-4 w-4" />}
+            icon={
+              <IconContainer>
+                <Bolt className="h-4 w-4" />
+              </IconContainer>
+            }
             title="Your Subscription"
             content="You have an active subscription"
           />
           <SectionPanel
-            icon={<CalendarClock className="h-4 w-4" />}
+            icon={
+              <IconContainer>
+                <CalendarClock className="h-4 w-4" />
+              </IconContainer>
+            }
             title="Subscription Start Date"
             content={format(
               subscription?.createdAt
@@ -35,7 +48,11 @@ export default function Page() {
             )}
           />
           <SectionPanel
-            icon={<CalendarClock className="h-4 w-4" />}
+            icon={
+              <IconContainer>
+                <CalendarClock className="h-4 w-4" />
+              </IconContainer>
+            }
             title="Subscription Valid Upto"
             content={
               subscription?.endsAt?.includes("9999")

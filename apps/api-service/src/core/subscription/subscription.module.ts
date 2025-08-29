@@ -7,14 +7,14 @@ import { FindSubscriptionByUserIdQueryHandler } from "./queries/handler/find-sub
 import { CqrsModule } from "@nestjs/cqrs"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { Subscription, SubscriptionSchema } from "./schemas/subscription.schema"
-import { DbConnectionMap } from "src/shared/utils/db-connection.map"
+import { GeneralDbConnectionMap } from "src/shared/utils/db-connection.map"
 
 @Module({
   imports: [
     CqrsModule,
     EntityModule.forFeature(
       [{ name: Subscription.name, schema: SubscriptionSchema }],
-      DbConnectionMap.Primary
+      GeneralDbConnectionMap.Core
     ),
   ],
   controllers: [SubscriptionController],

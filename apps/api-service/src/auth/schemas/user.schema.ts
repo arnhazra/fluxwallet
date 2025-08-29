@@ -21,13 +21,7 @@ export class User extends Document {
   baseCurrency: Currency
 
   @Prop({ default: null })
-  wealthGoal: number | null
-
-  @Prop({ default: null })
   avatar: string | null
-
-  @Prop({ default: 0 })
-  currentLiabilities: number
 
   @Prop({ type: Boolean, default: true })
   reduceCarbonEmissions: boolean

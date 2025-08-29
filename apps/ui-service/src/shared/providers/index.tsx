@@ -22,15 +22,9 @@ export default function Providers({ children }: { children: ReactNode }) {
               position="top-right"
               toastOptions={{
                 style: {
-                  background: "#18181b",
+                  background: "#171717",
                   borderColor: "#27272a",
-                  color: "#ffffff",
                 },
-              }}
-              style={{
-                background: "#18181b",
-                borderColor: "#27272a",
-                color: "#ffffff",
               }}
             />
           </AppStateProvider>

@@ -1,23 +1,19 @@
 import { Module } from "@nestjs/common"
 import { SubscriptionModule } from "./subscription/subscription.module"
 import { config } from "src/config"
-import { DbConnectionMap } from "src/shared/utils/db-connection.map"
+import { GeneralDbConnectionMap } from "src/shared/utils/db-connection.map"
 import { ActivityModule } from "./activity/activity.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { EmailModule } from "./email/email.module"
-import { InstitutionModule } from "./institution/institution.module"
-import { AssetModule } from "./asset/asset.module"
-import { ValuationModule } from "./valuation/valuation.module"
+import { ConfigModule } from "./config/config.module"
 
 @Module({
   imports: [
-    EntityModule.forRoot(config.PRIMARY_DATABASE_URI, DbConnectionMap.Primary),
+    EntityModule.forRoot(config.CORE_DATABASE_URI, GeneralDbConnectionMap.Core),
     ActivityModule,
     SubscriptionModule,
     EmailModule,
-    InstitutionModule,
-    AssetModule,
-    ValuationModule,
+    ConfigModule,
   ],
 })
 export class CoreModule {}

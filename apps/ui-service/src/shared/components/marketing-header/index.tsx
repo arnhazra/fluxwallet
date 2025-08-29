@@ -1,6 +1,6 @@
 import Link from "next/link"
-import { WalletMinimal, PanelLeft } from "lucide-react"
-import { Button } from "@/shared/components/ui/button"
+import { Wallet, PanelLeft, Play } from "lucide-react"
+import { Button, buttonVariants } from "@/shared/components/ui/button"
 import {
   Sheet,
   SheetContent,
@@ -8,31 +8,49 @@ import {
   SheetTrigger,
 } from "@/shared/components/ui/sheet"
 import { generalUserLinks } from "./data"
-import { appName } from "@/shared/constants/global-constants"
+import { appName, uiConstants } from "@/shared/constants/global-constants"
+import { cn } from "@/shared/lib/tw-class-util"
+import IconContainer from "../icon-container"
 
 export default function MarketingHeader() {
   return (
-    <header className="relative z-50 top-0 flex h-[64px] items-center bg-background text-white px-4 md:px-6">
+    <header className="relative z-50 top-0 flex h-[64px] items-center bg-main text-white px-4 md:px-6">
       <div className="flex w-full items-center justify-between lg:container lg:max-w-[90rem]">
         <Link
           href="/"
-          className="flex items-center gap-2 text-lg font-semibold"
+          className="flex items-center gap-2 text-xl font-semibold me-8"
         >
-          <WalletMinimal className="text-primary h-6 w-6" />
+          <IconContainer>
+            <Wallet className="h-4 w-4" />
+          </IconContainer>
           {appName}
         </Link>
-        <nav className="hidden md:flex items-center justify-end gap-2 flex-1">
+        <nav className="hidden md:flex items-center justify-start gap-3 flex-1">
           {generalUserLinks.map((item, index) => (
             <Link
               key={index}
               href={item.link}
-              className="text-sm font-medium text-white hover:text-primary mx-3"
+              className="text-md font-medium text-white hover:text-primary mx-3"
               target={item.external ? "_blank" : ""}
               rel={item.external ? "noopener noreferrer" : ""}
             >
               {item.displayName}
             </Link>
           ))}
+        </nav>
+        <nav className="hidden md:flex items-center justify-end gap-3 flex-1">
+          <Link
+            href="/dashboard"
+            className={cn(
+              buttonVariants({
+                variant: "default",
+                className:
+                  "bg-primary hover:bg-primary text-black rounded-full h-9",
+              })
+            )}
+          >
+            {uiConstants.getStartedButton}
+          </Link>
         </nav>
         <div className="flex items-center space-x-4">
           <Sheet>
@@ -55,7 +73,9 @@ export default function MarketingHeader() {
                   href="/"
                   className="flex items-center gap-2 text-lg font-semibold"
                 >
-                  <WalletMinimal className="text-primary h-6 w-6" />
+                  <IconContainer>
+                    <Wallet className="h-4 w-4" />
+                  </IconContainer>
                 </Link>
                 {generalUserLinks.map((item, index) => (
                   <Link

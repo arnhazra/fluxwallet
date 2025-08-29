@@ -1,5 +1,5 @@
 "use client"
-import SectionPanel from "../../../../shared/components/sectionpanel"
+import SectionPanel from "../../../../shared/components/section-panel"
 import { Switch } from "@/shared/components/ui/switch"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
@@ -8,6 +8,7 @@ import ky from "ky"
 import { Leaf } from "lucide-react"
 import { useAppContext } from "@/context/appstate.provider"
 import notify from "@/shared/hooks/use-notify"
+import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
   const [{ user }, dispatch] = useAppContext()
@@ -29,9 +30,13 @@ export default function Page() {
 
   return (
     <SectionPanel
-      icon={<Leaf className="h-4 w-4" />}
+      icon={
+        <IconContainer>
+          <Leaf className="h-4 w-4" />
+        </IconContainer>
+      }
       title="Reduce Carbon Emissions"
-      content={`Turn this settings on to reduce carbon footprints inside ${appName}`}
+      content={`Turn this settings on to reduce carbon footprints inside ${appName} by optimizing API calls`}
       actionComponents={[
         <Switch
           checked={user.reduceCarbonEmissions}

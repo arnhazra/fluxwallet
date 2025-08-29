@@ -75,7 +75,7 @@ export default function AuthenticationPage({
     }
   }
 
-  const onGoogleOAuthSuccess = (userData: any) => {
+  const googleOAuthLogin = (userData: any) => {
     setAuthLoading(true)
 
     try {
@@ -129,7 +129,7 @@ export default function AuthenticationPage({
                   <Button
                     type="submit"
                     size="lg"
-                    className="w-full h-11 mt-4 bg-primary hover:bg-primary"
+                    className="w-full h-12 mt-4 bg-primary hover:bg-primary text-black rounded-full"
                     disabled={isAuthLoading}
                   >
                     <Show
@@ -153,7 +153,7 @@ export default function AuthenticationPage({
                     <div className="flex-grow border-t border-border"></div>
                   </div>
                 </div>
-                <GoogleOAuth handleSuccess={onGoogleOAuthSuccess} />
+                <GoogleOAuth handleSuccess={googleOAuthLogin} />
               </Show>
               <Show condition={authStep === 2}>
                 <form onSubmit={validateOTP}>
@@ -184,7 +184,7 @@ export default function AuthenticationPage({
                         onChange={(e) =>
                           setState({ ...state, otp: e.target.value })
                         }
-                        autoComplete={"off"}
+                        autoComplete="off"
                         minLength={6}
                         maxLength={6}
                       />
@@ -193,7 +193,7 @@ export default function AuthenticationPage({
                       variant="default"
                       type="submit"
                       disabled={isAuthLoading}
-                      className="w-full h-11 mt-2 bg-primary hover:bg-primary"
+                      className="w-full h-12 mt-2 bg-primary hover:bg-primary text-black rounded-full"
                     >
                       <Show
                         condition={!isAuthLoading}
@@ -212,7 +212,7 @@ export default function AuthenticationPage({
                 </form>
               </Show>
             </div>
-            <div className="mt-4 text-sm text-neutral-500">
+            <div className="mt-4 text-sm text-neutral-300">
               {uiConstants.privacyPolicyStatement}
             </div>
           </CardContent>

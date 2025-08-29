@@ -88,13 +88,15 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
             <div className="flex gap-2">
               <Button
                 onClick={(): void =>
-                  router.push(`/edit/asset/${assetDetails._id}`)
+                  router.push(
+                    `/products/wealthanalyzer/edit/asset/${assetDetails._id}`
+                  )
                 }
                 variant="default"
                 size="icon"
-                className="p-2 bg-green-500/20 hover:bg-green-500/20 rounded-lg"
+                className="p-2 bg-primary hover:bg-primary"
               >
-                <Pen className="text-green-400 h-4 w-4" />
+                <Pen className="text-black h-4 w-4" />
               </Button>
               <Button onClick={deleteAsset} variant="destructive" size="icon">
                 <Trash className="h-4 w-4" />

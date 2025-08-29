@@ -6,23 +6,26 @@ import {
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
 import { Institution } from "@/shared/types"
-import { Landmark, Plus } from "lucide-react"
+import { Building, Plus } from "lucide-react"
 import Link from "next/link"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { useAppContext } from "@/context/appstate.provider"
+import IconContainer from "../icon-container"
 
 export function InstitutionCard({ institution }: { institution: Institution }) {
   const [{ user }] = useAppContext()
 
   return (
-    <Link href={`/institution/${institution._id}`}>
-      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white">
+    <Link href={`/products/wealthanalyzer/institution/${institution._id}`}>
+      <Card className="w-full max-w-sm bg-background border-none text-white hover:shadow-md hover:shadow-primary/20 duration-400">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold truncate text-white">
               {institution.institutionName}
             </CardTitle>
-            <Landmark className="text-primary w-6 h-6" />
+            <IconContainer>
+              <Building className="h-4 w-4" />
+            </IconContainer>
           </div>
           <Badge
             variant="default"
@@ -54,8 +57,8 @@ export function InstitutionCard({ institution }: { institution: Institution }) {
 
 export function AddInstitutionCard() {
   return (
-    <Link href="/create/institution">
-      <Card className="w-full max-w-sm h-[147px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white">
+    <Link href="/products/wealthanalyzer/create/institution">
+      <Card className="w-full max-w-sm h-[147px] flex items-center justify-center hover:shadow-md hover:shadow-primary/20 duration-400 bg-background border-none text-white">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>

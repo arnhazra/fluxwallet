@@ -1,133 +1,57 @@
-import { Brain, Check, Cog } from "lucide-react"
-import { Button } from "../ui/button"
+import * as Icons from "lucide-react"
+import { Product, Solution } from "@/shared/types"
+import IconContainer from "../icon-container"
+import { useRouter } from "nextjs-toploader/app"
+import {
+  ControlVector,
+  IntelligenceVector,
+  OverviewVector,
+} from "@/shared/assets/svg"
 import { appName } from "@/shared/constants/global-constants"
 
-export function OverviewCard() {
+const VisualComponents: Record<string, React.FC> = {
+  overview: OverviewVector,
+  intelligence: IntelligenceVector,
+  control: ControlVector,
+}
+
+export function ProductCard({ product }: { product: Product }) {
+  const LucideIcon = (Icons as any)[product.icon] || Icons.HelpCircle
+  const router = useRouter()
+
   return (
-    <div className="bg-background border-white p-8 rounded-lg">
+    <div
+      className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
+      onClick={() => router.push(product.url)}
+    >
       <div className="flex justify-between items-center mb-12">
-        <h2 className="text-3xl">Overview</h2>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full text-white bg-primary hover:bg-primary"
-        >
-          <Check className="h-4 w-4 text-white" />
-          <span className="sr-only">Your finance dashboard</span>
-        </Button>
+        <div>
+          <p className="text-xs">{appName}</p>
+          <h2 className="text-xl">{product.displayName}</h2>
+        </div>
+        <IconContainer>
+          <LucideIcon className="h-4 w-4 text-black" />
+        </IconContainer>
       </div>
-      <div className="flex gap-8 mb-8 justify-center">
-        <div className="w-16 h-16 bg-white rounded-full" />
-        <div className="w-16 h-16 bg-primary rounded-full" />
-      </div>
-      <div className="flex gap-8 mb-8 justify-center">
-        <div className="w-16 h-16 bg-primary rounded-full" />
-        <div className="w-16 h-16 bg-white rounded-full" />
-      </div>
-      <p className="text-md leading-relaxed">
-        See your entire financial landscape at a glance — assets, liabilities,
-        and net worth all organized in one clean view.
-      </p>
+      <p className="text-sm leading-relaxed justify">{product.description}</p>
     </div>
   )
 }
 
-export function IntelligenceCard() {
-  return (
-    <div className="bg-background border-border p-8 rounded-lg">
-      <div className="flex justify-between items-center mb-12">
-        <h2 className="text-3xl">Intelligence</h2>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full bg-primary hover:bg-primary"
-        >
-          <Brain className="h-4 w-4 text-white" />
-          <span className="sr-only">{appName} Intelligence</span>
-        </Button>
-      </div>
-      <div className="flex justify-center mb-8">
-        <div className="w-64 h-32 relative">
-          <div className="absolute top-0 left-0 bg-primary p-2 rounded-lg">
-            <svg
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="none"
-              xmlns="http://www.w3.org/2000/svg"
-            >
-              <Brain />
-            </svg>
-          </div>
-          <div className="absolute top-12 left-4 w-48 h-4 bg-neutral-600 rounded" />
-          <div className="absolute top-20 left-4 w-36 h-4 bg-neutral-600 rounded" />
-        </div>
-      </div>
-      <p className="text-md leading-relaxed">
-        Leverage AI-powered insights to identify trends, uncover opportunities,
-        and get personalized suggestions to grow and protect your wealth.
-      </p>
-    </div>
-  )
-}
+export function SolutionCard({ solution }: { solution: Solution }) {
+  const LucideIcon = (Icons as any)[solution.icon] || Icons.HelpCircle
+  const Visual = VisualComponents[solution.vector]
 
-export function ControlCard() {
   return (
-    <div className="bg-background p-8 rounded-lg">
+    <div className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20">
       <div className="flex justify-between items-center mb-12">
-        <h2 className="text-3xl">Control</h2>
-        <Button
-          variant="ghost"
-          size="icon"
-          className="rounded-full bg-primary hover:bg-primary"
-        >
-          <Cog className="h-4 w-4 text-white" />
-          <span className="sr-only">Learn more about control</span>
-        </Button>
+        <h2 className="text-3xl">{solution.displayName}</h2>
+        <IconContainer>
+          <LucideIcon className="h-4 w-4 text-black" />
+        </IconContainer>
       </div>
-      <div className="grid grid-cols-2 gap-4 mb-8 max-w-[200px] mx-auto">
-        <div className="space-y-4">
-          <div className="w-16 h-16">
-            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
-          </div>
-          <div className="w-16 h-16">
-            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
-          </div>
-        </div>
-        <div className="space-y-4">
-          <div className="w-16 h-16">
-            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
-          </div>
-          <div className="w-16 h-16 relative">
-            <div className="w-16 h-8 bg-neutral-100 rounded-t-full" />
-            <div className="w-16 h-8 bg-neutral-600 rounded-b-full" />
-            <div className="absolute bottom-0 right-0 bg-primary p-1 rounded-lg">
-              <svg
-                width="16"
-                height="16"
-                viewBox="0 0 24 24"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M20 6L9 17L4 12"
-                  stroke="white"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-      <p className="text-md leading-relaxed">
-        Easily manage all your assets — add, edit, or remove entries anytime
-        with full flexibility and total peace of mind.
-      </p>
+      <Visual />
+      <p className="text-md leading-relaxed mt-auto">{solution.description}</p>
     </div>
   )
 }

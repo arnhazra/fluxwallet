@@ -6,7 +6,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
 import { Asset } from "@/shared/types"
-import { Coins, OctagonAlert, Plus } from "lucide-react"
+import { Banknote, OctagonAlert, Plus } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"
 import { formatCurrency } from "@/shared/lib/format-currency"
@@ -14,6 +14,7 @@ import { useAppContext } from "@/context/appstate.provider"
 import { AssetModal } from "../assetmodal"
 import Show from "../show"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
+import IconContainer from "../icon-container"
 
 export function AssetCard({ asset }: { asset: Asset }) {
   const [{ user }] = useAppContext()
@@ -38,13 +39,15 @@ export function AssetCard({ asset }: { asset: Asset }) {
 
   return (
     <AssetModal assetDetails={asset} key={asset._id}>
-      <Card className="w-full max-w-sm hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white cursor-pointer">
+      <Card className="w-full max-w-sm bg-background border-none text-white cursor-pointer hover:shadow-md hover:shadow-primary/20 duration-400">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold truncate text-white">
               {asset.assetName}
             </CardTitle>
-            <Coins className="text-primary w-6 h-6" />
+            <IconContainer>
+              <Banknote className="h-4 w-4" />
+            </IconContainer>
           </div>
           <div className="flex items-center justify-between">
             <Badge
@@ -104,8 +107,8 @@ export function AssetCard({ asset }: { asset: Asset }) {
 
 export function AddAssetCard() {
   return (
-    <Link href={`/create/asset`}>
-      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center hover:shadow-lg transition-shadow duration-200 bg-background border-none text-white">
+    <Link href={`/products/wealthanalyzer/create/asset`}>
+      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center bg-background border-none text-white hover:shadow-md hover:shadow-primary/20 duration-400">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>

@@ -1,8 +1,14 @@
 # Changelog
 
+## v1.0
+
+- Launched the app as a unified platform with separated products
+- Revamped architecture with major code refactoring for better scalability
+- Significant UI improvements for a smoother user experience
+
 ## v0.9
 
-- Added more security to OTP authentication workflow
+- Added secure OTP authentication workflow
 - Dependency updates & bug fixes
 - Code refactoring
 
