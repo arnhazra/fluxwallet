@@ -12,7 +12,7 @@ import { useAppContext } from "@/context/appstate.provider"
 import { Button } from "../ui/button"
 import { useRouter } from "nextjs-toploader/app"
 
-export default function GoalCard() {
+export default function GoalDashboardCard() {
   const [{ user }] = useAppContext()
   const router = useRouter()
   const { data } = useQuery<Goal>({

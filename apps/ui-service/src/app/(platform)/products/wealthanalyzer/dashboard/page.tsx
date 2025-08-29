@@ -12,9 +12,9 @@ import { useEffect } from "react"
 import notify from "@/shared/hooks/use-notify"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { useSearchParams } from "next/navigation"
-import GoalCard from "@/shared/components/dashboard-cards/goal-card"
 import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
 import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
+import GoalDashboardCard from "@/shared/components/dashboard-cards/goal-dashboard-card"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -50,7 +50,7 @@ export default function Page() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <WealthCard />
             <LiabilityCard />
-            <GoalCard presentValuation={0} />
+            <GoalDashboardCard />
           </div>
         </div>
       </section>

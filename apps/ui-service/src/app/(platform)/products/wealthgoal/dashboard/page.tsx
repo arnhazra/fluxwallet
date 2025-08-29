@@ -2,7 +2,7 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Debt, Goal } from "@/shared/types"
+import { Goal } from "@/shared/types"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect } from "react"
 import notify from "@/shared/hooks/use-notify"
