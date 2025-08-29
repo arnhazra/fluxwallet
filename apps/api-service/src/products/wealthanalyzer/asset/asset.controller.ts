@@ -98,7 +98,6 @@ export class AssetController {
       )
       return { presentValuation }
     } catch (error) {
-      console.log(error)
       throw new BadRequestException(statusMessages.connectionError)
     }
   }

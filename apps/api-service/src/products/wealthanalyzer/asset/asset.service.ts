@@ -204,7 +204,6 @@ export class AssetService {
       const total = valuations.reduce((sum, val) => sum + val, 0)
       return total
     } catch (error) {
-      console.log(error)
       throw new BadRequestException()
     }
   }
