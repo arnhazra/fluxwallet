@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import { Bot, User, ArrowUp, Brain } from "lucide-react"
+import { Bot, User, ArrowUp, Users, Sparkle } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -131,7 +131,7 @@ export default function Page() {
         <div className="space-y-4">
           <Show condition={messages.length === 0}>
             <div className="text-center mt-8 max-w-xl mx-auto">
-              <Brain className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <Users className="h-12 w-12 mx-auto mb-4 text-primary" />
               <p className="text-primary">{appName} AdvisorX</p>
               <p className="text-sm mt-2 text-white p-6">
                 {appName} AdvisorX is an agentic workflow powered by AI, so
@@ -250,7 +250,7 @@ export default function Page() {
                 >
                   <SelectTrigger className="w-auto bg-transparent border-none text-neutral-300 hover:text-white focus:ring-0 focus:ring-offset-0">
                     <div className="flex items-center gap-2">
-                      <Brain className="h-4 w-4 text-primary" />
+                      <Sparkle className="h-4 w-4 text-primary" />
                       <SelectValue />
                     </div>
                   </SelectTrigger>

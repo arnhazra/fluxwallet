@@ -151,6 +151,12 @@ export interface SolutionConfig {
   solutions: Solution[]
 }
 
+export interface TotalDebtDetails {
+  remainingDebt: number
+  totalEMI: number
+  totalPrincipal: number
+}
+
 export enum Currency {
   AED = "AED",
   AFN = "AFN",

@@ -84,10 +84,9 @@ export class DebtController {
   @Post("total")
   async calculateTotalDebt(@Request() request: ModRequest) {
     try {
-      const totalDebt = await this.service.calculateTotalDebt(
-        request.user.userId
-      )
-      return { totalDebt }
+      const { remainingDebt, totalEMI, totalPrincipal } =
+        await this.service.calculateTotalDebt(request.user.userId)
+      return { remainingDebt, totalEMI, totalPrincipal }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

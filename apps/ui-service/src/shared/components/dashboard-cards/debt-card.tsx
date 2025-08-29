@@ -9,7 +9,7 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
 import { TotalDebtDetails } from "@/shared/types"
 
-export default function LiabilityCard() {
+export default function PrincipalCard() {
   const [{ user }] = useAppContext()
 
   const { data } = useQuery<TotalDebtDetails>({
@@ -27,20 +27,18 @@ export default function LiabilityCard() {
               <CreditCard className="h-5 w-5" />
             </IconContainer>
             <span className="text-sm text-neutral-400">
-              Current Liabilities
+              Total Debt Principal
             </span>
           </div>
         </div>
         <div className="space-y-3">
           <p className="text-3xl font-bold text-white">
-            {formatCurrency(data?.remainingDebt ?? 0, user.baseCurrency)}
+            {formatCurrency(data?.totalPrincipal ?? 0, user.baseCurrency)}
           </p>
           <div className="space-y-2">
-            <p className="text-sm text-neutral-400">
-              Your total remaining liabilities
-            </p>
+            <p className="text-sm text-neutral-400">Your total EMI</p>
             <span className="text-sm text-neutral-400">
-              This is the amount you owe
+              This is the amount you have taken as debt
             </span>
           </div>
         </div>
