@@ -200,8 +200,8 @@ export default function Page() {
   )
 
   useEffect(() => {
-    const token = localStorage.getItem("refreshToken")
-    if (token) {
+    const refreshToken = localStorage.getItem("refreshToken")
+    if (refreshToken) {
       router.replace("/dashboard")
     } else {
       setChecked(true)
