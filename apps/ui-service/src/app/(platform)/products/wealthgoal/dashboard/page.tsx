@@ -11,7 +11,8 @@ import { useSearchParams } from "next/navigation"
 import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
 import { AddGoalCard, GoalCard } from "@/shared/components/goalcard"
 import EMICard from "@/shared/components/dashboard-cards/emi-card"
-import PrincipalCard from "@/shared/components/dashboard-cards/debt-card"
+import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
+import GoalDashboardCard from "@/shared/components/dashboard-cards/goal-dashboard-card"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -44,8 +45,9 @@ export default function Page() {
     <div className="mx-auto grid w-full items-start gap-6">
       <section>
         <div className="space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <PrincipalCard />
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
+            <WealthCard />
+            <GoalDashboardCard />
             <LiabilityCard />
             <EMICard />
           </div>
