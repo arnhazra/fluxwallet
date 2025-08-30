@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common"
-import { CoreModule } from "./core/core.module"
+import { PlatformModule } from "./platform/platform.module"
 import { EventEmitterModule } from "@nestjs/event-emitter"
 import { AppController } from "./app.controller"
 import { AuthModule } from "./auth/auth.module"
@@ -10,7 +10,7 @@ import { SharedModule } from "./shared/shared.module"
   imports: [
     EventEmitterModule.forRoot(),
     AuthModule,
-    CoreModule,
+    PlatformModule,
     ProductsModule,
     SharedModule,
   ],
