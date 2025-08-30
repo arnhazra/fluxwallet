@@ -33,7 +33,7 @@ export default function GoalDashboardCard() {
     ((wealth?.presentValuation ?? 0) * 100) / (data?.goalAmount ?? 0)
 
   return (
-    <Card className="bg-background border-none relative overflow-hidden hover:shadow-md hover:shadow-primary/20">
+    <Card className="bg-background border border-border relative overflow-hidden hover:shadow-md hover:shadow-primary/20">
       <CardContent className="p-6">
         <div className="flex items-center justify-between mb-2">
           <div className="flex items-center gap-2">
