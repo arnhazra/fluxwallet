@@ -140,7 +140,7 @@ export class AuthService {
     }
   }
 
-  async verifyOTP(verifyOTPDto: VerifyOTPDto) {
+  async validateOTP(verifyOTPDto: VerifyOTPDto) {
     try {
       const { email, otp, name } = verifyOTPDto
       const { hashedOTP } = await this.getOTP(email)
