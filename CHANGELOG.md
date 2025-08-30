@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.1
+
+- Minor changes & bug fixes
+
 ## v1.0
 
 - Launched the app as a unified platform with separated products
