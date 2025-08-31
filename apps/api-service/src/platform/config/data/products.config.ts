@@ -45,7 +45,7 @@ export const productConfig: ProductsConfig = {
       displayName: "Intelligence",
       description:
         "Transform financial data into insights with AI analytics. Uncover opportunities, assess risks, and optimize strategies.",
-      icon: "Brain",
+      icon: "Sparkles",
       url: "/products/intelligence",
     },
     {
@@ -53,7 +53,7 @@ export const productConfig: ProductsConfig = {
       displayName: "AdvisorX",
       description:
         "AI-powered advisor offering personalized financial guidance, real-time recommendations, and smart collaboration for clients.",
-      icon: "Users",
+      icon: "Brain",
       url: "/products/advisorx",
     },
   ],

@@ -28,7 +28,7 @@ export const solutionConfig: SolutionConfig = {
       displayName: "Intelligence",
       description:
         "Unlock smarter decisions with AI-powered insights. Discover trends, anticipate risks, and receive personalized suggestions designed to grow and protect your financial future.",
-      icon: "Brain",
+      icon: "Sparkle",
       vector: "intelligence",
     },
     {
