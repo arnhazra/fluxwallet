@@ -8,7 +8,7 @@ export default function Loading() {
   return (
     <div className="fixed inset-0 flex flex-col justify-center items-center z-50 bg-main space-y-4">
       <IconContainer>
-        <Wallet className="text-black" width={24} height={24} />
+        <Wallet className="h-4 w-4" />
       </IconContainer>
       <p className="text-white">Loading {appName}</p>
       <Progress
