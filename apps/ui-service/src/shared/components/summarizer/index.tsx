@@ -43,7 +43,7 @@ export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
           size="sm"
         >
           <Sparkles className="h-3 w-3 me-2" />
-          <span className="hidden sm:hidden">Summarize</span>
+          Summarize
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4 asset-modal">
