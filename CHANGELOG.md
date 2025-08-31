@@ -3,6 +3,8 @@
 ## v1.1
 
 - Added intelligent summarizer for all entities
+- Fixed bugs in intelligence chat and modified agents
+- Updated agents for advisorx chat
 - Minor changes & bug fixes
 
 ## v1.0
