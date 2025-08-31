@@ -2,6 +2,7 @@
 
 ## v1.1
 
+- Added intelligent summarizer for all entities
 - Minor changes & bug fixes
 
 ## v1.0

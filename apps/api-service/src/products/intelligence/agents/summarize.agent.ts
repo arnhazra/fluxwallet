@@ -29,11 +29,11 @@ export class SummarizeAgent {
       }
     },
     {
-      name: "get_institution_details_by_institution_id",
+      name: "get_institution_details_by_id",
       description: "Get institution details by id",
       schema: z.object({
         userId: z.string().describe("userId of the user"),
-        entityId: z.string().describe("institution id given by the user"),
+        entityId: z.string().describe("entityId id given by the user"),
       }),
     }
   )
@@ -54,11 +54,11 @@ export class SummarizeAgent {
       }
     },
     {
-      name: "get_asset_details_by_asset_id",
+      name: "get_asset_details_by_id",
       description: "Get asset details by id",
       schema: z.object({
         userId: z.string().describe("userId of the user"),
-        entityId: z.string().describe("assetId id given by the user"),
+        entityId: z.string().describe("entityId id given by the user"),
       }),
     }
   )
@@ -79,11 +79,11 @@ export class SummarizeAgent {
       }
     },
     {
-      name: "get_debt_details_by_debt_id",
+      name: "get_debt_details_by_id",
       description: "Get debt details by id",
       schema: z.object({
         userId: z.string().describe("userId of the user"),
-        entityId: z.string().describe("debt id given by the user"),
+        entityId: z.string().describe("entityId given by the user"),
       }),
     }
   )
@@ -104,11 +104,11 @@ export class SummarizeAgent {
       }
     },
     {
-      name: "get_goal_details_by_goal_id",
+      name: "get_goal_details_by_id",
       description: "Get goal details by id",
       schema: z.object({
         userId: z.string().describe("userId of the user"),
-        entityId: z.string().describe("goal id given by the user"),
+        entityId: z.string().describe("entityId given by the user"),
       }),
     }
   )
