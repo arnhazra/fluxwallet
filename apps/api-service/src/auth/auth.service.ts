@@ -18,7 +18,7 @@ import { User } from "./schemas/user.schema"
 import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
-import { Subscription } from "../core/subscription/schemas/subscription.schema"
+import { Subscription } from "../platform/subscription/schemas/subscription.schema"
 import { Token } from "./schemas/token.schema"
 import { GoogleOAuthDto } from "./dto/google-oauth.dto"
 import { HttpService } from "@nestjs/axios"
@@ -140,7 +140,7 @@ export class AuthService {
     }
   }
 
-  async verifyOTP(verifyOTPDto: VerifyOTPDto) {
+  async validateOTP(verifyOTPDto: VerifyOTPDto) {
     try {
       const { email, otp, name } = verifyOTPDto
       const { hashedOTP } = await this.getOTP(email)

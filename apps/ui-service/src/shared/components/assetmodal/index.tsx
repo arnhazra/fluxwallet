@@ -19,6 +19,7 @@ import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useAppContext } from "@/context/appstate.provider"
+import Summarizer from "../summarizer"
 
 interface AssetModalProps {
   assetDetails: Asset
@@ -124,7 +125,12 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
           </ul>
         </div>
         <DialogFooter>
-          <Button variant="secondary" onClick={(): void => setOpen(false)}>
+          <Summarizer entityType="asset" entityId={assetDetails._id} />
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={(): void => setOpen(false)}
+          >
             Close
           </Button>
         </DialogFooter>

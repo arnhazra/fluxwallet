@@ -62,7 +62,9 @@ export default function Page() {
           json: formData,
         }
       )
-      router.push(`/institution/${(await institution.json())._id}`)
+      router.push(
+        `/products/wealthanalyzer/institution/${(await institution.json())._id}`
+      )
       setAlertMessage("Institution created successfully!")
     } catch (error) {
       setAlertMessage("Error creating institution")

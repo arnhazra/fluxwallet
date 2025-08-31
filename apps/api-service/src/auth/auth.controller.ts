@@ -55,7 +55,7 @@ export class AuthController {
   @Post("validateotp")
   async validateOTP(@Body() validateOTPDto: VerifyOTPDto) {
     try {
-      const response = await this.service.verifyOTP(validateOTPDto)
+      const response = await this.service.validateOTP(validateOTPDto)
       const { accessToken, refreshToken, user } = response
 
       if (response.success) {

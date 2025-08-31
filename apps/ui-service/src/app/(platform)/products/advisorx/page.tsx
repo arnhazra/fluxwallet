@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import { Bot, User, ArrowUp, Users, Sparkle } from "lucide-react"
+import { Bot, User, ArrowUp, Brain, Sparkle } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -131,13 +131,13 @@ export default function Page() {
         <div className="space-y-4">
           <Show condition={messages.length === 0}>
             <div className="text-center mt-8 max-w-xl mx-auto">
-              <Users className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <Brain className="h-12 w-12 mx-auto mb-4 text-primary" />
               <p className="text-primary">{appName} AdvisorX</p>
               <p className="text-sm mt-2 text-white p-6">
                 {appName} AdvisorX is an agentic workflow powered by AI, so
                 mistakes are possible. Please use carefully.
               </p>
-              <p className="text-4xl mt-4">
+              <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-3xl mt-4">
                 What's on your mind, {user.name.split(" ")[0]}?
               </p>
             </div>

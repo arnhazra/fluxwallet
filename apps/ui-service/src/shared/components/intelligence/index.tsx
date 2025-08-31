@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import { PanelRightClose, Bot, User, ArrowUp, Brain } from "lucide-react"
+import { PanelRightClose, Bot, User, ArrowUp, Sparkles } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -72,7 +72,7 @@ export default function Intelligence() {
 
     try {
       const res: Thread = await ky
-        .post(`${endPoints.intelligence}`, {
+        .post(`${endPoints.intelligence}/chat`, {
           json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })
@@ -106,7 +106,7 @@ export default function Intelligence() {
         size="icon"
         className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary rounded-full"
       >
-        <Brain className="h-4 w-4 text-black" />
+        <Sparkles className="h-4 w-4 text-black" />
       </Button>
 
       {isOpen && (
@@ -136,7 +136,7 @@ export default function Intelligence() {
           <div className="space-y-4">
             <Show condition={messages.length === 0}>
               <div className="text-center mt-8">
-                <Brain className="h-12 w-12 mx-auto mb-4 text-primary" />
+                <Sparkles className="h-12 w-12 mx-auto mb-4 text-primary" />
                 <p className="text-primary">{appName} Intelligence</p>
                 <p className="text-sm mt-2 text-white p-6">
                   {appName} Intelligence is an agentic workflow powered by AI,
@@ -261,7 +261,7 @@ export default function Intelligence() {
                     >
                       <SelectTrigger className="w-auto bg-transparent border-none text-neutral-300 hover:text-white focus:ring-0 focus:ring-offset-0">
                         <div className="flex items-center gap-2">
-                          <Brain className="h-4 w-4 text-primary" />
+                          <Sparkles className="h-4 w-4 text-primary" />
                           <SelectValue />
                         </div>
                       </SelectTrigger>

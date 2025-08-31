@@ -1,4 +1,5 @@
 "use client"
+import EMICard from "@/shared/components/dashboard-cards/emi-card"
 import GoalDashboardCard from "@/shared/components/dashboard-cards/goal-dashboard-card"
 import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
 import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
@@ -25,9 +26,10 @@ export default function Page() {
     <div className="mx-auto grid w-full items-start gap-6">
       <section>
         <div className="space-y-8">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
             <WealthCard />
             <LiabilityCard />
+            <EMICard />
             <GoalDashboardCard />
           </div>
         </div>

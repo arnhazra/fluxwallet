@@ -29,6 +29,7 @@ export class DebtService {
     }
   }
 
+  @OnEvent(EventMap.GetDebtList)
   async findMyDebts(userId: string) {
     try {
       const debts = await this.queryBus.execute<FindDebtsByUserQuery, Debt[]>(
@@ -45,6 +46,7 @@ export class DebtService {
     }
   }
 
+  @OnEvent(EventMap.GetDebtDetailsById)
   async findDebtById(reqUserId: string, debtId: string) {
     try {
       const debt = await this.queryBus.execute<FindDebtByIdQuery, Debt>(

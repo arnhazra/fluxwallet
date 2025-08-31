@@ -16,4 +16,4 @@ import { ConfigModule } from "./config/config.module"
     ConfigModule,
   ],
 })
-export class CoreModule {}
+export class PlatformModule {}

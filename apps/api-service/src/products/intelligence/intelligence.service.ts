@@ -4,14 +4,16 @@ import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
-import { AIGenerationDto, AIModel } from "./dto/ai-generate.dto"
+import { AIChatDto, AIModel } from "./dto/ai-chat.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import {
   IntelligenceStrategy,
-  IntelligenceStrategyType,
+  ChatReqParams,
+  SummarizeReqParams,
 } from "./intelligence.strategy"
 import { User } from "@/auth/schemas/user.schema"
+import { AISummarizeDto } from "./dto/ai-summarize.dto"
 
 @Injectable()
 export class IntelligenceService {
@@ -42,18 +44,11 @@ export class IntelligenceService {
     }
   }
 
-  async generateRecommendation(
-    aiGenerationDto: AIGenerationDto,
-    userId: string
-  ) {
+  async chat(aIChatDto: AIChatDto, userId: string) {
     try {
-      const { prompt, model } = aiGenerationDto
-      const threadId =
-        aiGenerationDto.threadId ?? new Types.ObjectId().toString()
-      const thread = await this.getThreadById(
-        threadId,
-        !aiGenerationDto.threadId
-      )
+      const { prompt, model } = aIChatDto
+      const threadId = aIChatDto.threadId ?? new Types.ObjectId().toString()
+      const thread = await this.getThreadById(threadId, !aIChatDto.threadId)
 
       const user: User = (
         await this.eventEmitter.emitAsync(EventMap.GetUserDetails, {
@@ -61,7 +56,7 @@ export class IntelligenceService {
         })
       ).shift()
 
-      const args: IntelligenceStrategyType = {
+      const args: ChatReqParams = {
         genericName: model,
         temperature: 1.0,
         topP: 1.0,
@@ -72,7 +67,7 @@ export class IntelligenceService {
       }
 
       if (args.genericName === AIModel.GPT) {
-        const { response } = await this.strategy.azureStrategy(args)
+        const { response } = await this.strategy.azureChatStrategy(args)
         await this.commandBus.execute<CreateThreadCommand, Thread>(
           new CreateThreadCommand(String(user.id), threadId, prompt, response)
         )
@@ -80,12 +75,37 @@ export class IntelligenceService {
       }
 
       if (args.genericName === AIModel.Gemini) {
-        const { response } = await this.strategy.googleStrategy(args)
+        const { response } = await this.strategy.googleChatStrategy(args)
         await this.commandBus.execute<CreateThreadCommand, Thread>(
           new CreateThreadCommand(String(user.id), threadId, prompt, response)
         )
         return { response, threadId }
       }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  async summarize(aIChatDto: AISummarizeDto, userId: string) {
+    try {
+      const { entityId, entityType } = aIChatDto
+
+      const user: User = (
+        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, {
+          _id: userId,
+        })
+      ).shift()
+
+      const args: SummarizeReqParams = {
+        entityId,
+        entityType,
+        temperature: 1.0,
+        topP: 1.0,
+        user,
+      }
+
+      const { response } = await this.strategy.summarizeStrategy(args)
+      return { response }
     } catch (error) {
       throw error
     }

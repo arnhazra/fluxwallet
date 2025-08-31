@@ -14,6 +14,7 @@ import ky from "ky"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
 import IconContainer from "@/shared/components/icon-container"
+import Summarizer from "@/shared/components/summarizer"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: institutionId = "" } = use(params)
@@ -68,6 +69,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           title={institution.data?.institutionName || ""}
           content={institution.data?.institutionType || ""}
           actionComponents={[
+            <Summarizer entityId={institutionId} entityType="institution" />,
             <Button
               onClick={(): void =>
                 router.push(

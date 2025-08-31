@@ -16,7 +16,7 @@ const VisualComponents: Record<string, React.FC> = {
 }
 
 export function ProductCard({ product }: { product: Product }) {
-  const LucideIcon = (Icons as any)[product.icon] || Icons.HelpCircle
+  const ProductIcon = (Icons as any)[product.icon] || Icons.HelpCircle
   const router = useRouter()
 
   return (
@@ -30,7 +30,7 @@ export function ProductCard({ product }: { product: Product }) {
           <h2 className="text-xl">{product.displayName}</h2>
         </div>
         <IconContainer>
-          <LucideIcon className="h-4 w-4 text-black" />
+          <ProductIcon className="h-4 w-4" />
         </IconContainer>
       </div>
       <p className="text-sm leading-relaxed justify">{product.description}</p>
@@ -39,7 +39,7 @@ export function ProductCard({ product }: { product: Product }) {
 }
 
 export function SolutionCard({ solution }: { solution: Solution }) {
-  const LucideIcon = (Icons as any)[solution.icon] || Icons.HelpCircle
+  const SolutionIcon = (Icons as any)[solution.icon] || Icons.HelpCircle
   const Visual = VisualComponents[solution.vector]
 
   return (
@@ -47,7 +47,7 @@ export function SolutionCard({ solution }: { solution: Solution }) {
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">{solution.displayName}</h2>
         <IconContainer>
-          <LucideIcon className="h-4 w-4 text-black" />
+          <SolutionIcon className="h-4 w-4" />
         </IconContainer>
       </div>
       <Visual />

@@ -59,6 +59,7 @@ export class InstitutionService {
     return institutionsWithValuation
   }
 
+  @OnEvent(EventMap.GetInstitutionDetailsById)
   async findInstitutionById(reqUserId: string, institutionId: string) {
     try {
       const institution = await this.queryBus.execute<

@@ -5,7 +5,7 @@ export enum AIModel {
   Gemini = "gemini-2.5-flash-lite",
 }
 
-export class AIGenerationDto {
+export class AIChatDto {
   @IsNotEmpty()
   prompt: string
 

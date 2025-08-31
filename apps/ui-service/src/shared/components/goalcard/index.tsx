@@ -19,7 +19,7 @@ export function GoalCard({ goal }: { goal: Goal }) {
 
   return (
     <GoalModal goalDetails={goal} key={goal._id}>
-      <Card className="w-full max-w-sm bg-background border-none text-white cursor-pointer hover:shadow-md hover:shadow-primary/20 duration-400">
+      <Card className="w-full max-w-sm bg-background border border-border text-white cursor-pointer hover:shadow-md hover:shadow-primary/20 duration-400">
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold truncate text-white">
@@ -57,7 +57,7 @@ export function GoalCard({ goal }: { goal: Goal }) {
 export function AddGoalCard() {
   return (
     <Link href={`/products/wealthgoal/creategoal`}>
-      <Card className="w-full max-w-sm h-[145px] flex items-center justify-center bg-background border-none text-white hover:shadow-md hover:shadow-primary/20 duration-400">
+      <Card className="w-full max-w-sm h-[145px] flex items-center justify-center bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>

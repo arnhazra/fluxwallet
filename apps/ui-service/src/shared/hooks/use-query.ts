@@ -2,7 +2,7 @@
 import ky from "ky"
 import {
   useSuspenseQuery,
-  useQuery as useNormalQuery,
+  useQuery as useReactQuery,
 } from "@tanstack/react-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -36,18 +36,20 @@ export default function useQuery<T>({
     return data
   }
 
-  return suspense
-    ? useSuspenseQuery<T, Error>({
-        queryKey,
-        queryFn,
-        refetchOnWindowFocus: !user.reduceCarbonEmissions,
-        refetchInterval: user.reduceCarbonEmissions ? 0 : 30000,
-      })
-    : useNormalQuery<T, Error>({
-        queryKey,
-        queryFn,
-        refetchOnWindowFocus: !user.reduceCarbonEmissions,
-        refetchInterval: user.reduceCarbonEmissions ? 0 : 30000,
-        enabled,
-      })
+  if (suspense) {
+    return useSuspenseQuery<T, Error>({
+      queryKey,
+      queryFn,
+      refetchOnWindowFocus: !user.reduceCarbonEmissions,
+      refetchInterval: user.reduceCarbonEmissions ? 0 : 30000,
+    })
+  }
+
+  return useReactQuery<T, Error>({
+    queryKey,
+    queryFn,
+    refetchOnWindowFocus: !user.reduceCarbonEmissions,
+    refetchInterval: user.reduceCarbonEmissions ? 0 : 30000,
+    enabled,
+  })
 }
