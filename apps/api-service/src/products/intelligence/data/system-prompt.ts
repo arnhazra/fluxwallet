@@ -28,6 +28,7 @@ export const systemPrompt = (user: User): string => {
   - "Create a new institution called 'Emergency Fund'"
   - Update their liability amount
   - Update their welath goal amount
+  - Change their base currency
   - Send an email to their email id about their detailed institutions.
 
   Your behavior:
