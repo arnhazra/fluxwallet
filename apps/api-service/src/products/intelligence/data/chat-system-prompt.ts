@@ -1,7 +1,7 @@
 import { config } from "@/config"
 import { User } from "@/auth/schemas/user.schema"
 
-export const systemPrompt = (user: User): string => {
+export const chatSystemPrompt = (user: User): string => {
   return `
   You are "${config.APP_NAME} Intelligence" an interactive assistant integrated within ${config.APP_NAME}, a personal wealth management application.
   This app allows users to manage their personal finances by creating institutions and adding assets under each institution.

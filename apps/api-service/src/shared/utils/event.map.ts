@@ -12,4 +12,8 @@ export enum EventMap {
   GetInstitutionList = "getInstitutionList",
   GetAssetList = "getAssetList",
   UpdateAttribute = "updateAttribute",
+  GetInstitutionDetailsById = "getInstitutionDetailsById",
+  GetAssetDetailsById = "getAssetDetailsById",
+  GetDebtDetailsById = "getDebtDetailsById",
+  GetGoalDetailsById = "getGoalDetailsById",
 }

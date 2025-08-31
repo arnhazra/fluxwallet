@@ -42,7 +42,7 @@ export default function Page() {
   const [model, setModel] = useState<Model>(Model.GPT)
   const thread = useQuery<Thread[]>({
     queryKey: ["get-thread", tId ?? ""],
-    queryUrl: `${endPoints.intelligence}/${tId}`,
+    queryUrl: `${endPoints.intelligence}/thread/${tId}`,
     method: HTTPMethods.GET,
     suspense: tId !== null,
     enabled: tId !== null,
@@ -94,7 +94,7 @@ export default function Page() {
 
     try {
       const res: Thread = await ky
-        .post(`${endPoints.intelligence}`, {
+        .post(`${endPoints.intelligence}/chat`, {
           json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })

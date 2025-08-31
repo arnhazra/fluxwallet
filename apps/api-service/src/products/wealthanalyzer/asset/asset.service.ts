@@ -75,6 +75,7 @@ export class AssetService {
     }
   }
 
+  @OnEvent(EventMap.GetAssetDetailsById)
   async findAssetById(reqUserId: string, assetId: string) {
     try {
       const asset = await this.queryBus.execute<FindAssetByIdQuery, Asset>(

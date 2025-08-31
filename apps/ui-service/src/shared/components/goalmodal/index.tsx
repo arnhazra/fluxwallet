@@ -19,6 +19,7 @@ import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useAppContext } from "@/context/appstate.provider"
 import { format } from "date-fns"
+import Summarizer from "../summarizer"
 
 interface GoalModalProps {
   goalDetails: Goal
@@ -104,7 +105,12 @@ export function GoalModal({ goalDetails, children }: GoalModalProps) {
           </ul>
         </div>
         <DialogFooter>
-          <Button variant="secondary" onClick={(): void => setOpen(false)}>
+          <Summarizer entityType="goal" entityId={goalDetails._id} />
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={(): void => setOpen(false)}
+          >
             Close
           </Button>
         </DialogFooter>

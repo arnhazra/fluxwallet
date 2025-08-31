@@ -72,7 +72,7 @@ export default function Intelligence() {
 
     try {
       const res: Thread = await ky
-        .post(`${endPoints.intelligence}`, {
+        .post(`${endPoints.intelligence}/chat`, {
           json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })
