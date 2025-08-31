@@ -7,10 +7,10 @@ import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { chatSystemPrompt } from "./data/chat-system-prompt"
 import { User } from "@/auth/schemas/user.schema"
-import { ChatAgent } from "./agents/chat.agent"
+import { ChatTools } from "./agents/chat.agent"
 import { EntityType } from "./dto/ai-summarize.dto"
 import { AIModel } from "./dto/ai-chat.dto"
-import { SummarizeAgent } from "./agents/summarize.agent"
+import { SummarizeTools } from "./agents/summarize.agent"
 import { summarizeSystemPrompt } from "./data/summarize-system-prompt"
 
 export interface ChatReqParams {
@@ -34,23 +34,26 @@ export interface SummarizeReqParams {
 @Injectable()
 export class IntelligenceStrategy {
   constructor(
-    private readonly chatAgent: ChatAgent,
-    private readonly summarizeAgent: SummarizeAgent
+    private readonly chatTools: ChatTools,
+    private readonly summarizeTools: SummarizeTools
   ) {}
 
-  private async runChatAgent(llm: LanguageModelLike, args: ChatReqParams) {
+  private async runChatTools(llm: LanguageModelLike, args: ChatReqParams) {
     const { thread, prompt, user } = args
 
     const agent = createReactAgent({
       llm,
       tools: [
-        this.chatAgent.getTotalWealthAgent,
-        this.chatAgent.createInstitutionAgent,
-        this.chatAgent.getInstitutionValuationAgent,
-        this.chatAgent.getInstitutionListAgent,
-        this.chatAgent.changeBaseCurrencyAgent,
-        this.chatAgent.sendEmailAgent,
-        this.chatAgent.getAssetListAgent,
+        this.chatTools.getTotalWealthTool,
+        this.chatTools.createInstitutionTool,
+        this.chatTools.getInstitutionValuationTool,
+        this.chatTools.getInstitutionListTool,
+        this.chatTools.changeBaseCurrencyTool,
+        this.chatTools.sendEmailTool,
+        this.chatTools.getAssetListTool,
+        this.chatTools.getGoalListTool,
+        this.chatTools.getDebtListTool,
+        this.chatTools.getNearestGoalTool,
       ],
     })
 
@@ -81,7 +84,7 @@ export class IntelligenceStrategy {
         apiKey: config.AZURE_API_KEY,
       },
     })
-    const response = await this.runChatAgent(llm, args)
+    const response = await this.runChatTools(llm, args)
     return { response }
   }
 
@@ -92,7 +95,7 @@ export class IntelligenceStrategy {
       topP: args.topP,
       apiKey: config.GCP_API_KEY,
     })
-    const response = await this.runChatAgent(llm, args)
+    const response = await this.runChatTools(llm, args)
     return { response }
   }
 
@@ -105,10 +108,10 @@ export class IntelligenceStrategy {
     const agent = createReactAgent({
       llm,
       tools: [
-        this.summarizeAgent.getInstitutionAgent,
-        this.summarizeAgent.getAssetAgent,
-        this.summarizeAgent.getDebtAgent,
-        this.summarizeAgent.getGoalAgent,
+        this.summarizeTools.getInstitutionAgent,
+        this.summarizeTools.getAssetAgent,
+        this.summarizeTools.getDebtAgent,
+        this.summarizeTools.getGoalAgent,
       ],
     })
 

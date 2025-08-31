@@ -29,6 +29,7 @@ export class GoalService {
     }
   }
 
+  @OnEvent(EventMap.GetGoalList)
   async findMyGoals(userId: string) {
     try {
       return await this.queryBus.execute<FindGoalsByUserQuery, Goal[]>(
@@ -39,6 +40,7 @@ export class GoalService {
     }
   }
 
+  @OnEvent(EventMap.GetNearestGoal)
   async findNearestGoal(userId: string) {
     try {
       return await this.queryBus.execute<FindNearestGoalQuery, Goal>(

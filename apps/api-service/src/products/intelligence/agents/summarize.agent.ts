@@ -10,7 +10,7 @@ interface GenericAgentReq {
 }
 
 @Injectable()
-export class SummarizeAgent {
+export class SummarizeTools {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
   public getInstitutionAgent = tool(
