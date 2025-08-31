@@ -33,6 +33,27 @@ export class ChatTools {
     }
   )
 
+  public getTotalDebtTool = tool(
+    async ({ userId }: { userId: string }) => {
+      try {
+        const valuation = (
+          await this.eventEmitter.emitAsync(EventMap.GetTotalDebt, userId)
+        ).shift()
+        return `Total debt details is ${JSON.stringify(valuation)}`
+      } catch (error) {
+        console.log(error)
+        return "Unable to get total debt"
+      }
+    },
+    {
+      name: "get_total_debt_by_userid",
+      description: "Get total debt for a user",
+      schema: z.object({
+        userId: z.string().describe("user id of the user"),
+      }),
+    }
+  )
+
   public getInstitutionValuationTool = tool(
     async ({
       userId,

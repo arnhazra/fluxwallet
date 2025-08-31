@@ -54,6 +54,7 @@ export class IntelligenceStrategy {
         this.chatTools.getGoalListTool,
         this.chatTools.getDebtListTool,
         this.chatTools.getNearestGoalTool,
+        this.chatTools.getTotalDebtTool,
       ],
     })
 
