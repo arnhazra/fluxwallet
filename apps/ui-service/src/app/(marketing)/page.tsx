@@ -27,18 +27,21 @@ export default function Page() {
     queryKey: ["subscription-pricing"],
     queryUrl: endPoints.getSubscriptionConfig,
     method: HTTPMethods.GET,
+    suspense: false,
   })
 
   const products = useQuery<ProductsConfig>({
     queryKey: ["getProductConfig"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
+    suspense: false,
   })
 
   const solutions = useQuery<SolutionConfig>({
     queryKey: ["getSolutionConfig"],
     queryUrl: endPoints.getSolutionConfig,
     method: HTTPMethods.GET,
+    suspense: false,
   })
 
   const renderHeroSection = (
