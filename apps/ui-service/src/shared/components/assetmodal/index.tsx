@@ -88,6 +88,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
               <DialogDescription></DialogDescription>
             </div>
             <div className="flex gap-2">
+              <Summarizer entityType="asset" entityId={assetDetails._id} />
               <Button
                 onClick={(): void =>
                   router.push(
@@ -125,7 +126,6 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
           </ul>
         </div>
         <DialogFooter>
-          <Summarizer entityType="asset" entityId={assetDetails._id} />
           <Button
             variant="secondary"
             size="sm"

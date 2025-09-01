@@ -13,7 +13,6 @@ import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import Show from "../show"
-import IconContainer from "../icon-container"
 import MarkdownRenderer from "../markdown"
 
 interface GenericAgentReq {
@@ -31,6 +30,7 @@ export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
       method: HTTPMethods.POST,
       requestBody: { entityType, entityId },
       suspense: false,
+      enabled: open,
     }
   )
 
@@ -38,12 +38,14 @@ export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="ps-4 pe-4 bg-primary hover:bg-primary text-black border border-border shadow-lg shadow-primary/10"
+          className="text-white font-semibold
+             bg-gradient-to-r from-[#3a7bd5] to-[#3a6073]
+             hover:opacity-90 transition"
           variant="default"
-          size="sm"
+          size="icon"
+          title="Summarize"
         >
-          <Sparkles className="h-3 w-3 me-2" />
-          Summarize
+          <Sparkles className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4 asset-modal">
@@ -54,15 +56,15 @@ export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
           </DialogTitle>
         </DialogHeader>
         <div className="mt-2">
-          <Show condition={!isLoading} fallback="Loading...">
+          <Show condition={!isLoading} fallback="Summarizing...">
             <MarkdownRenderer markdown={data?.response ?? ""} />
           </Show>
         </div>
         <DialogFooter>
           <Button
             onClick={(): void => setOpen(false)}
-            variant="default"
-            className="bg-primary hover:bg-primary text-black"
+            variant="secondary"
+            className="text-black"
           >
             Close
           </Button>

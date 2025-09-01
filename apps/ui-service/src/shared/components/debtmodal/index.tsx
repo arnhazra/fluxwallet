@@ -82,6 +82,7 @@ export function DebtModal({ debtDetails, children }: DebtModalProps) {
               <DialogDescription></DialogDescription>
             </div>
             <div className="flex gap-2">
+              <Summarizer entityType="debt" entityId={debtDetails._id} />
               <Button
                 onClick={(): void =>
                   router.push(`/products/debttrack/editdebt/${debtDetails._id}`)
@@ -117,7 +118,6 @@ export function DebtModal({ debtDetails, children }: DebtModalProps) {
           </ul>
         </div>
         <DialogFooter>
-          <Summarizer entityType="debt" entityId={debtDetails._id} />
           <Button
             variant="secondary"
             size="sm"
