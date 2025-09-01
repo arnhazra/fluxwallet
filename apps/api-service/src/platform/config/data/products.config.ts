@@ -44,15 +44,16 @@ export const productConfig: ProductsConfig = {
       productName: "intelligence",
       displayName: "Intelligence",
       description:
-        "Transform financial data into insights with AI analytics. Uncover opportunities, assess risks, and optimize strategies.",
+        "AI-powered assistant for holistic wealth management. Analyze portfolios, track goals, and deliver insights across the platform.",
       icon: "Sparkles",
       url: "/products/intelligence",
     },
+
     {
       productName: "taxadvisor",
       displayName: "TaxAdvisor",
       description:
-        "AI-powered advisor offering personalized financial guidance, real-time recommendations, and smart collaboration for clients.",
+        "AI-powered tax advisor providing personalized filing guidance, accurate compliance checks, and smart strategies for every taxpayer.",
       icon: "Calculator",
       url: "/products/taxadvisor",
     },
