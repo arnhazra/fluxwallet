@@ -105,7 +105,7 @@ export default function Intelligence() {
         onClick={() => setIsOpen(true)}
         variant="default"
         size="icon"
-        className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-purple hover:opacity-90 rounded-full"
+        className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary text-black hover:opacity-90 rounded-full"
       >
         <Sparkles className="h-4 w-4" />
       </Button>

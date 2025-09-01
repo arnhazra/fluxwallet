@@ -45,6 +45,7 @@ export type User = {
 export type SubscriptionConfig = {
   price: string
   features: string[]
+  trialSubscription: string
 }
 
 export type Subscription = {
