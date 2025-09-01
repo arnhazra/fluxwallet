@@ -126,11 +126,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
           </ul>
         </div>
         <DialogFooter>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={(): void => setOpen(false)}
-          >
+          <Button variant="secondary" onClick={(): void => setOpen(false)}>
             Close
           </Button>
         </DialogFooter>

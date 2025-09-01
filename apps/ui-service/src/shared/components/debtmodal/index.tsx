@@ -118,11 +118,7 @@ export function DebtModal({ debtDetails, children }: DebtModalProps) {
           </ul>
         </div>
         <DialogFooter>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={(): void => setOpen(false)}
-          >
+          <Button variant="secondary" onClick={(): void => setOpen(false)}>
             Close
           </Button>
         </DialogFooter>
