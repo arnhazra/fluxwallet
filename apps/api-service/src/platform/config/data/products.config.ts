@@ -49,12 +49,12 @@ export const productConfig: ProductsConfig = {
       url: "/products/intelligence",
     },
     {
-      productName: "advisorx",
-      displayName: "AdvisorX",
+      productName: "taxadvisor",
+      displayName: "TaxAdvisor",
       description:
         "AI-powered advisor offering personalized financial guidance, real-time recommendations, and smart collaboration for clients.",
-      icon: "Brain",
-      url: "/products/advisorx",
+      icon: "Calculator",
+      url: "/products/taxadvisor",
     },
   ],
 }

@@ -8,5 +8,5 @@ export enum ProductsDbConnectionMap {
   DebtTrack = "debttrack",
   WealthGoal = "wealthgoal",
   Intelligence = "intelligence",
-  AdvisorX = "advisorx",
+  TaxAdvisor = "taxadvisor",
 }

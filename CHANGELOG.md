@@ -9,7 +9,7 @@
 
 - Added intelligent summarizer for all entities
 - Fixed bugs in intelligence chat and modified agents
-- Updated agents for advisorx chat
+- Updated agents for taxadvisor chat
 - Minor changes & bug fixes
 
 ## v1.0

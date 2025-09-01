@@ -7,13 +7,13 @@ import {
   Get,
   Param,
 } from "@nestjs/common"
-import { AdvisorXService } from "./advisorx.service"
+import { TaxAdvisorService } from "./taxadvisor.service"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 
-@Controller("advisorx")
-export class AdvisorXController {
-  constructor(private readonly service: AdvisorXService) {}
+@Controller("taxadvisor")
+export class TaxAdvisorController {
+  constructor(private readonly service: TaxAdvisorService) {}
 
   @UseGuards(AuthGuard)
   @Post()

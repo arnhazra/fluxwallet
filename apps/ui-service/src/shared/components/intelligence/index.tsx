@@ -228,7 +228,7 @@ export default function Intelligence() {
                         autoFocus
                         value={prompt}
                         onChange={handleInputChange}
-                        placeholder="Ask anything..."
+                        placeholder="Ask Anything"
                         disabled={isLoading}
                         className="bg-transparent border-none text-neutral-300 placeholder:text-neutral-500 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none outline-none ring-0 text-sm px-0"
                       />

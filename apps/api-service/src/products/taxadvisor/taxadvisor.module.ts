@@ -1,16 +1,16 @@
 import { Module } from "@nestjs/common"
-import { AdvisorXService } from "./advisorx.service"
-import { AdvisorXController } from "./advisorx.controller"
+import { TaxAdvisorService } from "./taxadvisor.service"
+import { TaxAdvisorController } from "./taxadvisor.controller"
 import { CqrsModule } from "@nestjs/cqrs"
 import { ProductsDbConnectionMap } from "src/shared/utils/db-connection.map"
 import { Thread, ThreadSchema } from "./schemas/thread.schema"
 import { CreateThreadCommandHandler } from "./commands/handler/create-thread.handler"
-import { AdvisorXRepository } from "./advisorx.repository"
+import { TaxAdvisorRepository } from "./taxadvisor.repository"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { FetchThreadByIdQueryHandler } from "./queries/handler/fetch-thread-by-id.handler"
 import { HttpModule } from "@nestjs/axios"
-import { AdvisorXStrategy } from "./advisorx.strategy"
-import { AdvisorXTools } from "./advisorx.tool"
+import { TaxAdvisorStrategy } from "./taxadvisor.strategy"
+import { TaxAdvisorTools } from "./taxadvisor.tool"
 import { config } from "@/config"
 
 @Module({
@@ -19,21 +19,21 @@ import { config } from "@/config"
     CqrsModule,
     EntityModule.forRoot(
       config.PRODUCTS_DATABASE_URI,
-      ProductsDbConnectionMap.AdvisorX
+      ProductsDbConnectionMap.TaxAdvisor
     ),
     EntityModule.forFeature(
       [{ name: Thread.name, schema: ThreadSchema }],
-      ProductsDbConnectionMap.AdvisorX
+      ProductsDbConnectionMap.TaxAdvisor
     ),
   ],
-  controllers: [AdvisorXController],
+  controllers: [TaxAdvisorController],
   providers: [
-    AdvisorXService,
-    AdvisorXRepository,
-    AdvisorXStrategy,
-    AdvisorXTools,
+    TaxAdvisorService,
+    TaxAdvisorRepository,
+    TaxAdvisorStrategy,
+    TaxAdvisorTools,
     CreateThreadCommandHandler,
     FetchThreadByIdQueryHandler,
   ],
 })
-export class AdvisorXModule {}
+export class TaxAdvisorModule {}

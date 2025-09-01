@@ -9,7 +9,7 @@ import { Debt } from "../debttrack/debt/schemas/debt.schema"
 import { Goal } from "../wealthgoal/goal/schemas/goal.schema"
 
 @Injectable()
-export class AdvisorXTools {
+export class TaxAdvisorTools {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
   public getTotalWealthTool = tool(

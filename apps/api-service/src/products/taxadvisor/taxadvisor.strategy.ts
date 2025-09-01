@@ -5,11 +5,11 @@ import { ChatOpenAI } from "@langchain/openai"
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
-import { systemPrompt } from "./data/system-prompt"
 import { User } from "@/auth/schemas/user.schema"
-import { AdvisorXTools } from "./advisorx.tool"
+import { TaxAdvisorTools } from "./taxadvisor.tool"
+import { taxAdvisorSystemPrompt } from "./data/tax-advisor-system-prompt"
 
-export interface AdvisorXStrategyType {
+export interface TaxAdvisorStrategyType {
   genericName: string
   temperature: number
   topP: number
@@ -20,27 +20,18 @@ export interface AdvisorXStrategyType {
 }
 
 @Injectable()
-export class AdvisorXStrategy {
-  constructor(private readonly tools: AdvisorXTools) {}
+export class TaxAdvisorStrategy {
+  constructor(private readonly tools: TaxAdvisorTools) {}
 
   private async runAdvisorAgent(
     llm: LanguageModelLike,
-    args: AdvisorXStrategyType
+    args: TaxAdvisorStrategyType
   ) {
     const { thread, prompt, user } = args
 
     const agent = createReactAgent({
       llm,
-      tools: [
-        this.tools.getTotalWealthTool,
-        this.tools.getTotalDebtTool,
-        this.tools.getInstitutionValuationTool,
-        this.tools.getInstitutionListTool,
-        this.tools.getAssetListTool,
-        this.tools.getDebtListTool,
-        this.tools.getGoalListTool,
-        this.tools.getNearestGoalTool,
-      ],
+      tools: [],
     })
 
     const chatHistory = thread.flatMap((t) => [
@@ -50,7 +41,7 @@ export class AdvisorXStrategy {
 
     const { messages } = await agent.invoke({
       messages: [
-        { role: "system", content: systemPrompt(user) },
+        { role: "system", content: taxAdvisorSystemPrompt(user) },
         ...chatHistory,
         { role: "user", content: prompt },
       ],
@@ -59,7 +50,7 @@ export class AdvisorXStrategy {
     return messages[messages.length - 1]?.content.toString()
   }
 
-  async azureStrategy(args: AdvisorXStrategyType) {
+  async azureStrategy(args: TaxAdvisorStrategyType) {
     const llm = new ChatOpenAI({
       model: args.genericName,
       temperature: args.temperature,
@@ -74,7 +65,7 @@ export class AdvisorXStrategy {
     return { response }
   }
 
-  async googleStrategy(args: AdvisorXStrategyType) {
+  async googleStrategy(args: TaxAdvisorStrategyType) {
     const llm = new ChatGoogleGenerativeAI({
       model: args.genericName,
       temperature: args.temperature,
