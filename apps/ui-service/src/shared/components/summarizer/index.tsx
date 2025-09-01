@@ -38,8 +38,8 @@ export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
   )
 
   const close = () => {
-    setSummarizedText("")
     setOpen(false)
+    setSummarizedText("")
   }
 
   useEffect(() => {
