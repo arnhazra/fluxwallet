@@ -14,7 +14,7 @@ export const endPoints = {
   activateTrial: `${apiHost}/auth/activatetrial`,
   signOut: `${apiHost}/auth/signout`,
   updateAttribute: `${apiHost}/auth/attribute`,
-  // Core Service
+  // Platform Service
   activityTrends: `${apiHost}/activity/trends`,
   createCheckoutSession: `${apiHost}/subscription/checkout`,
   getProductConfig: `${apiHost}/config/products`,

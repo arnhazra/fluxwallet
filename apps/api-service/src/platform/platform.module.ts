@@ -9,7 +9,10 @@ import { ConfigModule } from "./config/config.module"
 
 @Module({
   imports: [
-    EntityModule.forRoot(config.CORE_DATABASE_URI, GeneralDbConnectionMap.Core),
+    EntityModule.forRoot(
+      config.PLATFORM_DATABASE_URI,
+      GeneralDbConnectionMap.Platform
+    ),
     ActivityModule,
     SubscriptionModule,
     EmailModule,

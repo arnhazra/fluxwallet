@@ -14,7 +14,7 @@ import { GetActivityQueryHandler } from "./queries/handler/get-activity-count.ha
     CqrsModule,
     EntityModule.forFeature(
       [{ name: Activity.name, schema: ActivitySchema }],
-      GeneralDbConnectionMap.Core
+      GeneralDbConnectionMap.Platform
     ),
   ],
   controllers: [ActivityController],

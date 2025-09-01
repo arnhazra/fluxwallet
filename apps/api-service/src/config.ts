@@ -5,7 +5,7 @@ export const config = {
   NODE_ENV: process.env.NODE_ENV,
   APP_NAME: process.env.APP_NAME,
   AUTH_DATABASE_URI: process.env.AUTH_DATABASE_URI,
-  CORE_DATABASE_URI: process.env.CORE_DATABASE_URI,
+  PLATFORM_DATABASE_URI: process.env.PLATFORM_DATABASE_URI,
   PRODUCTS_DATABASE_URI: process.env.PRODUCTS_DATABASE_URI,
   AZURE_API_KEY: process.env.AZURE_API_KEY,
   GCP_API_KEY: process.env.GCP_API_KEY,

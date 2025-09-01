@@ -1,6 +1,6 @@
 export enum GeneralDbConnectionMap {
   Auth = "auth",
-  Core = "core",
+  Platform = "platform",
 }
 
 export enum ProductsDbConnectionMap {
