@@ -7,7 +7,7 @@ import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { systemPrompt } from "./data/system-prompt"
 import { User } from "@/auth/schemas/user.schema"
-import { AdvisorXAgent } from "./advisorx.agent"
+import { AdvisorXTools } from "./advisorx.tool"
 
 export interface AdvisorXStrategyType {
   genericName: string
@@ -21,18 +21,25 @@ export interface AdvisorXStrategyType {
 
 @Injectable()
 export class AdvisorXStrategy {
-  constructor(private readonly agent: AdvisorXAgent) {}
+  constructor(private readonly tools: AdvisorXTools) {}
 
-  private async runAgent(llm: LanguageModelLike, args: AdvisorXStrategyType) {
+  private async runAdvisorAgent(
+    llm: LanguageModelLike,
+    args: AdvisorXStrategyType
+  ) {
     const { thread, prompt, user } = args
 
     const agent = createReactAgent({
       llm,
       tools: [
-        this.agent.getTotalWealthAgent,
-        this.agent.getInstitutionValuationAgent,
-        this.agent.getInstitutionListAgent,
-        this.agent.getAssetListAgent,
+        this.tools.getTotalWealthTool,
+        this.tools.getTotalDebtTool,
+        this.tools.getInstitutionValuationTool,
+        this.tools.getInstitutionListTool,
+        this.tools.getAssetListTool,
+        this.tools.getDebtListTool,
+        this.tools.getGoalListTool,
+        this.tools.getNearestGoalTool,
       ],
     })
 
@@ -52,37 +59,29 @@ export class AdvisorXStrategy {
     return messages[messages.length - 1]?.content.toString()
   }
 
-  private buildAzureLLM(opts: AdvisorXStrategyType) {
-    return new ChatOpenAI({
-      model: opts.genericName,
-      temperature: opts.temperature,
-      topP: opts.topP,
+  async azureStrategy(args: AdvisorXStrategyType) {
+    const llm = new ChatOpenAI({
+      model: args.genericName,
+      temperature: args.temperature,
+      topP: args.topP,
       apiKey: config.AZURE_API_KEY,
       configuration: {
         baseURL: config.AZURE_DEPLOYMENT_URI,
         apiKey: config.AZURE_API_KEY,
       },
     })
-  }
-
-  private buildGoogleLLM(opts: AdvisorXStrategyType) {
-    return new ChatGoogleGenerativeAI({
-      model: opts.genericName,
-      temperature: opts.temperature,
-      topP: opts.topP,
-      apiKey: config.GCP_API_KEY,
-    })
-  }
-
-  async azureStrategy(args: AdvisorXStrategyType) {
-    const llm = this.buildAzureLLM(args)
-    const response = await this.runAgent(llm, args)
+    const response = await this.runAdvisorAgent(llm, args)
     return { response }
   }
 
   async googleStrategy(args: AdvisorXStrategyType) {
-    const llm = this.buildGoogleLLM(args)
-    const response = await this.runAgent(llm, args)
+    const llm = new ChatGoogleGenerativeAI({
+      model: args.genericName,
+      temperature: args.temperature,
+      topP: args.topP,
+      apiKey: config.GCP_API_KEY,
+    })
+    const response = await this.runAdvisorAgent(llm, args)
     return { response }
   }
 }

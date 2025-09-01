@@ -14,7 +14,7 @@ export interface ProductsConfig {
 
 export const productConfig: ProductsConfig = {
   title: "Products",
-  desc: "Bring all your finances together in one place—add assets, track net worth, and unlock actionable insights. Plan, grow, and preserve wealth with clarity through a unified, intuitive experience.",
+  desc: "Bring all your finances together in one platform. Add assets, track net worth, and unlock actionable insights. Plan, grow, and preserve wealth with clarity through a unified, intuitive experience.",
   products: [
     {
       productName: "wealthanalyzer",

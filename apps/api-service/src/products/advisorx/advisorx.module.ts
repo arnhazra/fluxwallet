@@ -10,7 +10,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
 import { FetchThreadByIdQueryHandler } from "./queries/handler/fetch-thread-by-id.handler"
 import { HttpModule } from "@nestjs/axios"
 import { AdvisorXStrategy } from "./advisorx.strategy"
-import { AdvisorXAgent } from "./advisorx.agent"
+import { AdvisorXTools } from "./advisorx.tool"
 import { config } from "@/config"
 
 @Module({
@@ -31,7 +31,7 @@ import { config } from "@/config"
     AdvisorXService,
     AdvisorXRepository,
     AdvisorXStrategy,
-    AdvisorXAgent,
+    AdvisorXTools,
     CreateThreadCommandHandler,
     FetchThreadByIdQueryHandler,
   ],
