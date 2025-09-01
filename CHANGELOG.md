@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.2
+
+- Minor changes & bug fixes
+- Code refactoring
+
 ## v1.1
 
 - Added intelligent summarizer for all entities
