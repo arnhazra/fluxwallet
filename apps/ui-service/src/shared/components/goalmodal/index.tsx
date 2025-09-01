@@ -68,6 +68,7 @@ export function GoalModal({ goalDetails, children }: GoalModalProps) {
               <DialogDescription></DialogDescription>
             </div>
             <div className="flex gap-2">
+              <Summarizer entityType="goal" entityId={goalDetails._id} />
               <Button
                 onClick={(): void =>
                   router.push(
@@ -105,12 +106,7 @@ export function GoalModal({ goalDetails, children }: GoalModalProps) {
           </ul>
         </div>
         <DialogFooter>
-          <Summarizer entityType="goal" entityId={goalDetails._id} />
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={(): void => setOpen(false)}
-          >
+          <Button variant="secondary" onClick={(): void => setOpen(false)}>
             Close
           </Button>
         </DialogFooter>

@@ -110,6 +110,28 @@ export class ChatTools {
     }
   )
 
+  public getAssetListTool = tool(
+    async ({ userId }: { userId: string }) => {
+      try {
+        const assets: Asset[] = await this.eventEmitter.emitAsync(
+          EventMap.GetAssetList,
+          userId
+        )
+
+        return JSON.stringify(assets)
+      } catch (error) {
+        return "Unable to get the institution list"
+      }
+    },
+    {
+      name: "get_asset_list",
+      description: "Get asset list for a user",
+      schema: z.object({
+        userId: z.string().describe("user id of the user"),
+      }),
+    }
+  )
+
   public getDebtListTool = tool(
     async ({ userId }: { userId: string }) => {
       try {
@@ -169,28 +191,6 @@ export class ChatTools {
     {
       name: "get_user_nearest_goal",
       description: "Get nearest goal of a user",
-      schema: z.object({
-        userId: z.string().describe("user id of the user"),
-      }),
-    }
-  )
-
-  public getAssetListTool = tool(
-    async ({ userId }: { userId: string }) => {
-      try {
-        const assets: Asset[] = await this.eventEmitter.emitAsync(
-          EventMap.GetAssetList,
-          userId
-        )
-
-        return JSON.stringify(assets)
-      } catch (error) {
-        return "Unable to get the institution list"
-      }
-    },
-    {
-      name: "get_asset_list",
-      description: "Get asset list for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
       }),

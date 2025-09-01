@@ -64,14 +64,14 @@ export function DebtCard({ debt }: { debt: Debt }) {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-neutral-400">Identifier</span>
+              <span className="text-sm text-neutral-300">Identifier</span>
               <span className="text-sm font-medium">
                 <MaskText value={debt.identifier} />
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-neutral-400">EMI</span>
-              <span className="text-lg font-bold text-primary">
+              <span className="text-sm text-neutral-300">EMI</span>
+              <span className="text-lg font-bold text-white">
                 {formatCurrency(debt?.emi ?? 0, user.baseCurrency)}
               </span>
             </div>
@@ -85,7 +85,7 @@ export function DebtCard({ debt }: { debt: Debt }) {
 export function AddDebtCard() {
   return (
     <Link href={`/products/debttrack/createdebt`}>
-      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
+      <Card className="w-full max-w-sm h-[180px] flex items-center justify-center bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>

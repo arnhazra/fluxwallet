@@ -6,9 +6,9 @@ import { Model } from "mongoose"
 import { EntityRepository } from "@/shared/entity/entity.repository"
 
 @Injectable()
-export class AdvisorXRepository extends EntityRepository<Thread> {
+export class TaxAdvisorRepository extends EntityRepository<Thread> {
   constructor(
-    @InjectModel(Thread.name, ProductsDbConnectionMap.AdvisorX)
+    @InjectModel(Thread.name, ProductsDbConnectionMap.TaxAdvisor)
     private threadModel: Model<Thread>
   ) {
     super(threadModel)

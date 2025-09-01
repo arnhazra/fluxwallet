@@ -17,7 +17,7 @@ export class Subscription extends Document {
   @Prop({
     type: Date,
     default: function () {
-      const duration = this.price === 0 ? 90 : 365
+      const duration = this.price === 0 ? 180 : 365
       return new Date(Date.now() + 1000 * 86400 * duration)
     },
   })

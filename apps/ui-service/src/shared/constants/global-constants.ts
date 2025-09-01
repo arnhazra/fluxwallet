@@ -4,7 +4,6 @@ export const uiConstants = {
   homeHeader: "Invest for future",
   homeIntro:
     "Effortlessly manage your wealth — track assets, monitor net worth, liabilities and set a goal to unlock real-time insights.",
-  homePricing: `Try ${appName} FREE for first 3 months, `,
   connectionErrorMessage: "Unable to connect. Please check your internet.",
   authVerificationMessage: "Checking your credentials",
   errorMessage: "Page not found",
@@ -26,7 +25,7 @@ export const uiConstants = {
     "This action cannot be undone. Click continue to proceed, or cancel to go back.",
   copyrightText: `${appName} Inc. All rights reserved.`,
   pricingTitle: `Pricing`,
-  privacyPolicyStatement: `By using ${appName}, you agree to our Terms of Service and Privacy Policy.`,
+  privacyPolicyStatement: `By using ${appName}, you agree to our Privacy Policy.`,
   verifyEmailStatement: `Enter the OTP we've sent to your email to verify your identity.`,
   aiSafetyStatement: `${appName} Intelligence is AI-powered and may make mistakes. Please review results carefully.`,
 }

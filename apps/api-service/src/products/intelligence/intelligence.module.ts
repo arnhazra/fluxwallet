@@ -10,9 +10,9 @@ import { EntityModule } from "@/shared/entity/entity.module"
 import { FetchThreadByIdQueryHandler } from "./queries/handler/fetch-thread-by-id.handler"
 import { HttpModule } from "@nestjs/axios"
 import { IntelligenceStrategy } from "./intelligence.strategy"
-import { ChatTools } from "./agents/chat.agent"
+import { ChatTools } from "./tools/chat.tool"
 import { config } from "@/config"
-import { SummarizeTools } from "./agents/summarize.agent"
+import { SummarizeTools } from "./tools/summarize.tool"
 
 @Module({
   imports: [

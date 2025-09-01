@@ -14,7 +14,7 @@ export const endPoints = {
   activateTrial: `${apiHost}/auth/activatetrial`,
   signOut: `${apiHost}/auth/signout`,
   updateAttribute: `${apiHost}/auth/attribute`,
-  // Core Service
+  // Platform Service
   activityTrends: `${apiHost}/activity/trends`,
   createCheckoutSession: `${apiHost}/subscription/checkout`,
   getProductConfig: `${apiHost}/config/products`,
@@ -25,6 +25,6 @@ export const endPoints = {
   debt: `${apiHost}/debt`,
   goal: `${apiHost}/goal`,
   intelligence: `${apiHost}/intelligence`,
-  advisorX: `${apiHost}/advisorx`,
+  taxAdvisor: `${apiHost}/taxadvisor`,
   institution: `${apiHost}/institution`,
 }

@@ -54,8 +54,7 @@ export default function Page() {
           {uiConstants.homeIntro}
         </p>
         <p className="max-w-[35rem] leading-normal text-primary sm:text-lg sm:leading-8 mb-6">
-          {uiConstants.homePricing} ${subscriptionPricing?.data?.price}
-          /year afterwards.
+          {subscriptionPricing.data?.trialSubscription}
         </p>
         <Link
           href="/dashboard"
@@ -137,8 +136,7 @@ export default function Page() {
           data and puts you in charge.
         </p>
         <p className="max-w-[85%] text-2xl sm:text-lg sm:leading-7 text-primary">
-          {uiConstants.homePricing} ${subscriptionPricing?.data?.price}
-          /year afterwards.
+          {subscriptionPricing.data?.trialSubscription}
         </p>
       </div>
       <div className="grid w-full items-start gap-10 rounded-3xl bg-background border border-border p-10 md:grid-cols-[1fr_200px] hover:shadow-md hover:shadow-primary/20">
@@ -157,12 +155,11 @@ export default function Page() {
           </div>
           <div className="flex flex-col gap-4 text-center">
             <div>
-              <h4 className="text-lg font-bold">Free for first 3 months</h4>
               <p className="text-sm font-medium text-muted-foreground">
-                and then
+                {subscriptionPricing.data?.trialSubscription} and then
               </p>
               <h4 className="text-2xl font-bold">
-                $ {subscriptionPricing.data?.price}
+                ${subscriptionPricing.data?.price}
                 <span className="text-base font-normal ml-1">/year</span>
               </h4>
             </div>

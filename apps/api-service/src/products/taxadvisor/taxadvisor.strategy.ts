@@ -5,11 +5,11 @@ import { ChatOpenAI } from "@langchain/openai"
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
-import { systemPrompt } from "./data/system-prompt"
 import { User } from "@/auth/schemas/user.schema"
-import { AdvisorXAgent } from "./advisorx.agent"
+import { TaxAdvisorTools } from "./taxadvisor.tool"
+import { taxAdvisorSystemPrompt } from "./data/tax-advisor-system-prompt"
 
-export interface AdvisorXStrategyType {
+export interface TaxAdvisorStrategyType {
   genericName: string
   temperature: number
   topP: number
@@ -20,20 +20,18 @@ export interface AdvisorXStrategyType {
 }
 
 @Injectable()
-export class AdvisorXStrategy {
-  constructor(private readonly agent: AdvisorXAgent) {}
+export class TaxAdvisorStrategy {
+  constructor(private readonly tools: TaxAdvisorTools) {}
 
-  private async runAgent(llm: LanguageModelLike, args: AdvisorXStrategyType) {
+  private async runAdvisorAgent(
+    llm: LanguageModelLike,
+    args: TaxAdvisorStrategyType
+  ) {
     const { thread, prompt, user } = args
 
     const agent = createReactAgent({
       llm,
-      tools: [
-        this.agent.getTotalWealthAgent,
-        this.agent.getInstitutionValuationAgent,
-        this.agent.getInstitutionListAgent,
-        this.agent.getAssetListAgent,
-      ],
+      tools: [],
     })
 
     const chatHistory = thread.flatMap((t) => [
@@ -43,7 +41,7 @@ export class AdvisorXStrategy {
 
     const { messages } = await agent.invoke({
       messages: [
-        { role: "system", content: systemPrompt(user) },
+        { role: "system", content: taxAdvisorSystemPrompt(user) },
         ...chatHistory,
         { role: "user", content: prompt },
       ],
@@ -52,37 +50,29 @@ export class AdvisorXStrategy {
     return messages[messages.length - 1]?.content.toString()
   }
 
-  private buildAzureLLM(opts: AdvisorXStrategyType) {
-    return new ChatOpenAI({
-      model: opts.genericName,
-      temperature: opts.temperature,
-      topP: opts.topP,
+  async azureStrategy(args: TaxAdvisorStrategyType) {
+    const llm = new ChatOpenAI({
+      model: args.genericName,
+      temperature: args.temperature,
+      topP: args.topP,
       apiKey: config.AZURE_API_KEY,
       configuration: {
         baseURL: config.AZURE_DEPLOYMENT_URI,
         apiKey: config.AZURE_API_KEY,
       },
     })
-  }
-
-  private buildGoogleLLM(opts: AdvisorXStrategyType) {
-    return new ChatGoogleGenerativeAI({
-      model: opts.genericName,
-      temperature: opts.temperature,
-      topP: opts.topP,
-      apiKey: config.GCP_API_KEY,
-    })
-  }
-
-  async azureStrategy(args: AdvisorXStrategyType) {
-    const llm = this.buildAzureLLM(args)
-    const response = await this.runAgent(llm, args)
+    const response = await this.runAdvisorAgent(llm, args)
     return { response }
   }
 
-  async googleStrategy(args: AdvisorXStrategyType) {
-    const llm = this.buildGoogleLLM(args)
-    const response = await this.runAgent(llm, args)
+  async googleStrategy(args: TaxAdvisorStrategyType) {
+    const llm = new ChatGoogleGenerativeAI({
+      model: args.genericName,
+      temperature: args.temperature,
+      topP: args.topP,
+      apiKey: config.GCP_API_KEY,
+    })
+    const response = await this.runAdvisorAgent(llm, args)
     return { response }
   }
 }

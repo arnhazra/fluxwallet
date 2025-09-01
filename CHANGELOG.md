@@ -1,10 +1,15 @@
 # Changelog
 
+## v1.2
+
+- Minor changes & bug fixes on attribute updates
+- Code refactoring
+
 ## v1.1
 
 - Added intelligent summarizer for all entities
 - Fixed bugs in intelligence chat and modified agents
-- Updated agents for advisorx chat
+- Updated agents for taxadvisor chat
 - Minor changes & bug fixes
 
 ## v1.0

@@ -20,6 +20,8 @@ import Show from "../show"
 import { suggestedPrompts } from "./suggested-prompts"
 import { Badge } from "../ui/badge"
 import { Thread } from "@/shared/types"
+import IconContainer from "../icon-container"
+import { streamResponseText } from "@/shared/lib/stream-response"
 
 enum Model {
   GPT = "openai/gpt-4o-mini",
@@ -45,23 +47,6 @@ export default function Intelligence() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrompt(e.target.value)
-  }
-
-  const streamResponseText = (
-    fullText: string,
-    callback: (chunk: string) => void,
-    delay = 40
-  ) => {
-    let i = 0
-    const words = fullText.split(" ")
-    const interval = setInterval(() => {
-      if (i < words.length) {
-        callback(words.slice(0, i + 1).join(" ") + " ")
-        i++
-      } else {
-        clearInterval(interval)
-      }
-    }, delay)
   }
 
   const hitAPI = async (e: any) => {
@@ -104,9 +89,9 @@ export default function Intelligence() {
         onClick={() => setIsOpen(true)}
         variant="default"
         size="icon"
-        className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary rounded-full"
+        className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary text-black hover:opacity-90 rounded-full"
       >
-        <Sparkles className="h-4 w-4 text-black" />
+        <Sparkles className="h-4 w-4" />
       </Button>
 
       {isOpen && (
@@ -136,7 +121,11 @@ export default function Intelligence() {
           <div className="space-y-4">
             <Show condition={messages.length === 0}>
               <div className="text-center mt-8">
-                <Sparkles className="h-12 w-12 mx-auto mb-4 text-primary" />
+                <div className="flex justify-center mb-4">
+                  <IconContainer>
+                    <Sparkles className="h-5 w-5" />
+                  </IconContainer>
+                </div>
                 <p className="text-primary">{appName} Intelligence</p>
                 <p className="text-sm mt-2 text-white p-6">
                   {appName} Intelligence is an agentic workflow powered by AI,
@@ -239,7 +228,7 @@ export default function Intelligence() {
                         autoFocus
                         value={prompt}
                         onChange={handleInputChange}
-                        placeholder="Ask anything..."
+                        placeholder="Ask Anything"
                         disabled={isLoading}
                         className="bg-transparent border-none text-neutral-300 placeholder:text-neutral-500 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none outline-none ring-0 text-sm px-0"
                       />

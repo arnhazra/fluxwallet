@@ -10,7 +10,7 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import { Bot, User, ArrowUp, Brain, Sparkle } from "lucide-react"
+import { Bot, User, ArrowUp, Brain, Sparkle, Calculator } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -23,6 +23,8 @@ import { useSearchParams } from "next/navigation"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { useRouter } from "nextjs-toploader/app"
+import { streamResponseText } from "@/shared/lib/stream-response"
+import IconContainer from "@/shared/components/icon-container"
 
 enum Model {
   GPT = "openai/gpt-4o-mini",
@@ -42,7 +44,7 @@ export default function Page() {
   const [model, setModel] = useState<Model>(Model.GPT)
   const thread = useQuery<Thread[]>({
     queryKey: ["get-thread", tId ?? ""],
-    queryUrl: `${endPoints.advisorX}/${tId}`,
+    queryUrl: `${endPoints.taxAdvisor}/${tId}`,
     method: HTTPMethods.GET,
     suspense: tId !== null,
     enabled: tId !== null,
@@ -69,23 +71,6 @@ export default function Page() {
     setPrompt(e.target.value)
   }
 
-  const streamResponseText = (
-    fullText: string,
-    callback: (chunk: string) => void,
-    delay = 40
-  ) => {
-    let i = 0
-    const words = fullText.split(" ")
-    const interval = setInterval(() => {
-      if (i < words.length) {
-        callback(words.slice(0, i + 1).join(" ") + " ")
-        i++
-      } else {
-        clearInterval(interval)
-      }
-    }, delay)
-  }
-
   const hitAPI = async (e: any) => {
     e.preventDefault()
     setMessages((prev) => [...prev, prompt])
@@ -94,7 +79,7 @@ export default function Page() {
 
     try {
       const res: Thread = await ky
-        .post(`${endPoints.advisorX}`, {
+        .post(`${endPoints.taxAdvisor}`, {
           json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })
@@ -102,7 +87,7 @@ export default function Page() {
 
       if (!threadId) {
         setThreadId(res.threadId)
-        router.push(`/products/advisorx?threadId=${res.threadId}`)
+        router.replace(`/products/taxadvisor?threadId=${res.threadId}`)
       }
 
       setMessages((prevMessages) => [...prevMessages, ""])
@@ -131,10 +116,14 @@ export default function Page() {
         <div className="space-y-4">
           <Show condition={messages.length === 0}>
             <div className="text-center mt-8 max-w-xl mx-auto">
-              <Brain className="h-12 w-12 mx-auto mb-4 text-primary" />
-              <p className="text-primary">{appName} AdvisorX</p>
+              <div className="flex justify-center mb-4">
+                <IconContainer>
+                  <Calculator className="h-5 w-5" />
+                </IconContainer>
+              </div>
+              <p className="text-primary">{appName} TaxAdvisor</p>
               <p className="text-sm mt-2 text-white p-6">
-                {appName} AdvisorX is an agentic workflow powered by AI, so
+                {appName} TaxAdvisor is an agentic workflow powered by AI, so
                 mistakes are possible. Please use carefully.
               </p>
               <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-3xl mt-4">
@@ -228,7 +217,7 @@ export default function Page() {
                     autoFocus
                     value={prompt}
                     onChange={handleInputChange}
-                    placeholder="Ask anything..."
+                    placeholder="Ask Anything"
                     disabled={isLoading}
                     className="bg-transparent border-none text-neutral-300 placeholder:text-neutral-500 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none outline-none ring-0 text-sm px-0"
                   />

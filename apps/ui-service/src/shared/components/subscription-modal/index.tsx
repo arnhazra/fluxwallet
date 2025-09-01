@@ -16,9 +16,10 @@ import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { useAppContext } from "@/context/appstate.provider"
 import notify from "@/shared/hooks/use-notify"
 import Show from "../show"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import LoaderIcon from "../loaderIcon"
 import IconContainer from "../icon-container"
+import { useRouter } from "next/navigation"
 
 interface SubscriptionModalProps {
   data: SubscriptionConfig | undefined
@@ -26,7 +27,14 @@ interface SubscriptionModalProps {
 
 export function SubscriptionModal({ data }: SubscriptionModalProps) {
   const [{ isSubscriptionActive, user }, dispatch] = useAppContext()
+  const router = useRouter()
   const [isLoading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (!isSubscriptionActive) {
+      router.push("/dashboard")
+    }
+  }, [isSubscriptionActive])
 
   const activateSubscription = async () => {
     if (user.hasTrial) {
@@ -82,7 +90,7 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
               condition={!user.hasTrial}
               fallback="Activate your free subscription"
             >
-              You need to subscribe before you use
+              Subscribe to continue using {appName}
             </Show>
           </DialogDescription>
           <Show condition={!user.hasTrial}>
@@ -92,8 +100,8 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
             </h4>
           </Show>
           <Show condition={user.hasTrial}>
-            <h4 className="text-xl font-bold text-primary">
-              Free subscription for 3 months
+            <h4 className="text-sm font-bold text-primary">
+              {data?.trialSubscription}
             </h4>
           </Show>
         </DialogHeader>
@@ -119,7 +127,7 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
                 condition={!isLoading}
                 fallback={
                   <>
-                    <LoaderIcon />
+                    <LoaderIcon inverse />
                   </>
                 }
               >

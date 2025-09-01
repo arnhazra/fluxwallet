@@ -136,7 +136,7 @@ export default function AuthenticationPage({
                       condition={!isAuthLoading}
                       fallback={
                         <>
-                          <LoaderIcon /> {alert}
+                          <LoaderIcon inverse /> {alert}
                         </>
                       }
                     >
@@ -199,7 +199,7 @@ export default function AuthenticationPage({
                         condition={!isAuthLoading}
                         fallback={
                           <>
-                            <LoaderIcon /> {alert}
+                            <LoaderIcon inverse /> {alert}
                           </>
                         }
                       >

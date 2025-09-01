@@ -14,7 +14,7 @@ import { GeneralDbConnectionMap } from "src/shared/utils/db-connection.map"
     CqrsModule,
     EntityModule.forFeature(
       [{ name: Subscription.name, schema: SubscriptionSchema }],
-      GeneralDbConnectionMap.Core
+      GeneralDbConnectionMap.Platform
     ),
   ],
   controllers: [SubscriptionController],

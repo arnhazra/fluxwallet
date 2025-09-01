@@ -4,7 +4,7 @@ import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { z } from "zod"
 
-interface GenericAgentReq {
+interface GenericToolReq {
   userId: string
   entityId: string
 }
@@ -13,8 +13,8 @@ interface GenericAgentReq {
 export class SummarizeTools {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
-  public getInstitutionAgent = tool(
-    async ({ userId, entityId }: GenericAgentReq) => {
+  public getInstitutionTool = tool(
+    async ({ userId, entityId }: GenericToolReq) => {
       try {
         const institution: any = (
           await this.eventEmitter.emitAsync(
@@ -38,8 +38,8 @@ export class SummarizeTools {
     }
   )
 
-  public getAssetAgent = tool(
-    async ({ userId, entityId }: GenericAgentReq) => {
+  public getAssetTool = tool(
+    async ({ userId, entityId }: GenericToolReq) => {
       try {
         const asset: any = (
           await this.eventEmitter.emitAsync(
@@ -63,8 +63,8 @@ export class SummarizeTools {
     }
   )
 
-  public getDebtAgent = tool(
-    async ({ userId, entityId }: GenericAgentReq) => {
+  public getDebtTool = tool(
+    async ({ userId, entityId }: GenericToolReq) => {
       try {
         const debt: any = (
           await this.eventEmitter.emitAsync(
@@ -88,8 +88,8 @@ export class SummarizeTools {
     }
   )
 
-  public getGoalAgent = tool(
-    async ({ userId, entityId }: GenericAgentReq) => {
+  public getGoalTool = tool(
+    async ({ userId, entityId }: GenericToolReq) => {
       try {
         const goal: any = (
           await this.eventEmitter.emitAsync(

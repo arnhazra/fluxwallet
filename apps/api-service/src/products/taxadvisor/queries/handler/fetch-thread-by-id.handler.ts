@@ -1,5 +1,5 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
-import { AdvisorXRepository } from "../../advisorx.repository"
+import { TaxAdvisorRepository } from "../../taxadvisor.repository"
 import { FetchThreadByIdQuery } from "../impl/fetch-thread-by-id.query"
 import objectId from "@/shared/utils/convert-objectid"
 
@@ -7,7 +7,7 @@ import objectId from "@/shared/utils/convert-objectid"
 export class FetchThreadByIdQueryHandler
   implements IQueryHandler<FetchThreadByIdQuery>
 {
-  constructor(private readonly repository: AdvisorXRepository) {}
+  constructor(private readonly repository: TaxAdvisorRepository) {}
 
   async execute(query: FetchThreadByIdQuery) {
     const { threadId } = query

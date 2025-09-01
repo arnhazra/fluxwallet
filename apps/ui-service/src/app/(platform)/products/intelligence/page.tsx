@@ -23,6 +23,8 @@ import { useSearchParams } from "next/navigation"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { useRouter } from "nextjs-toploader/app"
+import IconContainer from "@/shared/components/icon-container"
+import { streamResponseText } from "@/shared/lib/stream-response"
 
 enum Model {
   GPT = "openai/gpt-4o-mini",
@@ -69,23 +71,6 @@ export default function Page() {
     setPrompt(e.target.value)
   }
 
-  const streamResponseText = (
-    fullText: string,
-    callback: (chunk: string) => void,
-    delay = 40
-  ) => {
-    let i = 0
-    const words = fullText.split(" ")
-    const interval = setInterval(() => {
-      if (i < words.length) {
-        callback(words.slice(0, i + 1).join(" ") + " ")
-        i++
-      } else {
-        clearInterval(interval)
-      }
-    }, delay)
-  }
-
   const hitAPI = async (e: any) => {
     e.preventDefault()
     setMessages((prev) => [...prev, prompt])
@@ -102,7 +87,7 @@ export default function Page() {
 
       if (!threadId) {
         setThreadId(res.threadId)
-        router.push(`/products/intelligence?threadId=${res.threadId}`)
+        router.replace(`/products/intelligence?threadId=${res.threadId}`)
       }
 
       setMessages((prevMessages) => [...prevMessages, ""])
@@ -131,7 +116,11 @@ export default function Page() {
         <div className="space-y-4">
           <Show condition={messages.length === 0}>
             <div className="text-center mt-8 max-w-xl mx-auto">
-              <Sparkles className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <div className="flex justify-center mb-4">
+                <IconContainer>
+                  <Sparkles className="h-5 w-5" />
+                </IconContainer>
+              </div>
               <p className="text-primary">{appName} Intelligence</p>
               <p className="text-sm mt-2 text-white p-6">
                 {appName} Intelligence is an agentic workflow powered by AI, so
@@ -228,7 +217,7 @@ export default function Page() {
                     autoFocus
                     value={prompt}
                     onChange={handleInputChange}
-                    placeholder="Ask anything..."
+                    placeholder="Ask Anything"
                     disabled={isLoading}
                     className="bg-transparent border-none text-neutral-300 placeholder:text-neutral-500 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none outline-none ring-0 text-sm px-0"
                   />

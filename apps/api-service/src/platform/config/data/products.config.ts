@@ -14,7 +14,7 @@ export interface ProductsConfig {
 
 export const productConfig: ProductsConfig = {
   title: "Products",
-  desc: "Bring all your finances together in one place—add assets, track net worth, and unlock actionable insights. Plan, grow, and preserve wealth with clarity through a unified, intuitive experience.",
+  desc: "Bring all your finances together in one platform. Add assets, track net worth, and unlock actionable insights. Plan, grow, and preserve wealth with clarity through a unified, intuitive experience.",
   products: [
     {
       productName: "wealthanalyzer",
@@ -44,17 +44,18 @@ export const productConfig: ProductsConfig = {
       productName: "intelligence",
       displayName: "Intelligence",
       description:
-        "Transform financial data into insights with AI analytics. Uncover opportunities, assess risks, and optimize strategies.",
+        "AI-powered assistant for holistic wealth management. Analyze portfolios, track goals, and deliver insights across the platform.",
       icon: "Sparkles",
       url: "/products/intelligence",
     },
+
     {
-      productName: "advisorx",
-      displayName: "AdvisorX",
+      productName: "taxadvisor",
+      displayName: "TaxAdvisor",
       description:
-        "AI-powered advisor offering personalized financial guidance, real-time recommendations, and smart collaboration for clients.",
-      icon: "Brain",
-      url: "/products/advisorx",
+        "AI-powered tax advisor providing personalized filing guidance, accurate compliance checks, and smart strategies for every taxpayer.",
+      icon: "Calculator",
+      url: "/products/taxadvisor",
     },
   ],
 }

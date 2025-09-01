@@ -1,10 +1,9 @@
 {
   "name": "fluxwallet",
-  "version": "1.1",
-  "description": "a saas product",
+  "version": "1.2",
+  "description": "a wealth management platform",
   "scripts": {
     "api-service": "npm run dev --prefix apps/api-service",
-    "email-service": "npm run dev --prefix apps/email-service",
     "ui-service": "npm run dev --prefix apps/ui-service",
     "dev": "concurrently \"npm run api-service\" \"npm run ui-service\"",
     "publish": "git add . && git commit -m \"Publish App\" && git push",

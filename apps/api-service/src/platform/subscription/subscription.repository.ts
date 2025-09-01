@@ -8,7 +8,7 @@ import { EntityRepository } from "@/shared/entity/entity.repository"
 @Injectable()
 export class SubscriptionRepository extends EntityRepository<Subscription> {
   constructor(
-    @InjectModel(Subscription.name, GeneralDbConnectionMap.Core)
+    @InjectModel(Subscription.name, GeneralDbConnectionMap.Platform)
     private subscriptionModel: Model<Subscription>
   ) {
     super(subscriptionModel)

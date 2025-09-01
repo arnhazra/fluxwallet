@@ -58,7 +58,7 @@ export default function GoalDashboardCard() {
           </p>
           <div className="space-y-2">
             <div className="flex gap-1 text-sm">
-              <span className="text-neutral-300">Wealth Goal:</span>
+              <span className="text-neutral-300">Upcoming Wealth Goal:</span>
               <span className="text-primary">
                 {formatCurrency(data?.goalAmount ?? 0, user.baseCurrency)}
               </span>

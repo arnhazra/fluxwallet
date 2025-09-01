@@ -1,6 +1,6 @@
 export enum GeneralDbConnectionMap {
   Auth = "auth",
-  Core = "core",
+  Platform = "platform",
 }
 
 export enum ProductsDbConnectionMap {
@@ -8,5 +8,5 @@ export enum ProductsDbConnectionMap {
   DebtTrack = "debttrack",
   WealthGoal = "wealthgoal",
   Intelligence = "intelligence",
-  AdvisorX = "advisorx",
+  TaxAdvisor = "taxadvisor",
 }
