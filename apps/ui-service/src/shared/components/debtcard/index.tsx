@@ -85,7 +85,7 @@ export function DebtCard({ debt }: { debt: Debt }) {
 export function AddDebtCard() {
   return (
     <Link href={`/products/debttrack/createdebt`}>
-      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
+      <Card className="w-full max-w-sm h-[180px] flex items-center justify-center bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>
