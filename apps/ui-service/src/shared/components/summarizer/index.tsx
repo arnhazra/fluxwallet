@@ -38,9 +38,7 @@ export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="text-white font-semibold
-             bg-gradient-to-r from-[#3a7bd5] to-[#3a6073]
-             hover:opacity-90 transition"
+          className="text-white font-semibold bg-purple hover:opacity-90 transition"
           variant="default"
           size="icon"
           title="Summarize"
