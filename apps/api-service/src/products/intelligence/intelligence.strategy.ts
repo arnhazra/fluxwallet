@@ -7,10 +7,10 @@ import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { chatSystemPrompt } from "./data/chat-system-prompt"
 import { User } from "@/auth/schemas/user.schema"
-import { ChatTools } from "./agents/chat.agent"
+import { ChatTools } from "./tools/chat.tool"
 import { EntityType } from "./dto/ai-summarize.dto"
 import { AIModel } from "./dto/ai-chat.dto"
-import { SummarizeTools } from "./agents/summarize.agent"
+import { SummarizeTools } from "./tools/summarize.tool"
 import { summarizeSystemPrompt } from "./data/summarize-system-prompt"
 
 export interface ChatReqParams {
@@ -41,7 +41,7 @@ export class IntelligenceStrategy {
   private async runChatTools(llm: LanguageModelLike, args: ChatReqParams) {
     const { thread, prompt, user } = args
 
-    const agent = createReactAgent({
+    const chatAgent = createReactAgent({
       llm,
       tools: [
         this.chatTools.getTotalWealthTool,
@@ -63,7 +63,7 @@ export class IntelligenceStrategy {
       { role: "assistant", content: t.response },
     ])
 
-    const { messages } = await agent.invoke({
+    const { messages } = await chatAgent.invoke({
       messages: [
         { role: "system", content: chatSystemPrompt(user) },
         ...chatHistory,
@@ -106,17 +106,17 @@ export class IntelligenceStrategy {
   ) {
     const { entityId, entityType, user } = args
 
-    const agent = createReactAgent({
+    const summarizeAgent = createReactAgent({
       llm,
       tools: [
-        this.summarizeTools.getInstitutionAgent,
-        this.summarizeTools.getAssetAgent,
-        this.summarizeTools.getDebtAgent,
-        this.summarizeTools.getGoalAgent,
+        this.summarizeTools.getInstitutionTool,
+        this.summarizeTools.getAssetTool,
+        this.summarizeTools.getDebtTool,
+        this.summarizeTools.getGoalTool,
       ],
     })
 
-    const { messages } = await agent.invoke({
+    const { messages } = await summarizeAgent.invoke({
       messages: [
         { role: "system", content: summarizeSystemPrompt(user) },
         {
