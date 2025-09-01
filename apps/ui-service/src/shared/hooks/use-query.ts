@@ -15,6 +15,7 @@ interface QueryType<T> {
   requestBody?: object
   suspense?: boolean
   enabled?: boolean
+  staleTime?: number
 }
 
 export default function useQuery<T>({
@@ -24,6 +25,7 @@ export default function useQuery<T>({
   requestBody,
   suspense = true,
   enabled = true,
+  staleTime,
 }: QueryType<T>) {
   const [{ user }] = useAppContext()
 

@@ -24,6 +24,7 @@ import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { useRouter } from "nextjs-toploader/app"
 import IconContainer from "@/shared/components/icon-container"
+import { streamResponseText } from "@/shared/lib/stream-response"
 
 enum Model {
   GPT = "openai/gpt-4o-mini",
@@ -70,23 +71,6 @@ export default function Page() {
     setPrompt(e.target.value)
   }
 
-  const streamResponseText = (
-    fullText: string,
-    callback: (chunk: string) => void,
-    delay = 40
-  ) => {
-    let i = 0
-    const words = fullText.split(" ")
-    const interval = setInterval(() => {
-      if (i < words.length) {
-        callback(words.slice(0, i + 1).join(" ") + " ")
-        i++
-      } else {
-        clearInterval(interval)
-      }
-    }, delay)
-  }
-
   const hitAPI = async (e: any) => {
     e.preventDefault()
     setMessages((prev) => [...prev, prompt])
@@ -103,7 +87,7 @@ export default function Page() {
 
       if (!threadId) {
         setThreadId(res.threadId)
-        router.push(`/products/intelligence?threadId=${res.threadId}`)
+        router.replace(`/products/intelligence?threadId=${res.threadId}`)
       }
 
       setMessages((prevMessages) => [...prevMessages, ""])

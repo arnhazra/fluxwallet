@@ -21,6 +21,7 @@ import { suggestedPrompts } from "./suggested-prompts"
 import { Badge } from "../ui/badge"
 import { Thread } from "@/shared/types"
 import IconContainer from "../icon-container"
+import { streamResponseText } from "@/shared/lib/stream-response"
 
 enum Model {
   GPT = "openai/gpt-4o-mini",
@@ -46,23 +47,6 @@ export default function Intelligence() {
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setPrompt(e.target.value)
-  }
-
-  const streamResponseText = (
-    fullText: string,
-    callback: (chunk: string) => void,
-    delay = 40
-  ) => {
-    let i = 0
-    const words = fullText.split(" ")
-    const interval = setInterval(() => {
-      if (i < words.length) {
-        callback(words.slice(0, i + 1).join(" ") + " ")
-        i++
-      } else {
-        clearInterval(interval)
-      }
-    }, delay)
   }
 
   const hitAPI = async (e: any) => {

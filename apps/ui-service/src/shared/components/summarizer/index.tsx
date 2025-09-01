@@ -1,6 +1,6 @@
 import { Button } from "../ui/button"
 import { Sparkles } from "lucide-react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import {
   DialogHeader,
   Dialog,
@@ -14,6 +14,8 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import Show from "../show"
 import MarkdownRenderer from "../markdown"
+import LoaderIcon from "../loaderIcon"
+import { streamResponseText } from "@/shared/lib/stream-response"
 
 interface GenericAgentReq {
   entityId: string
@@ -22,6 +24,7 @@ interface GenericAgentReq {
 
 export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
   const [open, setOpen] = useState(false)
+  const [summarizedText, setSummarizedText] = useState("")
 
   const { data, isLoading } = useQuery<{ response: string | null | undefined }>(
     {
@@ -30,9 +33,21 @@ export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
       method: HTTPMethods.POST,
       requestBody: { entityType, entityId },
       suspense: false,
-      enabled: open,
+      enabled: open && !summarizedText,
     }
   )
+
+  const close = () => {
+    setSummarizedText("")
+    setOpen(false)
+  }
+
+  useEffect(() => {
+    if (!isLoading && !data?.response) return
+    streamResponseText(data?.response ?? "", (chunk) => {
+      setSummarizedText(chunk)
+    })
+  }, [data, isLoading])
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
@@ -54,16 +69,18 @@ export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
           </DialogTitle>
         </DialogHeader>
         <div className="mt-2">
-          <Show condition={!isLoading} fallback="Summarizing...">
-            <MarkdownRenderer markdown={data?.response ?? ""} />
+          <Show condition={isLoading || !summarizedText}>
+            <p className="flex items-center text-md text-white">
+              <LoaderIcon />
+              Summarizing...
+            </p>
+          </Show>
+          <Show condition={!isLoading && !!summarizedText}>
+            <MarkdownRenderer markdown={summarizedText ?? ""} />
           </Show>
         </div>
         <DialogFooter>
-          <Button
-            onClick={(): void => setOpen(false)}
-            variant="secondary"
-            className="text-black"
-          >
+          <Button onClick={close} variant="secondary" className="text-black">
             Close
           </Button>
         </DialogFooter>
