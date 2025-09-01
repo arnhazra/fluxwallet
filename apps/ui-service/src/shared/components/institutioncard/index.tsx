@@ -38,10 +38,10 @@ export function InstitutionCard({ institution }: { institution: Institution }) {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-neutral-400">
+              <span className="text-sm text-neutral-300">
                 Present Valuation
               </span>
-              <span className="text-lg font-bold text-primary">
+              <span className="text-lg font-bold text-white">
                 {formatCurrency(
                   institution?.presentValuation ?? 0,
                   user.baseCurrency

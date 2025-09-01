@@ -64,14 +64,14 @@ export function DebtCard({ debt }: { debt: Debt }) {
         <CardContent className="space-y-4">
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-neutral-400">Identifier</span>
+              <span className="text-sm text-neutral-300">Identifier</span>
               <span className="text-sm font-medium">
                 <MaskText value={debt.identifier} />
               </span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-sm text-neutral-400">EMI</span>
-              <span className="text-lg font-bold text-primary">
+              <span className="text-sm text-neutral-300">EMI</span>
+              <span className="text-lg font-bold text-white">
                 {formatCurrency(debt?.emi ?? 0, user.baseCurrency)}
               </span>
             </div>
