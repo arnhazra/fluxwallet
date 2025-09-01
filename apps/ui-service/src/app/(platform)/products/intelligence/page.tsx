@@ -23,6 +23,7 @@ import { useSearchParams } from "next/navigation"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { useRouter } from "nextjs-toploader/app"
+import IconContainer from "@/shared/components/icon-container"
 
 enum Model {
   GPT = "openai/gpt-4o-mini",
@@ -131,7 +132,11 @@ export default function Page() {
         <div className="space-y-4">
           <Show condition={messages.length === 0}>
             <div className="text-center mt-8 max-w-xl mx-auto">
-              <Sparkles className="h-12 w-12 mx-auto mb-4 text-primary" />
+              <div className="flex justify-center mb-4">
+                <IconContainer>
+                  <Sparkles className="h-5 w-5" />
+                </IconContainer>
+              </div>
               <p className="text-primary">{appName} Intelligence</p>
               <p className="text-sm mt-2 text-white p-6">
                 {appName} Intelligence is an agentic workflow powered by AI, so

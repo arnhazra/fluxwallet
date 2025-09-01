@@ -20,6 +20,7 @@ import Show from "../show"
 import { suggestedPrompts } from "./suggested-prompts"
 import { Badge } from "../ui/badge"
 import { Thread } from "@/shared/types"
+import IconContainer from "../icon-container"
 
 enum Model {
   GPT = "openai/gpt-4o-mini",
@@ -136,7 +137,11 @@ export default function Intelligence() {
           <div className="space-y-4">
             <Show condition={messages.length === 0}>
               <div className="text-center mt-8">
-                <Sparkles className="h-12 w-12 mx-auto mb-4 text-primary" />
+                <div className="flex justify-center mb-4">
+                  <IconContainer>
+                    <Sparkles className="h-5 w-5" />
+                  </IconContainer>
+                </div>
                 <p className="text-primary">{appName} Intelligence</p>
                 <p className="text-sm mt-2 text-white p-6">
                   {appName} Intelligence is an agentic workflow powered by AI,
