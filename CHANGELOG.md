@@ -2,7 +2,7 @@
 
 ## v1.2
 
-- Minor changes & bug fixes
+- Minor changes & bug fixes on attribute updates
 - Code refactoring
 
 ## v1.1

@@ -90,7 +90,7 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
               condition={!user.hasTrial}
               fallback="Activate your free subscription"
             >
-              You need to subscribe before you use
+              Subscribe to continue using {appName}
             </Show>
           </DialogDescription>
           <Show condition={!user.hasTrial}>
