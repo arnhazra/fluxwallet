@@ -5,13 +5,13 @@ import { ChatOpenAI } from "@langchain/openai"
 import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
-import { chatSystemPrompt } from "./data/chat-system-prompt"
 import { User } from "@/auth/schemas/user.schema"
 import { ChatTools } from "./tools/chat.tool"
 import { EntityType } from "./dto/ai-summarize.dto"
 import { AIModel } from "./dto/ai-chat.dto"
 import { SummarizeTools } from "./tools/summarize.tool"
-import { summarizeSystemPrompt } from "./data/summarize-system-prompt"
+import { RedisService } from "@/shared/redis/redis.service"
+import { PromptTemplate } from "@langchain/core/prompts"
 
 export interface ChatReqParams {
   genericName: string
@@ -35,11 +35,33 @@ export interface SummarizeReqParams {
 export class IntelligenceStrategy {
   constructor(
     private readonly chatTools: ChatTools,
-    private readonly summarizeTools: SummarizeTools
+    private readonly summarizeTools: SummarizeTools,
+    private readonly redisService: RedisService
   ) {}
 
-  private async runChatTools(llm: LanguageModelLike, args: ChatReqParams) {
+  private async getChatSystemInstruction(user: User) {
+    const data = await this.redisService.get("chat-system-instruction")
+    return PromptTemplate.fromTemplate(data).invoke({
+      appName: config.APP_NAME,
+      userName: user.name,
+      userId: user.id,
+      userEmail: user.email,
+      baseCurrency: user.baseCurrency,
+    })
+  }
+
+  private async getSummarizerSystemInstruction(user: User) {
+    const data = await this.redisService.get("summarizer-system-instruction")
+    return PromptTemplate.fromTemplate(data).invoke({
+      appName: config.APP_NAME,
+      userId: user.id,
+      baseCurrency: user.baseCurrency,
+    })
+  }
+
+  private async runChatAgent(llm: LanguageModelLike, args: ChatReqParams) {
     const { thread, prompt, user } = args
+    const systemInstruction = await this.getChatSystemInstruction(user)
 
     const chatAgent = createReactAgent({
       llm,
@@ -67,7 +89,7 @@ export class IntelligenceStrategy {
 
     const { messages } = await chatAgent.invoke({
       messages: [
-        { role: "system", content: chatSystemPrompt(user) },
+        { role: "system", content: systemInstruction.value },
         ...chatHistory,
         { role: "user", content: prompt },
       ],
@@ -87,7 +109,7 @@ export class IntelligenceStrategy {
         apiKey: config.AZURE_API_KEY,
       },
     })
-    const response = await this.runChatTools(llm, args)
+    const response = await this.runChatAgent(llm, args)
     return { response }
   }
 
@@ -98,7 +120,7 @@ export class IntelligenceStrategy {
       topP: args.topP,
       apiKey: config.GCP_API_KEY,
     })
-    const response = await this.runChatTools(llm, args)
+    const response = await this.runChatAgent(llm, args)
     return { response }
   }
 
@@ -107,6 +129,7 @@ export class IntelligenceStrategy {
     args: SummarizeReqParams
   ) {
     const { entityId, entityType, user } = args
+    const systemInstruction = await this.getSummarizerSystemInstruction(user)
 
     const summarizeAgent = createReactAgent({
       llm,
@@ -120,7 +143,7 @@ export class IntelligenceStrategy {
 
     const { messages } = await summarizeAgent.invoke({
       messages: [
-        { role: "system", content: summarizeSystemPrompt(user) },
+        { role: "system", content: systemInstruction.value },
         {
           role: "user",
           content: `Summarize entity type: ${entityType} and id is ${entityId}`,
