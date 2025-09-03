@@ -9,7 +9,7 @@ export interface RedisModuleOptions {
   db?: number
 }
 
-@Global() // makes it available app-wide without re-importing
+@Global()
 @Module({})
 export class RedisModule {
   static forRoot(options: RedisModuleOptions): DynamicModule {
