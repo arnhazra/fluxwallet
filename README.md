@@ -4,7 +4,7 @@ This platform helps you organize and manage your entire financial life in one pl
 
 ### What is the cost of using this platform ?
 
-Typically, utilizing this platform incurs no cost. We have implemented a test stripe payment gateway to have a more realistic SaaS experience. But as it is test so you can use test card number 4242-4242-4242-4242 and use it for free.
+Typically, utilizing this platform incurs no cost. I have implemented a test stripe payment gateway to have a more realistic SaaS experience. But as it is test so you can use test card number 4242-4242-4242-4242 and use it for free.
 
 ### Tech Stack
 

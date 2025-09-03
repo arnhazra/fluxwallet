@@ -1,6 +1,6 @@
 import { User } from "../schemas/user.schema"
 
-export const blackListedAttributes: (keyof User)[] = [
+export const blockListedAttributes: (keyof User)[] = [
   "_id",
   "role",
   "email",

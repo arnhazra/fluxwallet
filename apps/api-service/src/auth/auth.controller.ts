@@ -17,7 +17,7 @@ import { UpdateAttributeDto } from "./dto/update-attribute.dto"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/utils/event.map"
 import { GoogleOAuthDto } from "./dto/google-oauth.dto"
-import { blackListedAttributes } from "./utils/blacklisted-attribute"
+import { blockListedAttributes } from "./utils/blocklisted-attribute"
 
 @Controller("auth")
 export class AuthController {
@@ -105,7 +105,7 @@ export class AuthController {
   ) {
     try {
       const { attributeName, attributeValue } = updateAttributeDto
-      if (blackListedAttributes.includes(attributeName)) {
+      if (blockListedAttributes.includes(attributeName)) {
         throw new BadRequestException()
       }
       return await this.service.updateAttribute(
