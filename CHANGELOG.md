@@ -1,5 +1,11 @@
 # Changelog
 
+## v1.3
+
+- Minor changes & bug fixes on attribute updates
+- Dependency updates in applications
+- Standardized error handling
+
 ## v1.2
 
 - Minor changes & bug fixes on attribute updates
