@@ -28,7 +28,7 @@ export class DebtController {
     try {
       return await this.service.createDebt(request.user.userId, requestBody)
     } catch (error) {
-      throw error
+      throw new BadRequestException(statusMessages.connectionError)
     }
   }
 
@@ -66,7 +66,7 @@ export class DebtController {
         requestBody
       )
     } catch (error) {
-      throw error
+      throw new BadRequestException(statusMessages.connectionError)
     }
   }
 

@@ -6,11 +6,13 @@ import {
   UseGuards,
   Get,
   Param,
+  BadRequestException,
 } from "@nestjs/common"
 import { IntelligenceService } from "./intelligence.service"
 import { AIChatDto } from "./dto/ai-chat.dto"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { AISummarizeDto } from "./dto/ai-summarize.dto"
+import { statusMessages } from "@/shared/constants/status-messages"
 
 @Controller("intelligence")
 export class IntelligenceController {
@@ -25,7 +27,9 @@ export class IntelligenceController {
     try {
       return await this.service.getThreadById(threadId, false)
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -35,7 +39,9 @@ export class IntelligenceController {
     try {
       return await this.service.chat(aiChatDto, request.user.userId)
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -48,7 +54,9 @@ export class IntelligenceController {
     try {
       return await this.service.summarize(aiSummarizeDto, request.user.userId)
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 }

@@ -6,10 +6,12 @@ import {
   UseGuards,
   Get,
   Param,
+  BadRequestException,
 } from "@nestjs/common"
 import { TaxAdvisorService } from "./taxadvisor.service"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
+import { statusMessages } from "@/shared/constants/status-messages"
 
 @Controller("taxadvisor")
 export class TaxAdvisorController {
@@ -27,7 +29,9 @@ export class TaxAdvisorController {
         request.user.userId
       )
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -40,7 +44,9 @@ export class TaxAdvisorController {
     try {
       return await this.service.getThreadById(threadId, false)
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 }

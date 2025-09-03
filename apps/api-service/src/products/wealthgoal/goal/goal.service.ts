@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { Goal } from "./schemas/goal.schema"
@@ -25,7 +25,7 @@ export class GoalService {
         new CreateGoalCommand(userId, requestBody)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -36,7 +36,7 @@ export class GoalService {
         new FindGoalsByUserQuery(userId)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -47,7 +47,7 @@ export class GoalService {
         new FindNearestGoalQuery(userId)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -58,7 +58,7 @@ export class GoalService {
         new FindGoalByIdQuery(reqUserId, goalId)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -72,7 +72,7 @@ export class GoalService {
         new UpdateGoalCommand(userId, goalId, requestBody)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -86,9 +86,9 @@ export class GoalService {
         return { success: true }
       }
 
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 }

@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { Debt } from "./schemas/debt.schema"
@@ -25,7 +25,7 @@ export class DebtService {
         new CreateDebtCommand(userId, requestBody)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -42,7 +42,7 @@ export class DebtService {
         })
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -55,7 +55,7 @@ export class DebtService {
       const debtDetails = calculateDebtDetails(debt)
       return debtDetails
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -69,7 +69,7 @@ export class DebtService {
         new UpdateDebtCommand(userId, debtId, requestBody)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -83,9 +83,9 @@ export class DebtService {
         return { success: true }
       }
 
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -105,7 +105,7 @@ export class DebtService {
       )
       return { remainingDebt, totalEMI, totalPrincipal }
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 }

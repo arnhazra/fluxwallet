@@ -1,7 +1,6 @@
 import {
   Controller,
   Post,
-  BadRequestException,
   Get,
   Delete,
   UseGuards,
@@ -9,6 +8,7 @@ import {
   Param,
   Body,
   Put,
+  BadRequestException,
 } from "@nestjs/common"
 import { GoalService } from "./goal.service"
 import { statusMessages } from "@/shared/constants/status-messages"
@@ -28,7 +28,9 @@ export class GoalController {
     try {
       return await this.service.createGoal(request.user.userId, requestBody)
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -38,7 +40,9 @@ export class GoalController {
     try {
       return await this.service.findMyGoals(request.user.userId)
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -48,7 +52,9 @@ export class GoalController {
     try {
       return await this.service.findNearestGoal(request.user.userId)
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -58,7 +64,9 @@ export class GoalController {
     try {
       return await this.service.findGoalById(request.user.userId, params.goalId)
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -76,7 +84,9 @@ export class GoalController {
         requestBody
       )
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -86,7 +96,9 @@ export class GoalController {
     try {
       return await this.service.deleteGoal(request.user.userId, params.goalId)
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 }

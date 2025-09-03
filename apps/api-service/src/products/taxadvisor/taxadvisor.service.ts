@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
@@ -35,7 +35,7 @@ export class TaxAdvisorService {
       if (!!thread && thread.length) {
         return thread
       } else {
-        throw new BadRequestException("Thread not found")
+        throw new Error("Thread not found")
       }
     } catch (error) {
       throw error
