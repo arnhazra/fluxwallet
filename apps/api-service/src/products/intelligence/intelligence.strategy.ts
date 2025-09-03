@@ -44,6 +44,8 @@ export class IntelligenceStrategy {
     const chatAgent = createReactAgent({
       llm,
       tools: [
+        this.chatTools.getInstitutionTypesTool,
+        this.chatTools.getAssetTypesTool,
         this.chatTools.getTotalWealthTool,
         this.chatTools.createInstitutionTool,
         this.chatTools.getInstitutionValuationTool,

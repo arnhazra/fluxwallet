@@ -1,7 +1,7 @@
 import { Debt } from "@/products/debttrack/debt/schemas/debt.schema"
 import { Asset } from "../../wealthanalyzer/asset/schemas/asset.schema"
 import { Institution } from "../../wealthanalyzer/institution/schemas/institution.schema"
-import { Currency } from "@/shared/constants/types"
+import { AssetType, Currency, InstitutionType } from "@/shared/constants/types"
 import { EventMap } from "@/shared/utils/event.map"
 import { tool } from "@langchain/core/tools"
 import { Injectable } from "@nestjs/common"
@@ -12,6 +12,28 @@ import { Goal } from "@/products/wealthgoal/goal/schemas/goal.schema"
 @Injectable()
 export class ChatTools {
   constructor(private readonly eventEmitter: EventEmitter2) {}
+
+  public getInstitutionTypesTool = tool(
+    async () => {
+      return Object.values(InstitutionType)
+    },
+    {
+      name: "get_institution_types",
+      description: "Get types of institutions",
+      schema: z.object({}),
+    }
+  )
+
+  public getAssetTypesTool = tool(
+    async () => {
+      return Object.values(AssetType)
+    },
+    {
+      name: "get_asset_types",
+      description: "Get types of assets",
+      schema: z.object({}),
+    }
+  )
 
   public getTotalWealthTool = tool(
     async ({ userId }: { userId: string }) => {
@@ -204,7 +226,7 @@ export class ChatTools {
     }: {
       userId: string
       institutionName: string
-      institutionType: string
+      institutionType: InstitutionType
     }) => {
       try {
         await this.eventEmitter.emitAsync(EventMap.CreateInstitution, userId, {
@@ -225,7 +247,7 @@ export class ChatTools {
           .string()
           .describe("institution name given by the user"),
         institutionType: z
-          .string()
+          .nativeEnum(InstitutionType)
           .describe("institution type given by the user"),
       }),
     }
@@ -257,7 +279,7 @@ export class ChatTools {
       schema: z.object({
         userId: z.string().describe("user id of the user"),
         baseCurrency: z
-          .string()
+          .nativeEnum(Currency)
           .describe("new base currency name given by the user"),
       }),
     }
