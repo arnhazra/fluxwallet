@@ -35,7 +35,7 @@ export class AuthController {
       if (success) {
         return { accessToken, refreshToken, user }
       } else {
-        throw new BadRequestException(statusMessages.invalidOTP)
+        throw new BadRequestException(statusMessages.connectionError)
       }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
