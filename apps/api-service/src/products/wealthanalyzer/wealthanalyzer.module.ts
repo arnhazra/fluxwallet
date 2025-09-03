@@ -3,7 +3,7 @@ import { AssetModule } from "./asset/asset.module"
 import { InstitutionModule } from "./institution/institution.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { config } from "@/config"
-import { ProductsDbConnectionMap } from "@/shared/utils/db-connection.map"
+import { ProductsDbConnectionMap } from "@/shared/constants/db-connection.map"
 
 @Module({
   imports: [

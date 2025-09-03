@@ -9,7 +9,7 @@ import { CreateInstitutionCommand } from "./commands/impl/create-institution.com
 import { CreateInstitutionRequestDto } from "./dto/request/create-institution.request.dto"
 import { UpdateInstitutionCommand } from "./commands/impl/update-institution.command"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/utils/event.map"
+import { EventMap } from "@/shared/constants/event.map"
 import { FindInstitutionByNameQuery } from "./queries/impl/find-institution-by-name.query"
 import { AssetService } from "../asset/asset.service"
 

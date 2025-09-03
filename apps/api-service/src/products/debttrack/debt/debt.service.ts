@@ -9,7 +9,7 @@ import { UpdateDebtCommand } from "./commands/impl/update-debt.command"
 import { FindDebtsByUserQuery } from "./queries/impl/find-debt-by-user.query"
 import { FindDebtByIdQuery } from "./queries/impl/find-debt-by-id.query"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/utils/event.map"
+import { EventMap } from "@/shared/constants/event.map"
 import { calculateDebtDetails } from "./helpers/calculate-debt"
 
 @Injectable()

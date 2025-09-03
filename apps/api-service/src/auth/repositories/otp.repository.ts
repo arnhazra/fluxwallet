@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
-import { GeneralDbConnectionMap } from "src/shared/utils/db-connection.map"
+import { GeneralDbConnectionMap } from "@/shared/constants/db-connection.map"
 import { Model } from "mongoose"
 import { EntityRepository } from "@/shared/entity/entity.repository"
 import { OneTimePassword } from "../schemas/otp.schema"

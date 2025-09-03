@@ -15,7 +15,7 @@ import { statusMessages } from "@/shared/constants/status-messages"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { UpdateAttributeDto } from "./dto/update-attribute.dto"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/utils/event.map"
+import { EventMap } from "@/shared/constants/event.map"
 import { GoogleOAuthDto } from "./dto/google-oauth.dto"
 import { blockListedAttributes } from "./utils/blocklisted-attribute"
 
