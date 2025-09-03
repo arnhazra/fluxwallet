@@ -125,7 +125,7 @@ export class AuthController {
       const { user } = await this.service.getUserDetails(request.user.userId)
 
       if (!user.hasTrial) {
-        throw new Error()
+        throw new Error(statusMessages.trialActivated)
       }
 
       await this.eventEmitter.emitAsync(
@@ -137,7 +137,7 @@ export class AuthController {
 
       return { success: true }
     } catch (error) {
-      throw new BadRequestException(statusMessages.invalidUser)
+      throw new BadRequestException(error.message || statusMessages.invalidUser)
     }
   }
 }
