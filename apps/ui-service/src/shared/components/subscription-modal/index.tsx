@@ -20,21 +20,23 @@ import { useEffect, useState } from "react"
 import LoaderIcon from "../loaderIcon"
 import IconContainer from "../icon-container"
 import { useRouter } from "next/navigation"
+import { useQueryClient } from "@tanstack/react-query"
 
 interface SubscriptionModalProps {
   data: SubscriptionConfig | undefined
 }
 
 export function SubscriptionModal({ data }: SubscriptionModalProps) {
-  const [{ isSubscriptionActive, user }, dispatch] = useAppContext()
+  const [{ subscription, user }] = useAppContext()
   const router = useRouter()
   const [isLoading, setLoading] = useState(false)
+  const queryClient = useQueryClient()
 
   useEffect(() => {
-    if (!isSubscriptionActive) {
+    if (!subscription?.isActive) {
       router.push("/dashboard")
     }
-  }, [isSubscriptionActive])
+  }, [subscription])
 
   const activateSubscription = async () => {
     if (user.hasTrial) {
@@ -45,7 +47,7 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
             timeout: FETCH_TIMEOUT,
           })
           .json()
-        dispatch("setSubscriptionActive", true)
+        queryClient.refetchQueries({ queryKey: ["user-details"] })
         notify(uiConstants.subscriptionSuccess, "success")
       } catch (error) {
         notify(uiConstants.subscriptionFailed, "error")
@@ -72,7 +74,7 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
   }
 
   return (
-    <Dialog open={!isSubscriptionActive} onOpenChange={(): void => undefined}>
+    <Dialog open={!subscription?.isActive} onOpenChange={(): void => undefined}>
       <DialogOverlay className="bg-black/40 backdrop-blur-sm" />
       <DialogContent
         className="max-w-[22rem] bg-background/60 backdrop-blur-md border-border text-white -mb-4"

@@ -178,10 +178,7 @@ export class AuthService {
           subscription = subscriptionRes.shift()
         }
 
-        const isSubscriptionActive =
-          subscription && new Date(subscription.endsAt) > new Date()
-
-        return { user, subscription, isSubscriptionActive }
+        return { user, subscription }
       } else {
         throw new Error(statusMessages.invalidUser)
       }

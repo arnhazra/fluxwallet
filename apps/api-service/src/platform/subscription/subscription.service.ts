@@ -9,6 +9,7 @@ import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.c
 import { FindSubscriptionByUserIdQuery } from "./queries/impl/find-subscription-by-user-id.query"
 import { getRediretURIAPI } from "./utils/redirect-uri"
 import { subscriptionConfig } from "../config/data/subscription.config"
+import { Subscription } from "./schemas/subscription.schema"
 
 @Injectable()
 export class SubscriptionService {
@@ -82,9 +83,24 @@ export class SubscriptionService {
   @OnEvent(EventMap.GetSubscriptionDetails)
   async getMySubscription(userId: string) {
     try {
-      return await this.queryBus.execute(
-        new FindSubscriptionByUserIdQuery(userId)
-      )
+      const subscription: Subscription | null | undefined =
+        await this.queryBus.execute(new FindSubscriptionByUserIdQuery(userId))
+
+      if (!subscription) {
+        return null
+      }
+
+      const { _id, price, endsAt } = subscription
+      const isActive = subscription && new Date(endsAt) > new Date()
+
+      return {
+        _id,
+        userId,
+        price,
+        createdAt: (subscription as any).createdAt,
+        endsAt,
+        isActive,
+      }
     } catch (error) {
       throw new Error(statusMessages.connectionError)
     }

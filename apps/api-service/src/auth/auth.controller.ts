@@ -73,11 +73,12 @@ export class AuthController {
   @Get("userdetails")
   async getUserDetails(@Request() request: ModRequest) {
     try {
-      const { user, subscription, isSubscriptionActive } =
-        await this.service.getUserDetails(request.user.userId)
+      const { user, subscription } = await this.service.getUserDetails(
+        request.user.userId
+      )
 
       if (user) {
-        return { user, subscription, isSubscriptionActive }
+        return { user, subscription }
       } else {
         throw new BadRequestException(statusMessages.invalidUser)
       }

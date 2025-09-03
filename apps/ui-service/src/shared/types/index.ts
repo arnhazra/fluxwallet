@@ -54,6 +54,7 @@ export type Subscription = {
   price: number
   createdAt: string
   endsAt: string
+  isActive: boolean
 }
 
 export type ActivityTrends = {

@@ -7,11 +7,11 @@ import SectionPanel from "@/shared/components/section-panel"
 import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
-  const [{ subscription, isSubscriptionActive }] = useAppContext()
+  const [{ subscription }] = useAppContext()
 
   return (
     <>
-      <Show condition={!isSubscriptionActive}>
+      <Show condition={!subscription?.isActive}>
         <SectionPanel
           icon={
             <IconContainer>
@@ -22,7 +22,7 @@ export default function Page() {
           content="You don't have a subscription"
         />
       </Show>
-      <Show condition={!!isSubscriptionActive}>
+      <Show condition={!!subscription?.isActive}>
         <section className="grid gap-2">
           <SectionPanel
             icon={

@@ -24,7 +24,6 @@ const initialState: AppState = {
     avatar: null,
   },
   subscription: null,
-  isSubscriptionActive: false,
 }
 
 const AppContext = createContext<AppContextInterface>([
