@@ -7,9 +7,9 @@ export class ConfigController {
   constructor(private readonly service: ConfigService) {}
 
   @Get(":configName")
-  getConfig(@Param("configName") configName: string) {
+  async getConfig(@Param("configName") configName: string) {
     try {
-      return this.service.getConfig(configName)
+      return await this.service.getConfig(configName)
     } catch (error) {
       throw new BadRequestException(statusMessages.configNotFound)
     }
