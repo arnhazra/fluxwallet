@@ -1,6 +1,7 @@
 import { DynamicModule, Global, Module } from "@nestjs/common"
 import Redis from "ioredis"
 import { RedisService } from "./redis.service"
+import { config } from "@/config"
 
 export interface RedisModuleOptions {
   host: string
@@ -12,15 +13,14 @@ export interface RedisModuleOptions {
 @Global()
 @Module({})
 export class RedisModule {
-  static forRoot(options: RedisModuleOptions): DynamicModule {
+  static forRoot(): DynamicModule {
     const redisProvider = {
       provide: "REDIS_CLIENT",
       useFactory: () => {
         return new Redis({
-          host: options.host,
-          port: options.port,
-          password: options.password,
-          db: options.db ?? 0,
+          host: config.REDIS_HOST,
+          port: config.REDIS_PORT,
+          password: config.REDIS_PASSWORD,
         })
       },
     }

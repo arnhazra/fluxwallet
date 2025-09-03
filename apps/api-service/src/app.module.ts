@@ -10,11 +10,7 @@ import { RedisModule } from "./shared/redis/redis.module"
 @Module({
   imports: [
     EventEmitterModule.forRoot(),
-    RedisModule.forRoot({
-      host: "redis-14955.c212.ap-south-1-1.ec2.redns.redis-cloud.com",
-      port: 14955,
-      password: "Wu0Gwcdvhec3fnUPdeJpaHKcmU88NquM",
-    }),
+    RedisModule.forRoot(),
     AuthModule,
     PlatformModule,
     ProductsModule,
