@@ -22,12 +22,6 @@ export enum AssetType {
   OTHER = "OTHER",
 }
 
-export enum DebtType {
-  LOAN = "LOAN",
-  CREDIT = "CREDIT",
-  OTHER = "OTHER",
-}
-
 export enum RecurringFrequency {
   MONTHLY = "MONTHLY",
   QUARTERLY = "QUARTERLY",
