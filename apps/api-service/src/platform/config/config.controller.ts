@@ -1,5 +1,6 @@
 import { Controller, BadRequestException, Get, Param } from "@nestjs/common"
 import { ConfigService } from "./config.service"
+import { statusMessages } from "@/shared/constants/status-messages"
 
 @Controller("config")
 export class ConfigController {
@@ -10,7 +11,7 @@ export class ConfigController {
     try {
       return this.service.getConfig(configName)
     } catch (error) {
-      throw new BadRequestException()
+      throw new BadRequestException(statusMessages.configNotFound)
     }
   }
 }

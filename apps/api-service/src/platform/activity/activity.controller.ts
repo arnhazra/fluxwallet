@@ -11,6 +11,7 @@ import { EventMap } from "../../shared/utils/event.map"
 import { OnEvent } from "@nestjs/event-emitter"
 import { GetCountDto } from "./dto/get-count.dto"
 import { AuthGuard } from "@/auth/auth.guard"
+import { statusMessages } from "@/shared/constants/status-messages"
 
 @Controller("activity")
 export class ActivityController {
@@ -27,7 +28,7 @@ export class ActivityController {
     try {
       return await this.activityService.getActivityCount(getCountDto)
     } catch (error) {
-      throw new BadRequestException()
+      throw new BadRequestException(statusMessages.connectionError)
     }
   }
 }

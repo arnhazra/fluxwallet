@@ -6,10 +6,12 @@ import {
   Res,
   UseGuards,
   Request,
+  BadRequestException,
 } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { getRediretURIUI } from "./utils/redirect-uri"
+import { statusMessages } from "@/shared/constants/status-messages"
 
 @Controller("subscription")
 export class SubscriptionController {
@@ -24,7 +26,7 @@ export class SubscriptionController {
       )
       return { redirectUrl: session.url }
     } catch (error) {
-      throw error
+      throw new BadRequestException(statusMessages.connectionError)
     }
   }
 

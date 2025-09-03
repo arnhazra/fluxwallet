@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { CreateActivityDto } from "./dto/create-activity.dto"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateActivityCommand } from "./commands/impl/create-activity.command"
@@ -29,7 +29,7 @@ export class ActivityService {
         new GetActivityQuery(getCountDto)
       )
     } catch (error) {
-      throw new BadRequestException()
+      throw error
     }
   }
 }

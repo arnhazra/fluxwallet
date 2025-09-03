@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { RequestOTPDto } from "./dto/request-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import { config } from "src/config"
@@ -97,7 +97,7 @@ export class AuthService {
         return { accessToken, refreshToken, user: newUser, success: true }
       }
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -115,7 +115,7 @@ export class AuthService {
       this.updateAttribute(derivedUserId as string, "avatar", data.picture)
       return resp
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -136,7 +136,7 @@ export class AuthService {
       await this.setOTP(email, hash)
       return { user }
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -150,10 +150,10 @@ export class AuthService {
         this.deleteOTP(email)
         return await this.userRegistrationOrLogin(email, name)
       } else {
-        throw new BadRequestException(statusMessages.connectionError)
+        throw new Error(statusMessages.connectionError)
       }
     } catch (error) {
-      throw new BadRequestException(error)
+      throw new Error(error)
     }
   }
 
@@ -183,10 +183,10 @@ export class AuthService {
 
         return { user, subscription, isSubscriptionActive }
       } else {
-        throw new BadRequestException(statusMessages.invalidUser)
+        throw new Error(statusMessages.invalidUser)
       }
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -194,7 +194,7 @@ export class AuthService {
     try {
       await this.deleteRefreshToken({ userId })
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -209,7 +209,7 @@ export class AuthService {
         new UpdateAttributeCommand(userId, attributeName, attributeValue)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -218,7 +218,7 @@ export class AuthService {
       const { userId, token } = setTokenDto
       return await this.commandBus.execute(new SetTokenCommand(userId, token))
     } catch (error) {
-      throw new BadRequestException()
+      throw new Error()
     }
   }
 
@@ -230,7 +230,7 @@ export class AuthService {
         new GetTokenQuery(userId)
       )
     } catch (error) {
-      throw new BadRequestException()
+      throw new Error()
     }
   }
 
@@ -239,7 +239,7 @@ export class AuthService {
       const { userId } = deleteTokenDto
       return await this.commandBus.execute(new DeleteTokenCommand(userId))
     } catch (error) {
-      throw new BadRequestException()
+      throw new Error()
     }
   }
 
@@ -247,7 +247,7 @@ export class AuthService {
     try {
       return await this.commandBus.execute(new SetOTPCommand(email, otpHash))
     } catch (error) {
-      throw new BadRequestException()
+      throw new Error()
     }
   }
 
@@ -258,10 +258,10 @@ export class AuthService {
         OneTimePassword
       >(new GetOTPQuery(email))
 
-      if (!response) throw new BadRequestException()
+      if (!response) throw new Error()
       return response
     } catch (error) {
-      throw new BadRequestException()
+      throw new Error()
     }
   }
 
@@ -269,7 +269,7 @@ export class AuthService {
     try {
       return await this.commandBus.execute(new DeleteOTPCommand(email))
     } catch (error) {
-      throw new BadRequestException()
+      throw new Error()
     }
   }
 }

@@ -1,5 +1,5 @@
 import Stripe from "stripe"
-import { Injectable, BadRequestException } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { config } from "src/config"
 import { OnEvent } from "@nestjs/event-emitter"
@@ -51,7 +51,7 @@ export class SubscriptionService {
 
       return session
     } catch (error) {
-      throw new BadRequestException()
+      throw new Error()
     }
   }
 
@@ -65,7 +65,7 @@ export class SubscriptionService {
       )
       return { success: true }
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error()
     }
   }
 
@@ -75,7 +75,7 @@ export class SubscriptionService {
       await this.commandBus.execute(new CreateSubscriptionCommand(userId, 0))
       return { success: true }
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -86,7 +86,7 @@ export class SubscriptionService {
         new FindSubscriptionByUserIdQuery(userId)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 }

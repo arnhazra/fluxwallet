@@ -1,5 +1,6 @@
 export const statusMessages = {
   connectionError: "Connection Error",
+  configNotFound: "Config Not Found",
   signOutSuccess: "You are now Signed out",
   unauthorized: "Unauthorized",
   invalidOTP: "Invalid OTP",

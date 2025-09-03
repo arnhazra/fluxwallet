@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { productConfig } from "./data/products.config"
 import { solutionConfig } from "./data/solutions.config"
 import { subscriptionConfig } from "./data/subscription.config"
@@ -18,7 +18,7 @@ export class ConfigService {
       }
       throw new Error()
     } catch (error) {
-      throw new BadRequestException()
+      throw error
     }
   }
 }

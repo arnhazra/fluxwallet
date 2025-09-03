@@ -1,9 +1,10 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { SendEmailDto } from "./dto/send-email.dto"
 import * as nodemailer from "nodemailer"
 import { google } from "googleapis"
 import { config } from "../../config"
 import SMTPTransport from "nodemailer/lib/smtp-transport"
+import { statusMessages } from "@/shared/constants/status-messages"
 
 @Injectable()
 export class EmailService {
@@ -44,7 +45,7 @@ export class EmailService {
         html: body,
       })
     } catch (error) {
-      throw new BadRequestException()
+      throw new Error(statusMessages.connectionError)
     }
   }
 }
