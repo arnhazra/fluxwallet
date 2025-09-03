@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { FindAssetsByInstitutionQuery } from "./queries/impl/find-assets-by-institution.query"
@@ -28,7 +28,7 @@ export class AssetService {
         new CreateAssetCommand(userId, requestBody)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -49,7 +49,7 @@ export class AssetService {
         })
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -71,7 +71,7 @@ export class AssetService {
         })
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -88,7 +88,7 @@ export class AssetService {
         presentValuation: valuation,
       }
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -102,7 +102,7 @@ export class AssetService {
         new UpdateAssetCommand(userId, assetId, requestBody)
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -116,9 +116,9 @@ export class AssetService {
         return { success: true }
       }
 
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -170,7 +170,7 @@ export class AssetService {
 
       return 0
     } catch (error) {
-      throw new BadRequestException()
+      return 0
     }
   }
 
@@ -187,7 +187,7 @@ export class AssetService {
       const total = valuations.reduce((sum, val) => sum + val, 0)
       return total
     } catch (error) {
-      throw new BadRequestException()
+      throw new Error()
     }
   }
 
@@ -205,7 +205,7 @@ export class AssetService {
       const total = valuations.reduce((sum, val) => sum + val, 0)
       return total
     } catch (error) {
-      throw new BadRequestException()
+      throw new Error()
     }
   }
 }

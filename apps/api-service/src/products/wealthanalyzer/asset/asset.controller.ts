@@ -28,7 +28,9 @@ export class AssetController {
     try {
       return await this.service.createAsset(request.user.userId, requestBody)
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -44,7 +46,9 @@ export class AssetController {
         params.institutionId
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -57,7 +61,9 @@ export class AssetController {
         params.assetId
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -75,7 +81,9 @@ export class AssetController {
         requestBody
       )
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -85,7 +93,9 @@ export class AssetController {
     try {
       return await this.service.deleteAsset(request.user.userId, params.assetId)
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -98,7 +108,9 @@ export class AssetController {
       )
       return { presentValuation }
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 }

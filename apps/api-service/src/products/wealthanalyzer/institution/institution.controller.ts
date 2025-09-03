@@ -31,7 +31,9 @@ export class InstitutionController {
         requestBody
       )
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -41,7 +43,9 @@ export class InstitutionController {
     try {
       return await this.service.findMyInstitutions(request.user.userId)
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -59,7 +63,9 @@ export class InstitutionController {
       if (!institution) throw new Error()
       return institution
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -77,7 +83,9 @@ export class InstitutionController {
         requestBody
       )
     } catch (error) {
-      throw error
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 
@@ -93,7 +101,9 @@ export class InstitutionController {
         params.institutionId
       )
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
     }
   }
 }

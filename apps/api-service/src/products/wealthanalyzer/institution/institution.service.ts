@@ -1,4 +1,4 @@
-import { BadRequestException, Injectable } from "@nestjs/common"
+import { Injectable } from "@nestjs/common"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { FindAllInstitutionQuery } from "./queries/impl/find-all-institutions.query"
@@ -32,7 +32,7 @@ export class InstitutionService {
         Institution
       >(new CreateInstitutionCommand(userId, requestBody))
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -76,7 +76,7 @@ export class InstitutionService {
         presentValuation: valuation,
       }
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -97,7 +97,7 @@ export class InstitutionService {
         presentValuation: valuation,
       }
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -112,7 +112,7 @@ export class InstitutionService {
         Institution
       >(new UpdateInstitutionCommand(userId, institutionId, requestBody))
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 
@@ -129,9 +129,9 @@ export class InstitutionService {
         return { success: true }
       }
 
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     } catch (error) {
-      throw new BadRequestException(statusMessages.connectionError)
+      throw new Error(statusMessages.connectionError)
     }
   }
 }
