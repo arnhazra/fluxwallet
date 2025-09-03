@@ -1,20 +1,19 @@
 import { Injectable } from "@nestjs/common"
-import { productConfig } from "./data/products.config"
-import { solutionConfig } from "./data/solutions.config"
-import { subscriptionConfig } from "./data/subscription.config"
+import { RedisService } from "@/shared/redis/redis.service"
 
 @Injectable()
 export class ConfigService {
-  getConfig(configName: string) {
+  constructor(private readonly redisService: RedisService) {}
+  async getConfig(configName: string) {
     try {
       if (configName === "products") {
-        return productConfig
+        return JSON.parse(await this.redisService.get("productConfig"))
       }
       if (configName === "solutions") {
-        return solutionConfig
+        return JSON.parse(await this.redisService.get("solutionConfig"))
       }
       if (configName === "subscription") {
-        return subscriptionConfig
+        return JSON.parse(await this.redisService.get("subscriptionConfig"))
       }
       throw new Error()
     } catch (error) {

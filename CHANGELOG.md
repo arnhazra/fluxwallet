@@ -2,7 +2,9 @@
 
 ## v1.4
 
--
+- Moved the configurations to redis
+- Redis integration for config
+- Standardized error handling
 
 ## v1.3
 

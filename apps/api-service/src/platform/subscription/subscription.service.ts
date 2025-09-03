@@ -8,7 +8,6 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.command"
 import { FindSubscriptionByUserIdQuery } from "./queries/impl/find-subscription-by-user-id.query"
 import { getRediretURIAPI } from "./utils/redirect-uri"
-import { subscriptionConfig } from "../config/data/subscription.config"
 import { Subscription } from "./schemas/subscription.schema"
 
 @Injectable()
@@ -26,7 +25,7 @@ export class SubscriptionService {
     userId: string
   ): Promise<Stripe.Checkout.Session> {
     try {
-      const { price } = subscriptionConfig
+      const price = 50
       const session = await this.stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
