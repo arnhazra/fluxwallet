@@ -6,7 +6,6 @@ import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { User } from "@/auth/schemas/user.schema"
-import { TaxAdvisorTools } from "./taxadvisor.tool"
 import { taxAdvisorSystemPrompt } from "./data/tax-advisor-system-prompt"
 
 export interface TaxAdvisorStrategyType {
@@ -21,7 +20,7 @@ export interface TaxAdvisorStrategyType {
 
 @Injectable()
 export class TaxAdvisorStrategy {
-  constructor(private readonly tools: TaxAdvisorTools) {}
+  constructor() {}
 
   private async runAdvisorAgent(
     llm: LanguageModelLike,

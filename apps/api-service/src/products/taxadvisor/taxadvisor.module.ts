@@ -10,7 +10,6 @@ import { EntityModule } from "@/shared/entity/entity.module"
 import { FetchThreadByIdQueryHandler } from "./queries/handler/fetch-thread-by-id.handler"
 import { HttpModule } from "@nestjs/axios"
 import { TaxAdvisorStrategy } from "./taxadvisor.strategy"
-import { TaxAdvisorTools } from "./taxadvisor.tool"
 import { config } from "@/config"
 
 @Module({
@@ -31,7 +30,6 @@ import { config } from "@/config"
     TaxAdvisorService,
     TaxAdvisorRepository,
     TaxAdvisorStrategy,
-    TaxAdvisorTools,
     CreateThreadCommandHandler,
     FetchThreadByIdQueryHandler,
   ],
