@@ -41,7 +41,6 @@ export class ChatTools {
         ).shift()
         return `Total debt details is ${JSON.stringify(valuation)}`
       } catch (error) {
-        console.log(error)
         return "Unable to get total debt"
       }
     },
