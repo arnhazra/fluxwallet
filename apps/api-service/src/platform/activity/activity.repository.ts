@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
 import { Activity } from "./schemas/activity.schema"
-import { GeneralDbConnectionMap } from "src/shared/utils/db-connection.map"
+import { GeneralDbConnectionMap } from "@/shared/constants/db-connection.map"
 import { Model } from "mongoose"
 import { EntityRepository } from "@/shared/entity/entity.repository"
 

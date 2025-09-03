@@ -1,4 +1,4 @@
-import { EventMap } from "@/shared/utils/event.map"
+import { EventMap } from "@/shared/constants/event.map"
 import { tool } from "@langchain/core/tools"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"

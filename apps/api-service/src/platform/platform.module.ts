@@ -1,7 +1,7 @@
 import { Module } from "@nestjs/common"
 import { SubscriptionModule } from "./subscription/subscription.module"
 import { config } from "src/config"
-import { GeneralDbConnectionMap } from "src/shared/utils/db-connection.map"
+import { GeneralDbConnectionMap } from "@/shared/constants/db-connection.map"
 import { ActivityModule } from "./activity/activity.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { EmailModule } from "./email/email.module"

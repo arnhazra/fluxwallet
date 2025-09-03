@@ -5,10 +5,12 @@ import { AppController } from "./app.controller"
 import { AuthModule } from "./auth/auth.module"
 import { ProductsModule } from "./products/products.module"
 import { SharedModule } from "./shared/shared.module"
+import { RedisModule } from "./shared/redis/redis.module"
 
 @Module({
   imports: [
     EventEmitterModule.forRoot(),
+    RedisModule.forRoot(),
     AuthModule,
     PlatformModule,
     ProductsModule,

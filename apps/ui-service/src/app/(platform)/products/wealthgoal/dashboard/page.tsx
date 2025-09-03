@@ -3,11 +3,6 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
 import { Goal } from "@/shared/types"
-import { useRouter } from "nextjs-toploader/app"
-import { useEffect } from "react"
-import notify from "@/shared/hooks/use-notify"
-import { uiConstants } from "@/shared/constants/global-constants"
-import { useSearchParams } from "next/navigation"
 import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
 import { AddGoalCard, GoalCard } from "@/shared/components/goalcard"
 import EMICard from "@/shared/components/dashboard-cards/emi-card"
@@ -15,8 +10,6 @@ import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
 import GoalDashboardCard from "@/shared/components/dashboard-cards/goal-dashboard-card"
 
 export default function Page() {
-  const searchParams = useSearchParams()
-  const router = useRouter()
   const debts = useQuery<Goal[]>({
     queryKey: ["get-goals"],
     queryUrl: endPoints.goal,
@@ -26,20 +19,6 @@ export default function Page() {
   const renderDebts = debts?.data?.map((debt) => (
     <GoalCard goal={debt} key={debt._id} />
   ))
-
-  useEffect(() => {
-    const subscriptionSuccess = searchParams.get("subscriptionSuccess")
-    if (subscriptionSuccess !== null) {
-      if (subscriptionSuccess === "true") {
-        notify(uiConstants.subscriptionSuccess, "success")
-      }
-
-      if (subscriptionSuccess === "false") {
-        notify(uiConstants.subscriptionFailed, "error")
-      }
-      router.push("/dashboard")
-    }
-  }, [searchParams])
 
   return (
     <div className="mx-auto grid w-full items-start gap-6">

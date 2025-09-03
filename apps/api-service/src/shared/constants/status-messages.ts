@@ -6,9 +6,5 @@ export const statusMessages = {
   invalidOTP: "Invalid OTP",
   otpEmail: "Check OTP in Email",
   invalidUser: "Invalid User",
-  keyAlreadyExists: "Same Key Exists",
-  limitReached: "You've exhausted your limit for today",
-  keyDoesNotExist: "Key does not exist",
-  subscriptionNotFound:
-    "No subscriptions exist, please subscribe to use the feature",
+  trialActivated: "You have already activated your trial",
 }

@@ -7,7 +7,7 @@ import {
 } from "@nestjs/common"
 import { ActivityService } from "./activity.service"
 import { CreateActivityDto } from "./dto/create-activity.dto"
-import { EventMap } from "../../shared/utils/event.map"
+import { EventMap } from "../../shared/constants/event.map"
 import { OnEvent } from "@nestjs/event-emitter"
 import { GetCountDto } from "./dto/get-count.dto"
 import { AuthGuard } from "@/auth/auth.guard"

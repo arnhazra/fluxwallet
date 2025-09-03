@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common"
 import { statusMessages } from "../shared/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventMap } from "../shared/utils/event.map"
+import { EventMap } from "../shared/constants/event.map"
 import { User } from "@/auth/schemas/user.schema"
 import { Response, Request } from "express"
 import { Token } from "./schemas/token.schema"

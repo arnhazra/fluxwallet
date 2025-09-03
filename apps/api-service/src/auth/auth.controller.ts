@@ -15,7 +15,7 @@ import { statusMessages } from "@/shared/constants/status-messages"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { UpdateAttributeDto } from "./dto/update-attribute.dto"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/utils/event.map"
+import { EventMap } from "@/shared/constants/event.map"
 import { GoogleOAuthDto } from "./dto/google-oauth.dto"
 import { blockListedAttributes } from "./utils/blocklisted-attribute"
 
@@ -35,7 +35,7 @@ export class AuthController {
       if (success) {
         return { accessToken, refreshToken, user }
       } else {
-        throw new BadRequestException(statusMessages.invalidOTP)
+        throw new BadRequestException(statusMessages.connectionError)
       }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
@@ -73,11 +73,12 @@ export class AuthController {
   @Get("userdetails")
   async getUserDetails(@Request() request: ModRequest) {
     try {
-      const { user, subscription, isSubscriptionActive } =
-        await this.service.getUserDetails(request.user.userId)
+      const { user, subscription } = await this.service.getUserDetails(
+        request.user.userId
+      )
 
       if (user) {
-        return { user, subscription, isSubscriptionActive }
+        return { user, subscription }
       } else {
         throw new BadRequestException(statusMessages.invalidUser)
       }
@@ -125,7 +126,7 @@ export class AuthController {
       const { user } = await this.service.getUserDetails(request.user.userId)
 
       if (!user.hasTrial) {
-        throw new Error()
+        throw new Error(statusMessages.trialActivated)
       }
 
       await this.eventEmitter.emitAsync(
@@ -137,7 +138,7 @@ export class AuthController {
 
       return { success: true }
     } catch (error) {
-      throw new BadRequestException(statusMessages.invalidUser)
+      throw new BadRequestException(error.message || statusMessages.invalidUser)
     }
   }
 }

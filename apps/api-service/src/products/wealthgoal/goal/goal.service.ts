@@ -10,7 +10,7 @@ import { FindGoalsByUserQuery } from "./queries/impl/find-goal-by-user.query"
 import { FindGoalByIdQuery } from "./queries/impl/find-goal-by-id.query"
 import { FindNearestGoalQuery } from "./queries/impl/find-nearest-goal.query"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/utils/event.map"
+import { EventMap } from "@/shared/constants/event.map"
 
 @Injectable()
 export class GoalService {
