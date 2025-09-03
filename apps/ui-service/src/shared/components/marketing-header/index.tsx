@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Wallet, PanelLeft, Play } from "lucide-react"
+import { Wallet, PanelLeft } from "lucide-react"
 import { Button, buttonVariants } from "@/shared/components/ui/button"
 import {
   Sheet,
