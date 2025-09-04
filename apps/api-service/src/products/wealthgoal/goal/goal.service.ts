@@ -19,6 +19,7 @@ export class GoalService {
     private readonly commandBus: CommandBus
   ) {}
 
+  @OnEvent(EventMap.CreateGoal)
   async createGoal(userId: string, requestBody: CreateGoalRequestDto) {
     try {
       return await this.commandBus.execute<CreateGoalCommand, Goal>(

@@ -8,6 +8,7 @@ import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { z } from "zod"
 import { Goal } from "@/products/wealthgoal/goal/schemas/goal.schema"
+import { nlDate } from "@/shared/utils/nl-date"
 
 @Injectable()
 export class ChatTools {
@@ -218,41 +219,6 @@ export class ChatTools {
     }
   )
 
-  public createInstitutionTool = tool(
-    async ({
-      userId,
-      institutionName,
-      institutionType,
-    }: {
-      userId: string
-      institutionName: string
-      institutionType: InstitutionType
-    }) => {
-      try {
-        await this.eventEmitter.emitAsync(EventMap.CreateInstitution, userId, {
-          institutionName,
-          institutionType,
-        })
-        return "Institution created successfully"
-      } catch (error) {
-        return "Failed to create the institution"
-      }
-    },
-    {
-      name: "create_a_institution",
-      description: "Create a institution for a user",
-      schema: z.object({
-        userId: z.string().describe("user id of the user"),
-        institutionName: z
-          .string()
-          .describe("institution name given by the user"),
-        institutionType: z
-          .nativeEnum(InstitutionType)
-          .describe("institution type given by the user"),
-      }),
-    }
-  )
-
   public changeBaseCurrencyTool = tool(
     async ({
       userId,
@@ -313,6 +279,129 @@ export class ChatTools {
         email: z.string().describe("email of the user"),
         subject: z.string().describe("a valid email subject"),
         body: z.string().describe("an email body in HTML tabular format"),
+      }),
+    }
+  )
+
+  public createInstitutionTool = tool(
+    async ({
+      userId,
+      institutionName,
+      institutionType,
+    }: {
+      userId: string
+      institutionName: string
+      institutionType: InstitutionType
+    }) => {
+      try {
+        await this.eventEmitter.emitAsync(EventMap.CreateInstitution, userId, {
+          institutionName,
+          institutionType,
+        })
+        return "Institution created successfully"
+      } catch (error) {
+        return "Failed to create the institution"
+      }
+    },
+    {
+      name: "create_a_institution",
+      description: "Create a institution for a user",
+      schema: z.object({
+        userId: z.string().describe("user id of the user"),
+        institutionName: z
+          .string()
+          .describe("institution name given by the user"),
+        institutionType: z
+          .nativeEnum(InstitutionType)
+          .describe("institution type given by the user"),
+      }),
+    }
+  )
+
+  public createDebtTool = tool(
+    async ({
+      userId,
+      debtPurpose,
+      identifier,
+      startDate,
+      endDate,
+      principalAmount,
+      interestRate,
+    }: {
+      userId: string
+      debtPurpose: string
+      identifier: string
+      startDate: Date
+      endDate: Date
+      principalAmount: number
+      interestRate: number
+    }) => {
+      try {
+        await this.eventEmitter.emitAsync(EventMap.CreateDebt, userId, {
+          debtPurpose,
+          identifier,
+          startDate,
+          endDate,
+          principalAmount,
+          interestRate,
+        })
+        return "Debt created successfully"
+      } catch (error) {
+        return "Failed to create the debt"
+      }
+    },
+    {
+      name: "create_a_debt",
+      description: "Create a new debt for a user",
+      schema: z.object({
+        userId: z.string().describe("user id of the user"),
+        debtPurpose: z.string().describe("debt purpose given by the user"),
+        identifier: z.string().describe("identifier given by the user"),
+        startDate: nlDate.describe(
+          `start date; natural language allowed (e.g., "next Friday", "in 2 months", "2025-01-31")`
+        ),
+        endDate: nlDate.describe(
+          `end date; natural language allowed (e.g., "next year", "Dec 15", "2025-12-15")`
+        ),
+        principalAmount: z.coerce
+          .number()
+          .describe("principal amount given by the user"),
+        interestRate: z.coerce
+          .number()
+          .describe("interest rate % given by the user"),
+      }),
+    }
+  )
+
+  public createGoalTool = tool(
+    async ({
+      userId,
+      goalDate,
+      goalAmount,
+    }: {
+      userId: string
+      goalDate: Date
+      goalAmount: number
+    }) => {
+      try {
+        await this.eventEmitter.emitAsync(EventMap.CreateGoal, userId, {
+          goalDate,
+          goalAmount,
+        })
+        return "Goal created successfully"
+      } catch (error) {
+        return "Failed to create the goal"
+      }
+    },
+    {
+      name: "create_a_goal",
+      description: "Create a new goal for a user",
+      schema: z.object({
+        userId: z.string().describe("user id of the user"),
+        goalDate: nlDate.describe(
+          `goal date; natural language allowed (e.g., "next Friday", "in 2 months", "2025-01-31")`
+        ),
+        goalAmount: z.coerce.number().describe("goal amount given by the user"),
       }),
     }
   )

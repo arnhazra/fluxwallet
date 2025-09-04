@@ -79,6 +79,8 @@ export class IntelligenceStrategy {
         this.chatTools.getDebtListTool,
         this.chatTools.getNearestGoalTool,
         this.chatTools.getTotalDebtTool,
+        this.chatTools.createDebtTool,
+        this.chatTools.createGoalTool,
       ],
     })
 
