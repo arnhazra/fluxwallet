@@ -2,7 +2,7 @@
 
 ## v1.5
 
--
+- Added email agent to taxadvisor
 
 ## v1.4
 
