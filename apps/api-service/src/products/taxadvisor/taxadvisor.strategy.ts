@@ -8,6 +8,7 @@ import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { User } from "@/auth/schemas/user.schema"
 import { RedisService } from "@/shared/redis/redis.service"
+import { TaxAdvisorTools } from "./tools/taxadvisor.tool"
 
 export interface TaxAdvisorStrategyType {
   genericName: string
@@ -21,7 +22,10 @@ export interface TaxAdvisorStrategyType {
 
 @Injectable()
 export class TaxAdvisorStrategy {
-  constructor(private readonly redisService: RedisService) {}
+  constructor(
+    private readonly redisService: RedisService,
+    private readonly taxAdvisorTools: TaxAdvisorTools
+  ) {}
 
   private async getSystemInstruction(user: User) {
     const data = await this.redisService.get("taxadvisor-system-instruction")
@@ -43,7 +47,7 @@ export class TaxAdvisorStrategy {
 
     const agent = createReactAgent({
       llm,
-      tools: [],
+      tools: [this.taxAdvisorTools.sendEmailTool],
     })
 
     const chatHistory = thread.flatMap((t) => [

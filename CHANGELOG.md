@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.5
+
+- Added email agent to taxadvisor
+
 ## v1.4
 
 - Moved the configurations to redis
