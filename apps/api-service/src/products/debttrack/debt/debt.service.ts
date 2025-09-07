@@ -19,6 +19,7 @@ export class DebtService {
     private readonly commandBus: CommandBus
   ) {}
 
+  @OnEvent(EventMap.CreateDebt)
   async createDebt(userId: string, requestBody: CreateDebtRequestDto) {
     try {
       return await this.commandBus.execute<CreateDebtCommand, Debt>(

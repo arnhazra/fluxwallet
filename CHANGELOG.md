@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.5
+
+- Added email agent to taxadvisor
+- Added create debt & goal tool in intelligence
+
 ## v1.4
 
 - Moved the configurations to redis

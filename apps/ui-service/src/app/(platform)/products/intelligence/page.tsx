@@ -209,7 +209,7 @@ export default function Page() {
         }`}
       >
         <form onSubmit={hitAPI} className="w-full max-w-3xl mx-auto">
-          <div className="relative bg-neutral-900 border border-neutral-700 rounded-2xl p-2 ps-4 pe-4 shadow-lg">
+          <div className="relative bg-neutral-900 border border-neutral-700 rounded-3xl p-2 ps-4 pe-4 shadow-lg">
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
                 <div className="flex-1">
@@ -217,7 +217,7 @@ export default function Page() {
                     autoFocus
                     value={prompt}
                     onChange={handleInputChange}
-                    placeholder="Ask Anything"
+                    placeholder="Ask a Question or Command"
                     disabled={isLoading}
                     className="bg-transparent border-none text-neutral-300 placeholder:text-neutral-500 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none outline-none ring-0 text-sm px-0"
                   />
