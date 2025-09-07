@@ -3,6 +3,7 @@
 ## v1.5
 
 - Added email agent to taxadvisor
+- Added create debt & goal tool in intelligence
 
 ## v1.4
 
