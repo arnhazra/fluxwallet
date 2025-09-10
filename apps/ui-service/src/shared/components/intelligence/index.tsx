@@ -10,7 +10,14 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import { PanelRightClose, Bot, User, ArrowUp, Sparkles } from "lucide-react"
+import {
+  PanelRightClose,
+  Bot,
+  User,
+  ArrowUp,
+  Sparkle,
+  Sparkles,
+} from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -19,14 +26,11 @@ import MarkdownRenderer from "../markdown"
 import Show from "../show"
 import { suggestedPrompts } from "./suggested-prompts"
 import { Badge } from "../ui/badge"
-import { Thread } from "@/shared/types"
+import { ModelConfig, Thread } from "@/shared/types"
 import IconContainer from "../icon-container"
 import { streamResponseText } from "@/shared/lib/stream-response"
-
-enum Model {
-  GPT = "openai/gpt-4o-mini",
-  Gemini = "gemini-2.5-flash-lite",
-}
+import useQuery from "@/shared/hooks/use-query"
+import HTTPMethods from "@/shared/constants/http-methods"
 
 export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
@@ -35,7 +39,14 @@ export default function Intelligence() {
   const [isLoading, setLoading] = useState(false)
   const [messages, setMessages] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const [model, setModel] = useState<Model>(Model.GPT)
+  const [model, setModel] = useState<string>("")
+
+  const models = useQuery<ModelConfig[]>({
+    queryKey: ["getModelConfig"],
+    queryUrl: endPoints.getModelConfig,
+    method: HTTPMethods.GET,
+    suspense: false,
+  })
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -245,28 +256,25 @@ export default function Intelligence() {
 
                   <div className="flex justify-start -ms-3">
                     <Select
-                      defaultValue={model}
-                      onValueChange={(value: Model) => setModel(value)}
+                      defaultValue={model || models.data?.[0]?.genericName}
+                      onValueChange={(value: string) => setModel(value)}
                     >
                       <SelectTrigger className="w-auto bg-transparent border-none text-neutral-300 hover:text-white focus:ring-0 focus:ring-offset-0">
                         <div className="flex items-center gap-2">
-                          <Sparkles className="h-4 w-4 text-primary" />
+                          <Sparkle className="h-4 w-4 text-primary" />
                           <SelectValue />
                         </div>
                       </SelectTrigger>
                       <SelectContent className="bg-neutral-800 border-neutral-700">
-                        <SelectItem
-                          value={Model.GPT}
-                          className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
-                        >
-                          OpenAI GPT 4o
-                        </SelectItem>
-                        <SelectItem
-                          value={Model.Gemini}
-                          className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
-                        >
-                          Google Gemini 2.5
-                        </SelectItem>
+                        {models.data?.map((model) => (
+                          <SelectItem
+                            key={model.genericName}
+                            value={model.genericName}
+                            className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
+                          >
+                            {model.displayName}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>

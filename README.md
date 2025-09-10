@@ -8,7 +8,7 @@ Typically, utilizing this platform incurs no cost. I have implemented a test str
 
 ### Tech Stack
 
-- Langchain as data framework to connect with OpenAI GPT4 LLM
+- Langchain as data framework to connect with OpenAI GPT LLM
 - Nest as a framework on top of Node JS for API
 - Next JS as a framework on top of React JS for UI
 - Mongo DB as a primary database

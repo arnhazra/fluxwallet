@@ -4,7 +4,7 @@ import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
-import { AIGenerationDto, AIModel } from "./dto/ai-generate.dto"
+import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import {
@@ -71,21 +71,11 @@ export class TaxAdvisorService {
         user,
       }
 
-      if (args.genericName === AIModel.GPT) {
-        const { response } = await this.strategy.azureStrategy(args)
-        await this.commandBus.execute<CreateThreadCommand, Thread>(
-          new CreateThreadCommand(String(user.id), threadId, prompt, response)
-        )
-        return { response, threadId }
-      }
-
-      if (args.genericName === AIModel.Gemini) {
-        const { response } = await this.strategy.googleStrategy(args)
-        await this.commandBus.execute<CreateThreadCommand, Thread>(
-          new CreateThreadCommand(String(user.id), threadId, prompt, response)
-        )
-        return { response, threadId }
-      }
+      const { response } = await this.strategy.taxAdvisorStrategy(args)
+      await this.commandBus.execute<CreateThreadCommand, Thread>(
+        new CreateThreadCommand(String(user.id), threadId, prompt, response)
+      )
+      return { response, threadId }
     } catch (error) {
       throw error
     }

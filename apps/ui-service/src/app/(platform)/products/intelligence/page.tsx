@@ -10,14 +10,14 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
-import { Bot, User, ArrowUp, Sparkles } from "lucide-react"
+import { Bot, User, ArrowUp, Sparkles, Sparkle } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { appName } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "@/shared/components/markdown"
 import Show from "@/shared/components/show"
-import { Thread } from "@/shared/types"
+import { ModelConfig, Thread } from "@/shared/types"
 import { useAppContext } from "@/context/appstate.provider"
 import { useSearchParams } from "next/navigation"
 import useQuery from "@/shared/hooks/use-query"
@@ -25,11 +25,6 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import { useRouter } from "nextjs-toploader/app"
 import IconContainer from "@/shared/components/icon-container"
 import { streamResponseText } from "@/shared/lib/stream-response"
-
-enum Model {
-  GPT = "openai/gpt-4o-mini",
-  Gemini = "gemini-2.5-flash-lite",
-}
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -41,13 +36,20 @@ export default function Page() {
   const [messages, setMessages] = useState<string[]>([])
   const [isLoading, setLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const [model, setModel] = useState<Model>(Model.GPT)
+  const [model, setModel] = useState<string>("")
   const thread = useQuery<Thread[]>({
     queryKey: ["get-thread", tId ?? ""],
     queryUrl: `${endPoints.intelligence}/thread/${tId}`,
     method: HTTPMethods.GET,
     suspense: tId !== null,
     enabled: tId !== null,
+  })
+
+  const models = useQuery<ModelConfig[]>({
+    queryKey: ["getModelConfig"],
+    queryUrl: endPoints.getModelConfig,
+    method: HTTPMethods.GET,
+    suspense: false,
   })
 
   useEffect(() => {
@@ -234,28 +236,25 @@ export default function Page() {
 
               <div className="flex justify-start -ms-3">
                 <Select
-                  defaultValue={model}
-                  onValueChange={(value: Model) => setModel(value)}
+                  defaultValue={model || models.data?.[0]?.genericName}
+                  onValueChange={(value: string) => setModel(value)}
                 >
                   <SelectTrigger className="w-auto bg-transparent border-none text-neutral-300 hover:text-white focus:ring-0 focus:ring-offset-0">
                     <div className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-primary" />
+                      <Sparkle className="h-4 w-4 text-primary" />
                       <SelectValue />
                     </div>
                   </SelectTrigger>
                   <SelectContent className="bg-neutral-800 border-neutral-700">
-                    <SelectItem
-                      value={Model.GPT}
-                      className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
-                    >
-                      OpenAI GPT 4o
-                    </SelectItem>
-                    <SelectItem
-                      value={Model.Gemini}
-                      className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
-                    >
-                      Google Gemini 2.5
-                    </SelectItem>
+                    {models.data?.map((model) => (
+                      <SelectItem
+                        key={model.genericName}
+                        value={model.genericName}
+                        className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
+                      >
+                        {model.displayName}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

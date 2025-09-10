@@ -3,7 +3,6 @@ import { Thread } from "./schemas/thread.schema"
 import { config } from "@/config"
 import { ChatOpenAI } from "@langchain/openai"
 import { PromptTemplate } from "@langchain/core/prompts"
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { User } from "@/auth/schemas/user.schema"
@@ -66,7 +65,7 @@ export class TaxAdvisorStrategy {
     return messages[messages.length - 1]?.content.toString()
   }
 
-  async azureStrategy(args: TaxAdvisorStrategyType) {
+  async taxAdvisorStrategy(args: TaxAdvisorStrategyType) {
     const llm = new ChatOpenAI({
       model: args.genericName,
       temperature: args.temperature,
@@ -76,17 +75,6 @@ export class TaxAdvisorStrategy {
         baseURL: config.AZURE_DEPLOYMENT_URI,
         apiKey: config.AZURE_API_KEY,
       },
-    })
-    const response = await this.runAdvisorAgent(llm, args)
-    return { response }
-  }
-
-  async googleStrategy(args: TaxAdvisorStrategyType) {
-    const llm = new ChatGoogleGenerativeAI({
-      model: args.genericName,
-      temperature: args.temperature,
-      topP: args.topP,
-      apiKey: config.GCP_API_KEY,
     })
     const response = await this.runAdvisorAgent(llm, args)
     return { response }

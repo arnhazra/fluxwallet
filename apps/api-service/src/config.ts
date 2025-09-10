@@ -11,7 +11,6 @@ export const config = {
   REDIS_PASSWORD: process.env.REDIS_PASSWORD,
   REDIS_PORT: Number(process.env.REDIS_PORT),
   AZURE_API_KEY: process.env.AZURE_API_KEY,
-  GCP_API_KEY: process.env.GCP_API_KEY,
   AZURE_DEPLOYMENT_URI: process.env.AZURE_DEPLOYMENT_URI,
   STRIPE_SECRET_KEY: process.env.STRIPE_SECRET_KEY,
   OTP_HASHING_KEY: process.env.OTP_HASHING_KEY,

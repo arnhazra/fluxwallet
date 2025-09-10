@@ -2,13 +2,11 @@ import { Injectable } from "@nestjs/common"
 import { Thread } from "./schemas/thread.schema"
 import { config } from "@/config"
 import { ChatOpenAI } from "@langchain/openai"
-import { ChatGoogleGenerativeAI } from "@langchain/google-genai"
 import { createReactAgent } from "@langchain/langgraph/prebuilt"
 import { LanguageModelLike } from "@langchain/core/language_models/base"
 import { User } from "@/auth/schemas/user.schema"
 import { ChatTools } from "./tools/chat.tool"
 import { EntityType } from "./dto/ai-summarize.dto"
-import { AIModel } from "./dto/ai-chat.dto"
 import { SummarizeTools } from "./tools/summarize.tool"
 import { RedisService } from "@/shared/redis/redis.service"
 import { PromptTemplate } from "@langchain/core/prompts"
@@ -100,7 +98,7 @@ export class IntelligenceStrategy {
     return messages[messages.length - 1]?.content.toString()
   }
 
-  async azureChatStrategy(args: ChatReqParams) {
+  async chatStrategy(args: ChatReqParams) {
     const llm = new ChatOpenAI({
       model: args.genericName,
       temperature: args.temperature,
@@ -110,17 +108,6 @@ export class IntelligenceStrategy {
         baseURL: config.AZURE_DEPLOYMENT_URI,
         apiKey: config.AZURE_API_KEY,
       },
-    })
-    const response = await this.runChatAgent(llm, args)
-    return { response }
-  }
-
-  async googleChatStrategy(args: ChatReqParams) {
-    const llm = new ChatGoogleGenerativeAI({
-      model: args.genericName,
-      temperature: args.temperature,
-      topP: args.topP,
-      apiKey: config.GCP_API_KEY,
     })
     const response = await this.runChatAgent(llm, args)
     return { response }
@@ -157,11 +144,16 @@ export class IntelligenceStrategy {
   }
 
   async summarizeStrategy(args: SummarizeReqParams) {
-    const llm = new ChatGoogleGenerativeAI({
-      model: AIModel.Gemini,
+    const summarizerModel = "openai/gpt-4.1-nano"
+    const llm = new ChatOpenAI({
+      model: summarizerModel,
       temperature: args.temperature,
       topP: args.topP,
-      apiKey: config.GCP_API_KEY,
+      apiKey: config.AZURE_API_KEY,
+      configuration: {
+        baseURL: config.AZURE_DEPLOYMENT_URI,
+        apiKey: config.AZURE_API_KEY,
+      },
     })
     const response = await this.runSummarizeAgent(llm, args)
     return { response }

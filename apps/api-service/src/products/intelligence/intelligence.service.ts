@@ -4,7 +4,7 @@ import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
-import { AIChatDto, AIModel } from "./dto/ai-chat.dto"
+import { AIChatDto } from "./dto/ai-chat.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import {
@@ -66,21 +66,11 @@ export class IntelligenceService {
         user,
       }
 
-      if (args.genericName === AIModel.GPT) {
-        const { response } = await this.strategy.azureChatStrategy(args)
-        await this.commandBus.execute<CreateThreadCommand, Thread>(
-          new CreateThreadCommand(String(user.id), threadId, prompt, response)
-        )
-        return { response, threadId }
-      }
-
-      if (args.genericName === AIModel.Gemini) {
-        const { response } = await this.strategy.googleChatStrategy(args)
-        await this.commandBus.execute<CreateThreadCommand, Thread>(
-          new CreateThreadCommand(String(user.id), threadId, prompt, response)
-        )
-        return { response, threadId }
-      }
+      const { response } = await this.strategy.chatStrategy(args)
+      await this.commandBus.execute<CreateThreadCommand, Thread>(
+        new CreateThreadCommand(String(user.id), threadId, prompt, response)
+      )
+      return { response, threadId }
     } catch (error) {
       throw error
     }

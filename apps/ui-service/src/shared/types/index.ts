@@ -167,6 +167,11 @@ export interface TotalDebtDetails {
   totalPrincipal: number
 }
 
+export interface ModelConfig {
+  genericName: string
+  displayName: string
+}
+
 export enum Currency {
   AED = "AED",
   AFN = "AFN",
