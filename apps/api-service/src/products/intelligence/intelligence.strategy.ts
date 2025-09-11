@@ -144,9 +144,8 @@ export class IntelligenceStrategy {
   }
 
   async summarizeStrategy(args: SummarizeReqParams) {
-    const SUMMARIZER_MODEL = "openai/gpt-4.1-nano"
     const llm = new ChatOpenAI({
-      model: SUMMARIZER_MODEL,
+      model: config.DEFAULT_MODEL,
       temperature: args.temperature,
       topP: args.topP,
       apiKey: config.AZURE_API_KEY,

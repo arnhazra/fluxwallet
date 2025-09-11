@@ -14,7 +14,7 @@ import { Bot, User, ArrowUp, Sparkles, Sparkle } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { appName } from "@/shared/constants/global-constants"
+import { appName, defaultModel } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "@/shared/components/markdown"
 import Show from "@/shared/components/show"
 import { ModelConfig, Thread } from "@/shared/constants/types"
@@ -36,7 +36,7 @@ export default function Page() {
   const [messages, setMessages] = useState<string[]>([])
   const [isLoading, setLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const [model, setModel] = useState<string>("")
+  const [model, setModel] = useState<string>(defaultModel)
   const thread = useQuery<Thread[]>({
     queryKey: ["get-thread", tId ?? ""],
     queryUrl: `${endPoints.intelligence}/thread/${tId}`,
@@ -236,7 +236,7 @@ export default function Page() {
 
               <div className="flex justify-start -ms-3">
                 <Select
-                  defaultValue={model || models.data?.[0]?.genericName}
+                  defaultValue={model}
                   onValueChange={(value: string) => setModel(value)}
                 >
                   <SelectTrigger className="w-auto bg-transparent border-none text-neutral-300 hover:text-white focus:ring-0 focus:ring-offset-0">
