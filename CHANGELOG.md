@@ -1,5 +1,12 @@
 # Changelog
 
+## v1.6
+
+- Standardized asset naming conventions
+- Removed Gemini model & integrated GPT 4.1
+- Code refactoring & bug fixes
+- Dependency updates
+
 ## v1.5
 
 - Added email agent to taxadvisor
