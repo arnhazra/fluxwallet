@@ -9,7 +9,7 @@ export function getRediretURIUI(success: boolean) {
 
 export function getRediretURIAPI(success: boolean) {
   if (success) {
-    return `${config.API_URL}/subscribe`
+    return `${config.API_URL}/subscription/subscribe`
   }
-  return `${config.API_URL}/subscribe`
+  return `${config.API_URL}/subscription/cancel`
 }
