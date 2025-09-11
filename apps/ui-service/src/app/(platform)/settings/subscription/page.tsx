@@ -31,7 +31,7 @@ export default function Page() {
               </IconContainer>
             }
             title="Your Subscription"
-            content="You have an active subscription"
+            content="Active"
           />
           <SectionPanel
             icon={

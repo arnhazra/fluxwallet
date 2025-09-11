@@ -25,7 +25,7 @@ export class SubscriptionService {
     userId: string
   ): Promise<Stripe.Checkout.Session> {
     try {
-      const price = 50
+      const price = 100
       const session = await this.stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
