@@ -5,7 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog"
-import { Asset } from "@/shared/types"
+import { Asset } from "@/shared/constants/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { DialogDescription, DialogTrigger } from "@radix-ui/react-dialog"
 import { ReactNode, useState } from "react"

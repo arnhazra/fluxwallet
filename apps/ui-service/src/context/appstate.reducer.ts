@@ -1,4 +1,4 @@
-import { Subscription, User } from "@/shared/types"
+import { Subscription, User } from "@/shared/constants/types"
 
 export type AppState = {
   user: User

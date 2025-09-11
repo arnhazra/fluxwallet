@@ -8,7 +8,7 @@ import {
   DialogOverlay,
   DialogTitle,
 } from "@/shared/components/ui/dialog"
-import { SubscriptionConfig } from "@/shared/types"
+import { SubscriptionConfig } from "@/shared/constants/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"

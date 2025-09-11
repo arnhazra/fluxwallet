@@ -24,7 +24,7 @@ import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import useQuery from "@/shared/hooks/use-query"
-import { Debt } from "@/shared/types"
+import { Debt } from "@/shared/constants/types"
 import HTTPMethods from "@/shared/constants/http-methods"
 
 interface DebtFormData {

@@ -2,7 +2,7 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Institution } from "@/shared/types"
+import { Institution } from "@/shared/constants/types"
 import {
   InstitutionCard,
   AddInstitutionCard,

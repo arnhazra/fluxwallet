@@ -2,7 +2,7 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { Goal } from "@/shared/types"
+import { Goal } from "@/shared/constants/types"
 import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
 import { AddGoalCard, GoalCard } from "@/shared/components/goalcard"
 import EMICard from "@/shared/components/dashboard-cards/emi-card"

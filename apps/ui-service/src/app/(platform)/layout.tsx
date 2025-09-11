@@ -6,7 +6,11 @@ import { ReactNode, useState } from "react"
 import Show from "@/shared/components/show"
 import AuthProvider from "../auth/auth"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { Subscription, SubscriptionConfig, User } from "@/shared/types"
+import {
+  Subscription,
+  SubscriptionConfig,
+  User,
+} from "@/shared/constants/types"
 import Loading from "../loading"
 import { useQuery as useBaseQuery } from "@tanstack/react-query"
 import PlatformHeader from "@/shared/components/platform-header"

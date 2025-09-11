@@ -5,7 +5,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Institution } from "@/shared/types"
+import { Institution } from "@/shared/constants/types"
 import { Building, Plus } from "lucide-react"
 import Link from "next/link"
 import { formatCurrency } from "@/shared/lib/format-currency"

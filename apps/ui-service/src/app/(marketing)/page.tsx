@@ -5,7 +5,7 @@ import {
   ProductsConfig,
   SolutionConfig,
   SubscriptionConfig,
-} from "@/shared/types"
+} from "@/shared/constants/types"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { BoxIcon, Check, Coins, Lightbulb, Play } from "lucide-react"
 import Link from "next/link"

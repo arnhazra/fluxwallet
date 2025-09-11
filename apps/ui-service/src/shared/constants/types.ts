@@ -74,13 +74,13 @@ export type Institution = {
 }
 
 export type Asset = {
-  _id: string
-  userId: string
-  institutionId: string
-  assetType: AssetType
-  assetName: string
-  identifier: string
-  presentValuation: number | null | undefined
+  _id: string // COMMON
+  userId: string // COMMON
+  institutionId: string // COMMON
+  assetType: AssetType // COMMON
+  assetName: string // COMMON
+  identifier: string // COMMON
+  presentValuation: number | null | undefined // COMMON
   startDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
   maturityDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
   amountInvested?: number // LUMPSUM_DEPOSIT

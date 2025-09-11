@@ -1,5 +1,5 @@
 import * as Icons from "lucide-react"
-import { Product, Solution } from "@/shared/types"
+import { Product, Solution } from "@/shared/constants/types"
 import IconContainer from "../icon-container"
 import { useRouter } from "nextjs-toploader/app"
 import {

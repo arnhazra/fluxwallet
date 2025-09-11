@@ -5,7 +5,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Asset } from "@/shared/types"
+import { Asset } from "@/shared/constants/types"
 import { Banknote, OctagonAlert, Plus } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"

@@ -7,7 +7,7 @@ import IconContainer from "../icon-container"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { TotalDebtDetails } from "@/shared/types"
+import { TotalDebtDetails } from "@/shared/constants/types"
 
 export default function EMICard() {
   const [{ user }] = useAppContext()

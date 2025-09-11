@@ -1,4 +1,4 @@
-import { Currency } from "@/shared/types"
+import { Currency } from "@/shared/constants/types"
 import { Button } from "../ui/button"
 import { Pen } from "lucide-react"
 import { useState } from "react"

@@ -29,7 +29,11 @@ import { format } from "date-fns"
 import { cn } from "@/shared/lib/tw-class-util"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { AssetType, Institution, RecurringFrequency } from "@/shared/types"
+import {
+  AssetType,
+  Institution,
+  RecurringFrequency,
+} from "@/shared/constants/types"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"

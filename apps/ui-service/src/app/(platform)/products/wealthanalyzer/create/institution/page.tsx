@@ -19,7 +19,7 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { Package } from "lucide-react"
-import { InstitutionType, Institution } from "@/shared/types"
+import { InstitutionType, Institution } from "@/shared/constants/types"
 import ky, { KyResponse } from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { useRouter } from "nextjs-toploader/app"

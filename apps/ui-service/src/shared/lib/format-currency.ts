@@ -1,4 +1,4 @@
-import { Currency } from "../types"
+import { Currency } from "../constants/types"
 
 const MAX_STANDARD_AMOUNT = 99999
 

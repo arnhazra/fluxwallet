@@ -34,7 +34,7 @@ import {
   AssetType,
   Institution,
   RecurringFrequency,
-} from "@/shared/types"
+} from "@/shared/constants/types"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"

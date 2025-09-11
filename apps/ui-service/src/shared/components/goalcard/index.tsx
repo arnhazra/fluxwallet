@@ -5,7 +5,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Goal } from "@/shared/types"
+import { Goal } from "@/shared/constants/types"
 import { GoalIcon, Plus } from "lucide-react"
 import Link from "next/link"
 import { formatCurrency } from "@/shared/lib/format-currency"

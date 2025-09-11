@@ -1,7 +1,7 @@
 "use client"
 import { ReactNode, createContext, useContext, useReducer } from "react"
 import { AppState, Actions, ActionsMap, AppReducer } from "./appstate.reducer"
-import { Currency } from "@/shared/types"
+import { Currency } from "@/shared/constants/types"
 
 export type Dispatcher = <Type extends keyof ActionsMap>(
   type: Type,
