@@ -26,7 +26,6 @@ import {
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
 import { format } from "date-fns"
-import { cn } from "@/shared/lib/tw-class-util"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import {
@@ -195,16 +194,12 @@ export default function Page() {
                   }
                   required
                 >
-                  <SelectTrigger className="bg-neutral-800 border-neutral-700 text-neutral-100 focus:border-neutral-600">
+                  <SelectTrigger className="w-full bg-background text-white border-border">
                     <SelectValue placeholder="Select Holding Institution" />
                   </SelectTrigger>
-                  <SelectContent className="bg-neutral-800 border-neutral-700">
+                  <SelectContent className="w-full bg-background text-white border-border">
                     {institutions.data?.map((institution) => (
-                      <SelectItem
-                        key={institution._id}
-                        value={institution._id}
-                        className="text-neutral-100 focus:bg-neutral-700"
-                      >
+                      <SelectItem key={institution._id} value={institution._id}>
                         {institution.institutionName}
                       </SelectItem>
                     ))}
@@ -223,16 +218,12 @@ export default function Page() {
                   }
                   required
                 >
-                  <SelectTrigger className="bg-neutral-800 border-neutral-700 text-neutral-100 focus:border-neutral-600">
+                  <SelectTrigger className="w-full bg-background text-white border-border">
                     <SelectValue placeholder="Select asset type" />
                   </SelectTrigger>
-                  <SelectContent className="bg-neutral-800 border-neutral-700">
+                  <SelectContent className="w-full bg-background text-white border-border">
                     {Object.entries(assetTypeLabels).map(([value, label]) => (
-                      <SelectItem
-                        key={value}
-                        value={value}
-                        className="text-neutral-100 focus:bg-neutral-700"
-                      >
+                      <SelectItem key={value} value={value}>
                         <div className="flex items-center gap-2">{label}</div>
                       </SelectItem>
                     ))}
@@ -252,7 +243,7 @@ export default function Page() {
                       handleInputChange("assetName", e.target.value)
                     }
                     placeholder="Enter asset name"
-                    className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                    className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                     required
                   />
                 </div>
@@ -267,7 +258,7 @@ export default function Page() {
                       handleInputChange("identifier", e.target.value)
                     }
                     placeholder="Enter unique identifier"
-                    className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                    className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                     required
                   />
                 </div>
@@ -277,7 +268,7 @@ export default function Page() {
               {showDateFields && (
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold flex items-center gap-2 text-neutral-100">
-                    <CalendarIcon className="h-5 w-5 text-neutral-400" />
+                    <CalendarIcon className="h-5 w-5 text-primary" />
                     Date Information
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -287,10 +278,7 @@ export default function Page() {
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
-                            className={cn(
-                              "w-full justify-start text-left font-normal bg-neutral-800 border-neutral-700 text-neutral-100 hover:bg-neutral-700",
-                              !formData.startDate && "text-neutral-500"
-                            )}
+                            className="w-full justify-start text-left font-normal bg-background border-border hover:bg-background text-white hover:text-neutral-500"
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
                             {formData.startDate
@@ -298,7 +286,7 @@ export default function Page() {
                               : "Pick a date"}
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 bg-neutral-800 border-neutral-700">
+                        <PopoverContent className="w-auto p-0 bg-background border-neutral-700 rounded-lg">
                           <Calendar
                             mode="single"
                             selected={formData.startDate}
@@ -309,7 +297,7 @@ export default function Page() {
                             onSelect={(date) =>
                               handleInputChange("startDate", date)
                             }
-                            className="bg-neutral-800 text-neutral-100"
+                            className="bg-background text-neutral-100 rounded-lg border-neutral-700"
                           />
                         </PopoverContent>
                       </Popover>
@@ -320,10 +308,7 @@ export default function Page() {
                         <PopoverTrigger asChild>
                           <Button
                             variant="outline"
-                            className={cn(
-                              "w-full justify-start text-left font-normal bg-neutral-800 border-neutral-700 text-neutral-100 hover:bg-neutral-700",
-                              !formData.maturityDate && "text-neutral-500"
-                            )}
+                            className="w-full justify-start text-left font-normal bg-background border-border hover:bg-background text-white hover:text-neutral-500"
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
                             {formData.maturityDate
@@ -331,7 +316,7 @@ export default function Page() {
                               : "Pick a date"}
                           </Button>
                         </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 bg-neutral-800 border-neutral-700">
+                        <PopoverContent className="w-auto p-0 bg-background border-neutral-700 rounded-lg">
                           <Calendar
                             mode="single"
                             selected={formData.maturityDate}
@@ -348,8 +333,7 @@ export default function Page() {
                             onSelect={(date) =>
                               handleInputChange("maturityDate", date)
                             }
-                            initialFocus
-                            className="bg-neutral-800 text-neutral-100"
+                            className="bg-background text-neutral-100 rounded-lg border-neutral-700"
                           />
                         </PopoverContent>
                       </Popover>
@@ -361,7 +345,7 @@ export default function Page() {
               {(showAmountInvested || showExpectedReturn) && (
                 <div className="space-y-4">
                   <h3 className="text-lg font-semibold flex items-center gap-2 text-neutral-100">
-                    <TrendingUp className="h-5 w-5 text-neutral-400" />
+                    <TrendingUp className="h-5 w-5 text-primary" />
                     Investment Details
                   </h3>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -385,7 +369,7 @@ export default function Page() {
                             )
                           }
                           placeholder="0.00"
-                          className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                          className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                         />
                       </div>
                     )}
@@ -409,7 +393,7 @@ export default function Page() {
                             )
                           }
                           placeholder="0.00"
-                          className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                          className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                         />
                       </div>
                     )}
@@ -442,7 +426,7 @@ export default function Page() {
                           )
                         }
                         placeholder="0.00"
-                        className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                        className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                       />
                     </div>
                     <div className="space-y-2">
@@ -458,17 +442,13 @@ export default function Page() {
                           handleInputChange("contributionFrequency", value)
                         }
                       >
-                        <SelectTrigger className="bg-neutral-800 border-neutral-700 text-neutral-100 focus:border-neutral-600">
+                        <SelectTrigger className="w-full bg-background text-white border-border">
                           <SelectValue placeholder="Select frequency" />
                         </SelectTrigger>
-                        <SelectContent className="bg-neutral-800 border-neutral-700">
+                        <SelectContent className="w-full bg-background text-white border-border">
                           {Object.entries(frequencyLabels).map(
                             ([value, label]) => (
-                              <SelectItem
-                                key={value}
-                                value={value}
-                                className="text-neutral-100 focus:bg-neutral-700"
-                              >
+                              <SelectItem key={value} value={value}>
                                 {label}
                               </SelectItem>
                             )
@@ -504,7 +484,7 @@ export default function Page() {
                         )
                       }
                       placeholder="0.00"
-                      className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                      className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                     />
                   </div>
                 </div>
@@ -534,7 +514,7 @@ export default function Page() {
                         )
                       }
                       placeholder="0.00"
-                      className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                      className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                     />
                   </div>
                 </div>
@@ -561,7 +541,7 @@ export default function Page() {
                           )
                         }
                         placeholder="0"
-                        className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                        className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                       />
                     </div>
                     <div className="space-y-2">
@@ -583,7 +563,7 @@ export default function Page() {
                           )
                         }
                         placeholder="0.00"
-                        className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                        className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                       />
                     </div>
                   </div>
