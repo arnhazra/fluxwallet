@@ -25,7 +25,7 @@ export class CreateAssetRequestDto {
   identifier: string
 
   @ValidateIf((o) =>
-    [AssetType.FD, AssetType.RD, AssetType.SIP, AssetType.LUMPSUM].includes(
+    [AssetType.LUMPSUM_DEPOSIT, AssetType.RECURRING_DEPOSIT].includes(
       o.assetType
     )
   )
@@ -33,30 +33,30 @@ export class CreateAssetRequestDto {
   startDate?: Date
 
   @ValidateIf((o) =>
-    [AssetType.FD, AssetType.RD, AssetType.SIP, AssetType.LUMPSUM].includes(
+    [AssetType.LUMPSUM_DEPOSIT, AssetType.RECURRING_DEPOSIT].includes(
       o.assetType
     )
   )
   @IsDateString()
   maturityDate?: Date
 
-  @ValidateIf((o) => [AssetType.FD, AssetType.LUMPSUM].includes(o.assetType))
+  @ValidateIf((o) => [AssetType.LUMPSUM_DEPOSIT].includes(o.assetType))
   @IsNumber()
   amountInvested?: number
 
   @ValidateIf((o) =>
-    [AssetType.FD, AssetType.RD, AssetType.SIP, AssetType.LUMPSUM].includes(
+    [AssetType.LUMPSUM_DEPOSIT, AssetType.RECURRING_DEPOSIT].includes(
       o.assetType
     )
   )
   @IsNumber()
   expectedReturnRate?: number
 
-  @ValidateIf((o) => [AssetType.RD, AssetType.SIP].includes(o.assetType))
+  @ValidateIf((o) => [AssetType.RECURRING_DEPOSIT].includes(o.assetType))
   @IsNumber()
   contributionAmount?: number
 
-  @ValidateIf((o) => [AssetType.RD, AssetType.SIP].includes(o.assetType))
+  @ValidateIf((o) => [AssetType.RECURRING_DEPOSIT].includes(o.assetType))
   @IsEnum(RecurringFrequency)
   contributionFrequency?: RecurringFrequency
 
@@ -73,10 +73,7 @@ export class CreateAssetRequestDto {
 
   @ValidateIf((o) =>
     [
-      AssetType.EPF,
-      AssetType.PPF,
-      AssetType.CASH,
-      AssetType.SAVINGS,
+      AssetType.LIQUID,
       AssetType.PROPERTY,
       AssetType.BOND,
       AssetType.METAL,

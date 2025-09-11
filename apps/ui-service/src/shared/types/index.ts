@@ -1,22 +1,16 @@
 export enum InstitutionType {
   BANK = "BANK",
-  LOCKER = "LOCKER",
   GOVERNMENT = "GOVERNMENT",
   OTHER = "OTHER",
 }
 
 export enum AssetType {
-  FD = "FD",
-  RD = "RD",
-  SIP = "SIP",
-  LUMPSUM = "LUMPSUM",
+  LUMPSUM_DEPOSIT = "LUMPSUM_DEPOSIT",
+  RECURRING_DEPOSIT = "RECURRING_DEPOSIT",
   METAL = "METAL",
   PROPERTY = "PROPERTY",
   BOND = "BOND",
-  EPF = "EPF",
-  PPF = "PPF",
-  CASH = "CASH",
-  SAVINGS = "SAVINGS",
+  LIQUID = "LIQUID",
   EQUITY = "EQUITY",
   CRYPTO = "CRYPTO",
   OTHER = "OTHER",
@@ -87,14 +81,14 @@ export type Asset = {
   assetName: string
   identifier: string
   presentValuation: number | null | undefined
-  startDate?: Date // FD, RD, SIP, LUMPSUM
-  maturityDate?: Date // FD, RD, SIP, LUMPSUM
-  amountInvested?: number // FD, LUMPSUM
-  expectedReturnRate?: number // FD, RD, SIP, LUMPSUM
-  contributionAmount?: number // RD, SIP
-  contributionFrequency?: RecurringFrequency // RD, SIP
+  startDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
+  maturityDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
+  amountInvested?: number // LUMPSUM_DEPOSIT
+  expectedReturnRate?: number // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
+  contributionAmount?: number // RECURRING_DEPOSIT
+  contributionFrequency?: RecurringFrequency // RECURRING_DEPOSIT
   valuationOnPurchase?: number // PROPERTY, BOND, METAL, OTHER
-  currentValuation?: number // EPF, PPF, CASH, SAVINGS, PROPERTY, BOND, METAL, OTHER
+  currentValuation?: number // LIQUID, PROPERTY, BOND, METAL, OTHER
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
 }

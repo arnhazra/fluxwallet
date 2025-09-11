@@ -54,7 +54,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
               variant="default"
               className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary -ms-1"
             >
-              {asset.assetType}
+              {asset.assetType.replace("_", " ")}
             </Badge>
             <Show condition={isAssetMatured()}>
               <Tooltip>

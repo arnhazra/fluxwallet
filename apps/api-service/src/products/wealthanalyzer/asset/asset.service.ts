@@ -125,20 +125,14 @@ export class AssetService {
   async calculateAssetValuation(asset: Asset) {
     try {
       const simpleValuationAssets = [
-        AssetType.EPF,
-        AssetType.PPF,
-        AssetType.CASH,
-        AssetType.SAVINGS,
+        AssetType.LIQUID,
         AssetType.PROPERTY,
         AssetType.BOND,
         AssetType.METAL,
         AssetType.OTHER,
       ]
-
-      const complexValuationAssets = [AssetType.FD, AssetType.LUMPSUM]
-
-      const recurringValuationAssets = [AssetType.RD, AssetType.SIP]
-
+      const complexValuationAssets = [AssetType.LUMPSUM_DEPOSIT]
+      const recurringValuationAssets = [AssetType.RECURRING_DEPOSIT]
       const unitValuationAssets = [AssetType.EQUITY, AssetType.CRYPTO]
 
       if (simpleValuationAssets.includes(asset.assetType)) {

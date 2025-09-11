@@ -20,6 +20,7 @@ import { Button } from "../ui/button"
 import { useAppContext } from "@/context/appstate.provider"
 import { format } from "date-fns"
 import Summarizer from "../summarizer"
+import { Badge } from "../ui/badge"
 
 interface GoalModalProps {
   goalDetails: Goal
@@ -65,6 +66,12 @@ export function GoalModal({ goalDetails, children }: GoalModalProps) {
           <div className="flex justify-between">
             <div>
               <DialogTitle>{format(goalDetails?.goalDate, "PPP")}</DialogTitle>
+              <Badge
+                variant="default"
+                className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary mt-2"
+              >
+                GOAL
+              </Badge>
               <DialogDescription></DialogDescription>
             </div>
             <div className="flex gap-2">

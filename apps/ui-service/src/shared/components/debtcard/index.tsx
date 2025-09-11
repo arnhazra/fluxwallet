@@ -36,7 +36,7 @@ export function DebtCard({ debt }: { debt: Debt }) {
               variant="default"
               className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary -ms-1"
             >
-              LOAN
+              DEBT
             </Badge>
             <Show condition={debt.isLoanExpired}>
               <Tooltip>
@@ -44,7 +44,7 @@ export function DebtCard({ debt }: { debt: Debt }) {
                   <OctagonAlert className="h-4 w-4 text-secondary" />
                 </TooltipTrigger>
                 <TooltipContent className="bg-background text-white border-border">
-                  This asset is matured
+                  This debt is closed
                 </TooltipContent>
               </Tooltip>
             </Show>
@@ -54,7 +54,7 @@ export function DebtCard({ debt }: { debt: Debt }) {
                   <OctagonAlert className="h-4 w-4 text-amber-400" />
                 </TooltipTrigger>
                 <TooltipContent className="bg-background text-white border-border">
-                  This asset is about to mature
+                  This debt is about to end
                 </TooltipContent>
               </Tooltip>
             </Show>

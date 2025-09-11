@@ -52,17 +52,13 @@ interface AssetFormData {
 }
 
 const assetTypeLabels = {
-  [AssetType.FD]: "Fixed Deposit",
-  [AssetType.RD]: "Recurring Deposit",
-  [AssetType.SIP]: "SIP",
-  [AssetType.LUMPSUM]: "Lumpsum Investment",
+  [AssetType.LUMPSUM_DEPOSIT]:
+    "Lumpsum Deposit/One-time Investment/Fixed Deposit",
+  [AssetType.RECURRING_DEPOSIT]: "Recurring Deposit/SIP",
   [AssetType.METAL]: "Metals",
   [AssetType.PROPERTY]: "Property",
   [AssetType.BOND]: "Bonds",
-  [AssetType.EPF]: "Employee Provident Fund",
-  [AssetType.PPF]: "Public Provident Fund",
-  [AssetType.CASH]: "Cash",
-  [AssetType.SAVINGS]: "Savings Account",
+  [AssetType.LIQUID]: "Liquid Assets",
   [AssetType.EQUITY]: "Equity",
   [AssetType.CRYPTO]: "Crypto",
   [AssetType.OTHER]: "Other Assets",
@@ -120,27 +116,27 @@ export default function Page() {
   }
 
   const showDateFields =
-    formData.assetType &&
-    [AssetType.FD, AssetType.RD, AssetType.SIP, AssetType.LUMPSUM].includes(
+    formData?.assetType &&
+    [AssetType.LUMPSUM_DEPOSIT, AssetType.RECURRING_DEPOSIT].includes(
       formData.assetType as AssetType
     )
 
   const showAmountInvested =
-    formData.assetType &&
-    [AssetType.FD, AssetType.LUMPSUM].includes(formData.assetType as AssetType)
+    formData?.assetType &&
+    [AssetType.LUMPSUM_DEPOSIT].includes(formData.assetType as AssetType)
 
   const showExpectedReturn =
-    formData.assetType &&
-    [AssetType.FD, AssetType.RD, AssetType.SIP, AssetType.LUMPSUM].includes(
+    formData?.assetType &&
+    [AssetType.LUMPSUM_DEPOSIT, AssetType.RECURRING_DEPOSIT].includes(
       formData.assetType as AssetType
     )
 
   const showRecurringFields =
-    formData.assetType &&
-    [AssetType.RD, AssetType.SIP].includes(formData.assetType as AssetType)
+    formData?.assetType &&
+    [AssetType.RECURRING_DEPOSIT].includes(formData.assetType as AssetType)
 
   const showValuationOnPurchase =
-    formData.assetType &&
+    formData?.assetType &&
     [
       AssetType.PROPERTY,
       AssetType.BOND,
@@ -149,12 +145,9 @@ export default function Page() {
     ].includes(formData.assetType as AssetType)
 
   const showCurrentValuation =
-    formData.assetType &&
+    formData?.assetType &&
     [
-      AssetType.EPF,
-      AssetType.PPF,
-      AssetType.CASH,
-      AssetType.SAVINGS,
+      AssetType.LIQUID,
       AssetType.PROPERTY,
       AssetType.BOND,
       AssetType.METAL,

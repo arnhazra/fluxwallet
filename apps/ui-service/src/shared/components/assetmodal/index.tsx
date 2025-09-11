@@ -83,7 +83,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
                 variant="default"
                 className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary mt-2"
               >
-                {assetDetails?.assetType}
+                {assetDetails?.assetType.replace("_", " ")}
               </Badge>
               <DialogDescription></DialogDescription>
             </div>

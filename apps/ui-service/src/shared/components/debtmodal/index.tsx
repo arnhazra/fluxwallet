@@ -19,6 +19,7 @@ import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useAppContext } from "@/context/appstate.provider"
 import Summarizer from "../summarizer"
+import { Badge } from "../ui/badge"
 
 interface DebtModalProps {
   debtDetails: Debt
@@ -79,6 +80,12 @@ export function DebtModal({ debtDetails, children }: DebtModalProps) {
           <div className="flex justify-between">
             <div>
               <DialogTitle>{debtDetails?.debtPurpose}</DialogTitle>
+              <Badge
+                variant="default"
+                className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary mt-2"
+              >
+                DEBT
+              </Badge>
               <DialogDescription></DialogDescription>
             </div>
             <div className="flex gap-2">

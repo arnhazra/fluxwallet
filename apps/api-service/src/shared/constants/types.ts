@@ -1,22 +1,16 @@
 export enum InstitutionType {
   BANK = "BANK",
-  LOCKER = "LOCKER",
   GOVERNMENT = "GOVERNMENT",
   OTHER = "OTHER",
 }
 
 export enum AssetType {
-  FD = "FD",
-  RD = "RD",
-  SIP = "SIP",
-  LUMPSUM = "LUMPSUM",
+  LUMPSUM_DEPOSIT = "LUMPSUM_DEPOSIT",
+  RECURRING_DEPOSIT = "RECURRING_DEPOSIT",
   METAL = "METAL",
   PROPERTY = "PROPERTY",
   BOND = "BOND",
-  EPF = "EPF",
-  PPF = "PPF",
-  CASH = "CASH",
-  SAVINGS = "SAVINGS",
+  LIQUID = "LIQUID",
   EQUITY = "EQUITY",
   CRYPTO = "CRYPTO",
   OTHER = "OTHER",
