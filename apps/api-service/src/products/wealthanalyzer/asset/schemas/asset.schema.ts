@@ -48,10 +48,10 @@ export class Asset extends Document {
   contributionFrequency?: RecurringFrequency // RECURRING_DEPOSIT
 
   @Prop()
-  valuationOnPurchase?: number // PROPERTY, METAL, OTHER
+  valuationOnPurchase?: number // REAL_ESTATE, METAL, OTHER
 
   @Prop()
-  currentValuation?: number // LIQUID, PROPERTY, METAL, OTHER
+  currentValuation?: number // LIQUID, REAL_ESTATE, METAL, OTHER
 
   @Prop()
   units?: number // EQUITY, CRYPTO

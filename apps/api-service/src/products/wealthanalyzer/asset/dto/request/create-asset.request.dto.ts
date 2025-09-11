@@ -69,7 +69,9 @@ export class CreateAssetRequestDto {
   contributionFrequency?: RecurringFrequency
 
   @ValidateIf((o) =>
-    [AssetType.PROPERTY, AssetType.METAL, AssetType.OTHER].includes(o.assetType)
+    [AssetType.REAL_ESTATE, AssetType.METAL, AssetType.OTHER].includes(
+      o.assetType
+    )
   )
   @IsNumber()
   valuationOnPurchase?: number
@@ -78,7 +80,7 @@ export class CreateAssetRequestDto {
     [
       AssetType.LIQUID,
       AssetType.RETIREMENT,
-      AssetType.PROPERTY,
+      AssetType.REAL_ESTATE,
       AssetType.METAL,
       AssetType.OTHER,
     ].includes(o.assetType)

@@ -8,7 +8,7 @@ export enum AssetType {
   LUMPSUM_DEPOSIT = "LUMPSUM_DEPOSIT",
   RECURRING_DEPOSIT = "RECURRING_DEPOSIT",
   METAL = "METAL",
-  PROPERTY = "PROPERTY",
+  REAL_ESTATE = "REAL_ESTATE",
   BOND = "BOND",
   LIQUID = "LIQUID",
   RETIREMENT = "RETIREMENT",
@@ -88,8 +88,8 @@ export type Asset = {
   expectedReturnRate?: number // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
   contributionAmount?: number // RECURRING_DEPOSIT
   contributionFrequency?: RecurringFrequency // RECURRING_DEPOSIT
-  valuationOnPurchase?: number // PROPERTY, METAL, OTHER
-  currentValuation?: number // LIQUID, RETIREMENT, PROPERTY, METAL, , OTHER
+  valuationOnPurchase?: number // REAL_ESTATE, METAL, OTHER
+  currentValuation?: number // LIQUID, RETIREMENT, REAL_ESTATE, METAL, , OTHER
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
 }

@@ -127,7 +127,7 @@ export class AssetService {
       const simpleValuationAssets = [
         AssetType.LIQUID,
         AssetType.RETIREMENT,
-        AssetType.PROPERTY,
+        AssetType.REAL_ESTATE,
         AssetType.METAL,
         AssetType.OTHER,
       ]

@@ -60,7 +60,7 @@ const assetTypeLabels = {
     "Lumpsum Deposit/One-time Investment/Fixed Deposit",
   [AssetType.RECURRING_DEPOSIT]: "Recurring Deposit/SIP",
   [AssetType.METAL]: "Metals",
-  [AssetType.PROPERTY]: "Property",
+  [AssetType.REAL_ESTATE]: "Real Estate",
   [AssetType.BOND]: "Bonds",
   [AssetType.LIQUID]: "Liquid Assets",
   [AssetType.RETIREMENT]: "Retirement Funds",
@@ -148,7 +148,7 @@ export default function Page() {
 
   const showValuationOnPurchase =
     formData?.assetType &&
-    [AssetType.PROPERTY, AssetType.METAL, AssetType.OTHER].includes(
+    [AssetType.REAL_ESTATE, AssetType.METAL, AssetType.OTHER].includes(
       formData.assetType as AssetType
     )
 
@@ -157,7 +157,7 @@ export default function Page() {
     [
       AssetType.LIQUID,
       AssetType.RETIREMENT,
-      AssetType.PROPERTY,
+      AssetType.REAL_ESTATE,
       AssetType.METAL,
       AssetType.OTHER,
     ].includes(formData.assetType as AssetType)
