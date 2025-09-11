@@ -22,4 +22,6 @@ export const config = {
   GCP_MAILER_FROM_EMAIL: process.env.GCP_MAILER_FROM_EMAIL,
   GOOGLE_OAUTH_VERIFICATION_API: process.env.GOOGLE_OAUTH_VERIFICATION_API,
   DEFAULT_MODEL: process.env.DEFAULT_MODEL,
+  UI_URL: process.env.UI_URL,
+  API_URL: process.env.API_URL,
 }

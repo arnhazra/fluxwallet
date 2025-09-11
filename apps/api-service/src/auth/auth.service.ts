@@ -8,7 +8,6 @@ import {
   requestOTPEmailBody,
   requestOTPEmailSubject,
 } from "./utils/otp.util"
-import { prodUIURI } from "@/shared/constants/other-constants"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
@@ -60,7 +59,7 @@ export class AuthService {
           const tokenPayload = {
             id: user.id,
             email: user.email,
-            iss: prodUIURI,
+            iss: config.UI_URL,
           }
           const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
           return { accessToken, refreshToken, user, success: true }
@@ -68,7 +67,7 @@ export class AuthService {
           const tokenPayload = {
             id: user.id,
             email: user.email,
-            iss: prodUIURI,
+            iss: config.UI_URL,
           }
           const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
           const refreshToken = generateToken(
@@ -86,7 +85,7 @@ export class AuthService {
         const tokenPayload = {
           id: newUser.id,
           email: newUser.email,
-          iss: prodUIURI,
+          iss: config.UI_URL,
         }
         const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
         const refreshToken = generateToken(tokenPayload, TokenType.RefreshToken)

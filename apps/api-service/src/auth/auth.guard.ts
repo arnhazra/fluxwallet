@@ -10,7 +10,6 @@ import { EventMap } from "../shared/constants/event.map"
 import { User } from "@/auth/schemas/user.schema"
 import { Response, Request } from "express"
 import { Token } from "./schemas/token.schema"
-import { prodUIURI } from "../shared/constants/other-constants"
 import {
   decodeAccessToken,
   generateToken,
@@ -18,6 +17,7 @@ import {
   verifyAccessToken,
 } from "@/auth/utils/jwt.util"
 import * as jwt from "jsonwebtoken"
+import { config } from "@/config"
 
 export interface ModRequest extends Request {
   user: {
@@ -98,7 +98,7 @@ export class AuthGuard implements CanActivate {
         const tokenPayload = {
           id: userId,
           email,
-          iss: prodUIURI,
+          iss: config.UI_URL,
         }
         const newAccessToken = generateToken(
           tokenPayload,
