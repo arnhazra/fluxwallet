@@ -11,6 +11,7 @@ export enum AssetType {
   PROPERTY = "PROPERTY",
   BOND = "BOND",
   LIQUID = "LIQUID",
+  RETIREMENT = "RETIREMENT",
   EQUITY = "EQUITY",
   CRYPTO = "CRYPTO",
   OTHER = "OTHER",
@@ -81,14 +82,14 @@ export type Asset = {
   assetName: string // COMMON
   identifier: string // COMMON
   presentValuation: number | null | undefined // COMMON
-  startDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
-  maturityDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
-  amountInvested?: number // LUMPSUM_DEPOSIT
-  expectedReturnRate?: number // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
+  startDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
+  maturityDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
+  amountInvested?: number // LUMPSUM_DEPOSIT, BOND
+  expectedReturnRate?: number // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
   contributionAmount?: number // RECURRING_DEPOSIT
   contributionFrequency?: RecurringFrequency // RECURRING_DEPOSIT
-  valuationOnPurchase?: number // PROPERTY, BOND, METAL, OTHER
-  currentValuation?: number // LIQUID, PROPERTY, BOND, METAL, OTHER
+  valuationOnPurchase?: number // PROPERTY, METAL, OTHER
+  currentValuation?: number // LIQUID, RETIREMENT, PROPERTY, METAL, , OTHER
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
 }

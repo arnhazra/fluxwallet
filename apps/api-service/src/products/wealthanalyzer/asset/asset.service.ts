@@ -126,12 +126,12 @@ export class AssetService {
     try {
       const simpleValuationAssets = [
         AssetType.LIQUID,
+        AssetType.RETIREMENT,
         AssetType.PROPERTY,
-        AssetType.BOND,
         AssetType.METAL,
         AssetType.OTHER,
       ]
-      const complexValuationAssets = [AssetType.LUMPSUM_DEPOSIT]
+      const complexValuationAssets = [AssetType.LUMPSUM_DEPOSIT, AssetType.BOND]
       const recurringValuationAssets = [AssetType.RECURRING_DEPOSIT]
       const unitValuationAssets = [AssetType.EQUITY, AssetType.CRYPTO]
 

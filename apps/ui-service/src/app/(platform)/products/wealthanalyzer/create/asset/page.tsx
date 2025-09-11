@@ -63,6 +63,7 @@ const assetTypeLabels = {
   [AssetType.PROPERTY]: "Property",
   [AssetType.BOND]: "Bonds",
   [AssetType.LIQUID]: "Liquid Assets",
+  [AssetType.RETIREMENT]: "Retirement Funds",
   [AssetType.EQUITY]: "Equity",
   [AssetType.CRYPTO]: "Crypto",
   [AssetType.OTHER]: "Other Assets",
@@ -121,19 +122,25 @@ export default function Page() {
 
   const showDateFields =
     formData?.assetType &&
-    [AssetType.LUMPSUM_DEPOSIT, AssetType.RECURRING_DEPOSIT].includes(
-      formData.assetType as AssetType
-    )
+    [
+      AssetType.LUMPSUM_DEPOSIT,
+      AssetType.RECURRING_DEPOSIT,
+      AssetType.BOND,
+    ].includes(formData.assetType as AssetType)
 
   const showAmountInvested =
     formData?.assetType &&
-    [AssetType.LUMPSUM_DEPOSIT].includes(formData.assetType as AssetType)
+    [AssetType.LUMPSUM_DEPOSIT, AssetType.BOND].includes(
+      formData.assetType as AssetType
+    )
 
   const showExpectedReturn =
     formData?.assetType &&
-    [AssetType.LUMPSUM_DEPOSIT, AssetType.RECURRING_DEPOSIT].includes(
-      formData.assetType as AssetType
-    )
+    [
+      AssetType.LUMPSUM_DEPOSIT,
+      AssetType.RECURRING_DEPOSIT,
+      AssetType.BOND,
+    ].includes(formData.assetType as AssetType)
 
   const showRecurringFields =
     formData?.assetType &&
@@ -141,19 +148,16 @@ export default function Page() {
 
   const showValuationOnPurchase =
     formData?.assetType &&
-    [
-      AssetType.PROPERTY,
-      AssetType.BOND,
-      AssetType.METAL,
-      AssetType.OTHER,
-    ].includes(formData.assetType as AssetType)
+    [AssetType.PROPERTY, AssetType.METAL, AssetType.OTHER].includes(
+      formData.assetType as AssetType
+    )
 
   const showCurrentValuation =
     formData?.assetType &&
     [
       AssetType.LIQUID,
+      AssetType.RETIREMENT,
       AssetType.PROPERTY,
-      AssetType.BOND,
       AssetType.METAL,
       AssetType.OTHER,
     ].includes(formData.assetType as AssetType)
@@ -391,7 +395,7 @@ export default function Page() {
                           htmlFor="expectedReturnRate"
                           className="text-neutral-200"
                         >
-                          Expected Return Rate (%)
+                          Expected Rate of Return (%)
                         </Label>
                         <Input
                           id="expectedReturnRate"

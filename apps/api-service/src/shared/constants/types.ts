@@ -11,6 +11,7 @@ export enum AssetType {
   PROPERTY = "PROPERTY",
   BOND = "BOND",
   LIQUID = "LIQUID",
+  RETIREMENT = "RETIREMENT",
   EQUITY = "EQUITY",
   CRYPTO = "CRYPTO",
   OTHER = "OTHER",

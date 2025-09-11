@@ -30,16 +30,16 @@ export class Asset extends Document {
   identifier: string // COMMON
 
   @Prop()
-  startDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
+  startDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
 
   @Prop()
-  maturityDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
+  maturityDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
 
   @Prop()
-  amountInvested?: number // LUMPSUM_DEPOSIT
+  amountInvested?: number // LUMPSUM_DEPOSIT, BOND
 
   @Prop()
-  expectedReturnRate?: number // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT
+  expectedReturnRate?: number // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
 
   @Prop()
   contributionAmount?: number // RECURRING_DEPOSIT
@@ -48,10 +48,10 @@ export class Asset extends Document {
   contributionFrequency?: RecurringFrequency // RECURRING_DEPOSIT
 
   @Prop()
-  valuationOnPurchase?: number // PROPERTY, BOND, METAL, OTHER
+  valuationOnPurchase?: number // PROPERTY, METAL, OTHER
 
   @Prop()
-  currentValuation?: number // LIQUID, PROPERTY, BOND, METAL, OTHER
+  currentValuation?: number // LIQUID, PROPERTY, METAL, OTHER
 
   @Prop()
   units?: number // EQUITY, CRYPTO
