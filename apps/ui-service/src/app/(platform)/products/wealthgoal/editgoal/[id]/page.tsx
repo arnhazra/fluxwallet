@@ -11,7 +11,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import { CalendarIcon, BadgeDollarSign } from "lucide-react"
+import { CalendarIcon, GoalIcon } from "lucide-react"
 import {
   Popover,
   PopoverContent,
@@ -88,7 +88,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         <Card className="bg-background border-border">
           <CardHeader className="border-b border-neutral-800">
             <CardTitle className="flex items-center gap-2 text-neutral-100">
-              <BadgeDollarSign className="h-6 w-6 text-primary" />
+              <GoalIcon className="h-6 w-6 text-primary" />
               Add New Goal
             </CardTitle>
             <CardDescription className="text-primary">
