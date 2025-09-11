@@ -103,10 +103,10 @@ export class IntelligenceStrategy {
       model: args.genericName,
       temperature: args.temperature,
       topP: args.topP,
-      apiKey: config.AZURE_API_KEY,
+      apiKey: config.AZURE_OPENAI_API_KEY,
       configuration: {
-        baseURL: config.AZURE_DEPLOYMENT_URI,
-        apiKey: config.AZURE_API_KEY,
+        baseURL: config.AZURE_OPENAI_DEPLOYMENT_URI,
+        apiKey: config.AZURE_OPENAI_API_KEY,
       },
     })
     const response = await this.runChatAgent(llm, args)
@@ -148,10 +148,10 @@ export class IntelligenceStrategy {
       model: config.DEFAULT_MODEL,
       temperature: args.temperature,
       topP: args.topP,
-      apiKey: config.AZURE_API_KEY,
+      apiKey: config.AZURE_OPENAI_API_KEY,
       configuration: {
-        baseURL: config.AZURE_DEPLOYMENT_URI,
-        apiKey: config.AZURE_API_KEY,
+        baseURL: config.AZURE_OPENAI_DEPLOYMENT_URI,
+        apiKey: config.AZURE_OPENAI_API_KEY,
       },
     })
     const response = await this.runSummarizeAgent(llm, args)

@@ -25,7 +25,6 @@ export class SubscriptionService {
     userId: string
   ): Promise<Stripe.Checkout.Session> {
     try {
-      const price = 100
       const session = await this.stripe.checkout.sessions.create({
         payment_method_types: ["card"],
         line_items: [
@@ -35,7 +34,7 @@ export class SubscriptionService {
               product_data: {
                 name: `${config.APP_NAME} Subscription`,
               },
-              unit_amount: Number(price) * 100,
+              unit_amount: Number(config.SUBSCRIPTION_PRICE) * 100,
             },
             quantity: 1,
           },
@@ -45,7 +44,7 @@ export class SubscriptionService {
         cancel_url: getRediretURIAPI(false),
         metadata: {
           userId,
-          price,
+          price: config.SUBSCRIPTION_PRICE,
         },
       })
 

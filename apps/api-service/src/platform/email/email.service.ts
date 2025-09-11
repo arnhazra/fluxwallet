@@ -12,18 +12,18 @@ export class EmailService {
     try {
       const { email, subject, body } = sendEmailDto
       const {
-        GCLOUD_CLIENT_ID,
-        GCLOUD_CLIENT_SECRET,
-        GCLOUD_REDIRECT_URI,
-        GCLOUD_REFRESH_TOKEN,
-        MAILER_EMAIL,
+        GCP_MAILER_CLIENT_ID,
+        GCP_MAILER_CLIENT_SECRET,
+        GCP_MAILER_REDIRECT_URI,
+        GCP_MAILER_FROM_EMAIL,
+        GCP_MAILER_REFRESH_TOKEN,
       } = config
       const oAuth2Client = new google.auth.OAuth2(
-        GCLOUD_CLIENT_ID,
-        GCLOUD_CLIENT_SECRET,
-        GCLOUD_REDIRECT_URI
+        GCP_MAILER_CLIENT_ID,
+        GCP_MAILER_CLIENT_SECRET,
+        GCP_MAILER_REDIRECT_URI
       )
-      oAuth2Client.setCredentials({ refresh_token: GCLOUD_REFRESH_TOKEN })
+      oAuth2Client.setCredentials({ refresh_token: GCP_MAILER_REFRESH_TOKEN })
       const accessToken = await oAuth2Client.getAccessToken()
 
       const transporter: nodemailer.Transporter<SMTPTransport.SentMessageInfo> =
@@ -33,13 +33,13 @@ export class EmailService {
           secure: true,
           auth: {
             type: "OAuth2",
-            user: MAILER_EMAIL,
+            user: GCP_MAILER_FROM_EMAIL,
             accessToken: accessToken.token,
           },
         })
 
       await transporter.sendMail({
-        from: MAILER_EMAIL,
+        from: GCP_MAILER_FROM_EMAIL,
         to: email,
         subject,
         html: body,

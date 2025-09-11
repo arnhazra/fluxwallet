@@ -70,10 +70,10 @@ export class TaxAdvisorStrategy {
       model: args.genericName,
       temperature: args.temperature,
       topP: args.topP,
-      apiKey: config.AZURE_API_KEY,
+      apiKey: config.AZURE_OPENAI_API_KEY,
       configuration: {
-        baseURL: config.AZURE_DEPLOYMENT_URI,
-        apiKey: config.AZURE_API_KEY,
+        baseURL: config.AZURE_OPENAI_DEPLOYMENT_URI,
+        apiKey: config.AZURE_OPENAI_API_KEY,
       },
     })
     const response = await this.runAdvisorAgent(llm, args)
