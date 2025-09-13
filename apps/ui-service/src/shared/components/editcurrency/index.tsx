@@ -83,7 +83,7 @@ export default function EditCurrency({
           <Button
             onClick={(): Promise<void> => saveCurrency()}
             variant="default"
-            className="bg-primary hover:bg-primary"
+            className="bg-primary hover:bg-primary text-black hover:text-black"
           >
             Save
           </Button>
