@@ -10,7 +10,7 @@ export class RedisModule {
     const redisProvider = {
       provide: "REDIS_CLIENT",
       useFactory: () => {
-        return new Redis(config.REDIS_URI)
+        return new Redis(config.REDIS_URI, { keepAlive: 10000 })
       },
     }
 
