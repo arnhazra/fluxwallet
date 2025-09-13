@@ -1,6 +1,6 @@
 "use client"
 import { ReactNode, createContext, useContext, useReducer } from "react"
-import { AppState, Actions, ActionsMap, AppReducer } from "./appstate.reducer"
+import { UserState, Actions, ActionsMap, UserReducer } from "./user.reducer"
 import { Currency } from "@/shared/constants/types"
 
 export type Dispatcher = <Type extends keyof ActionsMap>(
@@ -8,9 +8,9 @@ export type Dispatcher = <Type extends keyof ActionsMap>(
   payload: ActionsMap[Type]
 ) => void
 
-type AppContextInterface = readonly [AppState, Dispatcher]
+type UserContextInterface = readonly [UserState, Dispatcher]
 
-const initialState: AppState = {
+const initialState: UserState = {
   user: {
     _id: "",
     activityLog: true,
@@ -26,25 +26,25 @@ const initialState: AppState = {
   subscription: null,
 }
 
-const AppContext = createContext<AppContextInterface>([
+const UserContext = createContext<UserContextInterface>([
   initialState,
   (): void => undefined,
 ])
 
-export function AppStateProvider({ children }: { children: ReactNode }) {
-  const [state, _dispatch] = useReducer(AppReducer, initialState)
+export function UserStateProvider({ children }: { children: ReactNode }) {
+  const [state, _dispatch] = useReducer(UserReducer, initialState)
   const dispatch: Dispatcher = (type, ...payload) => {
     _dispatch({ type, payload: payload[0] } as Actions)
   }
-  const values: AppContextInterface = [state, dispatch]
-  return <AppContext.Provider value={values}>{children}</AppContext.Provider>
+  const values: UserContextInterface = [state, dispatch]
+  return <UserContext.Provider value={values}>{children}</UserContext.Provider>
 }
 
-export const useAppContext = () => {
-  const context = useContext(AppContext)
+export const useUserContext = () => {
+  const context = useContext(UserContext)
 
   if (!context) {
-    throw new Error("useAppContext must be used within a AppProvider")
+    throw new Error("useUserContext must be used within a UserStateProvider")
   }
 
   return context

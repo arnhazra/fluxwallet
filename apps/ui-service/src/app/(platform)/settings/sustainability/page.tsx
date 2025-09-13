@@ -6,12 +6,12 @@ import { appName, uiConstants } from "@/shared/constants/global-constants"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
 import { Leaf } from "lucide-react"
-import { useAppContext } from "@/context/appstate.provider"
+import { useUserContext } from "@/context/user.provider"
 import notify from "@/shared/hooks/use-notify"
 import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
-  const [{ user }, dispatch] = useAppContext()
+  const [{ user }, dispatch] = useUserContext()
 
   const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {

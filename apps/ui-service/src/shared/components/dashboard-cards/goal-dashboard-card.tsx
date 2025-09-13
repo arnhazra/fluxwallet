@@ -8,12 +8,12 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import useQuery from "@/shared/hooks/use-query"
 import { Goal } from "@/shared/constants/types"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { useAppContext } from "@/context/appstate.provider"
+import { useUserContext } from "@/context/user.provider"
 import { Button } from "../ui/button"
 import { useRouter } from "nextjs-toploader/app"
 
 export default function GoalDashboardCard() {
-  const [{ user }] = useAppContext()
+  const [{ user }] = useUserContext()
   const router = useRouter()
   const { data } = useQuery<Goal>({
     queryKey: ["find-nearest-goal"],

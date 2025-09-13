@@ -1,7 +1,7 @@
 "use client"
 import { ReactNode } from "react"
 import { FetchProvider } from "./fetch.provider"
-import { AppStateProvider } from "../../context/appstate.provider"
+import { UserStateProvider } from "../../context/user.provider"
 import { ConfirmProvider } from "./confirm.provider"
 import { PromptProvider } from "./prompt.provider"
 import { TooltipProvider } from "../components/ui/tooltip"
@@ -14,7 +14,7 @@ export default function Providers({ children }: { children: ReactNode }) {
     <GoogleOAuthProvider clientId={oAuthClientId ?? ""}>
       <TooltipProvider>
         <FetchProvider>
-          <AppStateProvider>
+          <UserStateProvider>
             <ConfirmProvider>
               <PromptProvider>{children}</PromptProvider>
             </ConfirmProvider>
@@ -27,7 +27,7 @@ export default function Providers({ children }: { children: ReactNode }) {
                 },
               }}
             />
-          </AppStateProvider>
+          </UserStateProvider>
         </FetchProvider>
       </TooltipProvider>
     </GoogleOAuthProvider>
