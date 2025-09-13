@@ -1,4 +1,3 @@
-import { Currency } from "@/shared/constants/types"
 import { Button } from "../ui/button"
 import { Pen } from "lucide-react"
 import { useState } from "react"
@@ -23,6 +22,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
+import { Currency } from "country-code-enum"
 
 export default function EditCurrency({
   baseCurrency,

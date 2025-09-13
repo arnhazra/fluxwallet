@@ -1,4 +1,4 @@
-import { Currency } from "@/shared/constants/types"
+import { Currency } from "country-code-enum"
 import { User } from "../../schemas/user.schema"
 
 export class UpdateAttributeCommand {
