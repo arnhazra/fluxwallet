@@ -4,7 +4,7 @@ import SectionPanel from "../../../../shared/components/section-panel"
 import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
-import { useUserContext } from "@/context/user.provider"
+import { userUser } from "@/context/user.provider"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
 import {
@@ -21,7 +21,7 @@ import notify from "@/shared/hooks/use-notify"
 import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
-  const [{ user }, dispatch] = useUserContext()
+  const [{ user }, dispatch] = userUser()
   const { prompt } = usePromptContext()
 
   const editName = async () => {

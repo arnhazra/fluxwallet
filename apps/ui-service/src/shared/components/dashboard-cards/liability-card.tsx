@@ -1,5 +1,5 @@
 "use client"
-import { useUserContext } from "@/context/user.provider"
+import { userUser } from "@/context/user.provider"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { TrendingDown } from "lucide-react"
@@ -10,7 +10,7 @@ import useQuery from "@/shared/hooks/use-query"
 import { TotalDebtDetails } from "@/shared/constants/types"
 
 export default function LiabilityCard() {
-  const [{ user }] = useUserContext()
+  const [{ user }] = userUser()
 
   const { data } = useQuery<TotalDebtDetails>({
     queryKey: ["get-total-debt"],

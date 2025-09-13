@@ -9,13 +9,13 @@ import { Goal } from "@/shared/constants/types"
 import { GoalIcon, Plus } from "lucide-react"
 import Link from "next/link"
 import { formatCurrency } from "@/shared/lib/format-currency"
-import { useUserContext } from "@/context/user.provider"
+import { userUser } from "@/context/user.provider"
 import IconContainer from "../icon-container"
 import { GoalModal } from "../goalmodal"
 import { format } from "date-fns"
 
 export function GoalCard({ goal }: { goal: Goal }) {
-  const [{ user }] = useUserContext()
+  const [{ user }] = userUser()
 
   return (
     <GoalModal goalDetails={goal} key={goal._id}>

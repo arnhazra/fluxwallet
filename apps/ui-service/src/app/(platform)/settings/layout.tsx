@@ -4,7 +4,7 @@ import { CalendarClock, Info, Leaf, ShieldCheck, User } from "lucide-react"
 import { Tabs, tabsList } from "./data"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { useUserContext } from "@/context/user.provider"
+import { userUser } from "@/context/user.provider"
 import {
   Avatar,
   AvatarFallback,
@@ -20,7 +20,7 @@ const mapTabIcons: Record<Tabs, ReactElement> = {
 }
 
 export default function SetingsLayout({ children }: { children: ReactNode }) {
-  const [{ user }] = useUserContext()
+  const [{ user }] = userUser()
   const pathname = usePathname()
 
   const renderTabs = tabsList.map((tab: Tabs) => {

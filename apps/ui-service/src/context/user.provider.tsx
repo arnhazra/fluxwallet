@@ -40,11 +40,11 @@ export function UserStateProvider({ children }: { children: ReactNode }) {
   return <UserContext.Provider value={values}>{children}</UserContext.Provider>
 }
 
-export const useUserContext = () => {
+export const userUser = () => {
   const context = useContext(UserContext)
 
   if (!context) {
-    throw new Error("useUserContext must be used within a UserStateProvider")
+    throw new Error("userUser must be used within a UserStateProvider")
   }
 
   return context

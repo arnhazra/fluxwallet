@@ -17,7 +17,7 @@ import { uiConstants } from "@/shared/constants/global-constants"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
-import { useUserContext } from "@/context/user.provider"
+import { userUser } from "@/context/user.provider"
 import Summarizer from "../summarizer"
 import { Badge } from "../ui/badge"
 
@@ -39,7 +39,7 @@ const excludedKeys = [
 export function DebtModal({ debtDetails, children }: DebtModalProps) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
-  const [{ user }] = useUserContext()
+  const [{ user }] = userUser()
   const { confirm } = useConfirmContext()
 
   const deleteDebt = async (): Promise<void> => {

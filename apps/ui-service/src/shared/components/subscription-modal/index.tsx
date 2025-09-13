@@ -13,7 +13,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
 import { appName, uiConstants } from "@/shared/constants/global-constants"
-import { useUserContext } from "@/context/user.provider"
+import { userUser } from "@/context/user.provider"
 import notify from "@/shared/hooks/use-notify"
 import Show from "../show"
 import { useEffect, useState } from "react"
@@ -27,7 +27,7 @@ interface SubscriptionModalProps {
 }
 
 export function SubscriptionModal({ data }: SubscriptionModalProps) {
-  const [{ subscription, user }] = useUserContext()
+  const [{ subscription, user }] = userUser()
   const router = useRouter()
   const [isLoading, setLoading] = useState(false)
   const queryClient = useQueryClient()

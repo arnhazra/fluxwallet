@@ -1,5 +1,5 @@
 "use client"
-import { useUserContext } from "@/context/user.provider"
+import { userUser } from "@/context/user.provider"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -14,7 +14,7 @@ import Link from "next/link"
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar"
 
 export function UserNav() {
-  const [{ user }] = useUserContext()
+  const [{ user }] = userUser()
 
   const signOut = async () => {
     localStorage.clear()

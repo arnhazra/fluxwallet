@@ -1,5 +1,5 @@
 "use client"
-import { useUserContext } from "@/context/user.provider"
+import { userUser } from "@/context/user.provider"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { TrendingUp } from "lucide-react"
@@ -9,7 +9,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 
 export default function WealthCard() {
-  const [{ user }] = useUserContext()
+  const [{ user }] = userUser()
 
   const { data } = useQuery<{
     presentValuation: number | null | undefined

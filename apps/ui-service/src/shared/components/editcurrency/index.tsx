@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
-import { useUserContext } from "@/context/user.provider"
+import { userUser } from "@/context/user.provider"
 import ky from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -30,7 +30,7 @@ export default function EditCurrency({
   baseCurrency: Currency
 }) {
   const [open, setOpen] = useState(false)
-  const [, dispatch] = useUserContext()
+  const [, dispatch] = userUser()
   const [value, setValue] = useState<Currency>(baseCurrency)
 
   const saveCurrency = async () => {

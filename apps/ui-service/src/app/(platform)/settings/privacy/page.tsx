@@ -7,12 +7,12 @@ import { uiConstants } from "@/shared/constants/global-constants"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
 import { PieChart, Fingerprint, ScanFace } from "lucide-react"
-import { useUserContext } from "@/context/user.provider"
+import { userUser } from "@/context/user.provider"
 import notify from "@/shared/hooks/use-notify"
 import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
-  const [{ user }, dispatch] = useUserContext()
+  const [{ user }, dispatch] = userUser()
 
   const saveActivityLogSettings = async (updatedSettings: boolean) => {
     try {
