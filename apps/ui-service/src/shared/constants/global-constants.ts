@@ -24,9 +24,9 @@ export const uiConstants = {
   linkedinURI: "https://www.linkedin.com/in/arnhazra",
   confirmDescription:
     "This action cannot be undone. Click continue to proceed, or cancel to go back.",
-  copyrightText: `${appName} Inc. All rights reserved.`,
+  copyrightText: `FluxWallet Inc. All rights reserved.`,
   pricingTitle: `Pricing`,
-  privacyPolicyStatement: `By using ${appName}, you agree to our Privacy Policy.`,
+  privacyPolicyStatement: `By using FluxWallet, you agree to our Privacy Policy.`,
   verifyEmailStatement: `Enter the OTP we've sent to your email to verify your identity.`,
-  aiSafetyStatement: `${appName} Intelligence is AI-powered and may make mistakes. Please review results carefully.`,
+  aiSafetyStatement: `FluxWallet Intelligence is AI-powered and may make mistakes. Please review results carefully.`,
 }

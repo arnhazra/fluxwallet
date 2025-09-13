@@ -6,7 +6,7 @@ import {
 } from "@tanstack/react-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { useAppContext } from "@/context/appstate.provider"
+import { userUser } from "@/context/user.provider"
 
 interface QueryType<T> {
   queryKey: string[]
@@ -27,7 +27,7 @@ export default function useQuery<T>({
   enabled = true,
   staleTime,
 }: QueryType<T>) {
-  const [{ user }] = useAppContext()
+  const [{ user }] = userUser()
 
   const queryFn = async () => {
     const data: any = await ky(queryUrl, {

@@ -1,4 +1,4 @@
-import { Currency } from "@/shared/constants/types"
+import { Currency } from "country-code-enum"
 import { IsNotEmpty } from "class-validator"
 import { User } from "../schemas/user.schema"
 
