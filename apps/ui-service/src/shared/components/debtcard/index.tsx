@@ -10,14 +10,14 @@ import { CreditCard, OctagonAlert, Plus } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"
 import { formatCurrency } from "@/shared/lib/format-currency"
-import { userUser } from "@/context/user.provider"
+import { useUserContext } from "@/context/user.provider"
 import Show from "../show"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import IconContainer from "../icon-container"
 import { DebtModal } from "../debtmodal"
 
 export function DebtCard({ debt }: { debt: Debt }) {
-  const [{ user }] = userUser()
+  const [{ user }] = useUserContext()
 
   return (
     <DebtModal debtDetails={debt} key={debt._id}>

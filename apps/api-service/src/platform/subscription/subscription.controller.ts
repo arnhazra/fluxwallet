@@ -3,14 +3,12 @@ import {
   Post,
   Get,
   Query,
-  Res,
   UseGuards,
   Request,
   BadRequestException,
 } from "@nestjs/common"
 import { SubscriptionService } from "./subscription.service"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
-import { getRediretURIUI } from "./utils/redirect-uri"
 import { statusMessages } from "@/shared/constants/status-messages"
 
 @Controller("subscription")
@@ -30,25 +28,23 @@ export class SubscriptionController {
     }
   }
 
+  @UseGuards(AuthGuard)
   @Get("subscribe")
   async handleSubscribe(
-    @Query("session_id") sessionId: string,
-    @Res() res: any
+    @Query("sub_session_id") sessionId: string,
+    @Request() request: ModRequest
   ) {
     if (!sessionId) {
-      res.redirect(getRediretURIUI(false))
+      throw new BadRequestException(statusMessages.subscriptionFailure)
     } else {
       try {
-        await this.subscriptionService.handleSubscribe(sessionId)
-        res.redirect(getRediretURIUI(true))
+        return await this.subscriptionService.handleSubscribe(
+          sessionId,
+          request.user.userId
+        )
       } catch (error) {
-        res.redirect(getRediretURIUI(false))
+        throw new BadRequestException(statusMessages.subscriptionFailure)
       }
     }
-  }
-
-  @Get("cancel")
-  handleCancel(@Res() res: any) {
-    res.redirect(getRediretURIUI(false))
   }
 }

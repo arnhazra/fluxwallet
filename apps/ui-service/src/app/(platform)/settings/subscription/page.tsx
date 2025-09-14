@@ -2,12 +2,12 @@
 import Show from "@/shared/components/show"
 import { format } from "date-fns"
 import { Bolt, CalendarClock } from "lucide-react"
-import { userUser } from "@/context/user.provider"
+import { useUserContext } from "@/context/user.provider"
 import SectionPanel from "@/shared/components/section-panel"
 import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
-  const [{ subscription }] = userUser()
+  const [{ subscription }] = useUserContext()
 
   return (
     <>

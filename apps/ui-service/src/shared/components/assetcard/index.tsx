@@ -10,14 +10,14 @@ import { Banknote, OctagonAlert, Plus } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"
 import { formatCurrency } from "@/shared/lib/format-currency"
-import { userUser } from "@/context/user.provider"
+import { useUserContext } from "@/context/user.provider"
 import { AssetModal } from "../assetmodal"
 import Show from "../show"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import IconContainer from "../icon-container"
 
 export function AssetCard({ asset }: { asset: Asset }) {
-  const [{ user }] = userUser()
+  const [{ user }] = useUserContext()
 
   const isAssetMatured = (): boolean => {
     return !!asset.maturityDate && new Date() >= new Date(asset.maturityDate)

@@ -7,4 +7,5 @@ export const statusMessages = {
   otpEmail: "Check OTP in Email",
   invalidUser: "Invalid User",
   trialActivated: "You have already activated your trial",
+  subscriptionFailure: "Failed to activate the subscription",
 }

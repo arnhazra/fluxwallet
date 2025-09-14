@@ -18,7 +18,7 @@ import { uiConstants } from "@/shared/constants/global-constants"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
-import { userUser } from "@/context/user.provider"
+import { useUserContext } from "@/context/user.provider"
 import Summarizer from "../summarizer"
 
 interface AssetModalProps {
@@ -38,7 +38,7 @@ const excludedKeys = [
 export function AssetModal({ assetDetails, children }: AssetModalProps) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
-  const [{ user }] = userUser()
+  const [{ user }] = useUserContext()
   const { confirm } = useConfirmContext()
 
   const deleteAsset = async (): Promise<void> => {

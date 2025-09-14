@@ -5,17 +5,22 @@ import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
 import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
 import { ProductCard } from "@/shared/components/marketing-cards"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import { uiConstants } from "@/shared/constants/global-constants"
 import HTTPMethods from "@/shared/constants/http-methods"
-import notify from "@/shared/hooks/use-notify"
 import useQuery from "@/shared/hooks/use-query"
 import { ProductsConfig } from "@/shared/constants/types"
 import { useSearchParams } from "next/navigation"
-import { useRouter } from "nextjs-toploader/app"
 import { useEffect } from "react"
+import { useQueryClient } from "@tanstack/react-query"
+import ky from "ky"
+import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
+import { useRouter } from "nextjs-toploader/app"
+import { uiConstants } from "@/shared/constants/global-constants"
+import notify from "@/shared/hooks/use-notify"
 
 export default function Page() {
   const searchParams = useSearchParams()
+  const subscriptionSessionId = searchParams.get("sub_session_id")
+  const queryClient = useQueryClient()
   const router = useRouter()
 
   const { data } = useQuery<ProductsConfig>({
@@ -30,19 +35,27 @@ export default function Page() {
     ))
   }
 
-  useEffect(() => {
-    const subscriptionSuccess = searchParams.get("subscriptionSuccess")
-    if (subscriptionSuccess !== null) {
-      if (subscriptionSuccess === "true") {
-        notify(uiConstants.subscriptionSuccess, "success")
-      }
-
-      if (subscriptionSuccess === "false") {
-        notify(uiConstants.subscriptionFailed, "error")
-      }
-      router.push("/dashboard")
+  const subscribe = async () => {
+    try {
+      await ky
+        .get(`${endPoints.subscribe}?sub_session_id=${subscriptionSessionId}`, {
+          timeout: FETCH_TIMEOUT,
+        })
+        .json()
+      queryClient.refetchQueries({ queryKey: ["user-details"] })
+      notify(uiConstants.subscriptionSuccess, "success")
+    } catch (error: any) {
+      const errorMessage = (await error.response.json()).message
+      notify(errorMessage, "error")
     }
-  }, [searchParams])
+  }
+
+  useEffect(() => {
+    if (!!subscriptionSessionId) {
+      subscribe()
+      router.replace("/dashboard")
+    }
+  }, [subscriptionSessionId])
 
   return (
     <div className="mx-auto grid w-full items-start gap-6">

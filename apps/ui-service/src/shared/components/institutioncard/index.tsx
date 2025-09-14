@@ -9,11 +9,11 @@ import { Institution } from "@/shared/constants/types"
 import { Building, Plus } from "lucide-react"
 import Link from "next/link"
 import { formatCurrency } from "@/shared/lib/format-currency"
-import { userUser } from "@/context/user.provider"
+import { useUserContext } from "@/context/user.provider"
 import IconContainer from "../icon-container"
 
 export function InstitutionCard({ institution }: { institution: Institution }) {
-  const [{ user }] = userUser()
+  const [{ user }] = useUserContext()
 
   return (
     <Link href={`/products/wealthanalyzer/institution/${institution._id}`}>

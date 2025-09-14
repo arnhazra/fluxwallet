@@ -18,7 +18,7 @@ import { appName, defaultModel } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "@/shared/components/markdown"
 import Show from "@/shared/components/show"
 import { ModelConfig, Thread } from "@/shared/constants/types"
-import { userUser } from "@/context/user.provider"
+import { useUserContext } from "@/context/user.provider"
 import { useSearchParams } from "next/navigation"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
@@ -30,7 +30,7 @@ export default function Page() {
   const searchParams = useSearchParams()
   const router = useRouter()
   const tId = searchParams.get("threadId")
-  const [{ user }] = userUser()
+  const [{ user }] = useUserContext()
   const [threadId, setThreadId] = useState<string | null>(tId)
   const [prompt, setPrompt] = useState("")
   const [messages, setMessages] = useState<string[]>([])

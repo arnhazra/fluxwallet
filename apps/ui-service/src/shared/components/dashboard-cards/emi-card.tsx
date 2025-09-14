@@ -1,5 +1,5 @@
 "use client"
-import { userUser } from "@/context/user.provider"
+import { useUserContext } from "@/context/user.provider"
 import { Card, CardContent } from "@/shared/components/ui/card"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { CalendarClock } from "lucide-react"
@@ -10,7 +10,7 @@ import useQuery from "@/shared/hooks/use-query"
 import { TotalDebtDetails } from "@/shared/constants/types"
 
 export default function EMICard() {
-  const [{ user }] = userUser()
+  const [{ user }] = useUserContext()
 
   const { data } = useQuery<TotalDebtDetails>({
     queryKey: ["get-total-debt"],
