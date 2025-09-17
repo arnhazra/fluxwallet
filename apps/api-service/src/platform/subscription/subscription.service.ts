@@ -8,6 +8,9 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.command"
 import { FindSubscriptionByUserIdQuery } from "./queries/impl/find-subscription-by-user-id.query"
 import { Subscription } from "./schemas/subscription.schema"
+import { CreateBlockListedSessionCommand } from "./commands/impl/create-blocklisted-session.command"
+import { FindBlockListedSessionByIdQuery } from "./queries/impl/find-blocklisted-session.query"
+import { BlockListedSession } from "./schemas/blocklisted-session.schema"
 
 @Injectable()
 export class SubscriptionService {
@@ -57,13 +60,21 @@ export class SubscriptionService {
     try {
       const session = await this.stripe.checkout.sessions.retrieve(sessionId)
       const { userId, price } = session.metadata
+      const blocklistedSessionData = await this.queryBus.execute<
+        FindBlockListedSessionByIdQuery,
+        BlockListedSession
+      >(new FindBlockListedSessionByIdQuery(sessionId))
 
-      if (userId !== reqUserId) {
+      if (!!blocklistedSessionData || userId !== reqUserId) {
         throw new Error()
       }
 
       await this.commandBus.execute(
         new CreateSubscriptionCommand(userId, Number(price))
+      )
+
+      await this.commandBus.execute(
+        new CreateBlockListedSessionCommand(sessionId)
       )
       return { success: true }
     } catch (error) {

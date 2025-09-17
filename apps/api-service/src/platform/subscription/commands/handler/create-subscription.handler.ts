@@ -1,6 +1,6 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { CreateSubscriptionCommand } from "../impl/create-subscription.command"
-import { SubscriptionRepository } from "../../subscription.repository"
+import { SubscriptionRepository } from "../../repositories/subscription.repository"
 import objectId from "@/shared/utils/convert-objectid"
 
 @CommandHandler(CreateSubscriptionCommand)
