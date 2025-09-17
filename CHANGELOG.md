@@ -1,8 +1,13 @@
 # Changelog
 
+## v1.7
+
+- Dependency updates & bug fixes
+- Code optimization
+
 ## v1.6
 
-- Standardized asset naming conventions
+- Standardized asset type conventions
 - Removed Gemini model & integrated GPT 4.1
 - Code refactoring & bug fixes
 - Dependency updates

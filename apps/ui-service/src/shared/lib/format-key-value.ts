@@ -1,6 +1,6 @@
 import { format, parseISO, isValid } from "date-fns"
 import { formatCurrency } from "./format-currency"
-import { Currency } from "../constants/types"
+import { Currency } from "country-code-enum"
 
 export const excludedKeys = [
   "_id",

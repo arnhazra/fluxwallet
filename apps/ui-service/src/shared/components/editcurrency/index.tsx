@@ -1,4 +1,3 @@
-import { Currency } from "@/shared/constants/types"
 import { Button } from "../ui/button"
 import { Pen } from "lucide-react"
 import { useState } from "react"
@@ -17,12 +16,13 @@ import {
   SelectTrigger,
   SelectValue,
 } from "../ui/select"
-import { useAppContext } from "@/context/appstate.provider"
+import { useUserContext } from "@/context/user.provider"
 import ky from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
+import { Currency } from "country-code-enum"
 
 export default function EditCurrency({
   baseCurrency,
@@ -30,7 +30,7 @@ export default function EditCurrency({
   baseCurrency: Currency
 }) {
   const [open, setOpen] = useState(false)
-  const [, dispatch] = useAppContext()
+  const [, dispatch] = useUserContext()
   const [value, setValue] = useState<Currency>(baseCurrency)
 
   const saveCurrency = async () => {
@@ -83,7 +83,7 @@ export default function EditCurrency({
           <Button
             onClick={(): Promise<void> => saveCurrency()}
             variant="default"
-            className="bg-primary hover:bg-primary"
+            className="bg-primary hover:bg-primary text-black hover:text-black"
           >
             Save
           </Button>

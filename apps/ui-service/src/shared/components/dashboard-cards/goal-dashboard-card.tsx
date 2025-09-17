@@ -8,12 +8,12 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import useQuery from "@/shared/hooks/use-query"
 import { Goal } from "@/shared/constants/types"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { useAppContext } from "@/context/appstate.provider"
+import { useUserContext } from "@/context/user.provider"
 import { Button } from "../ui/button"
 import { useRouter } from "nextjs-toploader/app"
 
 export default function GoalDashboardCard() {
-  const [{ user }] = useAppContext()
+  const [{ user }] = useUserContext()
   const router = useRouter()
   const { data } = useQuery<Goal>({
     queryKey: ["find-nearest-goal"],
@@ -46,13 +46,13 @@ export default function GoalDashboardCard() {
             <Show condition={!!data}>{goalPercentage.toFixed(0)}%</Show>
             <Show condition={!data}>
               <Button
+                size="icon"
                 className="bg-primary hover:bg-primary text-black"
                 onClick={(): void =>
-                  router.push("/products/wealthgoal/dashboard")
+                  router.push("/products/wealthgoal/creategoal")
                 }
               >
-                Add Goals
-                <PlusCircle className="h-4 w-4 ms-2" />
+                <PlusCircle className="h-4 w-4" />
               </Button>
             </Show>
           </p>

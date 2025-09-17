@@ -1,4 +1,4 @@
-import { Currency } from "../constants/types"
+import { Currency } from "country-code-enum"
 
 const MAX_STANDARD_AMOUNT = 99999
 

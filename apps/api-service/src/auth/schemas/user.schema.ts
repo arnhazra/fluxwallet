@@ -1,4 +1,4 @@
-import { Currency } from "@/shared/constants/types"
+import { Currency } from "country-code-enum"
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
 import { Document } from "mongoose"
 

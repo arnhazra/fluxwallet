@@ -14,7 +14,7 @@ import {
 import Loading from "../loading"
 import { useQuery as useBaseQuery } from "@tanstack/react-query"
 import PlatformHeader from "@/shared/components/platform-header"
-import { useAppContext } from "@/context/appstate.provider"
+import { useUserContext } from "@/context/user.provider"
 import Intelligence from "@/shared/components/intelligence"
 import { SubscriptionModal } from "@/shared/components/subscription-modal"
 import notify from "@/shared/hooks/use-notify"
@@ -22,7 +22,7 @@ import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
-  const [, dispatch] = useAppContext()
+  const [, dispatch] = useUserContext()
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
   const getUserDetails = async () => {

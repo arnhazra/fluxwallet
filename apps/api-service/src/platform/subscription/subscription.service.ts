@@ -7,8 +7,10 @@ import { EventMap } from "@/shared/constants/event.map"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateSubscriptionCommand } from "./commands/impl/create-subscription.command"
 import { FindSubscriptionByUserIdQuery } from "./queries/impl/find-subscription-by-user-id.query"
-import { getRediretURIAPI } from "./utils/redirect-uri"
 import { Subscription } from "./schemas/subscription.schema"
+import { CreateBlockListedSessionCommand } from "./commands/impl/create-blocklisted-session.command"
+import { FindBlockListedSessionByIdQuery } from "./queries/impl/find-blocklisted-session.query"
+import { BlockListedSession } from "./schemas/blocklisted-session.schema"
 
 @Injectable()
 export class SubscriptionService {
@@ -40,8 +42,8 @@ export class SubscriptionService {
           },
         ],
         mode: "payment",
-        success_url: `${getRediretURIAPI(true)}?session_id={CHECKOUT_SESSION_ID}`,
-        cancel_url: getRediretURIAPI(false),
+        success_url: `${config.UI_URL}/dashboard?sub_session_id={CHECKOUT_SESSION_ID}`,
+        cancel_url: `${config.UI_URL}/dashboard?sub_session_id=null`,
         metadata: {
           userId,
           price: config.SUBSCRIPTION_PRICE,
@@ -54,13 +56,25 @@ export class SubscriptionService {
     }
   }
 
-  async handleSubscribe(sessionId: string) {
+  async handleSubscribe(sessionId: string, reqUserId: string) {
     try {
       const session = await this.stripe.checkout.sessions.retrieve(sessionId)
       const { userId, price } = session.metadata
+      const blocklistedSessionData = await this.queryBus.execute<
+        FindBlockListedSessionByIdQuery,
+        BlockListedSession
+      >(new FindBlockListedSessionByIdQuery(sessionId))
+
+      if (!!blocklistedSessionData || userId !== reqUserId) {
+        throw new Error()
+      }
 
       await this.commandBus.execute(
         new CreateSubscriptionCommand(userId, Number(price))
+      )
+
+      await this.commandBus.execute(
+        new CreateBlockListedSessionCommand(sessionId)
       )
       return { success: true }
     } catch (error) {
