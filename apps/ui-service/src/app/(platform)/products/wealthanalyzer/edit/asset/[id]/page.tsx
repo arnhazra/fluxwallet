@@ -57,9 +57,8 @@ interface AssetFormData {
 }
 
 const assetTypeLabels = {
-  [AssetType.LUMPSUM_DEPOSIT]:
-    "Lumpsum Deposit/One-time Investment/Fixed Deposit",
-  [AssetType.RECURRING_DEPOSIT]: "Recurring Deposit/SIP",
+  [AssetType.LUMPSUM_DEPOSIT]: "Lumpsum Deposit",
+  [AssetType.RECURRING_DEPOSIT]: "Recurring Deposit",
   [AssetType.METAL]: "Metals",
   [AssetType.REAL_ESTATE]: "Real Estate",
   [AssetType.BOND]: "Bonds",
