@@ -89,7 +89,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           <CardHeader className="border-b border-neutral-800">
             <CardTitle className="flex items-center gap-2 text-neutral-100">
               <GoalIcon className="h-6 w-6 text-primary" />
-              Add New Goal
+              Edit Goal
             </CardTitle>
             <CardDescription className="text-primary">
               Fill in the details for your goal.
@@ -157,7 +157,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                   variant="default"
                   className="bg-primary hover:bg-primary ml-auto text-black"
                 >
-                  Add Goal
+                  Save Goal
                 </Button>
               </div>
             </form>
