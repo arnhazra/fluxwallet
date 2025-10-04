@@ -1,5 +1,5 @@
 import { Module } from "@nestjs/common"
-import { IntelligenceModule } from "./intelligence/intelligence.module"
+import { OneAgentModule } from "./oneagent/oneagent.module"
 import { WealthAnalyzerModule } from "./wealthanalyzer/wealthanalyzer.module"
 import { DebtTrackModule } from "./debttrack/debttrack.module"
 import { TaxAdvisorModule } from "./taxadvisor/taxadvisor.module"
@@ -10,7 +10,7 @@ import { WealthGoalModule } from "./wealthgoal/wealthgoal.module"
     TaxAdvisorModule,
     WealthAnalyzerModule,
     DebtTrackModule,
-    IntelligenceModule,
+    OneAgentModule,
     WealthGoalModule,
   ],
 })

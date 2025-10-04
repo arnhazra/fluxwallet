@@ -29,7 +29,7 @@ export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
   const { data, isLoading } = useQuery<{ response: string | null | undefined }>(
     {
       queryKey: ["summarize", entityType, entityId],
-      queryUrl: `${endPoints.intelligence}/summarize`,
+      queryUrl: `${endPoints.oneagent}/summarize`,
       method: HTTPMethods.POST,
       requestBody: { entityType, entityId },
       suspense: false,

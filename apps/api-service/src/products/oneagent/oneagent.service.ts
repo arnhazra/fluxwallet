@@ -8,19 +8,19 @@ import { AIChatDto } from "./dto/ai-chat.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import {
-  IntelligenceStrategy,
+  OneAgentStrategy,
   ChatReqParams,
   SummarizeReqParams,
-} from "./intelligence.strategy"
+} from "./oneagent.strategy"
 import { User } from "@/auth/schemas/user.schema"
 import { AISummarizeDto } from "./dto/ai-summarize.dto"
 
 @Injectable()
-export class IntelligenceService {
+export class OneAgentService {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-    private readonly strategy: IntelligenceStrategy,
+    private readonly strategy: OneAgentStrategy,
     private readonly eventEmitter: EventEmitter2
   ) {}
 
