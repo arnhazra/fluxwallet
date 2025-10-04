@@ -18,9 +18,9 @@ import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useUserContext } from "@/context/user.provider"
-import { format } from "date-fns"
 import Summarizer from "../summarizer"
 import { Badge } from "../ui/badge"
+import { formatDate } from "@/shared/lib/format-date"
 
 interface GoalModalProps {
   goalDetails: Goal
@@ -65,7 +65,7 @@ export function GoalModal({ goalDetails, children }: GoalModalProps) {
         <DialogHeader>
           <div className="flex justify-between">
             <div>
-              <DialogTitle>{format(goalDetails?.goalDate, "PPP")}</DialogTitle>
+              <DialogTitle>{formatDate(goalDetails?.goalDate)}</DialogTitle>
               <Badge
                 variant="default"
                 className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary mt-2"

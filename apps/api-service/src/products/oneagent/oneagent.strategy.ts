@@ -30,7 +30,7 @@ export interface SummarizeReqParams {
 }
 
 @Injectable()
-export class IntelligenceStrategy {
+export class OneAgentStrategy {
   constructor(
     private readonly chatTools: ChatTools,
     private readonly summarizeTools: SummarizeTools,

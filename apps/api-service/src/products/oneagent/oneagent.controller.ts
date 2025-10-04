@@ -8,15 +8,15 @@ import {
   Param,
   BadRequestException,
 } from "@nestjs/common"
-import { IntelligenceService } from "./intelligence.service"
+import { OneAgentService } from "./oneagent.service"
 import { AIChatDto } from "./dto/ai-chat.dto"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { AISummarizeDto } from "./dto/ai-summarize.dto"
 import { statusMessages } from "@/shared/constants/status-messages"
 
-@Controller("intelligence")
-export class IntelligenceController {
-  constructor(private readonly service: IntelligenceService) {}
+@Controller("oneagent")
+export class OneAgentController {
+  constructor(private readonly service: OneAgentService) {}
 
   @UseGuards(AuthGuard)
   @Get("thread/:threadId")

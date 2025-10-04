@@ -12,7 +12,7 @@ import { formatCurrency } from "@/shared/lib/format-currency"
 import { useUserContext } from "@/context/user.provider"
 import IconContainer from "../icon-container"
 import { GoalModal } from "../goalmodal"
-import { format } from "date-fns"
+import { formatDate } from "@/shared/lib/format-date"
 
 export function GoalCard({ goal }: { goal: Goal }) {
   const [{ user }] = useUserContext()
@@ -23,7 +23,7 @@ export function GoalCard({ goal }: { goal: Goal }) {
         <CardHeader className="pb-3">
           <div className="flex items-center justify-between">
             <CardTitle className="text-lg font-semibold truncate text-white">
-              {format(goal.goalDate, "dd MMM yyyy")}
+              {formatDate(goal.goalDate)}
             </CardTitle>
             <IconContainer>
               <GoalIcon className="h-4 w-4" />

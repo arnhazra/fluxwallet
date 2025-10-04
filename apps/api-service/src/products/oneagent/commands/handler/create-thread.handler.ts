@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
-import { IntelligenceRepository } from "../../intelligence.repository"
+import { OneAgentRepository } from "../../oneagent.repository"
 import { CreateThreadCommand } from "../impl/create-thread.command"
 import objectId from "@/shared/utils/convert-objectid"
 
@@ -7,7 +7,7 @@ import objectId from "@/shared/utils/convert-objectid"
 export class CreateThreadCommandHandler
   implements ICommandHandler<CreateThreadCommand>
 {
-  constructor(private readonly repository: IntelligenceRepository) {}
+  constructor(private readonly repository: OneAgentRepository) {}
 
   async execute(command: CreateThreadCommand) {
     const { userId, threadId, prompt, response } = command

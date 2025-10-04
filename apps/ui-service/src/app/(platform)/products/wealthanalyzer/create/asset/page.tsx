@@ -25,7 +25,6 @@ import {
   PopoverTrigger,
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
-import { format } from "date-fns"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import {
@@ -36,6 +35,7 @@ import {
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
+import { formatDate } from "@/shared/lib/format-date"
 
 interface AssetFormData {
   institutionId: string
@@ -55,9 +55,8 @@ interface AssetFormData {
 }
 
 const assetTypeLabels = {
-  [AssetType.LUMPSUM_DEPOSIT]:
-    "Lumpsum Deposit/One-time Investment/Fixed Deposit",
-  [AssetType.RECURRING_DEPOSIT]: "Recurring Deposit/SIP",
+  [AssetType.LUMPSUM_DEPOSIT]: "Lumpsum Deposit",
+  [AssetType.RECURRING_DEPOSIT]: "Recurring Deposit",
   [AssetType.METAL]: "Metals",
   [AssetType.REAL_ESTATE]: "Real Estate",
   [AssetType.BOND]: "Bonds",
@@ -282,7 +281,7 @@ export default function Page() {
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
                             {formData.startDate
-                              ? format(formData.startDate, "PPP")
+                              ? formatDate(formData.startDate)
                               : "Pick a date"}
                           </Button>
                         </PopoverTrigger>
@@ -312,7 +311,7 @@ export default function Page() {
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
                             {formData.maturityDate
-                              ? format(formData.maturityDate, "PPP")
+                              ? formatDate(formData.maturityDate)
                               : "Pick a date"}
                           </Button>
                         </PopoverTrigger>

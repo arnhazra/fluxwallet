@@ -32,7 +32,7 @@ import { streamResponseText } from "@/shared/lib/stream-response"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 
-export default function Intelligence() {
+export default function OneAgent() {
   const [isOpen, setIsOpen] = useState(false)
   const [threadId, setThreadId] = useState<string | null>(null)
   const [prompt, setPrompt] = useState("")
@@ -68,7 +68,7 @@ export default function Intelligence() {
 
     try {
       const res: Thread = await ky
-        .post(`${endPoints.intelligence}/chat`, {
+        .post(`${endPoints.oneagent}/chat`, {
           json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })
@@ -137,10 +137,10 @@ export default function Intelligence() {
                     <Sparkles className="h-5 w-5" />
                   </IconContainer>
                 </div>
-                <p className="text-primary">{appName} Intelligence</p>
+                <p className="text-primary">{appName} OneAgent</p>
                 <p className="text-sm mt-2 text-white p-6">
-                  {appName} Intelligence is an agentic workflow powered by AI,
-                  so mistakes are possible. Please use carefully.
+                  {appName} OneAgent is an agentic workflow powered by AI, so
+                  mistakes are possible. Please use carefully.
                 </p>
                 <p className="text-sm mt-2 text-neutral-400 mb-4">
                   Try these actions

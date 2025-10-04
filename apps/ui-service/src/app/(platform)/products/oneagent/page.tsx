@@ -39,7 +39,7 @@ export default function Page() {
   const [model, setModel] = useState<string>(defaultModel)
   const thread = useQuery<Thread[]>({
     queryKey: ["get-thread", tId ?? ""],
-    queryUrl: `${endPoints.intelligence}/thread/${tId}`,
+    queryUrl: `${endPoints.oneagent}/thread/${tId}`,
     method: HTTPMethods.GET,
     suspense: tId !== null,
     enabled: tId !== null,
@@ -81,7 +81,7 @@ export default function Page() {
 
     try {
       const res: Thread = await ky
-        .post(`${endPoints.intelligence}/chat`, {
+        .post(`${endPoints.oneagent}/chat`, {
           json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })
@@ -89,7 +89,7 @@ export default function Page() {
 
       if (!threadId) {
         setThreadId(res.threadId)
-        router.replace(`/products/intelligence?threadId=${res.threadId}`)
+        router.replace(`/products/oneagent?threadId=${res.threadId}`)
       }
 
       setMessages((prevMessages) => [...prevMessages, ""])
@@ -123,9 +123,9 @@ export default function Page() {
                   <Sparkles className="h-5 w-5" />
                 </IconContainer>
               </div>
-              <p className="text-primary">{appName} Intelligence</p>
+              <p className="text-primary">{appName} OneAgent</p>
               <p className="text-sm mt-2 text-white p-6">
-                {appName} Intelligence is an agentic workflow powered by AI, so
+                {appName} OneAgent is an agentic workflow powered by AI, so
                 mistakes are possible. Please use carefully.
               </p>
               <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-3xl mt-4">

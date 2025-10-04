@@ -28,5 +28,5 @@ export const uiConstants = {
   pricingTitle: `Pricing`,
   privacyPolicyStatement: `By using FluxWallet, you agree to our Privacy Policy.`,
   verifyEmailStatement: `Enter the OTP we've sent to your email to verify your identity.`,
-  aiSafetyStatement: `FluxWallet Intelligence is AI-powered and may make mistakes. Please review results carefully.`,
+  aiSafetyStatement: `This is an AI-powered agentic workflow and may make mistakes. Please review results carefully.`,
 }

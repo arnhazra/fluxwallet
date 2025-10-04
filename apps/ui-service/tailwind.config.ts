@@ -40,9 +40,9 @@ const config = {
       },
       colors: {
         main: "#121212",
-        background: "#171717",
+        background: "#151616",
         border: "#27272a",
-        primary: "#08f468",
+        primary: "#70f468",
         secondary: "#ff2056",
       },
       backgroundImage: {
