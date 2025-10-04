@@ -44,7 +44,7 @@ export default function Page() {
               subscription?.createdAt
                 ? new Date(subscription.createdAt)
                 : new Date(),
-              "MMM, do yyyy, h:mm a"
+              "MMM, do yyyy"
             )}
           />
           <SectionPanel
@@ -61,7 +61,7 @@ export default function Page() {
                     subscription?.endsAt
                       ? new Date(subscription.endsAt)
                       : new Date(),
-                    "MMM, do yyyy, h:mm a"
+                    "MMM, do yyyy"
                   )
             }
           />
