@@ -1,10 +1,10 @@
 "use client"
 import Show from "@/shared/components/show"
-import { format } from "date-fns"
 import { Bolt, CalendarClock } from "lucide-react"
 import { useUserContext } from "@/context/user.provider"
 import SectionPanel from "@/shared/components/section-panel"
 import IconContainer from "@/shared/components/icon-container"
+import { formatDate } from "@/shared/lib/format-date"
 
 export default function Page() {
   const [{ subscription }] = useUserContext()
@@ -40,12 +40,7 @@ export default function Page() {
               </IconContainer>
             }
             title="Subscription Start Date"
-            content={format(
-              subscription?.createdAt
-                ? new Date(subscription.createdAt)
-                : new Date(),
-              "MMM, do yyyy"
-            )}
+            content={formatDate(subscription?.createdAt)}
           />
           <SectionPanel
             icon={
@@ -54,16 +49,7 @@ export default function Page() {
               </IconContainer>
             }
             title="Subscription Valid Upto"
-            content={
-              subscription?.endsAt?.includes("9999")
-                ? "Never Expires"
-                : format(
-                    subscription?.endsAt
-                      ? new Date(subscription.endsAt)
-                      : new Date(),
-                    "MMM, do yyyy"
-                  )
-            }
+            content={formatDate(subscription?.endsAt)}
           />
         </section>
       </Show>

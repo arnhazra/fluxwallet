@@ -5,6 +5,7 @@
 - Dependency updates & bug fixes
 - Minor UI refactoring
 - Rebranded Intelligence to OneAgent
+- Standardized date format
 
 ## v1.7
 

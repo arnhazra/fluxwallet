@@ -25,7 +25,6 @@ import {
   PopoverTrigger,
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
-import { format } from "date-fns"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import {
@@ -38,6 +37,7 @@ import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import Loading from "@/app/loading"
+import { formatDate } from "@/shared/lib/format-date"
 
 interface AssetFormData {
   institutionId: string
@@ -300,7 +300,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
                             {formData.startDate
-                              ? format(formData.startDate, "PPP")
+                              ? formatDate(formData.startDate)
                               : "Pick a date"}
                           </Button>
                         </PopoverTrigger>
@@ -330,7 +330,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           >
                             <CalendarIcon className="mr-2 h-4 w-4" />
                             {formData.maturityDate
-                              ? format(formData.maturityDate, "PPP")
+                              ? formatDate(formData.maturityDate)
                               : "Pick a date"}
                           </Button>
                         </PopoverTrigger>

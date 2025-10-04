@@ -18,11 +18,11 @@ import {
   PopoverTrigger,
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
-import { format } from "date-fns"
 import { cn } from "@/shared/lib/tw-class-util"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
+import { formatDate } from "@/shared/lib/format-date"
 
 interface DebtFormData {
   debtPurpose: string
@@ -132,7 +132,7 @@ export default function Page() {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {formData.startDate
-                          ? format(formData.startDate, "PPP")
+                          ? formatDate(formData.startDate)
                           : "Pick a date"}
                       </Button>
                     </PopoverTrigger>
@@ -166,7 +166,7 @@ export default function Page() {
                       >
                         <CalendarIcon className="mr-2 h-4 w-4" />
                         {formData.endDate
-                          ? format(formData.endDate, "PPP")
+                          ? formatDate(formData.endDate)
                           : "Pick a date"}
                       </Button>
                     </PopoverTrigger>

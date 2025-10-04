@@ -18,7 +18,6 @@ import {
   PopoverTrigger,
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
-import { format } from "date-fns"
 import { cn } from "@/shared/lib/tw-class-util"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -26,6 +25,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import useQuery from "@/shared/hooks/use-query"
 import { Goal } from "@/shared/constants/types"
 import HTTPMethods from "@/shared/constants/http-methods"
+import { formatDate } from "@/shared/lib/format-date"
 
 interface GoalFormData {
   goalDate?: Date
@@ -110,7 +110,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     >
                       <CalendarIcon className="mr-2 h-4 w-4" />
                       {formData.goalDate
-                        ? format(formData.goalDate, "PPP")
+                        ? formatDate(formData.goalDate)
                         : "Pick a date"}
                     </Button>
                   </PopoverTrigger>

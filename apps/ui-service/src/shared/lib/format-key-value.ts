@@ -1,6 +1,7 @@
-import { format, parseISO, isValid } from "date-fns"
+import { parseISO, isValid } from "date-fns"
 import { formatCurrency } from "./format-currency"
 import { Currency } from "country-code-enum"
+import { formatDate } from "./format-date"
 
 export const excludedKeys = [
   "_id",
@@ -38,7 +39,7 @@ export function formatValue(
   if (isDate && typeof value === "string") {
     const parsed = parseISO(value)
     if (isValid(parsed)) {
-      return format(parsed, "dd MMM yyyy")
+      return formatDate(parsed)
     }
   }
 
