@@ -3,6 +3,12 @@
 ## v1.7
 
 - Dependency updates & bug fixes
+- Minor UI refactoring
+- Rebranded Intelligence to OneAgent
+
+## v1.7
+
+- Dependency updates & bug fixes
 - Code optimization
 
 ## v1.6
