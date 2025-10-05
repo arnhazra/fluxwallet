@@ -21,6 +21,7 @@ import { useUserContext } from "@/context/user.provider"
 import Summarizer from "../summarizer"
 import { Badge } from "../ui/badge"
 import { formatDate } from "@/shared/lib/format-date"
+import { useQueryClient } from "@tanstack/react-query"
 
 interface GoalModalProps {
   goalDetails: Goal
@@ -33,6 +34,7 @@ export function GoalModal({ goalDetails, children }: GoalModalProps) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
   const [{ user }] = useUserContext()
+  const queryClient = useQueryClient()
   const { confirm } = useConfirmContext()
 
   const deleteGoal = async (): Promise<void> => {
@@ -45,6 +47,7 @@ export function GoalModal({ goalDetails, children }: GoalModalProps) {
     if (confirmed) {
       try {
         await ky.delete(`${endPoints.goal}/${goalDetails._id}`)
+        queryClient.refetchQueries({ queryKey: ["get-goals"] })
         notify(uiConstants.goalDeleted, "success")
       } catch (error) {
         notify(uiConstants.genericError, "error")

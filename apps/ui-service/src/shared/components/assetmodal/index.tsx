@@ -20,6 +20,7 @@ import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useUserContext } from "@/context/user.provider"
 import Summarizer from "../summarizer"
+import { useQueryClient } from "@tanstack/react-query"
 
 interface AssetModalProps {
   assetDetails: Asset
@@ -39,6 +40,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
   const [{ user }] = useUserContext()
+  const queryClient = useQueryClient()
   const { confirm } = useConfirmContext()
 
   const deleteAsset = async (): Promise<void> => {
@@ -51,6 +53,7 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
     if (confirmed) {
       try {
         await ky.delete(`${endPoints.asset}/${assetDetails._id}`)
+        queryClient.refetchQueries({ queryKey: ["get-assets"] })
         notify(uiConstants.assetDeleted, "success")
       } catch (error) {
         notify(uiConstants.genericError, "error")

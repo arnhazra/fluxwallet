@@ -20,6 +20,7 @@ import { Button } from "../ui/button"
 import { useUserContext } from "@/context/user.provider"
 import Summarizer from "../summarizer"
 import { Badge } from "../ui/badge"
+import { useQueryClient } from "@tanstack/react-query"
 
 interface DebtModalProps {
   debtDetails: Debt
@@ -40,6 +41,7 @@ export function DebtModal({ debtDetails, children }: DebtModalProps) {
   const [open, setOpen] = useState(false)
   const router = useRouter()
   const [{ user }] = useUserContext()
+  const queryClient = useQueryClient()
   const { confirm } = useConfirmContext()
 
   const deleteDebt = async (): Promise<void> => {
@@ -52,6 +54,7 @@ export function DebtModal({ debtDetails, children }: DebtModalProps) {
     if (confirmed) {
       try {
         await ky.delete(`${endPoints.debt}/${debtDetails._id}`)
+        queryClient.refetchQueries({ queryKey: ["get-debts"] })
         notify(uiConstants.debtDeleted, "success")
       } catch (error) {
         notify(uiConstants.genericError, "error")

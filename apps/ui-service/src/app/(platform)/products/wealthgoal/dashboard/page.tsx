@@ -10,14 +10,14 @@ import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
 import GoalDashboardCard from "@/shared/components/dashboard-cards/goal-dashboard-card"
 
 export default function Page() {
-  const debts = useQuery<Goal[]>({
+  const goals = useQuery<Goal[]>({
     queryKey: ["get-goals"],
     queryUrl: endPoints.goal,
     method: HTTPMethods.GET,
   })
 
-  const renderDebts = debts?.data?.map((debt) => (
-    <GoalCard goal={debt} key={debt._id} />
+  const renderGoals = goals?.data?.map((goal) => (
+    <GoalCard goal={goal} key={goal._id} />
   ))
 
   return (
@@ -35,7 +35,7 @@ export default function Page() {
       <section>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4">
           <AddGoalCard />
-          {renderDebts}
+          {renderGoals}
         </div>
       </section>
     </div>
