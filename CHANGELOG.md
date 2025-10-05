@@ -1,6 +1,6 @@
 # Changelog
 
-## v1.7
+## v1.8
 
 - Dependency updates & bug fixes
 - Minor UI refactoring
