@@ -2,9 +2,7 @@ import { Injectable } from "@nestjs/common"
 import { Thread } from "./schemas/thread.schema"
 import { config } from "@/config"
 import { ChatOpenAI } from "@langchain/openai"
-import { PromptTemplate } from "@langchain/core/prompts"
-import { createReactAgent } from "@langchain/langgraph/prebuilt"
-import { LanguageModelLike } from "@langchain/core/language_models/base"
+import { createAgent } from "langchain"
 import { User } from "@/auth/schemas/user.schema"
 import { RedisService } from "@/shared/redis/redis.service"
 import { TaxAdvisorTools } from "./tools/taxadvisor.tool"
@@ -28,24 +26,21 @@ export class TaxAdvisorStrategy {
 
   private async getSystemInstruction(user: User) {
     const data = await this.redisService.get("taxadvisor-system-instruction")
-    return PromptTemplate.fromTemplate(data).invoke({
-      appName: config.APP_NAME,
-      userName: user.name,
-      userId: user.id,
-      userEmail: user.email,
-      baseCurrency: user.baseCurrency,
-    })
+    const content = data
+      .replaceAll("{appName}", config.APP_NAME)
+      .replaceAll("{userName}", user.name)
+      .replaceAll("{userId}", user.id)
+      .replaceAll("{userEmail}", user.email)
+      .replaceAll("{baseCurrency}", user.baseCurrency)
+    return content
   }
 
-  private async runAdvisorAgent(
-    llm: LanguageModelLike,
-    args: TaxAdvisorStrategyType
-  ) {
+  private async runAdvisorAgent(llm: any, args: TaxAdvisorStrategyType) {
     const { thread, prompt, user } = args
     const systemInstruction = await this.getSystemInstruction(user)
 
-    const agent = createReactAgent({
-      llm,
+    const agent = createAgent({
+      model: llm,
       tools: [this.taxAdvisorTools.sendEmailTool],
     })
 
@@ -56,7 +51,7 @@ export class TaxAdvisorStrategy {
 
     const { messages } = await agent.invoke({
       messages: [
-        { role: "system", content: systemInstruction.value },
+        { role: "system", content: systemInstruction },
         ...chatHistory,
         { role: "user", content: prompt },
       ],

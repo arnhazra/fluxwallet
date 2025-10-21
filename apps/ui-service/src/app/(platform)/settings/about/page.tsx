@@ -12,7 +12,7 @@ export default function Page() {
         </IconContainer>
       }
       title={`${appName} App Version`}
-      content="1.8"
+      content="1.9"
     />
   )
 }

@@ -2,14 +2,12 @@ import { Injectable } from "@nestjs/common"
 import { Thread } from "./schemas/thread.schema"
 import { config } from "@/config"
 import { ChatOpenAI } from "@langchain/openai"
-import { createReactAgent } from "@langchain/langgraph/prebuilt"
-import { LanguageModelLike } from "@langchain/core/language_models/base"
+import { createAgent } from "langchain"
 import { User } from "@/auth/schemas/user.schema"
 import { ChatTools } from "./tools/chat.tool"
 import { EntityType } from "./dto/ai-summarize.dto"
 import { SummarizeTools } from "./tools/summarize.tool"
 import { RedisService } from "@/shared/redis/redis.service"
-import { PromptTemplate } from "@langchain/core/prompts"
 
 export interface ChatReqParams {
   genericName: string
@@ -39,30 +37,32 @@ export class OneAgentStrategy {
 
   private async getChatSystemInstruction(user: User) {
     const data = await this.redisService.get("chat-system-instruction")
-    return PromptTemplate.fromTemplate(data).invoke({
-      appName: config.APP_NAME,
-      userName: user.name,
-      userId: user.id,
-      userEmail: user.email,
-      baseCurrency: user.baseCurrency,
-    })
+    const content = data
+      .replaceAll("{appName}", config.APP_NAME)
+      .replaceAll("{userName}", user.name)
+      .replaceAll("{userId}", user.id)
+      .replaceAll("{userEmail}", user.email)
+      .replaceAll("{baseCurrency}", user.baseCurrency)
+
+    return content
   }
 
   private async getSummarizerSystemInstruction(user: User) {
     const data = await this.redisService.get("summarizer-system-instruction")
-    return PromptTemplate.fromTemplate(data).invoke({
-      appName: config.APP_NAME,
-      userId: user.id,
-      baseCurrency: user.baseCurrency,
-    })
+    const content = data
+      .replaceAll("{appName}", config.APP_NAME)
+      .replaceAll("{userId}", user.id)
+      .replaceAll("{baseCurrency}", user.baseCurrency)
+
+    return content
   }
 
-  private async runChatAgent(llm: LanguageModelLike, args: ChatReqParams) {
+  private async runChatAgent(llm: any, args: ChatReqParams) {
     const { thread, prompt, user } = args
     const systemInstruction = await this.getChatSystemInstruction(user)
 
-    const chatAgent = createReactAgent({
-      llm,
+    const chatAgent = createAgent({
+      model: llm,
       tools: [
         this.chatTools.getInstitutionTypesTool,
         this.chatTools.getAssetTypesTool,
@@ -89,7 +89,7 @@ export class OneAgentStrategy {
 
     const { messages } = await chatAgent.invoke({
       messages: [
-        { role: "system", content: systemInstruction.value },
+        { role: "system", content: systemInstruction },
         ...chatHistory,
         { role: "user", content: prompt },
       ],
@@ -113,15 +113,12 @@ export class OneAgentStrategy {
     return { response }
   }
 
-  private async runSummarizeAgent(
-    llm: LanguageModelLike,
-    args: SummarizeReqParams
-  ) {
+  private async runSummarizeAgent(llm: any, args: SummarizeReqParams) {
     const { entityId, entityType, user } = args
     const systemInstruction = await this.getSummarizerSystemInstruction(user)
 
-    const summarizeAgent = createReactAgent({
-      llm,
+    const summarizeAgent = createAgent({
+      model: llm,
       tools: [
         this.summarizeTools.getInstitutionTool,
         this.summarizeTools.getAssetTool,
@@ -132,7 +129,7 @@ export class OneAgentStrategy {
 
     const { messages } = await summarizeAgent.invoke({
       messages: [
-        { role: "system", content: systemInstruction.value },
+        { role: "system", content: systemInstruction },
         {
           role: "user",
           content: `Summarize entity type: ${entityType} and id is ${entityId}`,

@@ -1,5 +1,5 @@
 import { EventMap } from "@/shared/constants/event.map"
-import { tool } from "@langchain/core/tools"
+import { tool } from "langchain"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { z } from "zod"
