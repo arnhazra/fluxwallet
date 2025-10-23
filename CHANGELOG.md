@@ -1,5 +1,16 @@
 # Changelog
 
+## v2.0
+
+- Major Dependency updates across applications
+- Added FinNews App
+- Major Updates in Authentication workflow
+
+## v1.9
+
+- Dependency updates & bug fixes
+- Minor UI refactoring
+
 ## v1.8
 
 - Dependency updates & bug fixes
