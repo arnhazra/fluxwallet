@@ -4,7 +4,6 @@
 
 - Major Dependency updates across applications
 - Added FinNews App
-- Major Updates in Authentication workflow
 
 ## v1.9
 
