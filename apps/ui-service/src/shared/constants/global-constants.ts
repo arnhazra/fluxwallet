@@ -28,5 +28,7 @@ export const uiConstants = {
   pricingTitle: `Pricing`,
   privacyPolicyStatement: `By using FluxWallet, you agree to our Privacy Policy.`,
   verifyEmailStatement: `Enter the OTP we've sent to your email to verify your identity.`,
+  fallbackImageURL:
+    "https://img.freepik.com/free-photo/ai-technology-microchip-background-digital-transformation-concept_53876-124669.jpg?t=st=1740971145~exp=1740974745~hmac=090205b829b6a1d67da2257f42126467a191cdba6a955e902a4ea487d67af9e0&w=1000",
   aiSafetyStatement: `This is an AI-powered agentic workflow and may make mistakes. Please review results carefully.`,
 }

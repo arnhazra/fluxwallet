@@ -24,4 +24,5 @@ export const endPoints = {
   goal: `${apiHost}/goal`,
   oneagent: `${apiHost}/oneagent`,
   taxAdvisor: `${apiHost}/taxadvisor`,
+  finNews: `${apiHost}/finnews`,
 }
