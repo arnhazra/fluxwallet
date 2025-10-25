@@ -19,7 +19,7 @@ import Show from "../show"
 import { useEffect, useState } from "react"
 import LoaderIcon from "../loaderIcon"
 import IconContainer from "../icon-container"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import { useQueryClient } from "@tanstack/react-query"
 
 interface SubscriptionModalProps {
