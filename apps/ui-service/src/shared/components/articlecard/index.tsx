@@ -15,6 +15,7 @@ import { Badge } from "@/shared/components/ui/badge"
 import { Button } from "@/shared/components/ui/button"
 import { Article } from "@/shared/constants/types"
 import { uiConstants } from "@/shared/constants/global-constants"
+import NewsSummarizer from "../summarizer/news-summarizer"
 
 export function NewsCard({ article }: { article: Article }) {
   const [imageError, setImageError] = useState(false)
@@ -58,10 +59,16 @@ export function NewsCard({ article }: { article: Article }) {
           {article.description || "No description available"}
         </CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex justify-between">
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           {formattedDate && <span>{formattedDate}</span>}
         </div>
+        <NewsSummarizer
+          key={article.title}
+          title={article.title}
+          content={article.content}
+          description={article.description}
+        />
       </CardContent>
       <CardFooter className="pt-0">
         {article.url && (

@@ -4,6 +4,7 @@
 
 - Major Dependency updates across applications
 - Added FinNews App
+- Introduction of FinNews Summarizer
 
 ## v1.9
 
