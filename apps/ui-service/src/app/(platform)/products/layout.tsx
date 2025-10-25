@@ -24,7 +24,7 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
   return (
     <>
       <Badge
-        className="mb-4 p-1 ps-4 pe-4  text-sm cursor-pointer"
+        className="mb-4 p-1 ps-4 pe-4 text-sm cursor-pointer hover:shadow-md hover:shadow-primary/20"
         onClick={(): void => router.push(selectedProduct?.url || "/dashboard")}
       >
         {selectedProduct?.displayName}
