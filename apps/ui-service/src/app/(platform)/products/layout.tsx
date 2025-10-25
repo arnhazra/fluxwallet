@@ -4,7 +4,8 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { ProductsConfig } from "@/shared/constants/types"
 import useQuery from "@/shared/hooks/use-query"
-import { usePathname, useRouter } from "next/navigation"
+import { usePathname } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import { ReactNode } from "react"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {

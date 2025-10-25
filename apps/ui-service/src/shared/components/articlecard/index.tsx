@@ -35,14 +35,14 @@ export function NewsCard({ article }: { article: Article }) {
           <img
             src={article.urlToImage}
             alt={article.title || "News image"}
-            className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-t-3xl"
+            className="object-cover w-full h-full transition-transform duration-300 rounded-t-3xl"
             onError={handleImageError}
           />
         ) : (
           <img
             src={uiConstants.fallbackImageURL}
             alt={article.title || "News image"}
-            className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-t-3xl"
+            className="object-cover w-full h-full transition-transform duration-300 rounded-t-3xl"
           />
         )}
         {article.source?.name && (

@@ -19,13 +19,8 @@ export default function Page() {
 
   return (
     <div className="mx-auto grid w-full items-start gap-6">
-      <section>
-        <div className="flex">
-          <p className="text-white text-lg">{appName} FinNews</p>
-        </div>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 py-4">
-          {renderArticles}
-        </div>
+      <section className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 pb-4">
+        {renderArticles}
       </section>
     </div>
   )
