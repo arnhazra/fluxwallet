@@ -119,11 +119,11 @@ export default function Page() {
           <Show condition={messages.length === 0}>
             <div className="text-center mt-8 max-w-xl mx-auto">
               <div className="flex justify-center mb-4">
-                <IconContainer>
+                <IconContainer ai>
                   <Sparkles className="h-5 w-5" />
                 </IconContainer>
               </div>
-              <p className="text-primary">{appName} OneAgent</p>
+              <p className="text-white">{appName} OneAgent</p>
               <p className="text-sm mt-2 text-white p-6">
                 {appName} OneAgent is an agentic workflow powered by AI, so
                 mistakes are possible. Please use carefully.

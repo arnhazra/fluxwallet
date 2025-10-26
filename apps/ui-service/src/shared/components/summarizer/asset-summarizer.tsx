@@ -1,5 +1,5 @@
 import { Button } from "../ui/button"
-import { Sparkles } from "lucide-react"
+import { Icon, Sparkles } from "lucide-react"
 import { useEffect, useState } from "react"
 import {
   DialogHeader,
@@ -16,6 +16,7 @@ import Show from "../show"
 import MarkdownRenderer from "../markdown"
 import LoaderIcon from "../loaderIcon"
 import { streamResponseText } from "@/shared/lib/stream-response"
+import IconContainer from "../icon-container"
 
 interface SummarizerProps {
   entityId: string
@@ -64,13 +65,9 @@ export default function Summarizer({ entityType, entityId }: SummarizerProps) {
       <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4 asset-modal">
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-white">
-            <Button
-              className="text-white font-semibold bg-purple hover:opacity-90 transition"
-              variant="default"
-              size="icon"
-            >
+            <IconContainer ai>
               <Sparkles className="h-4 w-4" />
-            </Button>
+            </IconContainer>
             Summarizer
           </DialogTitle>
         </DialogHeader>

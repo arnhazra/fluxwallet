@@ -100,7 +100,7 @@ export default function OneAgent() {
         onClick={() => setIsOpen(true)}
         variant="default"
         size="icon"
-        className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-primary hover:bg-primary text-black hover:opacity-90 rounded-full"
+        className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-purple hover:opacity-90 text-white rounded-full transition"
       >
         <Sparkles className="h-4 w-4" />
       </Button>
@@ -133,7 +133,7 @@ export default function OneAgent() {
             <Show condition={messages.length === 0}>
               <div className="text-center mt-8">
                 <div className="flex justify-center mb-4">
-                  <IconContainer>
+                  <IconContainer ai>
                     <Sparkles className="h-5 w-5" />
                   </IconContainer>
                 </div>
