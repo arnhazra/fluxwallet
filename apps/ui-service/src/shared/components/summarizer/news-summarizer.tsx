@@ -39,9 +39,15 @@ export default function NewsSummarizer({
         description ?? "",
         content ?? "",
       ],
-      queryUrl: `${endPoints.finNews}/summarize`,
+      queryUrl: `${endPoints.oneagent}/summarize`,
       method: HTTPMethods.POST,
-      requestBody: { title, description, content },
+      requestBody: {
+        entityId: "news-001",
+        entityType: "news",
+        newsTitle: title,
+        newsDescription: description,
+        newsContent: content,
+      },
       suspense: false,
       enabled: open && !summarizedText,
     }

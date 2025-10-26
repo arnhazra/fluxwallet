@@ -5,12 +5,17 @@ export enum EntityType {
   INSTITUTION = "institution",
   DEBT = "debt",
   GOAL = "goal",
+  NEWS = "news",
 }
 
 export class AISummarizeDto {
   @IsNotEmpty()
-  entityId: string
+  entityType: EntityType
 
   @IsNotEmpty()
-  entityType: EntityType
+  entityId: string
+
+  newsTitle: string | null | undefined
+  newsDescription: string | null | undefined
+  newsContent: string | null | undefined
 }

@@ -76,9 +76,10 @@ export class OneAgentService {
     }
   }
 
-  async summarize(aIChatDto: AISummarizeDto, userId: string) {
+  async summarize(aiSummarizeDto: AISummarizeDto, userId: string) {
     try {
-      const { entityId, entityType } = aIChatDto
+      const { entityId, entityType, newsContent, newsDescription, newsTitle } =
+        aiSummarizeDto
 
       const user: User = (
         await this.eventEmitter.emitAsync(EventMap.GetUserDetails, {
@@ -89,6 +90,9 @@ export class OneAgentService {
       const args: SummarizeReqParams = {
         entityId,
         entityType,
+        newsContent,
+        newsDescription,
+        newsTitle,
         temperature: 1.0,
         topP: 1.0,
         user,

@@ -22,6 +22,9 @@ export interface ChatReqParams {
 export interface SummarizeReqParams {
   entityId: string
   entityType: EntityType
+  newsTitle: string | null | undefined
+  newsDescription: string | null | undefined
+  newsContent: string | null | undefined
   temperature: number
   topP: number
   user: User
@@ -47,14 +50,24 @@ export class OneAgentStrategy {
     return content
   }
 
-  private async getSummarizerSystemInstruction(user: User) {
-    const data = await this.redisService.get("summarizer-system-instruction")
-    const content = data
-      .replaceAll("{appName}", config.APP_NAME)
-      .replaceAll("{userId}", user.id)
-      .replaceAll("{baseCurrency}", user.baseCurrency)
-
-    return content
+  private async getSummarizerSystemInstruction(
+    user: User,
+    entityType: EntityType
+  ) {
+    if (entityType === EntityType.NEWS) {
+      const data = await this.redisService.get(
+        "news-summarizer-system-instruction"
+      )
+      const content = data.replaceAll("{appName}", config.APP_NAME)
+      return content
+    } else {
+      const data = await this.redisService.get("summarizer-system-instruction")
+      const content = data
+        .replaceAll("{appName}", config.APP_NAME)
+        .replaceAll("{userId}", user.id)
+        .replaceAll("{baseCurrency}", user.baseCurrency)
+      return content
+    }
   }
 
   private async runChatAgent(llm: any, args: ChatReqParams) {
@@ -115,7 +128,10 @@ export class OneAgentStrategy {
 
   private async runSummarizeAgent(llm: any, args: SummarizeReqParams) {
     const { entityId, entityType, user } = args
-    const systemInstruction = await this.getSummarizerSystemInstruction(user)
+    const systemInstruction = await this.getSummarizerSystemInstruction(
+      user,
+      entityType
+    )
 
     const summarizeAgent = createAgent({
       model: llm,
@@ -132,7 +148,10 @@ export class OneAgentStrategy {
         { role: "system", content: systemInstruction },
         {
           role: "user",
-          content: `Summarize entity type: ${entityType} and id is ${entityId}`,
+          content:
+            entityType === EntityType.NEWS
+              ? `Summarize news - title: ${args.newsTitle}, description ${args.newsDescription}, content: ${args.newsContent}`
+              : `Summarize entity type: ${entityType} and id is ${entityId}`,
         },
       ],
     })
