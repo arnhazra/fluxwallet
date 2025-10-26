@@ -49,8 +49,8 @@ export class ChatTools {
       }
     },
     {
-      name: "get_total_institution_wealth_by_userid",
-      description: "Get total institution wealth for a user",
+      name: "get_total_wealth_by_userid",
+      description: "Get total wealth for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
       }),
@@ -125,7 +125,7 @@ export class ChatTools {
       }
     },
     {
-      name: "get_institution-list",
+      name: "get_institution_list",
       description: "Get institution list for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
@@ -169,8 +169,8 @@ export class ChatTools {
       }
     },
     {
-      name: "get_debt-list",
-      description: "Get debt list for a user",
+      name: "get_debt_list",
+      description: "List down all the debts for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
       }),
@@ -191,8 +191,8 @@ export class ChatTools {
       }
     },
     {
-      name: "get_goal-list",
-      description: "Get goal list for a user",
+      name: "get_goal_list",
+      description: "List down all goals for user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
       }),
@@ -305,7 +305,7 @@ export class ChatTools {
       }
     },
     {
-      name: "create_a_institution",
+      name: "create_institution",
       description: "Create a institution for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
@@ -352,7 +352,7 @@ export class ChatTools {
       }
     },
     {
-      name: "create_a_debt",
+      name: "create_debt",
       description: "Create a new debt for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
@@ -395,7 +395,7 @@ export class ChatTools {
       }
     },
     {
-      name: "create_a_goal",
+      name: "create_goal",
       description: "Create a new goal for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
