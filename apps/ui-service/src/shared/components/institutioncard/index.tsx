@@ -7,7 +7,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
 import { Institution } from "@/shared/constants/types"
-import { Building, Link2Icon, Plus } from "lucide-react"
+import { Building, Eye, Plus } from "lucide-react"
 import Link from "next/link"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { useUserContext } from "@/context/user.provider"
@@ -90,8 +90,8 @@ export function InstitutionCard({ institution }: { institution: Institution }) {
             )
           }
         >
-          View Assets
-          <Link2Icon className="h-4 w-4" />
+          View Details
+          <Eye className="h-4 w-4" />
         </Button>
       </CardFooter>
     </Card>
