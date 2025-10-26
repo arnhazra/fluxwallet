@@ -28,7 +28,14 @@ export const uiConstants = {
   pricingTitle: `Pricing`,
   privacyPolicyStatement: `By using FluxWallet, you agree to our Privacy Policy.`,
   verifyEmailStatement: `Enter the OTP we've sent to your email to verify your identity.`,
-  fallbackImageURL:
-    "https://img.freepik.com/free-photo/ai-technology-microchip-background-digital-transformation-concept_53876-124669.jpg?t=st=1740971145~exp=1740974745~hmac=090205b829b6a1d67da2257f42126467a191cdba6a955e902a4ea487d67af9e0&w=1000",
   aiSafetyStatement: `This is an AI-powered agentic workflow and may make mistakes. Please review results carefully.`,
+}
+
+export const imageUrls = {
+  newsFallback:
+    "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=512",
+  asset:
+    "https://images.unsplash.com/photo-1563986768711-b3bde3dc821e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=512",
+  institution:
+    "https://images.unsplash.com/photo-1616803140344-6682afb13cda?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=512",
 }

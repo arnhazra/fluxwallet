@@ -1,12 +1,13 @@
 import {
   Card,
   CardContent,
+  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
 import { Asset } from "@/shared/constants/types"
-import { Banknote, OctagonAlert, Plus } from "lucide-react"
+import { Banknote, Eye, OctagonAlert, Plus } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"
 import { formatCurrency } from "@/shared/lib/format-currency"
@@ -15,6 +16,20 @@ import { AssetModal } from "../assetmodal"
 import Show from "../show"
 import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import IconContainer from "../icon-container"
+import { formatDistanceToNow } from "date-fns"
+import { Button } from "@/shared/components/ui/button"
+import { imageUrls } from "@/shared/constants/global-constants"
+import Summarizer from "../summarizer/asset-summarizer"
+
+export function AddAssetCard() {
+  return (
+    <Link href={`/products/wealthanalyzer/create/asset`}>
+      <Card className="w-full max-w-sm h-[22rem] flex items-center justify-center bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
+        <Plus className="w-20 h-20 text-primary" />
+      </Card>
+    </Link>
+  )
+}
 
 export function AssetCard({ asset }: { asset: Asset }) {
   const [{ user }] = useUserContext()
@@ -37,25 +52,34 @@ export function AssetCard({ asset }: { asset: Asset }) {
     return maturity <= thirtyDaysLater
   }
 
+  const formattedDate = asset.createdAt
+    ? formatDistanceToNow(new Date(asset.createdAt), { addSuffix: true })
+    : null
+
   return (
-    <AssetModal assetDetails={asset} key={asset._id}>
-      <Card className="w-full max-w-sm bg-background border border-border text-white cursor-pointer hover:shadow-md hover:shadow-primary/20 duration-400">
-        <CardHeader className="pb-3">
+    <Card className="w-full max-w-xs mx-auto h-[22rem] flex flex-col relative hover:shadow-md transition-shadow bg-background border-border text-white">
+      <div className="relative aspect-video overflow-hidden bg-muted rounded-t-3xl">
+        <img
+          src={imageUrls.asset}
+          alt={asset.assetName}
+          className="object-cover w-full h-full transition-transform duration-300 rounded-t-3xl"
+        />
+        <div className="absolute inset-0 bg-gradient-to-t from-background to-background/60" />
+        <Badge className="absolute top-2 left-2 bg-primary/90 hover:bg-primary text-black">
+          {asset.assetType.replace("_", " ")}
+        </Badge>
+        <div className="absolute top-2 right-2">
+          <IconContainer>
+            <Banknote className="h-4 w-4" />
+          </IconContainer>
+        </div>
+      </div>
+      <CardHeader className="flex-grow">
+        <div className="flex items-center justify-between">
+          <CardTitle className="text-xl font-semibold truncate text-white">
+            {asset.assetName}
+          </CardTitle>
           <div className="flex items-center justify-between">
-            <CardTitle className="text-lg font-semibold truncate text-white">
-              {asset.assetName}
-            </CardTitle>
-            <IconContainer>
-              <Banknote className="h-4 w-4" />
-            </IconContainer>
-          </div>
-          <div className="flex items-center justify-between">
-            <Badge
-              variant="default"
-              className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary -ms-1"
-            >
-              {asset.assetType.replace("_", " ")}
-            </Badge>
             <Show condition={isAssetMatured()}>
               <Tooltip>
                 <TooltipTrigger>
@@ -77,40 +101,41 @@ export function AssetCard({ asset }: { asset: Asset }) {
               </Tooltip>
             </Show>
           </div>
-        </CardHeader>
-
-        <CardContent className="space-y-4">
-          <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-neutral-300">Identifier</span>
-              <span className="text-sm font-medium">
-                <MaskText value={asset.identifier} />
-              </span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-neutral-300">
-                Present Valuation
-              </span>
-              <span className="text-lg font-bold text-white">
-                {formatCurrency(
-                  asset?.presentValuation ?? 0,
-                  user.baseCurrency
-                )}
-              </span>
-            </div>
+        </div>
+      </CardHeader>
+      <CardContent>
+        <div className="space-y-2">
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-neutral-300">Identifier</span>
+            <span className="text-sm font-medium">
+              <MaskText value={asset.identifier} />
+            </span>
           </div>
-        </CardContent>
-      </Card>
-    </AssetModal>
-  )
-}
-
-export function AddAssetCard() {
-  return (
-    <Link href={`/products/wealthanalyzer/create/asset`}>
-      <Card className="w-full max-w-sm h-[174px] flex items-center justify-center bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
-        <Plus className="w-20 h-20 text-primary" />
-      </Card>
-    </Link>
+          <div className="flex justify-between items-center">
+            <span className="text-sm text-neutral-300">Present Valuation</span>
+            <span className="text-lg font-bold text-white">
+              {formatCurrency(asset?.presentValuation ?? 0, user.baseCurrency)}
+            </span>
+          </div>
+          <div className="flex justify-between items-center">
+            <div className="flex items-center justify-between text-sm text-muted-foreground">
+              {formattedDate && <span>{formattedDate}</span>}
+            </div>
+            <Summarizer entityType="asset" entityId={asset._id} />
+          </div>
+        </div>
+      </CardContent>
+      <CardFooter className="pt-0">
+        <AssetModal assetDetails={asset} key={asset._id}>
+          <Button
+            variant="default"
+            className="w-full gap-2 bg-border hover:bg-border"
+          >
+            View Details
+            <Eye className="h-4 w-4" />
+          </Button>
+        </AssetModal>
+      </CardFooter>
+    </Card>
   )
 }

@@ -84,6 +84,7 @@ export type Asset = {
   assetName: string // COMMON
   identifier: string // COMMON
   presentValuation: number | null | undefined // COMMON
+  createdAt: Date // COMMON
   startDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
   maturityDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
   amountInvested?: number // LUMPSUM_DEPOSIT, BOND

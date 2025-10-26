@@ -14,7 +14,7 @@ import {
 import { Badge } from "@/shared/components/ui/badge"
 import { Button } from "@/shared/components/ui/button"
 import { Article } from "@/shared/constants/types"
-import { uiConstants } from "@/shared/constants/global-constants"
+import { imageUrls, uiConstants } from "@/shared/constants/global-constants"
 import NewsSummarizer from "../summarizer/news-summarizer"
 
 export function NewsCard({ article }: { article: Article }) {
@@ -30,7 +30,7 @@ export function NewsCard({ article }: { article: Article }) {
 
   return (
     <Card className="w-full max-w-xs mx-auto h-[23rem] flex flex-col relative hover:shadow-md transition-shadow bg-background border-border text-white">
-      <div className="relative aspect-video overflow-hidden bg-muted">
+      <div className="relative aspect-video overflow-hidden bg-muted rounded-t-3xl">
         {article.urlToImage && !imageError ? (
           <img
             src={article.urlToImage}
@@ -40,13 +40,13 @@ export function NewsCard({ article }: { article: Article }) {
           />
         ) : (
           <img
-            src={uiConstants.fallbackImageURL}
+            src={imageUrls.newsFallback}
             alt={article.title || "News image"}
             className="object-cover w-full h-full transition-transform duration-300 rounded-t-3xl"
           />
         )}
         {article.source?.name && (
-          <Badge className="absolute top-2 left-2 bg-primary/80 hover:bg-primary">
+          <Badge className="absolute top-2 left-2 bg-primary/80 hover:bg-primary text-black">
             {article.source.name}
           </Badge>
         )}
@@ -55,7 +55,7 @@ export function NewsCard({ article }: { article: Article }) {
         <CardTitle className="line-clamp-2 text-xl">
           {article.title || "Untitled"}
         </CardTitle>
-        <CardDescription className="line-clamp-3 mt-2 text-zinc-300">
+        <CardDescription className="line-clamp-3 mt-2 text-neutral-300">
           {article.description || "No description available"}
         </CardDescription>
       </CardHeader>

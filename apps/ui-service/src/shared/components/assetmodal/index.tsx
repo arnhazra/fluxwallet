@@ -19,7 +19,6 @@ import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useUserContext } from "@/context/user.provider"
-import Summarizer from "../summarizer/asset-summarizer"
 import { useQueryClient } from "@tanstack/react-query"
 
 interface AssetModalProps {
@@ -91,7 +90,6 @@ export function AssetModal({ assetDetails, children }: AssetModalProps) {
               <DialogDescription></DialogDescription>
             </div>
             <div className="flex gap-2">
-              <Summarizer entityType="asset" entityId={assetDetails._id} />
               <Button
                 onClick={(): void =>
                   router.push(

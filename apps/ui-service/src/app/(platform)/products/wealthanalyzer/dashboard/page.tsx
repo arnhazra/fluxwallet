@@ -36,7 +36,7 @@ export default function Page() {
         </div>
       </section>
       <section>
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4">
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 pb-4">
           <AddInstitutionCard />
           {renderInstitutions}
         </div>

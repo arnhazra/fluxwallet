@@ -17,12 +17,12 @@ import MarkdownRenderer from "../markdown"
 import LoaderIcon from "../loaderIcon"
 import { streamResponseText } from "@/shared/lib/stream-response"
 
-interface GenericAgentReq {
+interface SummarizerProps {
   entityId: string
   entityType: string
 }
 
-export default function Summarizer({ entityType, entityId }: GenericAgentReq) {
+export default function Summarizer({ entityType, entityId }: SummarizerProps) {
   const [open, setOpen] = useState(false)
   const [summarizedText, setSummarizedText] = useState("")
 
