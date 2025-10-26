@@ -21,7 +21,7 @@ import { useRouter } from "next/navigation"
 export function AddInstitutionCard() {
   return (
     <Link href="/products/wealthanalyzer/create/institution">
-      <Card className="w-full max-w-sm h-[20rem] flex items-center border border-border justify-center hover:shadow-md hover:shadow-primary/20 duration-400 bg-background text-white">
+      <Card className="w-full max-w-sm h-[22rem] flex items-center border border-border justify-center hover:shadow-md hover:shadow-primary/20 duration-400 bg-background text-white">
         <Plus className="w-20 h-20 text-primary" />
       </Card>
     </Link>
@@ -37,7 +37,7 @@ export function InstitutionCard({ institution }: { institution: Institution }) {
     : null
 
   return (
-    <Card className="w-full max-w-xs mx-auto h-[20rem] flex flex-col relative hover:shadow-md transition-shadow bg-background border-border text-white">
+    <Card className="w-full max-w-xs mx-auto h-[22rem] flex flex-col relative hover:shadow-md transition-shadow bg-background border-border text-white">
       <div className="relative aspect-video overflow-hidden bg-muted rounded-t-3xl">
         <img
           src={imageUrls.institution}

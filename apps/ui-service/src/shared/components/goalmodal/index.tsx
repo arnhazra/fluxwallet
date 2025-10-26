@@ -18,7 +18,6 @@ import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useUserContext } from "@/context/user.provider"
-import Summarizer from "../summarizer/asset-summarizer"
 import { Badge } from "../ui/badge"
 import { formatDate } from "@/shared/lib/format-date"
 import { useQueryClient } from "@tanstack/react-query"
@@ -78,7 +77,6 @@ export function GoalModal({ goalDetails, children }: GoalModalProps) {
               <DialogDescription></DialogDescription>
             </div>
             <div className="flex gap-2">
-              <Summarizer entityType="goal" entityId={goalDetails._id} />
               <Button
                 onClick={(): void =>
                   router.push(

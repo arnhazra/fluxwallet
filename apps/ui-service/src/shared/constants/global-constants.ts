@@ -38,4 +38,6 @@ export const imageUrls = {
     "https://images.unsplash.com/photo-1563986768711-b3bde3dc821e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=512",
   institution:
     "https://images.unsplash.com/photo-1616803140344-6682afb13cda?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=512",
+  debt: "https://images.unsplash.com/photo-1707157284454-553ef0a4ed0d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=384",
+  goal: "https://images.unsplash.com/photo-1616337865743-bd29011bc36d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=384",
 }

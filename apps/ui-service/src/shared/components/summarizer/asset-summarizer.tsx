@@ -63,8 +63,14 @@ export default function Summarizer({ entityType, entityId }: SummarizerProps) {
       </DialogTrigger>
       <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4 asset-modal">
         <DialogHeader>
-          <DialogTitle className="flex gap-2 text-white">
-            <Sparkles className="h-4 w-4 text-primary" />
+          <DialogTitle className="flex items-center gap-2 text-white">
+            <Button
+              className="text-white font-semibold bg-purple hover:opacity-90 transition"
+              variant="default"
+              size="icon"
+            >
+              <Sparkles className="h-4 w-4" />
+            </Button>
             Summarizer
           </DialogTitle>
         </DialogHeader>
