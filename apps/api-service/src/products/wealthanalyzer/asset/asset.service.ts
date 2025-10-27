@@ -14,6 +14,7 @@ import { EventMap } from "@/shared/constants/event.map"
 import { AssetType } from "@/shared/constants/types"
 import calculateComplexValuation from "./lib/calculate-complex-valuation"
 import calculateRecurringValuation from "./lib/calculate-recurring-valuation"
+import { isMatured, isMaturityApproaching } from "./lib/maturity-calculator"
 
 @Injectable()
 export class AssetService {
@@ -45,6 +46,8 @@ export class AssetService {
           return {
             ...(asset.toObject?.() ?? asset),
             presentValuation: valuation,
+            isMaturityApproaching: isMaturityApproaching(asset),
+            isMatured: isMatured(asset),
           }
         })
       )
@@ -67,6 +70,8 @@ export class AssetService {
           return {
             ...(asset.toObject?.() ?? asset),
             presentValuation: valuation,
+            isMaturityApproaching: isMaturityApproaching(asset),
+            isMatured: isMatured(asset),
           }
         })
       )
@@ -86,6 +91,8 @@ export class AssetService {
       return {
         ...(asset.toObject?.() ?? asset),
         presentValuation: valuation,
+        isMaturityApproaching: isMaturityApproaching(asset),
+        isMatured: isMatured(asset),
       }
     } catch (error) {
       throw new Error(statusMessages.connectionError)

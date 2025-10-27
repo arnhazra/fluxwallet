@@ -33,6 +33,8 @@ const excludedKeys = [
   "assetType",
   "assetName",
   "createdAt",
+  "isMaturityApproaching",
+  "isMatured",
 ]
 
 export function AssetModal({ assetDetails, children }: AssetModalProps) {

@@ -85,6 +85,8 @@ export type Asset = {
   identifier: string // COMMON
   presentValuation: number | null | undefined // COMMON
   createdAt: Date // COMMON
+  isMaturityApproaching: boolean // COMMON
+  isMatured: boolean // COMMON
   startDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
   maturityDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
   amountInvested?: number // LUMPSUM_DEPOSIT, BOND
@@ -92,7 +94,7 @@ export type Asset = {
   contributionAmount?: number // RECURRING_DEPOSIT
   contributionFrequency?: RecurringFrequency // RECURRING_DEPOSIT
   valuationOnPurchase?: number // REAL_ESTATE, METAL, OTHER
-  currentValuation?: number // LIQUID, RETIREMENT, REAL_ESTATE, METAL, , OTHER
+  currentValuation?: number // LIQUID, RETIREMENT, REAL_ESTATE, METAL, OTHER
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
 }
@@ -116,8 +118,8 @@ export type Debt = {
   remainingPrincipal: number
   remainingTotal: number
   nextEmiDate: string
-  isLoanAboutToEnd: boolean
-  isLoanExpired: boolean
+  isMaturityApproaching: boolean
+  isMatured: boolean
 }
 
 export type Goal = {

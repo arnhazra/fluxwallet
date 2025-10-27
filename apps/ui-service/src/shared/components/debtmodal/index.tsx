@@ -31,9 +31,8 @@ const excludedKeys = [
   "userId",
   "debtPurpose",
   "createdAt",
-  "isLoanExpired",
-  "isLoanAboutToEnd",
-  "isLoanExpired",
+  "isMaturityApproaching",
+  "isMatured",
 ]
 
 export function DebtModal({ debtDetails, children }: DebtModalProps) {

@@ -34,24 +34,6 @@ export function AddAssetCard() {
 export function AssetCard({ asset }: { asset: Asset }) {
   const [{ user }] = useUserContext()
 
-  const isAssetMatured = (): boolean => {
-    return !!asset.maturityDate && new Date() >= new Date(asset.maturityDate)
-  }
-
-  const isAssetAboutToMature = (): boolean => {
-    if (!asset.maturityDate || isAssetMatured()) {
-      return false
-    }
-
-    const now = new Date()
-    const maturity = new Date(asset.maturityDate)
-
-    const thirtyDaysLater = new Date()
-    thirtyDaysLater.setDate(now.getDate() + 30)
-
-    return maturity <= thirtyDaysLater
-  }
-
   const formattedDate = asset.createdAt
     ? formatDistanceToNow(new Date(asset.createdAt), { addSuffix: true })
     : null
@@ -80,7 +62,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
             {asset.assetName}
           </CardTitle>
           <div className="flex items-center justify-between">
-            <Show condition={isAssetMatured()}>
+            <Show condition={asset.isMatured}>
               <Tooltip>
                 <TooltipTrigger>
                   <OctagonAlert className="h-4 w-4 text-secondary" />
@@ -90,7 +72,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
                 </TooltipContent>
               </Tooltip>
             </Show>
-            <Show condition={isAssetAboutToMature()}>
+            <Show condition={asset.isMaturityApproaching}>
               <Tooltip>
                 <TooltipTrigger>
                   <OctagonAlert className="h-4 w-4 text-amber-400" />

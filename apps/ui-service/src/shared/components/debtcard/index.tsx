@@ -62,7 +62,7 @@ export function DebtCard({ debt }: { debt: Debt }) {
             {debt.debtPurpose}
           </CardTitle>
           <div className="flex items-center justify-between">
-            <Show condition={debt.isLoanExpired}>
+            <Show condition={debt.isMatured}>
               <Tooltip>
                 <TooltipTrigger>
                   <OctagonAlert className="h-4 w-4 text-secondary" />
@@ -72,7 +72,7 @@ export function DebtCard({ debt }: { debt: Debt }) {
                 </TooltipContent>
               </Tooltip>
             </Show>
-            <Show condition={debt.isLoanAboutToEnd}>
+            <Show condition={debt.isMaturityApproaching}>
               <Tooltip>
                 <TooltipTrigger>
                   <OctagonAlert className="h-4 w-4 text-amber-400" />
