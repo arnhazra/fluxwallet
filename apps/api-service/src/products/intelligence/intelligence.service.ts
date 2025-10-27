@@ -4,23 +4,23 @@ import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
-import { AIChatDto } from "./dto/ai-chat.dto"
+import { AIChatDto } from "./dto/chat.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import {
-  OneAgentStrategy,
+  IntelligenceStrategy,
   ChatReqParams,
   SummarizeReqParams,
-} from "./oneagent.strategy"
+} from "./intelligence.strategy"
 import { User } from "@/auth/schemas/user.schema"
-import { AISummarizeDto } from "./dto/ai-summarize.dto"
+import { AISummarizeDto } from "./dto/summarize.dto"
 
 @Injectable()
-export class OneAgentService {
+export class IntelligenceService {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-    private readonly strategy: OneAgentStrategy,
+    private readonly strategy: IntelligenceStrategy,
     private readonly eventEmitter: EventEmitter2
   ) {}
 

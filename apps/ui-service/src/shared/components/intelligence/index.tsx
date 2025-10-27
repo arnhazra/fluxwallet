@@ -21,7 +21,11 @@ import {
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { appName, defaultModel } from "@/shared/constants/global-constants"
+import {
+  appName,
+  defaultModel,
+  uiConstants,
+} from "@/shared/constants/global-constants"
 import MarkdownRenderer from "../markdown"
 import Show from "../show"
 import { suggestedPrompts } from "./suggested-prompts"
@@ -32,7 +36,7 @@ import { streamResponseText } from "@/shared/lib/stream-response"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
 
-export default function OneAgent() {
+export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
   const [threadId, setThreadId] = useState<string | null>(null)
   const [prompt, setPrompt] = useState("")
@@ -68,7 +72,7 @@ export default function OneAgent() {
 
     try {
       const res: Thread = await ky
-        .post(`${endPoints.oneagent}/chat`, {
+        .post(`${endPoints.intelligence}/chat`, {
           json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })
@@ -137,10 +141,9 @@ export default function OneAgent() {
                     <Sparkles className="h-5 w-5" />
                   </IconContainer>
                 </div>
-                <p className="text-white">{appName} OneAgent</p>
-                <p className="text-sm mt-2 text-white p-6">
-                  {appName} OneAgent is an agentic workflow powered by AI, so
-                  mistakes are possible. Please use carefully.
+                <p className="text-white">{appName} Intelligence</p>
+                <p className="text-xs mt-2 text-neutral-300 p-6">
+                  {uiConstants.aiSafetyStatement}
                 </p>
                 <p className="text-sm mt-2 text-neutral-400 mb-4">
                   Try these actions

@@ -14,7 +14,11 @@ import { Bot, User, ArrowUp, Sparkles, Sparkle } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { appName, defaultModel } from "@/shared/constants/global-constants"
+import {
+  appName,
+  defaultModel,
+  uiConstants,
+} from "@/shared/constants/global-constants"
 import MarkdownRenderer from "@/shared/components/markdown"
 import Show from "@/shared/components/show"
 import { ModelConfig, Thread } from "@/shared/constants/types"
@@ -39,7 +43,7 @@ export default function Page() {
   const [model, setModel] = useState<string>(defaultModel)
   const thread = useQuery<Thread[]>({
     queryKey: ["get-thread", tId ?? ""],
-    queryUrl: `${endPoints.oneagent}/thread/${tId}`,
+    queryUrl: `${endPoints.intelligence}/thread/${tId}`,
     method: HTTPMethods.GET,
     suspense: tId !== null,
     enabled: tId !== null,
@@ -81,7 +85,7 @@ export default function Page() {
 
     try {
       const res: Thread = await ky
-        .post(`${endPoints.oneagent}/chat`, {
+        .post(`${endPoints.intelligence}/chat`, {
           json: { prompt, model, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })
@@ -89,7 +93,7 @@ export default function Page() {
 
       if (!threadId) {
         setThreadId(res.threadId)
-        router.replace(`/products/oneagent?threadId=${res.threadId}`)
+        router.replace(`/products/intelligence?threadId=${res.threadId}`)
       }
 
       setMessages((prevMessages) => [...prevMessages, ""])
@@ -123,10 +127,9 @@ export default function Page() {
                   <Sparkles className="h-5 w-5" />
                 </IconContainer>
               </div>
-              <p className="text-white">{appName} OneAgent</p>
-              <p className="text-sm mt-2 text-white p-6">
-                {appName} OneAgent is an agentic workflow powered by AI, so
-                mistakes are possible. Please use carefully.
+              <p className="text-white">{appName} Intelligence</p>
+              <p className="text-xs mt-2 text-neutral-300 p-6">
+                {uiConstants.aiSafetyStatement}
               </p>
               <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-3xl mt-4">
                 What's on your mind, {user.name.split(" ")[0]}?

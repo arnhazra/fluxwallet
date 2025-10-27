@@ -22,7 +22,7 @@ export const endPoints = {
   asset: `${apiHost}/asset`,
   debt: `${apiHost}/debt`,
   goal: `${apiHost}/goal`,
-  oneagent: `${apiHost}/oneagent`,
+  intelligence: `${apiHost}/intelligence`,
   taxAdvisor: `${apiHost}/taxadvisor`,
   finNews: `${apiHost}/finnews`,
 }

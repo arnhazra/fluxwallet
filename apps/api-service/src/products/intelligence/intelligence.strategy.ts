@@ -5,7 +5,7 @@ import { ChatOpenAI } from "@langchain/openai"
 import { createAgent } from "langchain"
 import { User } from "@/auth/schemas/user.schema"
 import { ChatTools } from "./tools/chat.tool"
-import { EntityType } from "./dto/ai-summarize.dto"
+import { EntityType } from "./dto/summarize.dto"
 import { SummarizeTools } from "./tools/summarize.tool"
 import { RedisService } from "@/shared/redis/redis.service"
 
@@ -31,7 +31,7 @@ export interface SummarizeReqParams {
 }
 
 @Injectable()
-export class OneAgentStrategy {
+export class IntelligenceStrategy {
   constructor(
     private readonly chatTools: ChatTools,
     private readonly summarizeTools: SummarizeTools,

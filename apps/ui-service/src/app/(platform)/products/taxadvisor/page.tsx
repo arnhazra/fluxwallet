@@ -14,7 +14,11 @@ import { Bot, User, ArrowUp, Sparkle, Calculator } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { appName, defaultModel } from "@/shared/constants/global-constants"
+import {
+  appName,
+  defaultModel,
+  uiConstants,
+} from "@/shared/constants/global-constants"
 import MarkdownRenderer from "@/shared/components/markdown"
 import Show from "@/shared/components/show"
 import { ModelConfig, Thread } from "@/shared/constants/types"
@@ -124,9 +128,8 @@ export default function Page() {
                 </IconContainer>
               </div>
               <p className="text-primary">{appName} TaxAdvisor</p>
-              <p className="text-sm mt-2 text-white p-6">
-                {appName} TaxAdvisor is an agentic workflow powered by AI, so
-                mistakes are possible. Please use carefully.
+              <p className="text-xs mt-2 text-neutral-300 p-6">
+                {uiConstants.aiSafetyStatement}
               </p>
               <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-3xl mt-4">
                 What's on your mind, {user.name.split(" ")[0]}?

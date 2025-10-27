@@ -18,7 +18,7 @@ export function ProductCard({ product }: { product: Product }) {
           <p className="text-xs">{appName}</p>
           <h2 className="text-xl">{product.displayName}</h2>
         </div>
-        <IconContainer ai={product.productName.includes("agent")}>
+        <IconContainer ai={product.productName.includes("intelligence")}>
           <ProductIcon className="h-5 w-5" />
         </IconContainer>
       </div>

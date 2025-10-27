@@ -4,7 +4,7 @@
 
 - Major Dependency updates across applications
 - Added FinNews App
-- Introduction of FinNews Summarizer
+- Rearchitecture of Intelligence with added news summarizer tool inside summarizer agent
 - Added Product homepage url on header when opening products for easier navigation
 
 ## v1.9
@@ -16,7 +16,6 @@
 
 - Dependency updates & bug fixes
 - Minor UI refactoring
-- Rebranded Intelligence to OneAgent
 - Standardized date format
 
 ## v1.7

@@ -47,7 +47,7 @@ export default function Summarizer({
   const { data, isLoading } = useQuery<{ response: string | null | undefined }>(
     {
       queryKey: ["summarize", entityType, entityId, newsTitle ?? ""],
-      queryUrl: `${endPoints.oneagent}/summarize`,
+      queryUrl: `${endPoints.intelligence}/summarize`,
       method: HTTPMethods.POST,
       requestBody: {
         entityType,
