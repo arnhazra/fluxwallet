@@ -18,7 +18,7 @@ import IconContainer from "../icon-container"
 import { DebtModal } from "../debtmodal"
 import { formatDistanceToNow } from "date-fns"
 import { imageUrls } from "@/shared/constants/global-constants"
-import Summarizer, { EntityType } from "../summarizer"
+import Summarizer, { EntityType } from "../entity-summarizer"
 import { Button } from "../ui/button"
 
 export function AddDebtCard() {

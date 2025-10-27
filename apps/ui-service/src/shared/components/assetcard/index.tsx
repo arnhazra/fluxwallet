@@ -19,7 +19,7 @@ import IconContainer from "../icon-container"
 import { formatDistanceToNow } from "date-fns"
 import { Button } from "@/shared/components/ui/button"
 import { imageUrls } from "@/shared/constants/global-constants"
-import Summarizer, { EntityType } from "../summarizer"
+import Summarizer, { EntityType } from "../entity-summarizer"
 
 export function AddAssetCard() {
   return (

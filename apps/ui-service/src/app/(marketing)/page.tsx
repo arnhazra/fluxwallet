@@ -88,7 +88,11 @@ export default function Page() {
       </div>
       <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
         {products?.data?.products?.map((product) => (
-          <ProductCard key={product.productName} product={product} />
+          <ProductCard
+            key={product.productName}
+            product={product}
+            ai={product.productName.includes("intelligence")}
+          />
         ))}
       </div>
     </section>
@@ -111,7 +115,11 @@ export default function Page() {
         </div>
         <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
           {solutions?.data?.solutions?.map((solution) => (
-            <SolutionCard key={solution.displayName} solution={solution} />
+            <SolutionCard
+              key={solution.displayName}
+              solution={solution}
+              ai={solution.displayName.includes("Intelligence")}
+            />
           ))}
         </div>
       </section>

@@ -16,7 +16,7 @@ import { GoalModal } from "../goalmodal"
 import { formatDate } from "@/shared/lib/format-date"
 import { imageUrls } from "@/shared/constants/global-constants"
 import { formatDistanceToNow } from "date-fns"
-import Summarizer, { EntityType } from "../summarizer"
+import Summarizer, { EntityType } from "../entity-summarizer"
 import { Button } from "../ui/button"
 
 export function AddGoalCard() {

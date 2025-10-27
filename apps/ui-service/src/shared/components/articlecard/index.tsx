@@ -15,7 +15,7 @@ import { Badge } from "@/shared/components/ui/badge"
 import { Button } from "@/shared/components/ui/button"
 import { Article } from "@/shared/constants/types"
 import { imageUrls } from "@/shared/constants/global-constants"
-import Summarizer, { EntityType } from "../summarizer"
+import Summarizer, { EntityType } from "../entity-summarizer"
 
 export function NewsCard({ article }: { article: Article }) {
   const [imageError, setImageError] = useState(false)

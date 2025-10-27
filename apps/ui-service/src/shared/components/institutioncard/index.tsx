@@ -14,7 +14,7 @@ import { useUserContext } from "@/context/user.provider"
 import IconContainer from "../icon-container"
 import { formatDistanceToNow } from "date-fns"
 import { imageUrls } from "@/shared/constants/global-constants"
-import Summarizer, { EntityType } from "../summarizer"
+import Summarizer, { EntityType } from "../entity-summarizer"
 import { Button } from "../ui/button"
 import { useRouter } from "next/navigation"
 

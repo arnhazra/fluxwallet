@@ -31,7 +31,11 @@ export default function Page() {
 
   const renderProductCards = () => {
     return data?.products?.map((product) => (
-      <ProductCard key={product.productName} product={product} />
+      <ProductCard
+        key={product.productName}
+        product={product}
+        ai={product.productName.includes("intelligence")}
+      />
     ))
   }
 
