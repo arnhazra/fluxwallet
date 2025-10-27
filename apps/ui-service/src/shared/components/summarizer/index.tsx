@@ -16,37 +16,45 @@ import Show from "../show"
 import MarkdownRenderer from "../markdown"
 import LoaderIcon from "../loaderIcon"
 import { streamResponseText } from "@/shared/lib/stream-response"
+import IconContainer from "../icon-container"
 
-interface GenericAgentReq {
-  title: string | null | undefined
-  description: string | null | undefined
-  content: string | null | undefined
+export enum EntityType {
+  ASSET = "asset",
+  INSTITUTION = "institution",
+  DEBT = "debt",
+  GOAL = "goal",
+  NEWS = "news",
 }
 
-export default function NewsSummarizer({
-  title,
-  description,
-  content,
-}: GenericAgentReq) {
+interface SummarizerProps {
+  entityId: string
+  entityType: EntityType
+  newsTitle?: string | null
+  newsDescription?: string | null
+  newsContent?: string | null
+}
+
+export default function Summarizer({
+  entityType,
+  entityId,
+  newsTitle,
+  newsDescription,
+  newsContent,
+}: SummarizerProps) {
   const [open, setOpen] = useState(false)
   const [summarizedText, setSummarizedText] = useState("")
 
   const { data, isLoading } = useQuery<{ response: string | null | undefined }>(
     {
-      queryKey: [
-        "summarize-news",
-        title ?? "",
-        description ?? "",
-        content ?? "",
-      ],
+      queryKey: ["summarize", entityType, entityId, newsTitle ?? ""],
       queryUrl: `${endPoints.oneagent}/summarize`,
       method: HTTPMethods.POST,
       requestBody: {
-        entityId: "news-001",
-        entityType: "news",
-        newsTitle: title,
-        newsDescription: description,
-        newsContent: content,
+        entityType,
+        entityId,
+        newsTitle,
+        newsDescription,
+        newsContent,
       },
       suspense: false,
       enabled: open && !summarizedText,
@@ -72,23 +80,25 @@ export default function NewsSummarizer({
           className="text-white font-semibold ui-soft-gradient hover:opacity-90 transition"
           variant="default"
           size="icon"
-          title="Summarize this news"
+          title="Summarize"
         >
           <Sparkles className="h-4 w-4" />
         </Button>
       </DialogTrigger>
       <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4 asset-modal">
         <DialogHeader>
-          <DialogTitle className="flex gap-2 text-white">
-            <Sparkles className="h-4 w-4 text-primary" />
-            News Summarizer
+          <DialogTitle className="flex items-center gap-2 text-white">
+            <IconContainer ai>
+              <Sparkles className="h-4 w-4" />
+            </IconContainer>
+            Summarizer
           </DialogTitle>
         </DialogHeader>
         <div className="mt-2">
           <Show condition={isLoading || !summarizedText}>
             <p className="flex items-center text-md text-white">
               <LoaderIcon />
-              Summarizing news...
+              Summarizing...
             </p>
           </Show>
           <Show condition={!isLoading && !!summarizedText}>

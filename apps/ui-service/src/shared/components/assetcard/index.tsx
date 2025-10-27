@@ -19,7 +19,7 @@ import IconContainer from "../icon-container"
 import { formatDistanceToNow } from "date-fns"
 import { Button } from "@/shared/components/ui/button"
 import { imageUrls } from "@/shared/constants/global-constants"
-import Summarizer from "../summarizer/asset-summarizer"
+import Summarizer, { EntityType } from "../summarizer"
 
 export function AddAssetCard() {
   return (
@@ -121,7 +121,7 @@ export function AssetCard({ asset }: { asset: Asset }) {
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               {formattedDate && <span>{formattedDate}</span>}
             </div>
-            <Summarizer entityType="asset" entityId={asset._id} />
+            <Summarizer entityType={EntityType.ASSET} entityId={asset._id} />
           </div>
         </div>
       </CardContent>

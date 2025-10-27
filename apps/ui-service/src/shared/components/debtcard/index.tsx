@@ -18,7 +18,7 @@ import IconContainer from "../icon-container"
 import { DebtModal } from "../debtmodal"
 import { formatDistanceToNow } from "date-fns"
 import { imageUrls } from "@/shared/constants/global-constants"
-import Summarizer from "../summarizer/asset-summarizer"
+import Summarizer, { EntityType } from "../summarizer"
 import { Button } from "../ui/button"
 
 export function AddDebtCard() {
@@ -103,7 +103,7 @@ export function DebtCard({ debt }: { debt: Debt }) {
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               {formattedDate && <span>{formattedDate}</span>}
             </div>
-            <Summarizer entityType="debt" entityId={debt._id} />
+            <Summarizer entityType={EntityType.DEBT} entityId={debt._id} />
           </div>
         </div>
       </CardContent>

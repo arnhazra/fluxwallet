@@ -14,8 +14,8 @@ import {
 import { Badge } from "@/shared/components/ui/badge"
 import { Button } from "@/shared/components/ui/button"
 import { Article } from "@/shared/constants/types"
-import { imageUrls, uiConstants } from "@/shared/constants/global-constants"
-import NewsSummarizer from "../summarizer/news-summarizer"
+import { imageUrls } from "@/shared/constants/global-constants"
+import Summarizer, { EntityType } from "../summarizer"
 
 export function NewsCard({ article }: { article: Article }) {
   const [imageError, setImageError] = useState(false)
@@ -64,11 +64,13 @@ export function NewsCard({ article }: { article: Article }) {
         <div className="flex items-center justify-between text-sm text-muted-foreground">
           {formattedDate && <span>{formattedDate}</span>}
         </div>
-        <NewsSummarizer
+        <Summarizer
           key={article.title}
-          title={article.title}
-          content={article.content}
-          description={article.description}
+          entityId={article.url || "news-article"}
+          entityType={EntityType.NEWS}
+          newsTitle={article.title}
+          newsContent={article.content}
+          newsDescription={article.description}
         />
       </CardContent>
       <CardFooter className="pt-0">

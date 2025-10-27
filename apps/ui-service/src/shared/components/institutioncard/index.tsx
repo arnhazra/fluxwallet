@@ -14,7 +14,7 @@ import { useUserContext } from "@/context/user.provider"
 import IconContainer from "../icon-container"
 import { formatDistanceToNow } from "date-fns"
 import { imageUrls } from "@/shared/constants/global-constants"
-import Summarizer from "../summarizer/asset-summarizer"
+import Summarizer, { EntityType } from "../summarizer"
 import { Button } from "../ui/button"
 import { useRouter } from "next/navigation"
 
@@ -76,7 +76,10 @@ export function InstitutionCard({ institution }: { institution: Institution }) {
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               {formattedDate && <span>{formattedDate}</span>}
             </div>
-            <Summarizer entityType="institution" entityId={institution._id} />
+            <Summarizer
+              entityType={EntityType.INSTITUTION}
+              entityId={institution._id}
+            />
           </div>
         </div>
       </CardContent>

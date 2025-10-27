@@ -16,7 +16,7 @@ import { GoalModal } from "../goalmodal"
 import { formatDate } from "@/shared/lib/format-date"
 import { imageUrls } from "@/shared/constants/global-constants"
 import { formatDistanceToNow } from "date-fns"
-import Summarizer from "../summarizer/asset-summarizer"
+import Summarizer, { EntityType } from "../summarizer"
 import { Button } from "../ui/button"
 
 export function AddGoalCard() {
@@ -73,7 +73,7 @@ export function GoalCard({ goal }: { goal: Goal }) {
             <div className="flex items-center justify-between text-sm text-muted-foreground">
               {formattedDate && <span>{formattedDate}</span>}
             </div>
-            <Summarizer entityType="goal" entityId={goal._id} />
+            <Summarizer entityType={EntityType.GOAL} entityId={goal._id} />
           </div>
         </div>
       </CardContent>
