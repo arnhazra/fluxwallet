@@ -119,7 +119,7 @@ export default function Page() {
               <p className="text-xs mt-2 text-neutral-300 p-6">
                 {uiConstants.aiSafetyStatement}
               </p>
-              <p className="text-white text-xl sm:text-2xl md:text-3xl lg:text-3xl mt-4">
+              <p className="text-white text-lg sm:text-xl md:text-xl lg:text-2xl mt-4">
                 What's on your mind, {user.name.split(" ")[0]}?
               </p>
             </div>
@@ -210,7 +210,7 @@ export default function Page() {
                     autoFocus
                     value={prompt}
                     onChange={handleInputChange}
-                    placeholder="Ask Anything"
+                    placeholder="Ask me to calculate your taxes"
                     disabled={isLoading}
                     className="bg-transparent border-none text-neutral-300 placeholder:text-neutral-500 focus-visible:ring-0 focus-visible:ring-offset-0 focus:outline-none outline-none ring-0 text-sm px-0"
                   />
