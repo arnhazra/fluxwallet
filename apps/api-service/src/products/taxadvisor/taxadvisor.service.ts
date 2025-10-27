@@ -47,7 +47,7 @@ export class TaxAdvisorService {
     userId: string
   ) {
     try {
-      const { prompt, model } = aiGenerationDto
+      const { prompt } = aiGenerationDto
       const threadId =
         aiGenerationDto.threadId ?? new Types.ObjectId().toString()
       const thread = await this.getThreadById(
@@ -62,7 +62,6 @@ export class TaxAdvisorService {
       ).shift()
 
       const args: TaxAdvisorStrategyType = {
-        genericName: model,
         temperature: 1.0,
         topP: 1.0,
         thread,
