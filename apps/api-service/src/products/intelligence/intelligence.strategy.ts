@@ -10,7 +10,6 @@ import { SummarizeTools } from "./tools/summarize.tool"
 import { RedisService } from "@/shared/redis/redis.service"
 
 export interface ChatReqParams {
-  genericName: string
   temperature: number
   topP: number
   thread: Thread[]
@@ -113,7 +112,7 @@ export class IntelligenceStrategy {
 
   async chatStrategy(args: ChatReqParams) {
     const llm = new ChatOpenAI({
-      model: args.genericName,
+      model: config.AZURE_OPENAI_BASE_MODEL,
       temperature: args.temperature,
       topP: args.topP,
       apiKey: config.AZURE_OPENAI_API_KEY,
@@ -161,7 +160,7 @@ export class IntelligenceStrategy {
 
   async summarizeStrategy(args: SummarizeReqParams) {
     const llm = new ChatOpenAI({
-      model: config.DEFAULT_MODEL,
+      model: config.AZURE_OPENAI_BASE_MODEL,
       temperature: args.temperature,
       topP: args.topP,
       apiKey: config.AZURE_OPENAI_API_KEY,

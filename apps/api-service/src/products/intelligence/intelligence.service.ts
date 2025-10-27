@@ -4,7 +4,7 @@ import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
-import { AIChatDto } from "./dto/chat.dto"
+import { ChatDto } from "./dto/chat.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import {
@@ -13,7 +13,7 @@ import {
   SummarizeReqParams,
 } from "./intelligence.strategy"
 import { User } from "@/auth/schemas/user.schema"
-import { AISummarizeDto } from "./dto/summarize.dto"
+import { SummarizeDto } from "./dto/summarize.dto"
 
 @Injectable()
 export class IntelligenceService {
@@ -44,11 +44,11 @@ export class IntelligenceService {
     }
   }
 
-  async chat(aIChatDto: AIChatDto, userId: string) {
+  async chat(chatDto: ChatDto, userId: string) {
     try {
-      const { prompt, model } = aIChatDto
-      const threadId = aIChatDto.threadId ?? new Types.ObjectId().toString()
-      const thread = await this.getThreadById(threadId, !aIChatDto.threadId)
+      const { prompt } = chatDto
+      const threadId = chatDto.threadId ?? new Types.ObjectId().toString()
+      const thread = await this.getThreadById(threadId, !chatDto.threadId)
 
       const user: User = (
         await this.eventEmitter.emitAsync(EventMap.GetUserDetails, {
@@ -57,7 +57,6 @@ export class IntelligenceService {
       ).shift()
 
       const args: ChatReqParams = {
-        genericName: model,
         temperature: 1.0,
         topP: 1.0,
         thread,
@@ -76,10 +75,10 @@ export class IntelligenceService {
     }
   }
 
-  async summarize(aiSummarizeDto: AISummarizeDto, userId: string) {
+  async summarize(summarizeDto: SummarizeDto, userId: string) {
     try {
       const { entityId, entityType, newsContent, newsDescription, newsTitle } =
-        aiSummarizeDto
+        summarizeDto
 
       const user: User = (
         await this.eventEmitter.emitAsync(EventMap.GetUserDetails, {

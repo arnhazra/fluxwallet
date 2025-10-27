@@ -165,11 +165,6 @@ export interface TotalDebtDetails {
   totalPrincipal: number
 }
 
-export interface ModelConfig {
-  genericName: string
-  displayName: string
-}
-
 export type Article = {
   source?: {
     id?: string | null

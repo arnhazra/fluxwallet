@@ -1,11 +1,8 @@
 import { IsNotEmpty } from "class-validator"
 
-export class AIChatDto {
+export class ChatDto {
   @IsNotEmpty()
   prompt: string
-
-  @IsNotEmpty()
-  model: string
 
   threadId: string
 }

@@ -8,7 +8,7 @@ export enum EntityType {
   NEWS = "news",
 }
 
-export class AISummarizeDto {
+export class SummarizeDto {
   @IsNotEmpty()
   entityType: EntityType
 

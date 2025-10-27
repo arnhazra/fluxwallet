@@ -1,5 +1,4 @@
 export const appName = process.env.NEXT_PUBLIC_APP_NAME!
-export const defaultModel = process.env.NEXT_PUBLIC_DEFAULT_MODEL!
 
 export const uiConstants = {
   homeHeader: "Invest for future",

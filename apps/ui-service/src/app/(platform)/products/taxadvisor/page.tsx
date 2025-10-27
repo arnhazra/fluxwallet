@@ -14,14 +14,10 @@ import { Bot, User, ArrowUp, Sparkle, Calculator } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import {
-  appName,
-  defaultModel,
-  uiConstants,
-} from "@/shared/constants/global-constants"
+import { appName, uiConstants } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "@/shared/components/markdown"
 import Show from "@/shared/components/show"
-import { ModelConfig, Thread } from "@/shared/constants/types"
+import { Thread } from "@/shared/constants/types"
 import { useUserContext } from "@/context/user.provider"
 import { useSearchParams } from "next/navigation"
 import useQuery from "@/shared/hooks/use-query"
@@ -40,20 +36,12 @@ export default function Page() {
   const [messages, setMessages] = useState<string[]>([])
   const [isLoading, setLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  const [model, setModel] = useState<string>(defaultModel)
   const thread = useQuery<Thread[]>({
     queryKey: ["get-thread", tId ?? ""],
     queryUrl: `${endPoints.taxAdvisor}/${tId}`,
     method: HTTPMethods.GET,
     suspense: tId !== null,
     enabled: tId !== null,
-  })
-
-  const models = useQuery<ModelConfig[]>({
-    queryKey: ["getModelConfig"],
-    queryUrl: endPoints.getModelConfig,
-    method: HTTPMethods.GET,
-    suspense: false,
   })
 
   useEffect(() => {
@@ -86,7 +74,7 @@ export default function Page() {
     try {
       const res: Thread = await ky
         .post(`${endPoints.taxAdvisor}`, {
-          json: { prompt, model, threadId: threadId ?? undefined },
+          json: { prompt, threadId: threadId ?? undefined },
           timeout: FETCH_TIMEOUT,
         })
         .json()
@@ -214,7 +202,7 @@ export default function Page() {
         }`}
       >
         <form onSubmit={hitAPI} className="w-full max-w-3xl mx-auto">
-          <div className="relative bg-neutral-900 border border-neutral-700 rounded-2xl p-2 ps-4 pe-4 shadow-lg">
+          <div className="relative bg-neutral-900 border border-neutral-700 rounded-full p-2 ps-4 pe-4 shadow-lg">
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
                 <div className="flex-1">
@@ -235,31 +223,6 @@ export default function Page() {
                 >
                   <ArrowUp className="h-4 w-4" />
                 </Button>
-              </div>
-
-              <div className="flex justify-start -ms-3">
-                <Select
-                  defaultValue={model}
-                  onValueChange={(value: string) => setModel(value)}
-                >
-                  <SelectTrigger className="w-auto bg-transparent border-none text-neutral-300 hover:text-white focus:ring-0 focus:ring-offset-0">
-                    <div className="flex items-center gap-2">
-                      <Sparkle className="h-4 w-4 text-primary" />
-                      <SelectValue />
-                    </div>
-                  </SelectTrigger>
-                  <SelectContent className="bg-neutral-800 border-neutral-700">
-                    {models.data?.map((model) => (
-                      <SelectItem
-                        key={model.genericName}
-                        value={model.genericName}
-                        className="text-neutral-300 focus:bg-neutral-700 focus:text-white"
-                      >
-                        {model.displayName}
-                      </SelectItem>
-                    ))}
-                  </SelectContent>
-                </Select>
               </div>
             </div>
           </div>
