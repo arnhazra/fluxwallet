@@ -6,6 +6,7 @@
 - Added FinNews App
 - Rearchitecture of Intelligence with added news summarizer tool inside summarizer agent
 - Added Product homepage url on header when opening products for easier navigation
+- Major code refactoring, removal of unnecessary components, modularize components for reusability
 
 ## v1.9
 
