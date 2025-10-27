@@ -100,7 +100,7 @@ export default function OneAgent() {
         onClick={() => setIsOpen(true)}
         variant="default"
         size="icon"
-        className="h-12 w-12 fixed bottom-6 right-6 z-50 bg-purple hover:opacity-90 text-white rounded-full transition"
+        className="h-12 w-12 fixed bottom-6 right-6 z-50 text-white ui-soft-gradient text-white rounded-full transition"
       >
         <Sparkles className="h-4 w-4" />
       </Button>
@@ -137,7 +137,7 @@ export default function OneAgent() {
                     <Sparkles className="h-5 w-5" />
                   </IconContainer>
                 </div>
-                <p className="text-primary">{appName} OneAgent</p>
+                <p className="text-white">{appName} OneAgent</p>
                 <p className="text-sm mt-2 text-white p-6">
                   {appName} OneAgent is an agentic workflow powered by AI, so
                   mistakes are possible. Please use carefully.

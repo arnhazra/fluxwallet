@@ -19,7 +19,7 @@ export function ProductCard({ product }: { product: Product }) {
           <h2 className="text-xl">{product.displayName}</h2>
         </div>
         <IconContainer ai={product.productName.includes("agent")}>
-          <ProductIcon className="h-4 w-4" />
+          <ProductIcon className="h-5 w-5" />
         </IconContainer>
       </div>
       <p className="text-sm leading-relaxed justify">{product.description}</p>
@@ -35,7 +35,7 @@ export function SolutionCard({ solution }: { solution: Solution }) {
       <div className="flex justify-between items-center mb-12">
         <h2 className="text-3xl">{solution.displayName}</h2>
         <IconContainer>
-          <SolutionIcon className="h-4 w-4" />
+          <SolutionIcon className="h-5 w-5" />
         </IconContainer>
       </div>
       <p className="text-sm leading-relaxed mt-auto">{solution.description}</p>

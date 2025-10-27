@@ -69,7 +69,7 @@ export default function NewsSummarizer({
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
         <Button
-          className="text-white font-semibold bg-purple hover:opacity-90 transition"
+          className="text-white font-semibold ui-soft-gradient hover:opacity-90 transition"
           variant="default"
           size="icon"
           title="Summarize this news"

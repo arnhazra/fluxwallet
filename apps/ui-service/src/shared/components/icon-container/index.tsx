@@ -9,7 +9,7 @@ interface IconContainerProps {
 const IconContainer = ({ ai, children }: IconContainerProps) => {
   if (ai) {
     return (
-      <div className="p-2 bg-purple text-white rounded-full hover:opacity-90 transition">
+      <div className="p-2 text-white rounded-full ui-soft-gradient">
         {children}
       </div>
     )

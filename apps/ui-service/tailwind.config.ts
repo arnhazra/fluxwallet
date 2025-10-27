@@ -45,9 +45,6 @@ const config = {
         primary: "#1ff675",
         secondary: "#ff2056",
       },
-      backgroundImage: {
-        purple: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-      },
     },
   },
   plugins: [require("tailwindcss-animate")],
