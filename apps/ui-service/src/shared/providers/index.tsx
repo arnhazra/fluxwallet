@@ -19,10 +19,10 @@ export default function Providers({ children }: { children: ReactNode }) {
               <PromptProvider>{children}</PromptProvider>
             </ConfirmProvider>
             <Toaster
-              position="top-right"
+              position="top-center"
               toastOptions={{
                 style: {
-                  background: "#171717",
+                  background: "#151616",
                   borderColor: "#27272a",
                 },
               }}
