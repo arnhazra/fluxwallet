@@ -3,14 +3,15 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
 import { Institution } from "@/shared/constants/types"
-import {
-  InstitutionCard,
-  AddInstitutionCard,
-} from "@/shared/components/institutioncard"
 import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
 import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
 import GoalDashboardCard from "@/shared/components/dashboard-cards/goal-dashboard-card"
 import EMICard from "@/shared/components/dashboard-cards/emi-card"
+import {
+  AddEntityCard,
+  EntityCard,
+  EntityType,
+} from "@/shared/components/entity-card"
 
 export default function Page() {
   const institutions = useQuery<Institution[]>({
@@ -20,7 +21,11 @@ export default function Page() {
   })
 
   const renderInstitutions = institutions?.data?.map((institution) => (
-    <InstitutionCard institution={institution} key={institution._id} />
+    <EntityCard
+      entityType={EntityType.INSTITUTION}
+      entity={institution}
+      key={institution._id}
+    />
   ))
 
   return (
@@ -37,7 +42,7 @@ export default function Page() {
       </section>
       <section>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 pb-4">
-          <AddInstitutionCard />
+          <AddEntityCard entityType={EntityType.INSTITUTION} />
           {renderInstitutions}
         </div>
       </section>

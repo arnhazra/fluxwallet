@@ -4,7 +4,6 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { use } from "react"
 import { Asset, Institution } from "@/shared/constants/types"
-import { AddAssetCard, AssetCard } from "@/shared/components/assetcard"
 import SectionPanel from "@/shared/components/section-panel"
 import { Building, Pen, Trash } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
@@ -14,6 +13,11 @@ import ky from "ky"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
 import IconContainer from "@/shared/components/icon-container"
+import {
+  AddEntityCard,
+  EntityCard,
+  EntityType,
+} from "@/shared/components/entity-card"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: institutionId = "" } = use(params)
@@ -33,7 +37,13 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   })
 
   const renderAssets = assets?.data?.map((asset) => {
-    return <AssetCard asset={asset} key={asset._id} />
+    return (
+      <EntityCard
+        entityType={EntityType.ASSET}
+        entity={asset}
+        key={asset._id}
+      />
+    )
   })
 
   const handleDeleteInstitution = async () => {
@@ -90,7 +100,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           ]}
         />
         <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 py-4">
-          <AddAssetCard />
+          <AddEntityCard entityType={EntityType.ASSET} />
           {renderAssets}
         </div>
       </section>

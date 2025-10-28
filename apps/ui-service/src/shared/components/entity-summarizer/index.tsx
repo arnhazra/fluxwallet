@@ -17,14 +17,7 @@ import MarkdownRenderer from "../markdown"
 import LoaderIcon from "../loaderIcon"
 import { streamResponseText } from "@/shared/lib/stream-response"
 import IconContainer from "../icon-container"
-
-export enum EntityType {
-  ASSET = "asset",
-  INSTITUTION = "institution",
-  DEBT = "debt",
-  GOAL = "goal",
-  NEWS = "news",
-}
+import { EntityType } from "../entity-card"
 
 interface SummarizerProps {
   entityId: string

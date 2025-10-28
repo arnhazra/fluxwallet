@@ -4,10 +4,14 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
 import { Debt } from "@/shared/constants/types"
 import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
-import { AddDebtCard, DebtCard } from "@/shared/components/debtcard"
 import EMICard from "@/shared/components/dashboard-cards/emi-card"
 import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
 import GoalDashboardCard from "@/shared/components/dashboard-cards/goal-dashboard-card"
+import {
+  AddEntityCard,
+  EntityCard,
+  EntityType,
+} from "@/shared/components/entity-card"
 
 export default function Page() {
   const debts = useQuery<Debt[]>({
@@ -17,7 +21,7 @@ export default function Page() {
   })
 
   const renderDebts = debts?.data?.map((debt) => (
-    <DebtCard debt={debt} key={debt._id} />
+    <EntityCard entityType={EntityType.DEBT} entity={debt} key={debt._id} />
   ))
 
   return (
@@ -34,7 +38,7 @@ export default function Page() {
       </section>
       <section>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4">
-          <AddDebtCard />
+          <AddEntityCard entityType={EntityType.DEBT} />
           {renderDebts}
         </div>
       </section>

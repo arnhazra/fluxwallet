@@ -4,10 +4,14 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
 import { Goal } from "@/shared/constants/types"
 import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
-import { AddGoalCard, GoalCard } from "@/shared/components/goalcard"
 import EMICard from "@/shared/components/dashboard-cards/emi-card"
 import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
 import GoalDashboardCard from "@/shared/components/dashboard-cards/goal-dashboard-card"
+import {
+  AddEntityCard,
+  EntityCard,
+  EntityType,
+} from "@/shared/components/entity-card"
 
 export default function Page() {
   const goals = useQuery<Goal[]>({
@@ -17,7 +21,7 @@ export default function Page() {
   })
 
   const renderGoals = goals?.data?.map((goal) => (
-    <GoalCard goal={goal} key={goal._id} />
+    <EntityCard entityType={EntityType.GOAL} entity={goal} key={goal._id} />
   ))
 
   return (
@@ -34,7 +38,7 @@ export default function Page() {
       </section>
       <section>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4">
-          <AddGoalCard />
+          <AddEntityCard entityType={EntityType.GOAL} />
           {renderGoals}
         </div>
       </section>

@@ -42,7 +42,7 @@ const config = {
         main: "#121212",
         background: "#151616",
         border: "#27272a",
-        primary: "#1ff675",
+        primary: "#20d760",
         secondary: "#ff2056",
       },
     },
