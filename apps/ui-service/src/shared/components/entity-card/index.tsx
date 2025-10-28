@@ -66,6 +66,7 @@ export function EntityCard<T extends keyof EntityMap>({
   const [{ user }] = useUserContext()
   const router = useRouter()
   const [entityBadgeText, setEnytityBadgeText] = useState("")
+  const [articleImageErr, setArticleImageErr] = useState(false)
   const [enityTitle, setEntityTitle] = useState("")
   const [entityDescription, setEntityDescription] = useState<string | null>(
     null
@@ -79,6 +80,10 @@ export function EntityCard<T extends keyof EntityMap>({
     valuationHeader: "",
     valuationAmount: 0,
   })
+
+  const handleArticleImageError = () => {
+    setArticleImageErr(true)
+  }
 
   useEffect(() => {
     if (entityType === EntityType.NEWS) {
@@ -152,11 +157,35 @@ export function EntityCard<T extends keyof EntityMap>({
   return (
     <Card className="w-full max-w-xs mx-auto h-[22rem] flex flex-col relative hover:shadow-md transition-shadow bg-background border-border text-white">
       <div className="relative aspect-video overflow-hidden bg-muted rounded-t-3xl">
-        <img
-          src={entityImageMap[entityType]}
-          alt={entityType}
-          className="object-cover w-full h-full transition-transform duration-300 rounded-t-3xl"
-        />
+        <Show condition={entityType === EntityType.NEWS}>
+          <Show
+            condition={!!(entity as Article).urlToImage && !articleImageErr}
+            fallback={
+              <img
+                src={entityImageMap[EntityType.NEWS]}
+                alt="News image"
+                className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-t-3xl"
+              />
+            }
+          >
+            <img
+              src={
+                (entity as Article).urlToImage ??
+                entityImageMap[EntityType.NEWS]
+              }
+              alt={(entity as Article).title || "News image"}
+              className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-t-3xl"
+              onError={handleArticleImageError}
+            />
+          </Show>
+        </Show>
+        <Show condition={!(entityType === EntityType.NEWS)}>
+          <img
+            src={entityImageMap[entityType]}
+            alt={entityType}
+            className="object-cover w-full h-full transition-transform duration-300 rounded-t-3xl"
+          />
+        </Show>
         <div className="absolute inset-0 bg-gradient-to-t from-background to-background/60" />
         <Badge className="absolute top-2 left-2 bg-primary/90 hover:bg-primary text-black">
           {entityBadgeText}
