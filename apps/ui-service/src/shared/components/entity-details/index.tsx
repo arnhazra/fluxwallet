@@ -112,10 +112,10 @@ export function EntityDetails<T extends keyof EntityMap>({
     if (confirmed) {
       try {
         await ky.delete(
-          `${deleteEntityUrlMap[entityType as keyof typeof deleteEntityUrlMap]}/${entity._id}`
+          `${deleteEntityUrlMap[entityType as keyof typeof deleteEntityUrlMap]}/${(entity as Asset | Debt | Goal)._id}`
         )
         queryClient.refetchQueries({ queryKey: ["get-assets"] })
-        notify(uiConstants.assetDeleted, "success")
+        notify(`${uiConstants.entityDeleted} ${entityType}`, "success")
       } catch (error) {
         notify(uiConstants.genericError, "error")
       }
@@ -146,7 +146,7 @@ export function EntityDetails<T extends keyof EntityMap>({
               <Button
                 onClick={(): void =>
                   router.push(
-                    `${editEntityUrlMap[entityType as keyof typeof editEntityUrlMap]}/${entity._id}`
+                    `${editEntityUrlMap[entityType as keyof typeof editEntityUrlMap]}/${(entity as Asset | Debt | Goal)._id}`
                   )
                 }
                 variant="default"

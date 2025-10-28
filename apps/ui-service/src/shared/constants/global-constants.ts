@@ -17,9 +17,7 @@ export const uiConstants = {
   copiedToClipBoard: "Copied to clipboard!",
   invalidOTP: "The OTP you entered is incorrect.",
   getStartedButton: "Start Free",
-  assetDeleted: "Successfully deleted the asset",
-  debtDeleted: "Successfully deleted the debt",
-  goalDeleted: "Successfully deleted the goal",
+  entityDeleted: "Successfully deleted the",
   linkedinURI: "https://www.linkedin.com/in/arnhazra",
   confirmDescription:
     "This action cannot be undone. Click continue to proceed, or cancel to go back.",
