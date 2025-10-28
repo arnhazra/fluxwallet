@@ -33,36 +33,18 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import IconContainer from "../icon-container"
 import { formatDistanceToNow } from "date-fns"
 import { Button } from "@/shared/components/ui/button"
-import { imageUrls } from "@/shared/constants/global-constants"
 import Summarizer from "../entity-summarizer"
 import { useEffect, useState } from "react"
 import { formatDate } from "@/shared/lib/format-date"
 import { EntityDetails } from "../entity-details"
 import { useRouter } from "nextjs-toploader/app"
-
-export enum EntityType {
-  ASSET = "asset",
-  INSTITUTION = "institution",
-  DEBT = "debt",
-  GOAL = "goal",
-  NEWS = "news",
-}
-
-export type EntityMap = {
-  [EntityType.ASSET]: Asset
-  [EntityType.INSTITUTION]: Institution
-  [EntityType.DEBT]: Debt
-  [EntityType.GOAL]: Goal
-  [EntityType.NEWS]: Article
-}
-
-const entityImageMap = {
-  [EntityType.ASSET]: imageUrls.asset,
-  [EntityType.INSTITUTION]: imageUrls.institution,
-  [EntityType.DEBT]: imageUrls.debt,
-  [EntityType.GOAL]: imageUrls.goal,
-  [EntityType.NEWS]: imageUrls.newsFallback,
-}
+import { EntityTypeForDetailModal } from "../entity-details/data"
+import {
+  createEntityUrlMap,
+  entityImageMap,
+  EntityMap,
+  EntityType,
+} from "./data"
 
 const entityIconMap = {
   [EntityType.ASSET]: <Banknote className="h-4 w-4" />,
@@ -70,14 +52,6 @@ const entityIconMap = {
   [EntityType.DEBT]: <CreditCard className="h-4 w-4" />,
   [EntityType.GOAL]: <GoalIcon className="h-4 w-4" />,
   [EntityType.NEWS]: <Newspaper className="h-4 w-4" />,
-}
-
-const createEntityUrlMap = {
-  [EntityType.ASSET]: `/products/wealthanalyzer/create/asset`,
-  [EntityType.DEBT]: `/products/debttrack/createdebt`,
-  [EntityType.INSTITUTION]: `/products/wealthanalyzer/create/institution`,
-  [EntityType.GOAL]: `/products/wealthgoal/creategoal`,
-  [EntityType.NEWS]: `/products/finnews`,
 }
 
 type EntityCardProps<T extends keyof EntityMap> = {
@@ -324,7 +298,10 @@ export function EntityCard<T extends keyof EntityMap>({
             entityType === EntityType.GOAL
           }
         >
-          <EntityDetails entityType={entityType} entity={entity}>
+          <EntityDetails
+            entityType={entityType as unknown as EntityTypeForDetailModal}
+            entity={entity as unknown as Asset | Debt | Goal}
+          >
             <Button
               variant="default"
               className="w-full gap-2 bg-border hover:bg-border"

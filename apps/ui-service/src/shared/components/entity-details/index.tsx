@@ -5,8 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog"
-import { Asset, Debt, Goal, Institution } from "@/shared/constants/types"
-import { endPoints } from "@/shared/constants/api-endpoints"
+import { Asset, Debt, Goal } from "@/shared/constants/types"
 import { DialogDescription, DialogTrigger } from "@radix-ui/react-dialog"
 import { ReactNode, useEffect, useState } from "react"
 import { Badge } from "../ui/badge"
@@ -20,61 +19,26 @@ import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useUserContext } from "@/context/user.provider"
 import { useQueryClient } from "@tanstack/react-query"
-import { EntityMap, EntityType } from "../entity-card"
 import { formatDate } from "@/shared/lib/format-date"
+import {
+  amountKeys,
+  deleteEntityAPIUriMap,
+  editEntityUrlMap,
+  EntityTypeForDetailModal,
+  excludedKeys,
+} from "./data"
 
-const excludedKeys = [
-  "_id",
-  "userId",
-  "institutionId",
-  "assetType",
-  "assetName",
-  "createdAt",
-  "isMaturityApproaching",
-  "isMatured",
-  "debtPurpose",
-]
-
-const amountKeys = [
-  "amountInvested",
-  "contributionAmount",
-  "currentValuation",
-  "presentValuation",
-  "unitPurchasePrice",
-  "valuationOnPurchase",
-  "goalAmount",
-  "principalAmount",
-  "totalRepayment",
-  "totalInterest",
-  "emi",
-  "remainingPrincipal",
-  "remainingTotal",
-]
-
-const editEntityUrlMap = {
-  asset: "/products/wealthanalyzer/edit/asset",
-  debt: "/products/debttrack/editdebt",
-  goal: "/products/wealthgoal/editgoal",
-}
-
-const deleteEntityUrlMap = {
-  asset: endPoints.asset,
-  debt: endPoints.debt,
-  goal: endPoints.goal,
-}
-
-type EntityDetailsProps<T extends keyof EntityMap> = {
-  entityType: T
-  entity: EntityMap[T]
+type EntityDetailsProps = {
+  entityType: EntityTypeForDetailModal
+  entity: Asset | Debt | Goal
   children: ReactNode
 }
 
-export function EntityDetails<T extends keyof EntityMap>({
+export function EntityDetails({
   entityType,
   entity,
   children,
-}: EntityDetailsProps<T>) {
-  console.log({ entity, entityType })
+}: EntityDetailsProps) {
   const [{ user }] = useUserContext()
   const [open, setOpen] = useState(false)
   const router = useRouter()
@@ -85,15 +49,15 @@ export function EntityDetails<T extends keyof EntityMap>({
 
   useEffect(() => {
     switch (entityType) {
-      case EntityType.ASSET:
+      case EntityTypeForDetailModal.ASSET:
         setEnytityBadgeText((entity as Asset).assetType.replace("_", " "))
         setDisplayName((entity as Asset).assetName)
         break
-      case EntityType.DEBT:
+      case EntityTypeForDetailModal.DEBT:
         setEnytityBadgeText("DEBT")
         setDisplayName((entity as Debt).debtPurpose)
         break
-      case EntityType.GOAL:
+      case EntityTypeForDetailModal.GOAL:
         setEnytityBadgeText("GOAL")
         setDisplayName(formatDate((entity as Goal).goalDate))
         break
@@ -112,7 +76,7 @@ export function EntityDetails<T extends keyof EntityMap>({
     if (confirmed) {
       try {
         await ky.delete(
-          `${deleteEntityUrlMap[entityType as keyof typeof deleteEntityUrlMap]}/${(entity as Asset | Debt | Goal)._id}`
+          `${deleteEntityAPIUriMap[entityType as keyof typeof deleteEntityAPIUriMap]}/${(entity as Asset | Debt | Goal)._id}`
         )
         queryClient.refetchQueries({ queryKey: ["get-assets"] })
         notify(`${uiConstants.entityDeleted} ${entityType}`, "success")

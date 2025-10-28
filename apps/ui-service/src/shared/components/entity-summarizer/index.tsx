@@ -17,7 +17,7 @@ import MarkdownRenderer from "../markdown"
 import LoaderIcon from "../loaderIcon"
 import { streamResponseText } from "@/shared/lib/stream-response"
 import IconContainer from "../icon-container"
-import { EntityType } from "../entity-card"
+import { EntityType } from "../entity-card/data"
 
 interface SummarizerProps {
   entityId: string

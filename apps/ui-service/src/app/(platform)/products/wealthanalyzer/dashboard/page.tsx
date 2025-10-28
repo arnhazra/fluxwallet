@@ -7,11 +7,8 @@ import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
 import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
 import GoalDashboardCard from "@/shared/components/dashboard-cards/goal-dashboard-card"
 import EMICard from "@/shared/components/dashboard-cards/emi-card"
-import {
-  AddEntityCard,
-  EntityCard,
-  EntityType,
-} from "@/shared/components/entity-card"
+import { AddEntityCard, EntityCard } from "@/shared/components/entity-card"
+import { EntityType } from "@/shared/components/entity-card/data"
 
 export default function Page() {
   const institutions = useQuery<Institution[]>({

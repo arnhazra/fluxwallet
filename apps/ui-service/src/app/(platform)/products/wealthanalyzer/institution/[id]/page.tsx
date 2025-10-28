@@ -13,11 +13,8 @@ import ky from "ky"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
 import IconContainer from "@/shared/components/icon-container"
-import {
-  AddEntityCard,
-  EntityCard,
-  EntityType,
-} from "@/shared/components/entity-card"
+import { AddEntityCard, EntityCard } from "@/shared/components/entity-card"
+import { EntityType } from "@/shared/components/entity-card/data"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: institutionId = "" } = use(params)

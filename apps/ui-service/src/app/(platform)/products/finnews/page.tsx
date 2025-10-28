@@ -3,7 +3,8 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
 import { FindNewsResponse } from "@/shared/constants/types"
-import { EntityCard, EntityType } from "@/shared/components/entity-card"
+import { EntityCard } from "@/shared/components/entity-card"
+import { EntityType } from "@/shared/components/entity-card/data"
 
 export default function Page() {
   const news = useQuery<FindNewsResponse>({

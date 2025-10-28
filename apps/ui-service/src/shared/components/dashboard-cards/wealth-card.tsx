@@ -7,13 +7,12 @@ import IconContainer from "../icon-container"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
+import { Valuation } from "@/shared/constants/types"
 
 export default function WealthCard() {
   const [{ user }] = useUserContext()
 
-  const { data } = useQuery<{
-    presentValuation: number | null | undefined
-  }>({
+  const { data } = useQuery<Valuation>({
     queryKey: ["get-total-wealth"],
     queryUrl: `${endPoints.asset}/total-wealth`,
     method: HTTPMethods.POST,
