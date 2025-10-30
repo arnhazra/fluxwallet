@@ -1,8 +1,4 @@
 "use client"
-import EMICard from "@/shared/components/dashboard-cards/emi-card"
-import GoalDashboardCard from "@/shared/components/dashboard-cards/goal-dashboard-card"
-import LiabilityCard from "@/shared/components/dashboard-cards/liability-card"
-import WealthCard from "@/shared/components/dashboard-cards/wealth-card"
 import { ProductCard } from "@/shared/components/marketing-cards"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
@@ -16,6 +12,7 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { useRouter } from "nextjs-toploader/app"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
+import StatCardDeck from "@/shared/components/stat-card/stat-card-deck"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -63,16 +60,7 @@ export default function Page() {
 
   return (
     <div className="mx-auto grid w-full items-start gap-6">
-      <section>
-        <div className="space-y-8">
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-6">
-            <WealthCard />
-            <LiabilityCard />
-            <EMICard />
-            <GoalDashboardCard />
-          </div>
-        </div>
-      </section>
+      <StatCardDeck />
       <section>
         <div className="mx-auto grid justify-center gap-4 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-4">
           {renderProductCards()}
