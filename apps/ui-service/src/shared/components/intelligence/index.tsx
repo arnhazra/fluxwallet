@@ -219,12 +219,13 @@ export default function Intelligence() {
               variant="ghost"
               size="sm"
               onClick={() => {
+                setIsOpen(false)
                 if (threadId) {
-                  setIsOpen(false)
                   router.push(`/intelligence?threadId=${threadId}`)
+                } else {
+                  router.push(`/intelligence`)
                 }
               }}
-              disabled={!threadId}
               className="text-xs text-neutral-400 hover:text-white bg-transparent hover:bg-transparent mb-2"
             >
               <ExternalLink className="h-3 w-3 mr-1" />

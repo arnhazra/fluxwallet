@@ -3,6 +3,7 @@ import { Product, Solution } from "@/shared/constants/types"
 import IconContainer from "../icon-container"
 import { useRouter } from "nextjs-toploader/app"
 import { appName } from "@/shared/constants/global-constants"
+import Show from "../show"
 
 export function ProductCard({ product }: { product: Product }) {
   const ProductIcon = (Icons as any)[product.icon] || Icons.HelpCircle
@@ -41,7 +42,14 @@ export function SolutionCard({
       className={`bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg ${ai ? "hover:shadow-secondary/20" : "hover:shadow-primary/20"} cursor-pointer`}
     >
       <div className="flex justify-between items-center mb-12">
-        <h2 className="text-3xl">{solution.displayName}</h2>
+        <div>
+          <Show condition={!!ai}>
+            <p className="text-xs">{appName}</p>
+          </Show>
+          <h2 className={!!ai ? "text-xl" : "text-3xl"}>
+            {solution.displayName}
+          </h2>
+        </div>
         <IconContainer ai={ai}>
           <SolutionIcon className="h-5 w-5" />
         </IconContainer>
