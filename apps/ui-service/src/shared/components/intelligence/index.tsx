@@ -92,7 +92,7 @@ export default function Intelligence() {
         size="icon"
         className="h-12 w-12 fixed bottom-6 right-6 z-50 text-white ui-soft-gradient text-white rounded-full transition"
       >
-        <Sparkles className="h-4 w-4" />
+        <Sparkles className="h-5 w-5" />
       </Button>
 
       {isOpen && (
@@ -220,7 +220,7 @@ export default function Intelligence() {
         <div className="p-4 border-none">
           <form onSubmit={hitAPI}>
             <div className="w-full max-w-4xl mx-auto">
-              <div className="relative bg-neutral-900 border border-neutral-700 rounded-full p-2 ps-4 pe-4 shadow-lg">
+              <div className="relative bg-neutral-900 border border-border rounded-full p-2 ps-4 pe-4 shadow-lg">
                 <div className="flex flex-col gap-3">
                   <div className="flex items-center gap-3">
                     <div className="flex-1">

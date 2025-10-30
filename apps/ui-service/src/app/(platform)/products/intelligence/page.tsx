@@ -195,7 +195,7 @@ export default function Page() {
         }`}
       >
         <form onSubmit={hitAPI} className="w-full max-w-3xl mx-auto">
-          <div className="relative bg-neutral-900 border border-neutral-700 rounded-full p-2 ps-4 pe-4 shadow-lg">
+          <div className="relative bg-neutral-900 border border-border rounded-full p-2 ps-4 pe-4 shadow-lg">
             <div className="flex flex-col gap-3">
               <div className="flex items-center gap-3">
                 <div className="flex-1">
