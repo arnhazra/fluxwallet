@@ -44,7 +44,6 @@ const config = {
         border: "#27272a",
         primary: "#20d760",
         secondary: "#ff2056",
-        aineon: "#80d0c7",
       },
     },
   },

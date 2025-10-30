@@ -16,7 +16,7 @@ export function ProductCard({
 
   return (
     <div
-      className={`bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg ${ai ? "hover:shadow-aineon/20" : "hover:shadow-primary/20"} cursor-pointer`}
+      className={`bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg ${ai ? "hover:shadow-secondary/20" : "hover:shadow-primary/20"} cursor-pointer`}
       onClick={() => router.push(product.url)}
     >
       <div className="flex justify-between items-center mb-12">

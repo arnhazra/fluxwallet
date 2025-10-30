@@ -91,7 +91,7 @@ export default function Summarizer({
           <Show condition={isLoading || !summarizedText}>
             <p className="flex items-center text-md text-white">
               <LoaderIcon />
-              Summarizing...
+              Summarizing {entityType}...
             </p>
           </Show>
           <Show condition={!isLoading && !!summarizedText}>
