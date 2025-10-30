@@ -19,13 +19,10 @@ export class IntelligenceController {
   constructor(private readonly service: IntelligenceService) {}
 
   @UseGuards(AuthGuard)
-  @Get("thread/:threadId")
-  async getThreadById(
-    @Request() request: ModRequest,
-    @Param("threadId") threadId: string
-  ) {
+  @Post("chat")
+  async chat(@Request() request: ModRequest, @Body() chatDto: ChatDto) {
     try {
-      return await this.service.getThreadById(threadId, false)
+      return await this.service.chat(chatDto, request.user.userId)
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError
@@ -34,10 +31,13 @@ export class IntelligenceController {
   }
 
   @UseGuards(AuthGuard)
-  @Post("chat")
-  async chat(@Request() request: ModRequest, @Body() chatDto: ChatDto) {
+  @Get("thread/:threadId")
+  async getThreadById(
+    @Request() request: ModRequest,
+    @Param("threadId") threadId: string
+  ) {
     try {
-      return await this.service.chat(chatDto, request.user.userId)
+      return await this.service.getThreadById(threadId, false)
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError

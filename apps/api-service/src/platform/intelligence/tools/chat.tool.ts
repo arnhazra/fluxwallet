@@ -1,6 +1,6 @@
 import { Debt } from "@/products/debttrack/debt/schemas/debt.schema"
-import { Asset } from "../../wealthanalyzer/asset/schemas/asset.schema"
-import { Institution } from "../../wealthanalyzer/institution/schemas/institution.schema"
+import { Asset } from "@/products/wealthanalyzer/asset/schemas/asset.schema"
+import { Institution } from "@/products/wealthanalyzer/institution/schemas/institution.schema"
 import { AssetType, InstitutionType } from "@/shared/constants/types"
 import { Currency } from "country-code-enum"
 import { EventMap } from "@/shared/constants/event.map"

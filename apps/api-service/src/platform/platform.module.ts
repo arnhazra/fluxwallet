@@ -6,6 +6,7 @@ import { ActivityModule } from "./activity/activity.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { EmailModule } from "./email/email.module"
 import { ConfigModule } from "./config/config.module"
+import { IntelligenceModule } from "./intelligence/intelligence.module"
 
 @Module({
   imports: [
@@ -17,6 +18,7 @@ import { ConfigModule } from "./config/config.module"
     SubscriptionModule,
     EmailModule,
     ConfigModule,
+    IntelligenceModule,
   ],
 })
 export class PlatformModule {}

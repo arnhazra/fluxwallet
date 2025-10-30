@@ -2,13 +2,6 @@
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
 import {
   PanelRightClose,
@@ -17,6 +10,7 @@ import {
   ArrowUp,
   Sparkle,
   Sparkles,
+  ExternalLink,
 } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
@@ -29,6 +23,7 @@ import { Badge } from "../ui/badge"
 import { Thread } from "@/shared/constants/types"
 import IconContainer from "../icon-container"
 import { streamResponseText } from "@/shared/lib/stream-response"
+import { useRouter } from "nextjs-toploader/app"
 
 export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
@@ -37,6 +32,7 @@ export default function Intelligence() {
   const [isLoading, setLoading] = useState(false)
   const [messages, setMessages] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const router = useRouter()
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -218,6 +214,23 @@ export default function Intelligence() {
         </ScrollArea>
 
         <div className="p-4 border-none">
+          <div className="text-center">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => {
+                if (threadId) {
+                  setIsOpen(false)
+                  router.push(`/intelligence?threadId=${threadId}`)
+                }
+              }}
+              disabled={!threadId}
+              className="text-xs text-neutral-400 hover:text-white bg-transparent hover:bg-transparent mb-2"
+            >
+              <ExternalLink className="h-3 w-3 mr-1" />
+              Open in Full Screen
+            </Button>
+          </div>
           <form onSubmit={hitAPI}>
             <div className="w-full max-w-4xl mx-auto">
               <div className="relative bg-neutral-900 border border-border rounded-full p-2 ps-4 pe-4 shadow-lg">

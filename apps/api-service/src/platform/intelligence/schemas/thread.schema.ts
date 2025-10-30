@@ -3,7 +3,7 @@ import { Document, Types } from "mongoose"
 
 @Schema({
   versionKey: false,
-  collection: "threads",
+  collection: "intelligence-threads",
   timestamps: { createdAt: true, updatedAt: false },
 })
 export class Thread extends Document {

@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common"
 import { IntelligenceService } from "./intelligence.service"
 import { IntelligenceController } from "./intelligence.controller"
 import { CqrsModule } from "@nestjs/cqrs"
-import { ProductsDbConnectionMap } from "@/shared/constants/db-connection.map"
+import { GeneralDbConnectionMap } from "@/shared/constants/db-connection.map"
 import { Thread, ThreadSchema } from "./schemas/thread.schema"
 import { CreateThreadCommandHandler } from "./commands/handler/create-thread.handler"
 import { IntelligenceRepository } from "./intelligence.repository"
@@ -19,12 +19,12 @@ import { SummarizeTools } from "./tools/summarize.tool"
     HttpModule,
     CqrsModule,
     EntityModule.forRoot(
-      config.PRODUCTS_DATABASE_URI,
-      ProductsDbConnectionMap.Intelligence
+      config.PLATFORM_DATABASE_URI,
+      GeneralDbConnectionMap.Platform
     ),
     EntityModule.forFeature(
       [{ name: Thread.name, schema: ThreadSchema }],
-      ProductsDbConnectionMap.Intelligence
+      GeneralDbConnectionMap.Platform
     ),
   ],
   controllers: [IntelligenceController],
