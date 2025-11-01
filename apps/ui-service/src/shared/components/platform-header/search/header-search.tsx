@@ -41,13 +41,17 @@ export default function HeaderSearch() {
   )
 
   return (
-    <Show
-      condition={Object.keys(searchMapByUrl).some((path) =>
-        pathName.startsWith(path)
-      )}
-    >
-      <div className="pointer-events-none absolute left-1/2 top-1/2 w-full max-w-[17rem] sm:max-w-md md:max-w-md lg:max-w-lg -translate-x-1/2 -translate-y-1/2 px-2 sm:px-6">
-        <div className="mx-auto flex items-center space-x-2 pointer-events-auto">
+    <div className="pointer-events-none absolute left-1/2 top-1/2 w-full max-w-[17rem] sm:max-w-md md:max-w-md lg:max-w-lg -translate-x-1/2 -translate-y-1/2 px-2 sm:px-6">
+      <div className="mx-auto flex items-center justify-center space-x-2 pointer-events-auto">
+        <div
+          className={cn(
+            Object.keys(searchMapByUrl).some((path) =>
+              pathName.startsWith(path)
+            )
+              ? ""
+              : "flex justify-center"
+          )}
+        >
           <Button
             variant="default"
             size="icon"
@@ -56,6 +60,12 @@ export default function HeaderSearch() {
           >
             <HomeIcon className="h-4 w-4" />
           </Button>
+        </div>
+        <Show
+          condition={Object.keys(searchMapByUrl).some((path) =>
+            pathName.startsWith(path)
+          )}
+        >
           <div className="flex-1">
             <label htmlFor="header-search" className="sr-only">
               Search
@@ -80,8 +90,8 @@ export default function HeaderSearch() {
               />
             </div>
           </div>
-        </div>
+        </Show>
       </div>
-    </Show>
+    </div>
   )
 }
