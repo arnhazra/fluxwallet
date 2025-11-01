@@ -1,10 +1,10 @@
 import { Controller, BadRequestException, Get, UseGuards } from "@nestjs/common"
-import { FinNewsService } from "./finnews.service"
+import { FinanceNewsService } from "./financenews.service"
 import { AuthGuard } from "@/auth/auth.guard"
 
-@Controller("finnews")
-export class FinNewsController {
-  constructor(private readonly service: FinNewsService) {}
+@Controller("financenews")
+export class FinanceNewsController {
+  constructor(private readonly service: FinanceNewsService) {}
 
   @UseGuards(AuthGuard)
   @Get()

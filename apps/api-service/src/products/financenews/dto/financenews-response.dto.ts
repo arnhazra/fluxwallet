@@ -12,7 +12,7 @@ interface Article {
   content?: string | null
 }
 
-export class FinNewsResponseDto {
+export class FinanceNewsResponseDto {
   status?: string | null
   totalResults?: number | null
   articles?: Article[] | null

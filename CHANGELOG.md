@@ -14,7 +14,7 @@
 - Code refactoring, removal of unnecessary components, modularize components for reusability
 - Dependency updates across applications
 - Design changes in UI
-- Added FinNews App
+- Added Finance News App
 
 ## v1.9
 

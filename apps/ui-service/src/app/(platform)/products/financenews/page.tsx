@@ -8,8 +8,8 @@ import { EntityType } from "@/shared/components/entity-card/data"
 
 export default function Page() {
   const news = useQuery<FindNewsResponse>({
-    queryKey: ["finnews"],
-    queryUrl: `${endPoints.finNews}`,
+    queryKey: ["finance-news"],
+    queryUrl: `${endPoints.financeNews}`,
     method: HTTPMethods.GET,
   })
 
