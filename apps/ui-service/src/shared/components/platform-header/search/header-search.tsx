@@ -75,11 +75,9 @@ export default function HeaderSearch() {
                 <Search className="h-4 w-4 text-neutral-400" />
               </div>
               <Input
-                id="header-search"
                 name="q"
                 type="search"
                 placeholder={`What ${getSearchLabel(pathName) ?? ""} can I help you find?`}
-                aria-label="Search"
                 className={cn(
                   "w-full rounded-full bg-neutral-800 py-2 pl-9 pr-3 text-sm text-white placeholder:text-neutral-400 focus-visible:ring-0 focus-visible:ring-neutral-900",
                   "pointer-events-auto",
