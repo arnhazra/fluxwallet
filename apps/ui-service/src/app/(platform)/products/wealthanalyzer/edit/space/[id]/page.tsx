@@ -97,7 +97,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
               <Input
                 required
                 id="spaceName"
-                placeholder="Enter  Space Name"
+                placeholder="Enter Space Name"
                 value={formData.spaceName}
                 onChange={(e) => handleInputChange("spaceName", e.target.value)}
                 className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
