@@ -5,7 +5,7 @@ import useQuery from "@/shared/hooks/use-query"
 import { Institution } from "@/shared/constants/types"
 import { AddEntityCard, EntityCard } from "@/shared/components/entity-card"
 import { EntityType } from "@/shared/components/entity-card/data"
-import StatCardDeck from "@/shared/components/stat-card/stat-card-deck"
+import StatCardStack from "@/shared/components/stat-card/stat-card-stack"
 
 export default function Page() {
   const institutions = useQuery<Institution[]>({
@@ -24,7 +24,7 @@ export default function Page() {
 
   return (
     <div className="mx-auto grid w-full items-start gap-6">
-      <StatCardDeck />
+      <StatCardStack />
       <section>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 pb-4">
           <AddEntityCard entityType={EntityType.INSTITUTION} />

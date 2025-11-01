@@ -12,7 +12,7 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { useRouter } from "nextjs-toploader/app"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
-import StatCardDeck from "@/shared/components/stat-card/stat-card-deck"
+import StatCardStack from "@/shared/components/stat-card/stat-card-stack"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -56,7 +56,7 @@ export default function Page() {
 
   return (
     <div className="mx-auto grid w-full items-start gap-6">
-      <StatCardDeck />
+      <StatCardStack />
       <section>
         <div className="mx-auto grid justify-center gap-4 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-4">
           {renderProductCards()}

@@ -5,10 +5,9 @@ import useQuery from "@/shared/hooks/use-query"
 import { useRouter } from "nextjs-toploader/app"
 import StatCard from "./stat-card"
 import { CalendarClock, GoalIcon, TrendingDown, TrendingUp } from "lucide-react"
-import { formatCurrency } from "@/shared/lib/format-currency"
 import { useUserContext } from "@/context/user.provider"
 
-export default function StatCardDeck() {
+export default function StatCardStack() {
   const router = useRouter()
   const [{ user }] = useUserContext()
 
@@ -32,7 +31,7 @@ export default function StatCardDeck() {
 
   const goalPercentage =
     ((wealthData?.presentValuation ?? 0) * 100) /
-    (nearestGoalData?.goalAmount ?? 0)
+      (nearestGoalData?.goalAmount ?? 0) || 0
 
   return (
     <section>
