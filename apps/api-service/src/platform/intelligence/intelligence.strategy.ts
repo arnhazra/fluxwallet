@@ -76,6 +76,8 @@ export class IntelligenceStrategy {
     const chatAgent = createAgent({
       model: llm,
       tools: [
+        this.chatTools.getProductsTool,
+        this.chatTools.getSolutionsTool,
         this.chatTools.getInstitutionTypesTool,
         this.chatTools.getAssetTypesTool,
         this.chatTools.getTotalWealthTool,
