@@ -11,10 +11,10 @@ export class CreateAssetCommandHandler
 
   async execute(command: CreateAssetCommand) {
     const { userId, dto } = command
-    const { institutionId, ...otherFields } = dto
+    const { spaceId, ...otherFields } = dto
     return await this.repository.create({
       userId: objectId(userId),
-      institutionId: objectId(institutionId),
+      spaceId: objectId(spaceId),
       ...otherFields,
     })
   }

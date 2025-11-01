@@ -1,11 +1,5 @@
 import { Currency } from "country-code-enum"
 
-export enum InstitutionType {
-  BANK = "BANK",
-  GOVERNMENT = "GOVERNMENT",
-  OTHER = "OTHER",
-}
-
 export enum AssetType {
   LUMPSUM_DEPOSIT = "LUMPSUM_DEPOSIT",
   RECURRING_DEPOSIT = "RECURRING_DEPOSIT",
@@ -67,19 +61,18 @@ export type Thread = {
   createdAt: string
 }
 
-export type Institution = {
+export type Space = {
   _id: string
   userId: string
-  institutionName: string
+  spaceName: string
   presentValuation: number | null | undefined
-  institutionType: InstitutionType
   createdAt: string
 }
 
 export type Asset = {
   _id: string // COMMON
   userId: string // COMMON
-  institutionId: string // COMMON
+  spaceId: string // COMMON
   assetType: AssetType // COMMON
   assetName: string // COMMON
   identifier: string // COMMON

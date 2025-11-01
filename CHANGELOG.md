@@ -1,5 +1,10 @@
 # Changelog
 
+## v2.1
+
+- Rebranded Institutions to Spaces
+- Rebranded Activity Log to Analytics & Added Anonymous Analytics Support
+
 ## v2.0
 
 - Introduction of search across the apps and dashboard
@@ -87,7 +92,7 @@
 - Updates in asset valuation calculation logic
 - Bug fixes and performance improvements
 - Added new agentic workflows
-- Rebranded Portfolio to Holding Institutions
+- Rebranded Portfolio to Institutions
 
 ## v0.6
 
@@ -128,7 +133,7 @@
 - Added auth page
 - Added dashboard
 - Added settings page
-- Added institutions & assets
+- Added portfolios & assets
 - Added goal settings
 - Added multi currency support
 - Added first usable version of natural intelligence

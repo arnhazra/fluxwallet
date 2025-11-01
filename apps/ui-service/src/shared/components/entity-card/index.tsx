@@ -6,13 +6,7 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import {
-  Article,
-  Asset,
-  Debt,
-  Goal,
-  Institution,
-} from "@/shared/constants/types"
+import { Article, Asset, Debt, Goal, Space } from "@/shared/constants/types"
 import {
   Banknote,
   Building,
@@ -48,7 +42,7 @@ import {
 
 const entityIconMap = {
   [EntityType.ASSET]: <Banknote className="h-4 w-4" />,
-  [EntityType.INSTITUTION]: <Building className="h-4 w-4" />,
+  [EntityType.SPACE]: <Building className="h-4 w-4" />,
   [EntityType.DEBT]: <CreditCard className="h-4 w-4" />,
   [EntityType.GOAL]: <GoalIcon className="h-4 w-4" />,
   [EntityType.NEWS]: <Newspaper className="h-4 w-4" />,
@@ -112,13 +106,13 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationAmount: (entity as Asset).presentValuation,
         })
         break
-      case EntityType.INSTITUTION:
-        setEnytityBadgeText((entity as Institution).institutionType)
-        setEntityTitle((entity as Institution).institutionName)
-        setIdentifier((entity as Institution)._id)
+      case EntityType.SPACE:
+        setEnytityBadgeText("SPACE")
+        setEntityTitle((entity as Space).spaceName)
+        setIdentifier((entity as Space)._id)
         setValuation({
           valuationHeader: "Present Valuation",
-          valuationAmount: (entity as Institution).presentValuation,
+          valuationAmount: (entity as Space).presentValuation,
         })
         break
       case EntityType.DEBT:
@@ -272,7 +266,7 @@ export function EntityCard<T extends keyof EntityMap>({
             fallback={
               <Summarizer
                 entityType={entityType}
-                entityId={(entity as Asset | Debt | Institution | Goal)._id}
+                entityId={(entity as Asset | Debt | Space | Goal)._id}
               />
             }
           >
@@ -306,13 +300,13 @@ export function EntityCard<T extends keyof EntityMap>({
             </Button>
           )}
         </Show>
-        <Show condition={entityType === EntityType.INSTITUTION}>
+        <Show condition={entityType === EntityType.SPACE}>
           <Button
             variant="default"
             className="w-full gap-2 bg-border hover:bg-border"
             onClick={(): void =>
               router.push(
-                `/products/wealthanalyzer/institution/${(entity as Institution)._id}`
+                `/products/wealthanalyzer/space/${(entity as Space)._id}`
               )
             }
           >

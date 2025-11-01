@@ -13,24 +13,24 @@ interface GenericToolReq {
 export class SummarizeTools {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
-  public getInstitutionTool = tool(
+  public getSpaceTool = tool(
     async ({ userId, entityId }: GenericToolReq) => {
       try {
-        const institution: any = (
+        const space: any = (
           await this.eventEmitter.emitAsync(
-            EventMap.GetInstitutionDetailsById,
+            EventMap.GetSpaceDetailsById,
             userId,
             entityId
           )
         ).shift()
-        return `Here is the details of institution: ${JSON.stringify(institution)}`
+        return `Here is the details of space: ${JSON.stringify(space)}`
       } catch (error) {
-        return "Unable to get the institution details"
+        return "Unable to get the space details"
       }
     },
     {
-      name: "get_institution_details_by_id",
-      description: "Get institution details by id",
+      name: "get_space_details_by_id",
+      description: "Get space details by id",
       schema: z.object({
         userId: z.string().describe("userId of the user"),
         entityId: z.string().describe("entityId id given by the user"),

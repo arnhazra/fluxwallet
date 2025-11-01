@@ -18,7 +18,7 @@ export const endPoints = {
   getSubscriptionConfig: `${apiHost}/config/subscription-config`,
   intelligence: `${apiHost}/intelligence`,
   // Products Service
-  institution: `${apiHost}/institution`,
+  space: `${apiHost}/space`,
   asset: `${apiHost}/asset`,
   debt: `${apiHost}/debt`,
   goal: `${apiHost}/goal`,
