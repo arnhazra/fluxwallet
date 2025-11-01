@@ -52,16 +52,12 @@ export class AuthGuard implements CanActivate {
         } else {
           const { analyticsData, role } = userResponse.shift()
           request.user = { userId, role }
-
-          if (analyticsData) {
-            const { method, url: apiUri } = request
-            this.eventEmitter.emit(EventMap.CreateAnalytics, {
-              userId,
-              method,
-              apiUri,
-            })
-          }
-
+          const { method, url: apiUri } = request
+          this.eventEmitter.emit(EventMap.CreateAnalytics, {
+            userId: analyticsData ? userId : null,
+            method,
+            apiUri,
+          })
           return true
         }
       }
@@ -85,15 +81,12 @@ export class AuthGuard implements CanActivate {
         )
         const { analyticsData, email, role } = user?.shift()
         request.user = { userId, role }
-
-        if (analyticsData) {
-          const { method, url: apiUri } = request
-          this.eventEmitter.emit(EventMap.CreateAnalytics, {
-            userId,
-            method,
-            apiUri,
-          })
-        }
+        const { method, url: apiUri } = request
+        this.eventEmitter.emit(EventMap.CreateAnalytics, {
+          userId: analyticsData ? userId : null,
+          method,
+          apiUri,
+        })
 
         const tokenPayload = {
           id: userId,

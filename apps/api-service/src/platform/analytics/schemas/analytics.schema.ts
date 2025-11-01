@@ -9,7 +9,7 @@ import { Document, Types } from "mongoose"
 })
 export class Analytics extends Document {
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
-  userId: Types.ObjectId | null
+  userId: Types.ObjectId
 
   @Prop({ required: true })
   method: string
