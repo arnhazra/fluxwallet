@@ -15,10 +15,12 @@ import notify from "@/shared/hooks/use-notify"
 import IconContainer from "@/shared/components/icon-container"
 import { AddEntityCard, EntityCard } from "@/shared/components/entity-card"
 import { EntityType } from "@/shared/components/entity-card/data"
+import { useUserContext } from "@/context/user.provider"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: institutionId = "" } = use(params)
   const router = useRouter()
+  const [{ searchKeyword }] = useUserContext()
   const { confirm } = useConfirmContext()
 
   const institution = useQuery<Institution>({
@@ -28,9 +30,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   })
 
   const assets = useQuery<Asset[]>({
-    queryKey: ["get-assets", institutionId],
-    queryUrl: `${endPoints.asset}/institution/${institutionId}`,
+    queryKey: ["get-assets", institutionId, searchKeyword],
+    queryUrl: `${endPoints.asset}/institution/${institutionId}?searchKeyword=${encodeURIComponent(
+      searchKeyword
+    )}`,
     method: HTTPMethods.GET,
+    suspense: !!searchKeyword.length ? false : true,
   })
 
   const renderAssets = assets?.data?.map((asset) => {

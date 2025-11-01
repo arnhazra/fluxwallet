@@ -33,12 +33,16 @@ export class AssetService {
     }
   }
 
-  async findMyAssetsByInstitutionId(userId: string, institutionId: string) {
+  async findMyAssetsByInstitutionId(
+    userId: string,
+    institutionId: string,
+    searchKeyword?: string
+  ) {
     try {
       const assets = await this.queryBus.execute<
         FindAssetsByInstitutionQuery,
         Asset[]
-      >(new FindAssetsByInstitutionQuery(userId, institutionId))
+      >(new FindAssetsByInstitutionQuery(userId, institutionId, searchKeyword))
 
       return await Promise.all(
         assets.map(async (asset) => {

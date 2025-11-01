@@ -13,9 +13,11 @@ import { useRouter } from "nextjs-toploader/app"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
 import StatCardStack from "@/shared/components/stat-card/stat-card-stack"
+import { useUserContext } from "@/context/user.provider"
 
 export default function Page() {
   const searchParams = useSearchParams()
+  const [{ searchKeyword }] = useUserContext()
   const subscriptionSessionId = searchParams.get("sub_session_id")
   const queryClient = useQueryClient()
   const router = useRouter()
@@ -27,9 +29,19 @@ export default function Page() {
   })
 
   const renderProductCards = () => {
-    return data?.products?.map((product) => (
-      <ProductCard key={product.productName} product={product} />
-    ))
+    if (!data?.products) return null
+
+    const searchPattern = new RegExp(searchKeyword, "i")
+    return data.products
+      .filter(
+        (product) =>
+          searchPattern.test(product.displayName) ||
+          searchPattern.test(product.productName) ||
+          searchPattern.test(product.description)
+      )
+      .map((product) => (
+        <ProductCard key={product.productName} product={product} />
+      ))
   }
 
   const subscribe = async () => {

@@ -2,13 +2,14 @@
 
 ## v2.0
 
-- Dependency updates across applications
-- Design changes in UI
-- Added FinNews App
+- Introduction of search across the apps and dashboard
 - Rearchitecture of Intelligence with added news summarizer tool inside summarizer agent
 - Removed Intelligence app and introduced it as a layer across the whole platform
 - Added Product homepage url on header when opening products for easier navigation
 - Code refactoring, removal of unnecessary components, modularize components for reusability
+- Dependency updates across applications
+- Design changes in UI
+- Added FinNews App
 
 ## v1.9
 

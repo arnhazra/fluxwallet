@@ -31,10 +31,10 @@ export class DebtService {
   }
 
   @OnEvent(EventMap.GetDebtList)
-  async findMyDebts(userId: string) {
+  async findMyDebts(userId: string, searchKeyword?: string) {
     try {
       const debts = await this.queryBus.execute<FindDebtsByUserQuery, Debt[]>(
-        new FindDebtsByUserQuery(userId)
+        new FindDebtsByUserQuery(userId, searchKeyword)
       )
 
       return await Promise.all(

@@ -3,11 +3,13 @@ import { Subscription, User } from "@/shared/constants/types"
 export type UserState = {
   user: User
   subscription: Subscription | null
+  searchKeyword: string
 }
 
 export type ActionsMap = {
   setUser: Partial<User>
   setSubscription: Subscription | null
+  setSearchKeyword: string
 }
 
 export type Actions = {
@@ -29,6 +31,12 @@ export const UserReducer = (state: UserState, action: Actions): UserState => {
       return {
         ...state,
         subscription: action.payload,
+      }
+
+    case "setSearchKeyword":
+      return {
+        ...state,
+        searchKeyword: action.payload,
       }
 
     default:

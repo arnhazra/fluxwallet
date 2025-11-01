@@ -37,11 +37,11 @@ export class InstitutionService {
   }
 
   @OnEvent(EventMap.GetInstitutionList)
-  async findMyInstitutions(userId: string) {
+  async findMyInstitutions(userId: string, searchKeyword?: string) {
     const institutions = await this.queryBus.execute<
       FindAllInstitutionQuery,
       Institution[]
-    >(new FindAllInstitutionQuery(userId))
+    >(new FindAllInstitutionQuery(userId, searchKeyword))
 
     const institutionsWithValuation = await Promise.all(
       institutions.map(async (institution) => {
