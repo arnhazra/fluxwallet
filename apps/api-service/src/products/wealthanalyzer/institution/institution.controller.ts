@@ -9,6 +9,7 @@ import {
   Param,
   Body,
   Put,
+  Query,
 } from "@nestjs/common"
 import { InstitutionService } from "./institution.service"
 import { statusMessages } from "@/shared/constants/status-messages"
@@ -39,9 +40,15 @@ export class InstitutionController {
 
   @UseGuards(AuthGuard)
   @Get()
-  async findMyInstitutions(@Request() request: ModRequest) {
+  async findMyInstitutions(
+    @Request() request: ModRequest,
+    @Query("searchKeyword") searchKeyword?: string
+  ) {
     try {
-      return await this.service.findMyInstitutions(request.user.userId)
+      return await this.service.findMyInstitutions(
+        request.user.userId,
+        searchKeyword
+      )
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError

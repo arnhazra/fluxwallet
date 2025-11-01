@@ -1,9 +1,22 @@
 "use client"
 import { ReactNode } from "react"
 
-const IconContainer = ({ children }: { children: ReactNode }) => {
+interface IconContainerProps {
+  children: ReactNode
+  ai?: boolean
+}
+
+const IconContainer = ({ ai, children }: IconContainerProps) => {
+  if (ai) {
+    return (
+      <div className="p-2 text-white rounded-full ui-soft-gradient">
+        {children}
+      </div>
+    )
+  }
+
   return (
-    <div className="p-2 bg-primary/90 text-black rounded-full">{children}</div>
+    <div className="p-2 bg-primary text-black rounded-full">{children}</div>
   )
 }
 

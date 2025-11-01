@@ -8,6 +8,9 @@ $mainOpaque: #121212d2
 ::-webkit-scrollbar
   width: 0
 
+html
+  scroll-behavior: smooth
+
 body
   -webkit-font-smoothing: antialiased
   -moz-osx-font-smoothing: grayscale
@@ -36,6 +39,13 @@ body
     ), linear-gradient(-45deg, transparent 49.5%, rgba(64, 64, 64, 0.3) 49.5%, rgba(64, 64, 64, 0.3) 50.5%, transparent 50.5%)
   background-size: 120px 120px
   background-position: 0 0, 60px 60px
+
+.ui-soft-gradient
+  background-image: linear-gradient(to right, #f78ca0 0%, #f9748f 19%, #fd868c 60%, #fe9a8b 100%)
+  background-size: cover
+  background-position: center
+  background-repeat: no-repeat
+  box-shadow: 0 0 7px #fd868c
 
 input,
 textarea,

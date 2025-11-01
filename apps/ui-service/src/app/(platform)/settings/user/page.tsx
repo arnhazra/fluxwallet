@@ -15,7 +15,7 @@ import {
   Globe,
   Pen,
 } from "lucide-react"
-import EditCurrency from "@/shared/components/editcurrency"
+import EditCurrency from "@/shared/components/edit-currency"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
 import notify from "@/shared/hooks/use-notify"
 import IconContainer from "@/shared/components/icon-container"

@@ -92,11 +92,10 @@ export function calculateDebtDetails(debt: Debt) {
     remainingPrincipal = (principalAmount * (a - b)) / (a - 1)
   }
 
-  // "About to end" = within 60 days of contractual end date
   const msDay = 1000 * 60 * 60 * 24
   const diffInDays = Math.ceil((e.getTime() - today.getTime()) / msDay)
-  const isLoanAboutToEnd = diffInDays <= 60 && diffInDays > 0
-  const isLoanExpired = today > e && paidEmis >= totalEmis
+  const isMaturityApproaching = diffInDays <= 60 && diffInDays > 0
+  const isMatured = today > e && paidEmis >= totalEmis
   const remainingTotal = emi * pendingEmis
 
   return {
@@ -118,7 +117,7 @@ export function calculateDebtDetails(debt: Debt) {
     remainingPrincipal,
     remainingTotal,
     nextEmiDate,
-    isLoanAboutToEnd,
-    isLoanExpired,
+    isMaturityApproaching,
+    isMatured,
   }
 }

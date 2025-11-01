@@ -42,11 +42,8 @@ const config = {
         main: "#121212",
         background: "#151616",
         border: "#27272a",
-        primary: "#1ff675",
+        primary: "#20d760",
         secondary: "#ff2056",
-      },
-      backgroundImage: {
-        purple: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
       },
     },
   },

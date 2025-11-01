@@ -24,6 +24,7 @@ const initialState: UserState = {
     avatar: null,
   },
   subscription: null,
+  searchKeyword: "",
 }
 
 const UserContext = createContext<UserContextInterface>([

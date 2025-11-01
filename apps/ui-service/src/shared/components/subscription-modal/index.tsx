@@ -17,9 +17,9 @@ import { useUserContext } from "@/context/user.provider"
 import notify from "@/shared/hooks/use-notify"
 import Show from "../show"
 import { useEffect, useState } from "react"
-import LoaderIcon from "../loaderIcon"
+import LoaderIcon from "../loader-icon"
 import IconContainer from "../icon-container"
-import { useRouter } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import { useQueryClient } from "@tanstack/react-query"
 
 interface SubscriptionModalProps {

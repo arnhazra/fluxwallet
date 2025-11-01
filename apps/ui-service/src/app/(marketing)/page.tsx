@@ -111,7 +111,11 @@ export default function Page() {
         </div>
         <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
           {solutions?.data?.solutions?.map((solution) => (
-            <SolutionCard key={solution.displayName} solution={solution} />
+            <SolutionCard
+              key={solution.displayName}
+              solution={solution}
+              ai={solution.displayName.includes("Intelligence")}
+            />
           ))}
         </div>
       </section>
@@ -130,7 +134,7 @@ export default function Page() {
         </Badge>
 
         <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-          Your finances deserve both intelligence and protection. FluxWallet
+          Your finances deserve both intelligence and protection. {appName}
           combines real-time tracking, smart categorization, and insightful
           reporting, all built on a privacy-first foundation that respects your
           data and puts you in charge.

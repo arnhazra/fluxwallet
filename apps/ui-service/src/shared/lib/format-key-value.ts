@@ -3,14 +3,6 @@ import { formatCurrency } from "./format-currency"
 import { Currency } from "country-code-enum"
 import { formatDate } from "./format-date"
 
-export const excludedKeys = [
-  "_id",
-  "description",
-  "displayName",
-  "genericName",
-  "isPro",
-]
-
 export function formatKey(key: string) {
   return key
     .replace(/([a-z])([A-Z])/g, "$1 $2")

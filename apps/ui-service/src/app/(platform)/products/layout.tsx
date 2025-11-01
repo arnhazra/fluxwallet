@@ -1,10 +1,13 @@
 "use client"
+import Show from "@/shared/components/show"
 import { Badge } from "@/shared/components/ui/badge"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { ProductsConfig } from "@/shared/constants/types"
 import useQuery from "@/shared/hooks/use-query"
-import { usePathname, useRouter } from "next/navigation"
+import { ArrowLeft } from "lucide-react"
+import { usePathname } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 import { ReactNode } from "react"
 
 export default function ProductLayout({ children }: { children: ReactNode }) {
@@ -14,7 +17,6 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
     queryKey: ["getProductConfig"],
     queryUrl: endPoints.getProductConfig,
     method: HTTPMethods.GET,
-    suspense: false,
   })
 
   const selectedProduct = products.data?.products.find((product) =>
@@ -23,12 +25,16 @@ export default function ProductLayout({ children }: { children: ReactNode }) {
 
   return (
     <>
-      <Badge
-        className="mb-4 p-1 ps-4 pe-4 text-sm cursor-pointer hover:shadow-md hover:shadow-primary/20"
-        onClick={(): void => router.push(selectedProduct?.url || "/dashboard")}
-      >
-        {selectedProduct?.displayName}
-      </Badge>
+      <Show condition={selectedProduct?.url !== pathName}>
+        <Badge
+          className="mb-4 p-1 ps-4 pe-4 text-sm cursor-pointer hover:shadow-md hover:shadow-primary/20"
+          onClick={(): void =>
+            router.push(selectedProduct?.url || "/dashboard")
+          }
+        >
+          <ArrowLeft className="h-4 w-4 me-2" /> {selectedProduct?.displayName}
+        </Badge>
+      </Show>
       {children}
     </>
   )

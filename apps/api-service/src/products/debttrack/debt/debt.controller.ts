@@ -9,6 +9,7 @@ import {
   Param,
   Body,
   Put,
+  Query,
 } from "@nestjs/common"
 import { DebtService } from "./debt.service"
 import { statusMessages } from "@/shared/constants/status-messages"
@@ -34,9 +35,12 @@ export class DebtController {
 
   @UseGuards(AuthGuard)
   @Get()
-  async findMyDebts(@Request() request: ModRequest) {
+  async findMyDebts(
+    @Request() request: ModRequest,
+    @Query("searchKeyword") searchKeyword?: string
+  ) {
     try {
-      return await this.service.findMyDebts(request.user.userId)
+      return await this.service.findMyDebts(request.user.userId, searchKeyword)
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

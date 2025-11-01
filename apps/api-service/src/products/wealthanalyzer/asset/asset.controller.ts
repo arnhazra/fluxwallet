@@ -9,6 +9,7 @@ import {
   Param,
   Body,
   Put,
+  Query,
 } from "@nestjs/common"
 import { AssetService } from "./asset.service"
 import { statusMessages } from "@/shared/constants/status-messages"
@@ -38,12 +39,14 @@ export class AssetController {
   @Get("institution/:institutionId")
   async findMyAssetsByInstitutionId(
     @Request() request: ModRequest,
-    @Param() params: any
+    @Param() params: any,
+    @Query("searchKeyword") searchKeyword?: string
   ) {
     try {
       return await this.service.findMyAssetsByInstitutionId(
         request.user.userId,
-        params.institutionId
+        params.institutionId,
+        searchKeyword
       )
     } catch (error) {
       throw new BadRequestException(

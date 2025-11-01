@@ -6,7 +6,7 @@ import Show from "@/shared/components/show"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import LoaderIcon from "@/shared/components/loaderIcon"
+import LoaderIcon from "@/shared/components/loader-icon"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import {

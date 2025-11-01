@@ -16,13 +16,12 @@ export const endPoints = {
   getProductConfig: `${apiHost}/config/product-config`,
   getSolutionConfig: `${apiHost}/config/solution-config`,
   getSubscriptionConfig: `${apiHost}/config/subscription-config`,
-  getModelConfig: `${apiHost}/config/model-config`,
+  intelligence: `${apiHost}/intelligence`,
   // Products Service
   institution: `${apiHost}/institution`,
   asset: `${apiHost}/asset`,
   debt: `${apiHost}/debt`,
   goal: `${apiHost}/goal`,
-  oneagent: `${apiHost}/oneagent`,
   taxAdvisor: `${apiHost}/taxadvisor`,
   finNews: `${apiHost}/finnews`,
 }

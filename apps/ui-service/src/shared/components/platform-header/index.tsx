@@ -1,5 +1,6 @@
 import Link from "next/link"
-import { Wallet } from "lucide-react"
+import { Wallet, Search } from "lucide-react"
+import HeaderSearch from "./search/header-search"
 import { appName } from "@/shared/constants/global-constants"
 import { UserNav } from "./user-nav"
 import IconContainer from "../icon-container"
@@ -15,8 +16,9 @@ export default function PlatformHeader() {
           <IconContainer>
             <Wallet className="h-4 w-4" />
           </IconContainer>
-          {appName}
+          <span className="hidden md:inline">{appName}</span>
         </Link>
+        <HeaderSearch />
         <nav className="flex items-center justify-end flex-1">
           <UserNav />
         </nav>
