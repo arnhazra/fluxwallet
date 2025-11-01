@@ -1,7 +1,7 @@
 export enum EventMap {
   GetRefreshToken = "getRefreshToken",
   SendEmail = "sendEmail",
-  CreateActivity = "createActivity",
+  CreateAnalytics = "createAnalytics",
   GetUserDetails = "getUserDetails",
   GetSubscriptionDetails = "getSubscriptionDetails",
   ActivateTrial = "activateTrial",

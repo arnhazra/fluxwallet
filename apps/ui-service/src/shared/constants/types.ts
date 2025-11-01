@@ -34,7 +34,7 @@ export type User = {
   baseCurrency: Currency
   avatar: string | null | undefined
   reduceCarbonEmissions: boolean
-  activityLog: boolean
+  analyticsData: boolean
   hasTrial: boolean
   createdAt: string
 }
@@ -54,7 +54,7 @@ export type Subscription = {
   isActive: boolean
 }
 
-export type ActivityTrends = {
+export type AnalyticsTrend = {
   totalUsage: number
 }
 

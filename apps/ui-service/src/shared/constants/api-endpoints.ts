@@ -10,7 +10,7 @@ export const endPoints = {
   signOut: `${apiHost}/auth/signout`,
   updateAttribute: `${apiHost}/auth/attribute`,
   // Platform Service
-  activityTrends: `${apiHost}/activity/trends`,
+  analyticsTrends: `${apiHost}/analytics/trends`,
   createCheckoutSession: `${apiHost}/subscription/checkout`,
   subscribe: `${apiHost}/subscription/subscribe`,
   getProductConfig: `${apiHost}/config/product-config`,

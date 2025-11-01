@@ -4,12 +4,12 @@ import { Document, Types } from "mongoose"
 
 @Schema({
   versionKey: false,
-  collection: "activities",
+  collection: "analytics",
   timestamps: { createdAt: true, updatedAt: false },
 })
-export class Activity extends Document {
+export class Analytics extends Document {
   @Prop({ type: Types.ObjectId, ref: User.name, required: true })
-  userId: Types.ObjectId
+  userId: Types.ObjectId | null
 
   @Prop({ required: true })
   method: string
@@ -18,4 +18,4 @@ export class Activity extends Document {
   apiUri: string
 }
 
-export const ActivitySchema = SchemaFactory.createForClass(Activity)
+export const AnalyticsSchema = SchemaFactory.createForClass(Analytics)

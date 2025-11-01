@@ -14,12 +14,12 @@ import IconContainer from "@/shared/components/icon-container"
 export default function Page() {
   const [{ user }, dispatch] = useUserContext()
 
-  const saveActivityLogSettings = async (updatedSettings: boolean) => {
+  const saveAnalyticsSettings = async (updatedSettings: boolean) => {
     try {
-      dispatch("setUser", { activityLog: updatedSettings })
+      dispatch("setUser", { analyticsData: updatedSettings })
       await ky.patch(endPoints.updateAttribute, {
         json: {
-          attributeName: "activityLog",
+          attributeName: "analyticsData",
           attributeValue: updatedSettings,
         },
         timeout: FETCH_TIMEOUT,
@@ -37,13 +37,13 @@ export default function Page() {
             <PieChart className="h-4 w-4" />
           </IconContainer>
         }
-        title="Activity Log"
-        content="Choose whether to save the things you do to get more relevant results"
+        title="Analytics Data"
+        content="Choose whether to save the things you do. If disabled, we still collect anonymous analytics data to improve the app."
         actionComponents={[
           <Switch
-            checked={user.activityLog}
+            checked={user.analyticsData}
             onCheckedChange={(value): Promise<void> =>
-              saveActivityLogSettings(value)
+              saveAnalyticsSettings(value)
             }
           />,
         ]}
