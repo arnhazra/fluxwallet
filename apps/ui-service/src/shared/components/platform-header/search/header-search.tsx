@@ -44,7 +44,7 @@ export default function HeaderSearch() {
         pathName.startsWith(path)
       )}
     >
-      <div className="pointer-events-none absolute left-1/2 top-1/2 w-full max-w-xs sm:max-w-lg -translate-x-1/2 -translate-y-1/2 px-2 sm:px-6">
+      <div className="pointer-events-none absolute left-1/2 top-1/2 w-full max-w-[15rem] sm:max-w-sm md:max-w-md lg:max-w-lg -translate-x-1/2 -translate-y-1/2 px-2 sm:px-6">
         <div className="mx-auto w-full">
           <label htmlFor="header-search" className="sr-only">
             Search
@@ -57,10 +57,10 @@ export default function HeaderSearch() {
               id="header-search"
               name="q"
               type="search"
-              placeholder={`Search ${getSearchLabel(pathName) ?? ""}...`}
+              placeholder={`What ${getSearchLabel(pathName) ?? ""} are you looking for?`}
               aria-label="Search"
               className={cn(
-                "w-full rounded-full bg-neutral-900/40 py-2 pl-9 pr-3 text-sm text-white placeholder:text-neutral-400 focus-visible:ring-0 focus-visible:ring-neutral-900",
+                "w-full rounded-full bg-neutral-800 py-2 pl-9 pr-3 text-sm text-white placeholder:text-neutral-400 focus-visible:ring-0 focus-visible:ring-neutral-900",
                 "pointer-events-auto",
                 "border-border"
               )}

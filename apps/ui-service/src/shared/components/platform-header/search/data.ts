@@ -1,8 +1,8 @@
 export const searchMapByUrl = {
-  "/dashboard": "Products",
-  "/products/wealthanalyzer/dashboard": "Institutions",
-  "/products/wealthanalyzer/institution": "Assets",
-  "/products/debttrack/dashboard": "Debts",
+  "/dashboard": "product",
+  "/products/wealthanalyzer/dashboard": "institution",
+  "/products/wealthanalyzer/institution": "asset",
+  "/products/debttrack/dashboard": "debt",
 }
 
 export function getSearchLabel(pathName: string) {

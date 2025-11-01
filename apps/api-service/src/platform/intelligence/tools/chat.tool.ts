@@ -112,11 +112,18 @@ export class ChatTools {
   )
 
   public getInstitutionListTool = tool(
-    async ({ userId }: { userId: string }) => {
+    async ({
+      userId,
+      searchKeyword,
+    }: {
+      userId: string
+      searchKeyword: string
+    }) => {
       try {
         const institutions: Institution[] = await this.eventEmitter.emitAsync(
           EventMap.GetInstitutionList,
-          userId
+          userId,
+          searchKeyword
         )
 
         return JSON.stringify(institutions)
@@ -129,6 +136,11 @@ export class ChatTools {
       description: "Get institution list for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
+        searchKeyword: z
+          .string()
+          .describe(
+            "institution name given by the user to search - this is optional"
+          ),
       }),
     }
   )
@@ -156,11 +168,18 @@ export class ChatTools {
   )
 
   public getDebtListTool = tool(
-    async ({ userId }: { userId: string }) => {
+    async ({
+      userId,
+      searchKeyword,
+    }: {
+      userId: string
+      searchKeyword: string
+    }) => {
       try {
         const debts: Debt[] = await this.eventEmitter.emitAsync(
           EventMap.GetDebtList,
-          userId
+          userId,
+          searchKeyword
         )
 
         return JSON.stringify(debts)
@@ -173,6 +192,9 @@ export class ChatTools {
       description: "List down all the debts for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
+        searchKeyword: z
+          .string()
+          .describe("debt name given by the user to search - this is optional"),
       }),
     }
   )

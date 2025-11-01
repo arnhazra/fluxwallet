@@ -134,7 +134,7 @@ export default function Page() {
         </Badge>
 
         <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-          Your finances deserve both intelligence and protection. FluxWallet
+          Your finances deserve both intelligence and protection. {appName}
           combines real-time tracking, smart categorization, and insightful
           reporting, all built on a privacy-first foundation that respects your
           data and puts you in charge.
