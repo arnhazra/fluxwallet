@@ -20,7 +20,7 @@ export default function SectionPanel({
 }: SectionPanelProps) {
   return (
     <section className="grid gap-6 rounded-3xl text-white">
-      <div className="flex flex-row items-center justify-between rounded-3xl p-4 bg-white/5 backdrop-blur-md border border-white/10 shadow-lg">
+      <div className="flex flex-row items-center justify-between rounded-3xl p-4 bg-white/5 backdrop-blur-sm border border-white/10 shadow-lg">
         <div className="flex flex-row items-center gap-4">
           {icon}
           <div className="space-y-0.5">
