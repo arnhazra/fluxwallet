@@ -1,143 +1,143 @@
 # Changelog
 
-## v2.1
+## Version 2.1
 
-- Rebranded Institutions to Spaces
-- Rebranded Activity Log to Analytics & Added Anonymous Analytics Support
-- Added home button beside sidebar for easier navigation between products and start page
-- Rebranded Fin News to Finance News
-- Added searchbar to Finance News
-- Redesigned settings page
+- Enhanced structure by rebranding Institutions to Spaces
+- Improved analytics capabilities with rebranded Analytics module and Anonymous Analytics support
+- Implemented improved navigation with home button integration in sidebar
+- Upgraded Finance News module with integrated search functionality
+- Modernized settings interface with comprehensive redesign
 
-## v2.0
+## Version 2.0
 
-- Introduction of search across the apps and dashboard
-- Rearchitecture of Intelligence with added news summarizer tool inside summarizer agent
-- Removed Intelligence app and introduced it as a layer across the whole platform
-- Added Product homepage url on header when opening products for easier navigation
-- Code refactoring, removal of unnecessary components, modularize components for reusability
-- Dependency updates across applications
-- Design changes in UI
-- Added Finance News App
+- Implemented platform-wide search functionality across applications and dashboard
+- Enhanced Intelligence architecture with integrated news summarization capabilities
+- Transformed Intelligence from standalone application to platform-wide service layer
+- Improved navigation with product homepage URL integration in header
+- Conducted extensive code optimization and component modularization
+- Updated dependencies across all applications
+- Refined user interface design
+- Introduced Finance News application
 
-## v1.9
+## Version 1.9
 
-- Dependency updates & bug fixes
-- Minor UI refactoring
+- Performed dependency updates and resolved system bugs
+- Implemented UI refinements
 
-## v1.8
+## Version 1.8
 
-- Dependency updates & bug fixes
-- Minor UI refactoring
-- Standardized date format
+- Updated system dependencies and resolved bugs
+- Refined user interface elements
+- Implemented standardized date formatting
 
-## v1.7
+## Version 1.7
 
-- Dependency updates & bug fixes
-- Code optimization
+- Updated system dependencies and resolved bugs
+- Enhanced code performance and efficiency
 
-## v1.6
+## Version 1.6
 
-- Standardized asset type conventions
-- Removed Gemini model & integrated GPT 4.1
-- Code refactoring & bug fixes
-- Dependency updates
+- Established standardized asset type conventions
+- Upgraded AI model from Gemini to GPT 4.1
+- Performed code optimization and bug resolution
+- Updated system dependencies
 
-## v1.5
+## Version 1.5
 
-- Added email agent to taxadvisor
-- Added create debt & goal tool in intelligence
+- Integrated email agent functionality in TaxAdvisor
+- Implemented debt and goal creation tools in Intelligence module
 
-## v1.4
+## Version 1.4
 
-- Moved the configurations to redis
-- Redis integration for config
-- Standardized error handling
+- Migrated configuration management to Redis
+- Implemented Redis integration for configuration handling
+- Enhanced error handling protocols
 
-## v1.3
+## Version 1.3
 
-- Minor changes & bug fixes on attribute updates
-- Dependency updates in applications
-- Standardized error handling
+- Refined attribute update functionality
+- Updated application dependencies
+- Enhanced error handling system
 
-## v1.2
+## Version 1.2
 
-- Minor changes & bug fixes on attribute updates
-- Code refactoring & new product integration
+- Optimized attribute update functionality
+- Implemented code improvements and new product integration
 
-## v1.1
+## Version 1.1
 
-- Added intelligent summarizer for all entities
-- Fixed bugs in intelligence chat and modified agents
-- Updated agents for taxadvisor chat
-- Minor changes & bug fixes
+- Deployed comprehensive entity summarization system
+- Resolved Intelligence chat issues and enhanced agents
+- Upgraded TaxAdvisor chat agents
+- Implemented various system improvements
 
-## v1.0
+## Version 1.0
 
-- Launched the app as a unified platform with separated products
-- Revamped architecture with code refactoring for better scalability
-- Significant UI improvements for a smoother user experience
+- Released unified platform with modular product architecture
+- Implemented architectural improvements for enhanced scalability
+- Delivered significant user interface enhancements
 
-## v0.9
+## Version 0.9
 
-- Added secure OTP authentication workflow
-- Dependency updates & bug fixes
-- Code refactoring
+- Implemented secure OTP authentication system
+- Updated dependencies and resolved system issues
+- Optimized codebase
 
-## v0.8
+## Version 0.8
 
-- New improved & secure authentication workflow
-- Added Google OAuth workflow
-- Updated required dependencies
+- Deployed enhanced authentication workflow
+- Integrated Google OAuth functionality
+- Updated system dependencies
 
-## v0.7
+## Version 0.7
 
-- Added asset maturity warnings in app
-- Updates in asset valuation calculation logic
-- Bug fixes and performance improvements
-- Added new agentic workflows
-- Rebranded Portfolio to Institutions
+- Implemented asset maturity warning system
+- Enhanced asset valuation calculation
+- Improved system performance and stability
+- Added advanced agentic workflows
+- Rebranded Portfolio module to Institutions
 
-## v0.6
+## Version 0.6
 
-- NPM & Node upgrades
-- Package upgrades across application
-- Code refactoring & bug fixes
+- Upgraded Node.js and NPM environments
+- Updated application packages
+- Optimized code and resolved issues
 
-## v0.5
+## Version 0.5
 
-- Bug fixes & perfomance improvements
-- Added more agentic workflows
-- UI improvements & code refactoring
+- Improved system performance and stability
+- Extended agentic workflow capabilities
+- Enhanced UI and codebase optimization
 
-## v0.4
+## Version 0.4
 
-- Added simplified logic for present valuation caluclation on the fly
-- Removed unnecessary api call to calculate present valuation
-- Simplified agent logics
+- Implemented streamlined present valuation calculation
+- Optimized API architecture for valuation process
+- Refined agent logic systems
 
-## v0.3
+## Version 0.3
 
-- Fixed Reccurring calculation issue
-- Added new agentic workflows
-- Added suggested prompts
+- Resolved recurring calculation issues
+- Expanded agentic workflow capabilities
+- Implemented suggested prompts functionality
 
-## v0.2
+## Version 0.2
 
-- Bug fixes & performance improvements
-- Added liability support
-- Better training for intelligence model
-- Added new agentic workflows
-- Added multimodel support for intelligence
-- Migrated from Redis to MongoDB for token storage due to frequent redis disconnection issue
+- Enhanced system performance and stability
+- Implemented liability management functionality
+- Improved intelligence model training
+- Extended agentic workflow capabilities
+- Added multi-model intelligence support
+- Migrated token storage from Redis to MongoDB for improved reliability
 
-## v0.1
+## Version 0.1
 
-- Added homepage
-- Added auth page
-- Added dashboard
-- Added settings page
-- Added portfolios & assets
-- Added goal settings
-- Added multi currency support
-- Added first usable version of natural intelligence
+- Implemented core platform features:
+- Homepage interface
+- Authentication system
+- Dashboard functionality
+- Settings management
+- Portfolio and asset management
+- Goal setting capabilities
+- Multi-currency support
+- Initial natural intelligence integration
