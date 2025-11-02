@@ -235,7 +235,7 @@ export default function Page() {
                     onChange={(e) =>
                       handleInputChange("assetName", e.target.value)
                     }
-                    placeholder="Enter asset name"
+                    placeholder="e.g. Lumpsum Deposit 1"
                     className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                     required
                   />
@@ -250,7 +250,7 @@ export default function Page() {
                     onChange={(e) =>
                       handleInputChange("identifier", e.target.value)
                     }
-                    placeholder="Enter unique identifier"
+                    placeholder="e.g. 7788"
                     className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                     required
                   />

@@ -71,7 +71,8 @@ export default function Page() {
           </CardTitle>
           <CardDescription className="text-sm text-primary">
             Set up a new space to track your investments and assets. A space is
-            similar to a bank or any institution that manage assets.
+            similar to a bank or any financial institution that store or manage
+            assets.
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -83,7 +84,7 @@ export default function Page() {
               <Input
                 required
                 id="spaceName"
-                placeholder="Enter Space Name"
+                placeholder="e.g. HSBC"
                 value={formData.spaceName}
                 onChange={(e) => handleInputChange("spaceName", e.target.value)}
                 className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
