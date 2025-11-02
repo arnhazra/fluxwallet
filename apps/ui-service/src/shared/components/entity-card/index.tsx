@@ -97,15 +97,6 @@ export function EntityCard<T extends keyof EntityMap>({
 
   useEffect(() => {
     switch (entityType) {
-      case EntityType.ASSET:
-        setEnytityBadgeText((entity as Asset).assetType.replace("_", " "))
-        setEntityTitle((entity as Asset).assetName)
-        setIdentifier((entity as Asset).identifier)
-        setValuation({
-          valuationHeader: "Present Valuation",
-          valuationAmount: (entity as Asset).presentValuation,
-        })
-        break
       case EntityType.SPACE:
         setEnytityBadgeText("SPACE")
         setEntityTitle((entity as Space).spaceName)
@@ -113,6 +104,15 @@ export function EntityCard<T extends keyof EntityMap>({
         setValuation({
           valuationHeader: "Present Valuation",
           valuationAmount: (entity as Space).presentValuation,
+        })
+        break
+      case EntityType.ASSET:
+        setEnytityBadgeText((entity as Asset).assetType.replace("_", " "))
+        setEntityTitle((entity as Asset).assetName)
+        setIdentifier((entity as Asset).identifier)
+        setValuation({
+          valuationHeader: "Present Valuation",
+          valuationAmount: (entity as Asset).presentValuation,
         })
         break
       case EntityType.DEBT:
@@ -126,7 +126,7 @@ export function EntityCard<T extends keyof EntityMap>({
         break
       case EntityType.GOAL:
         setEnytityBadgeText("GOAL")
-        setEntityTitle(formatDate((entity as Goal).goalDate))
+        setEntityTitle(formatDate((entity as Goal).goalDate, false))
         setIdentifier((entity as Goal)._id)
         setValuation({
           valuationHeader: "Goal",
