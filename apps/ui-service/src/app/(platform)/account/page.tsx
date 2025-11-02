@@ -207,7 +207,7 @@ export default function Page() {
               <GitCompare className="h-4 w-4" />
             </IconContainer>
           }
-          title={`${appName} App Version`}
+          title={`${appName} Platform Version`}
           content="2.1"
         />
         <SectionPanel
