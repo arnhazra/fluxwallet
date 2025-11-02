@@ -217,7 +217,7 @@ export default function Page() {
             </IconContainer>
           }
           title="Sign Out"
-          content="Sign out from all logged in devices"
+          content="Sign out of everywhere"
           actionComponents={[
             <Button
               size="icon"
