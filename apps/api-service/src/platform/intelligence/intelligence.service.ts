@@ -7,20 +7,21 @@ import { EventMap } from "@/shared/constants/event.map"
 import { ChatDto } from "./dto/chat.dto"
 import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
-import {
-  IntelligenceStrategy,
-  ChatReqParams,
-  SummarizeReqParams,
-} from "./intelligence.strategy"
 import { User } from "@/auth/schemas/user.schema"
 import { SummarizeDto } from "./dto/summarize.dto"
+import { ChatReqParams, ChatStrategy } from "./strategies/chat.strategy"
+import {
+  SummarizeReqParams,
+  SummarizerStrategy,
+} from "./strategies/summarizer.strategy"
 
 @Injectable()
 export class IntelligenceService {
   constructor(
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
-    private readonly strategy: IntelligenceStrategy,
+    private readonly chatStrategy: ChatStrategy,
+    private readonly summarizeStrategy: SummarizerStrategy,
     private readonly eventEmitter: EventEmitter2
   ) {}
 
@@ -65,7 +66,7 @@ export class IntelligenceService {
         user,
       }
 
-      const { response } = await this.strategy.chatStrategy(args)
+      const { response } = await this.chatStrategy.chatStrategy(args)
       await this.commandBus.execute<CreateThreadCommand, Thread>(
         new CreateThreadCommand(String(user.id), threadId, prompt, response)
       )
@@ -97,7 +98,7 @@ export class IntelligenceService {
         user,
       }
 
-      const { response } = await this.strategy.summarizeStrategy(args)
+      const { response } = await this.summarizeStrategy.summarizeStrategy(args)
       return { response }
     } catch (error) {
       throw error
