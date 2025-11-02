@@ -1,5 +1,13 @@
 # Changelog
 
+## v2.1
+
+- Rebranded Institutions to Spaces
+- Rebranded Activity Log to Analytics & Added Anonymous Analytics Support
+- Added home button beside sidebar for easier navigation between products and start page
+- Rebranded Fin News to Finance News
+- Added searchbar to Finance News
+
 ## v2.0
 
 - Introduction of search across the apps and dashboard
@@ -9,7 +17,7 @@
 - Code refactoring, removal of unnecessary components, modularize components for reusability
 - Dependency updates across applications
 - Design changes in UI
-- Added FinNews App
+- Added Finance News App
 
 ## v1.9
 
@@ -87,7 +95,7 @@
 - Updates in asset valuation calculation logic
 - Bug fixes and performance improvements
 - Added new agentic workflows
-- Rebranded Portfolio to Holding Institutions
+- Rebranded Portfolio to Institutions
 
 ## v0.6
 
@@ -128,7 +136,7 @@
 - Added auth page
 - Added dashboard
 - Added settings page
-- Added institutions & assets
+- Added portfolios & assets
 - Added goal settings
 - Added multi currency support
 - Added first usable version of natural intelligence

@@ -78,12 +78,11 @@ export class IntelligenceStrategy {
       tools: [
         this.chatTools.getProductsTool,
         this.chatTools.getSolutionsTool,
-        this.chatTools.getInstitutionTypesTool,
         this.chatTools.getAssetTypesTool,
         this.chatTools.getTotalWealthTool,
-        this.chatTools.createInstitutionTool,
-        this.chatTools.getInstitutionValuationTool,
-        this.chatTools.getInstitutionListTool,
+        this.chatTools.createSpaceTool,
+        this.chatTools.getSpaceValuationTool,
+        this.chatTools.getSpaceListTool,
         this.chatTools.changeBaseCurrencyTool,
         this.chatTools.sendEmailTool,
         this.chatTools.getAssetListTool,
@@ -137,7 +136,7 @@ export class IntelligenceStrategy {
     const summarizeAgent = createAgent({
       model: llm,
       tools: [
-        this.summarizeTools.getInstitutionTool,
+        this.summarizeTools.getSpaceTool,
         this.summarizeTools.getAssetTool,
         this.summarizeTools.getDebtTool,
         this.summarizeTools.getGoalTool,

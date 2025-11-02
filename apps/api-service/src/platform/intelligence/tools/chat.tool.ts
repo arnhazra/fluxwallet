@@ -1,7 +1,7 @@
 import { Debt } from "@/products/debttrack/debt/schemas/debt.schema"
 import { Asset } from "@/products/wealthanalyzer/asset/schemas/asset.schema"
-import { Institution } from "@/products/wealthanalyzer/institution/schemas/institution.schema"
-import { AssetType, InstitutionType } from "@/shared/constants/types"
+import { Space } from "@/products/wealthanalyzer/space/schemas/space.schema"
+import { AssetType } from "@/shared/constants/types"
 import { Currency } from "country-code-enum"
 import { EventMap } from "@/shared/constants/event.map"
 import { tool } from "langchain"
@@ -39,17 +39,6 @@ export class ChatTools {
     {
       name: "get_solutions",
       description: "Find solutions provided by the platform",
-      schema: z.object({}),
-    }
-  )
-
-  public getInstitutionTypesTool = tool(
-    async () => {
-      return Object.values(InstitutionType)
-    },
-    {
-      name: "get_institution_types",
-      description: "Get types of institutions",
       schema: z.object({}),
     }
   )
@@ -105,41 +94,33 @@ export class ChatTools {
     }
   )
 
-  public getInstitutionValuationTool = tool(
-    async ({
-      userId,
-      institutionName,
-    }: {
-      userId: string
-      institutionName: string
-    }) => {
+  public getSpaceValuationTool = tool(
+    async ({ userId, spaceName }: { userId: string; spaceName: string }) => {
       try {
-        const institution: any = (
+        const space: any = (
           await this.eventEmitter.emitAsync(
-            EventMap.FindInstitutionByName,
+            EventMap.FindSpaceByName,
             userId,
-            institutionName
+            spaceName
           )
         ).shift()
-        const valuation = institution.presentValuation ?? 0
+        const valuation = space.presentValuation ?? 0
         return `Valuation is ${valuation}`
       } catch (error) {
         return "Unable to get the valuation"
       }
     },
     {
-      name: "get_institution_valuation_by_institution_name",
-      description: "Get institution valuation for a specific institution",
+      name: "get_space_valuation_by_space_name",
+      description: "Get space valuation for a specific space",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
-        institutionName: z
-          .string()
-          .describe("institution name given by the user"),
+        spaceName: z.string().describe("space name given by the user"),
       }),
     }
   )
 
-  public getInstitutionListTool = tool(
+  public getSpaceListTool = tool(
     async ({
       userId,
       searchKeyword,
@@ -148,26 +129,26 @@ export class ChatTools {
       searchKeyword: string
     }) => {
       try {
-        const institutions: Institution[] = await this.eventEmitter.emitAsync(
-          EventMap.GetInstitutionList,
+        const spaces: Space[] = await this.eventEmitter.emitAsync(
+          EventMap.GetSpaceList,
           userId,
           searchKeyword
         )
 
-        return JSON.stringify(institutions)
+        return JSON.stringify(spaces)
       } catch (error) {
-        return "Unable to get the institution list"
+        return "Unable to get the space list"
       }
     },
     {
-      name: "get_institution_list",
-      description: "Get institution list for a user",
+      name: "get_space_list",
+      description: "Get space list for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
         searchKeyword: z
           .string()
           .describe(
-            "institution name given by the user to search - this is optional"
+            "space name given by the user to search - this is optional"
           ),
       }),
     }
@@ -183,7 +164,7 @@ export class ChatTools {
 
         return JSON.stringify(assets)
       } catch (error) {
-        return "Unable to get the institution list"
+        return "Unable to get the space list"
       }
     },
     {
@@ -334,37 +315,23 @@ export class ChatTools {
     }
   )
 
-  public createInstitutionTool = tool(
-    async ({
-      userId,
-      institutionName,
-      institutionType,
-    }: {
-      userId: string
-      institutionName: string
-      institutionType: InstitutionType
-    }) => {
+  public createSpaceTool = tool(
+    async ({ userId, spaceName }: { userId: string; spaceName: string }) => {
       try {
-        await this.eventEmitter.emitAsync(EventMap.CreateInstitution, userId, {
-          institutionName,
-          institutionType,
+        await this.eventEmitter.emitAsync(EventMap.CreateSpace, userId, {
+          spaceName,
         })
-        return "Institution created successfully"
+        return "Space created successfully"
       } catch (error) {
-        return "Failed to create the institution"
+        return "Failed to create the space"
       }
     },
     {
-      name: "create_institution",
-      description: "Create a institution for a user",
+      name: "create_space",
+      description: "Create a space for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
-        institutionName: z
-          .string()
-          .describe("institution name given by the user"),
-        institutionType: z
-          .nativeEnum(InstitutionType)
-          .describe("institution type given by the user"),
+        spaceName: z.string().describe("space name given by the user"),
       }),
     }
   )

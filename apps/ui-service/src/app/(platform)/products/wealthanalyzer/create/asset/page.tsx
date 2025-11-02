@@ -27,18 +27,14 @@ import {
 import { Calendar } from "@/shared/components/ui/calendar"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import {
-  AssetType,
-  Institution,
-  RecurringFrequency,
-} from "@/shared/constants/types"
+import { AssetType, Space, RecurringFrequency } from "@/shared/constants/types"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { formatDate } from "@/shared/lib/format-date"
 
 interface AssetFormData {
-  institutionId: string
+  spaceId: string
   assetType: AssetType | ""
   assetName: string
   identifier: string
@@ -78,7 +74,7 @@ type MessageType = "success" | "error"
 
 export default function Page() {
   const [formData, setFormData] = useState<AssetFormData>({
-    institutionId: "",
+    spaceId: "",
     assetType: "",
     assetName: "",
     identifier: "",
@@ -89,9 +85,9 @@ export default function Page() {
     type: "success",
   })
 
-  const institutions = useQuery<Institution[]>({
-    queryKey: ["get-institutions-build-asset"],
-    queryUrl: endPoints.institution,
+  const spaces = useQuery<Space[]>({
+    queryKey: ["get-spaces-build-asset"],
+    queryUrl: endPoints.space,
     method: HTTPMethods.GET,
   })
 
@@ -184,22 +180,20 @@ export default function Page() {
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
                 <Label htmlFor="assetType" className="text-neutral-200">
-                  Select Holding Institution
+                  Select Space
                 </Label>
                 <Select
-                  value={formData.institutionId}
-                  onValueChange={(value) =>
-                    handleInputChange("institutionId", value)
-                  }
+                  value={formData.spaceId}
+                  onValueChange={(value) => handleInputChange("spaceId", value)}
                   required
                 >
                   <SelectTrigger className="w-full bg-background text-white border-border">
-                    <SelectValue placeholder="Select Holding Institution" />
+                    <SelectValue placeholder="Select Space" />
                   </SelectTrigger>
                   <SelectContent className="w-full bg-background text-white border-border">
-                    {institutions.data?.map((institution) => (
-                      <SelectItem key={institution._id} value={institution._id}>
-                        {institution.institutionName}
+                    {spaces.data?.map((space) => (
+                      <SelectItem key={space._id} value={space._id}>
+                        {space.spaceName}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -241,7 +235,7 @@ export default function Page() {
                     onChange={(e) =>
                       handleInputChange("assetName", e.target.value)
                     }
-                    placeholder="Enter asset name"
+                    placeholder="e.g. Lumpsum Deposit 1"
                     className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                     required
                   />
@@ -256,7 +250,7 @@ export default function Page() {
                     onChange={(e) =>
                       handleInputChange("identifier", e.target.value)
                     }
-                    placeholder="Enter unique identifier"
+                    placeholder="e.g. 7788"
                     className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                     required
                   />

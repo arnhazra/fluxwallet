@@ -32,7 +32,7 @@ export function UserNav() {
         </Avatar>
       </DropdownMenuTrigger>
       <DropdownMenuContent
-        className="w-56 bg-background border-border text-white"
+        className="w-56 bg-background border-border text-white rounded-lg"
         align="end"
         forceMount
       >
@@ -44,8 +44,8 @@ export function UserNav() {
         </DropdownMenuLabel>
         <DropdownMenuSeparator className="bg-neutral-800" />
         <DropdownMenuGroup>
-          <Link href="/settings/user">
-            <DropdownMenuItem>Settings</DropdownMenuItem>
+          <Link href="/account">
+            <DropdownMenuItem>Account</DropdownMenuItem>
           </Link>
         </DropdownMenuGroup>
         <DropdownMenuItem onClick={signOut}>Sign out</DropdownMenuItem>

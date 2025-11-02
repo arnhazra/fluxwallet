@@ -13,7 +13,7 @@ type UserContextInterface = readonly [UserState, Dispatcher]
 const initialState: UserState = {
   user: {
     _id: "",
-    activityLog: true,
+    analyticsData: true,
     createdAt: "",
     email: "",
     name: "",

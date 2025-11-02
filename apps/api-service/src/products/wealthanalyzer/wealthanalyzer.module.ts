@@ -1,6 +1,6 @@
 import { Module } from "@nestjs/common"
 import { AssetModule } from "./asset/asset.module"
-import { InstitutionModule } from "./institution/institution.module"
+import { SpaceModule } from "./space/space.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { config } from "@/config"
 import { ProductsDbConnectionMap } from "@/shared/constants/db-connection.map"
@@ -11,7 +11,7 @@ import { ProductsDbConnectionMap } from "@/shared/constants/db-connection.map"
       config.PRODUCTS_DATABASE_URI,
       ProductsDbConnectionMap.WealthAnalyzer
     ),
-    InstitutionModule,
+    SpaceModule,
     AssetModule,
   ],
 })

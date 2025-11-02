@@ -28,7 +28,7 @@ export default function Page() {
     method: HTTPMethods.GET,
   })
 
-  const renderProductCards = () => {
+  const renderProducts = () => {
     if (!data?.products) return null
 
     const searchPattern = new RegExp(searchKeyword, "i")
@@ -71,7 +71,7 @@ export default function Page() {
       <StatCardStack />
       <section>
         <div className="mx-auto grid justify-center gap-4 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-4">
-          {renderProductCards()}
+          {renderProducts()}
         </div>
       </section>
     </div>
