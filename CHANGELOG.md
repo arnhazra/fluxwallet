@@ -7,6 +7,7 @@
 - Added home button beside sidebar for easier navigation between products and start page
 - Rebranded Fin News to Finance News
 - Added searchbar to Finance News
+- Redesigned settings page
 
 ## v2.0
 
