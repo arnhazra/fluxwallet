@@ -10,7 +10,7 @@ interface GenericToolReq {
 }
 
 @Injectable()
-export class SummarizeTools {
+export class SummarizeAgent {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
   public getSpaceTool = tool(

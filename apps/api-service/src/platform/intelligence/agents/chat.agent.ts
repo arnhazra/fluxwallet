@@ -10,38 +10,10 @@ import { EventEmitter2 } from "@nestjs/event-emitter"
 import { z } from "zod"
 import { Goal } from "@/products/wealthgoal/goal/schemas/goal.schema"
 import { nlDate } from "@/shared/utils/nl-date"
-import { RedisService } from "@/shared/redis/redis.service"
 
 @Injectable()
-export class ChatTools {
-  constructor(
-    private readonly eventEmitter: EventEmitter2,
-    private readonly redisService: RedisService
-  ) {}
-
-  public getProductsTool = tool(
-    async () => {
-      const data = await this.redisService.get("product-config")
-      return JSON.stringify(data)
-    },
-    {
-      name: "get_procucts",
-      description: "Get product list inside platform",
-      schema: z.object({}),
-    }
-  )
-
-  public getSolutionsTool = tool(
-    async () => {
-      const data = await this.redisService.get("solution-config")
-      return JSON.stringify(data)
-    },
-    {
-      name: "get_solutions",
-      description: "Find solutions provided by the platform",
-      schema: z.object({}),
-    }
-  )
+export class ChatAgent {
+  constructor(private readonly eventEmitter: EventEmitter2) {}
 
   public getAssetTypesTool = tool(
     async () => {

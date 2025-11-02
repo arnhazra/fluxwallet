@@ -74,7 +74,7 @@ export default function Page() {
 
       if (!threadId) {
         setThreadId(res.threadId)
-        router.replace(`/products/intelligence?threadId=${res.threadId}`)
+        router.replace(`/intelligence?threadId=${res.threadId}`)
       }
 
       setMessages((prevMessages) => [...prevMessages, ""])

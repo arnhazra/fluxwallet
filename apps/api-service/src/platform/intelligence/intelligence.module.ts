@@ -9,10 +9,11 @@ import { IntelligenceRepository } from "./intelligence.repository"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { FetchThreadByIdQueryHandler } from "./queries/handler/fetch-thread-by-id.handler"
 import { HttpModule } from "@nestjs/axios"
-import { IntelligenceStrategy } from "./intelligence.strategy"
-import { ChatTools } from "./tools/chat.tool"
+import { ChatAgent } from "./agents/chat.agent"
 import { config } from "@/config"
-import { SummarizeTools } from "./tools/summarize.tool"
+import { SummarizeAgent } from "./agents/summarize.agent"
+import { SummarizerStrategy } from "./strategies/summarizer.strategy"
+import { ChatStrategy } from "./strategies/chat.strategy"
 
 @Module({
   imports: [
@@ -31,9 +32,10 @@ import { SummarizeTools } from "./tools/summarize.tool"
   providers: [
     IntelligenceService,
     IntelligenceRepository,
-    IntelligenceStrategy,
-    ChatTools,
-    SummarizeTools,
+    SummarizerStrategy,
+    ChatStrategy,
+    SummarizeAgent,
+    ChatAgent,
     CreateThreadCommandHandler,
     FetchThreadByIdQueryHandler,
   ],

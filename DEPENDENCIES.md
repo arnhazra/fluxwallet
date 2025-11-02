@@ -16,6 +16,7 @@
 - rxjs: Library for reactive programming, enabling asynchronous programming with observable sequences.
 - stripe: Payment processing library for integrating Stripe payments into web applications.
 - chrono-node: Natural language date processor for nodejs.
+- @toon-format/toon: Token oriented object notation language for better readability for LLMs.
 
 - @mswjs/interceptors: Global interceptors to intercept fetch request & response.
 - @radix-ui: Collection of UI components for React applications, providing accessible and customizable UI elements.
