@@ -282,7 +282,7 @@ export function EntityCard<T extends keyof EntityMap>({
             <Button
               variant="default"
               asChild
-              className="w-full gap-2 bg-border hover:bg-border"
+              className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
             >
               <Link
                 href={(entity as Article).url ?? ""}
@@ -298,7 +298,7 @@ export function EntityCard<T extends keyof EntityMap>({
         <Show condition={entityType === EntityType.SPACE}>
           <Button
             variant="default"
-            className="w-full gap-2 bg-border hover:bg-border"
+            className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
             onClick={(): void =>
               router.push(
                 `/products/wealthanalyzer/space/${(entity as Space)._id}`
@@ -322,7 +322,7 @@ export function EntityCard<T extends keyof EntityMap>({
           >
             <Button
               variant="default"
-              className="w-full gap-2 bg-border hover:bg-border"
+              className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
             >
               View Details
               <Eye className="h-4 w-4" />
