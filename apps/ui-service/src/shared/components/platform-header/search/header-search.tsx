@@ -77,7 +77,7 @@ export default function HeaderSearch() {
               <Input
                 name="q"
                 type="search"
-                placeholder={`What ${getSearchLabel(pathName) ?? ""} can I help you find?`}
+                placeholder={`What ${getSearchLabel(pathName) ?? ""} are you looking for?`}
                 className={cn(
                   "w-full rounded-full bg-neutral-800 py-2 pl-9 pr-3 text-sm text-white placeholder:text-neutral-400 focus-visible:ring-0 focus-visible:ring-neutral-900",
                   "pointer-events-auto",
