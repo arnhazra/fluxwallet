@@ -137,11 +137,6 @@ export function EntityCard<T extends keyof EntityMap>({
         setEnytityBadgeText((entity as Article).source?.name || "NEWS")
         setEntityTitle((entity as Article).title ?? "")
         setEntityDescription((entity as Article).description || null)
-        setIdentifier((entity as Goal)._id)
-        setValuation({
-          valuationHeader: "Goal",
-          valuationAmount: (entity as Goal).goalAmount,
-        })
         break
       default:
         break
@@ -231,12 +226,12 @@ export function EntityCard<T extends keyof EntityMap>({
         </div>
       </CardHeader>
       <CardContent>
-        <Show condition={!!entityDescription}>
+        <Show condition={entityType === EntityType.NEWS}>
           <p className="text-sm line-clamp-3 mt-2 text-neutral-300">
             {entityDescription || "No description available"}
           </p>
         </Show>
-        <Show condition={!entityDescription}>
+        <Show condition={!(entityType === EntityType.NEWS)}>
           <div className="space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-sm text-neutral-300">Identifier</span>

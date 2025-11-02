@@ -6,6 +6,7 @@
 - Rebranded Activity Log to Analytics & Added Anonymous Analytics Support
 - Added home button beside sidebar for easier navigation between products and start page
 - Rebranded Fin News to Finance News
+- Added searchbar to Finance News
 
 ## v2.0
 
