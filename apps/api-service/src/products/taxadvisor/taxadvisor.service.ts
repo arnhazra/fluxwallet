@@ -62,8 +62,8 @@ export class TaxAdvisorService {
       ).shift()
 
       const args: TaxAdvisorStrategyType = {
-        temperature: 1.0,
-        topP: 1.0,
+        temperature: 0.8,
+        topP: 0.8,
         thread,
         prompt,
         threadId,

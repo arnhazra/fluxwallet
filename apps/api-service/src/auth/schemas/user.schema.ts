@@ -27,7 +27,7 @@ export class User extends Document {
   reduceCarbonEmissions: boolean
 
   @Prop({ type: Boolean, default: true })
-  activityLog: boolean
+  analyticsData: boolean
 
   @Prop({ type: Boolean, default: true })
   hasTrial: boolean

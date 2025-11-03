@@ -11,8 +11,10 @@ export class FindGoalsByUserQueryHandler
 
   async execute(query: FindGoalsByUserQuery) {
     const { userId } = query
-    return await this.repository.find({
-      userId: objectId(userId),
-    })
+
+    return this.repository.aggregate([
+      { $match: { userId: objectId(userId) } },
+      { $sort: { goalDate: 1 } },
+    ])
   }
 }

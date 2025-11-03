@@ -30,7 +30,7 @@ import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import {
   Asset,
   AssetType,
-  Institution,
+  Space,
   RecurringFrequency,
 } from "@/shared/constants/types"
 import useQuery from "@/shared/hooks/use-query"
@@ -40,7 +40,7 @@ import Loading from "@/app/loading"
 import { formatDate } from "@/shared/lib/format-date"
 
 interface AssetFormData {
-  institutionId: string
+  spaceId: string
   assetType: AssetType | ""
   assetName: string
   identifier: string
@@ -88,7 +88,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   })
 
   const [formData, setFormData] = useState<AssetFormData | null>({
-    institutionId: "",
+    spaceId: "",
     assetType: "",
     assetName: "",
     identifier: "",
@@ -105,9 +105,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     }
   }, [asset.data])
 
-  const institutions = useQuery<Institution[]>({
-    queryKey: ["get-institutions-build-asset"],
-    queryUrl: endPoints.institution,
+  const spaces = useQuery<Space[]>({
+    queryKey: ["get-spaces-build-asset"],
+    queryUrl: endPoints.space,
     method: HTTPMethods.GET,
   })
 
@@ -206,21 +206,21 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
               <div className="space-y-2">
-                <Label htmlFor="institutionId" className="text-neutral-200">
-                  Select Holding Institution
+                <Label htmlFor="spaceId" className="text-neutral-200">
+                  Select Space
                 </Label>
-                <Select value={formData?.institutionId} disabled required>
+                <Select value={formData?.spaceId} disabled required>
                   <SelectTrigger className="w-full bg-background text-white border-border">
-                    <SelectValue placeholder="Select Holding Institution" />
+                    <SelectValue placeholder="Select  Space" />
                   </SelectTrigger>
                   <SelectContent className="w-full bg-background text-white border-border">
-                    {institutions.data?.map((institution) => (
+                    {spaces.data?.map((space) => (
                       <SelectItem
-                        key={institution._id}
-                        value={institution._id}
+                        key={space._id}
+                        value={space._id}
                         className="text-neutral-100 focus:bg-neutral-700"
                       >
-                        {institution.institutionName}
+                        {space.spaceName}
                       </SelectItem>
                     ))}
                   </SelectContent>
@@ -260,7 +260,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     onChange={(e) =>
                       handleInputChange("assetName", e.target.value)
                     }
-                    placeholder="Enter asset name"
+                    placeholder="e.g. Lumpsum Deposit 1"
                     className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                     required
                   />
@@ -275,7 +275,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     onChange={(e) =>
                       handleInputChange("identifier", e.target.value)
                     }
-                    placeholder="Enter unique identifier"
+                    placeholder="e.g 7788"
                     className="w-full bg-background text-white border-border focus:border-primary focus:ring-0"
                     required
                   />

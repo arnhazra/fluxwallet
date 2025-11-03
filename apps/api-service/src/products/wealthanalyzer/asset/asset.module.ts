@@ -7,11 +7,11 @@ import { ProductsDbConnectionMap } from "@/shared/constants/db-connection.map"
 import { AssetRepository } from "./asset.repository"
 import { CreateAssetCommandHandler } from "./commands/handler/create-asset.handler"
 import { DeleteAssetCommandHandler } from "./commands/handler/delete-asset.handler"
-import { FindAssetsByInstitutionQueryHandler } from "./queries/handler/find-assets-by-institution.handler"
 import { FindAssetByIdQueryHandler } from "./queries/handler/find-asset-by-id.handler"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { UpdateAssetCommandHandler } from "./commands/handler/update-asset.handler"
 import { FindAssetsByUserQueryHandler } from "./queries/handler/find-assets-by-user.handler"
+import { FindAssetsBySpaceQueryHandler } from "./queries/handler/find-assets-by-space.handler"
 
 @Module({
   imports: [
@@ -28,7 +28,7 @@ import { FindAssetsByUserQueryHandler } from "./queries/handler/find-assets-by-u
     CreateAssetCommandHandler,
     UpdateAssetCommandHandler,
     DeleteAssetCommandHandler,
-    FindAssetsByInstitutionQueryHandler,
+    FindAssetsBySpaceQueryHandler,
     FindAssetsByUserQueryHandler,
     FindAssetByIdQueryHandler,
   ],

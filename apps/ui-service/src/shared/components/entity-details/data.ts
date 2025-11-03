@@ -3,13 +3,14 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 export const excludedKeys = [
   "_id",
   "userId",
-  "institutionId",
+  "spaceId",
   "assetType",
   "assetName",
   "createdAt",
   "isMaturityApproaching",
   "isMatured",
   "debtPurpose",
+  "analyticsTrend",
 ]
 
 export const amountKeys = [

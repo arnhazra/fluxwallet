@@ -50,18 +50,14 @@ export class AuthGuard implements CanActivate {
         if (!userResponse || !userResponse.length) {
           throw new UnauthorizedException(statusMessages.unauthorized)
         } else {
-          const { activityLog, role } = userResponse.shift()
+          const { analyticsData, role } = userResponse.shift()
           request.user = { userId, role }
-
-          if (activityLog) {
-            const { method, url: apiUri } = request
-            this.eventEmitter.emit(EventMap.CreateActivity, {
-              userId,
-              method,
-              apiUri,
-            })
-          }
-
+          const { method, url: apiUri } = request
+          this.eventEmitter.emit(EventMap.CreateAnalytics, {
+            userId: analyticsData ? userId : null,
+            method,
+            apiUri,
+          })
           return true
         }
       }
@@ -83,17 +79,14 @@ export class AuthGuard implements CanActivate {
           EventMap.GetUserDetails,
           { _id: userId }
         )
-        const { activityLog, email, role } = user?.shift()
+        const { analyticsData, email, role } = user?.shift()
         request.user = { userId, role }
-
-        if (activityLog) {
-          const { method, url: apiUri } = request
-          this.eventEmitter.emit(EventMap.CreateActivity, {
-            userId,
-            method,
-            apiUri,
-          })
-        }
+        const { method, url: apiUri } = request
+        this.eventEmitter.emit(EventMap.CreateAnalytics, {
+          userId: analyticsData ? userId : null,
+          method,
+          apiUri,
+        })
 
         const tokenPayload = {
           id: userId,

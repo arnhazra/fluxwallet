@@ -6,20 +6,16 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import {
-  Article,
-  Asset,
-  Debt,
-  Goal,
-  Institution,
-} from "@/shared/constants/types"
+import { Article, Asset, Debt, Goal, Space } from "@/shared/constants/types"
 import {
   Banknote,
   Building,
   CreditCard,
   ExternalLink,
   Eye,
+  EyeIcon,
   GoalIcon,
+  HistoryIcon,
   Newspaper,
   OctagonAlert,
   Plus,
@@ -48,7 +44,7 @@ import {
 
 const entityIconMap = {
   [EntityType.ASSET]: <Banknote className="h-4 w-4" />,
-  [EntityType.INSTITUTION]: <Building className="h-4 w-4" />,
+  [EntityType.SPACE]: <Building className="h-4 w-4" />,
   [EntityType.DEBT]: <CreditCard className="h-4 w-4" />,
   [EntityType.GOAL]: <GoalIcon className="h-4 w-4" />,
   [EntityType.NEWS]: <Newspaper className="h-4 w-4" />,
@@ -66,13 +62,13 @@ export function EntityCard<T extends keyof EntityMap>({
   const [{ user }] = useUserContext()
   const router = useRouter()
   const [entityBadgeText, setEnytityBadgeText] = useState("")
-  const [articleImageErr, setArticleImageErr] = useState(false)
+  const [articleImageError, setArticleImageError] = useState(false)
   const [enityTitle, setEntityTitle] = useState("")
   const [entityDescription, setEntityDescription] = useState<string | null>(
     null
   )
   const [identifier, setIdentifier] = useState("")
-  const [formattedDate, setFormattedDate] = useState("")
+  const [subHeader, setSubHeader] = useState("")
   const [valuation, setValuation] = useState<{
     valuationHeader: string
     valuationAmount: number | null | undefined
@@ -82,7 +78,7 @@ export function EntityCard<T extends keyof EntityMap>({
   })
 
   const handleArticleImageError = () => {
-    setArticleImageErr(true)
+    setArticleImageError(true)
   }
 
   useEffect(() => {
@@ -92,17 +88,24 @@ export function EntityCard<T extends keyof EntityMap>({
             addSuffix: true,
           })
         : null
-      setFormattedDate(date ?? "")
+      setSubHeader(date ?? "")
     } else {
-      const date = formatDistanceToNow(new Date((entity as Asset).createdAt), {
-        addSuffix: true,
-      })
-      setFormattedDate(date)
+      const analyticsTrend = (entity as Asset).analyticsTrend
+      setSubHeader(analyticsTrend?.toString() ?? "0")
     }
   }, [entity])
 
   useEffect(() => {
     switch (entityType) {
+      case EntityType.SPACE:
+        setEnytityBadgeText("SPACE")
+        setEntityTitle((entity as Space).spaceName)
+        setIdentifier((entity as Space)._id)
+        setValuation({
+          valuationHeader: "Present Valuation",
+          valuationAmount: (entity as Space).presentValuation,
+        })
+        break
       case EntityType.ASSET:
         setEnytityBadgeText((entity as Asset).assetType.replace("_", " "))
         setEntityTitle((entity as Asset).assetName)
@@ -110,15 +113,6 @@ export function EntityCard<T extends keyof EntityMap>({
         setValuation({
           valuationHeader: "Present Valuation",
           valuationAmount: (entity as Asset).presentValuation,
-        })
-        break
-      case EntityType.INSTITUTION:
-        setEnytityBadgeText((entity as Institution).institutionType)
-        setEntityTitle((entity as Institution).institutionName)
-        setIdentifier((entity as Institution)._id)
-        setValuation({
-          valuationHeader: "Present Valuation",
-          valuationAmount: (entity as Institution).presentValuation,
         })
         break
       case EntityType.DEBT:
@@ -132,7 +126,7 @@ export function EntityCard<T extends keyof EntityMap>({
         break
       case EntityType.GOAL:
         setEnytityBadgeText("GOAL")
-        setEntityTitle(formatDate((entity as Goal).goalDate))
+        setEntityTitle(formatDate((entity as Goal).goalDate, false))
         setIdentifier((entity as Goal)._id)
         setValuation({
           valuationHeader: "Goal",
@@ -143,11 +137,6 @@ export function EntityCard<T extends keyof EntityMap>({
         setEnytityBadgeText((entity as Article).source?.name || "NEWS")
         setEntityTitle((entity as Article).title ?? "")
         setEntityDescription((entity as Article).description || null)
-        setIdentifier((entity as Goal)._id)
-        setValuation({
-          valuationHeader: "Goal",
-          valuationAmount: (entity as Goal).goalAmount,
-        })
         break
       default:
         break
@@ -159,7 +148,7 @@ export function EntityCard<T extends keyof EntityMap>({
       <div className="relative aspect-video overflow-hidden bg-muted rounded-t-3xl">
         <Show condition={entityType === EntityType.NEWS}>
           <Show
-            condition={!!(entity as Article).urlToImage && !articleImageErr}
+            condition={!!(entity as Article).urlToImage && !articleImageError}
             fallback={
               <img
                 src={entityImageMap[EntityType.NEWS]}
@@ -237,12 +226,12 @@ export function EntityCard<T extends keyof EntityMap>({
         </div>
       </CardHeader>
       <CardContent>
-        <Show condition={!!entityDescription}>
+        <Show condition={entityType === EntityType.NEWS}>
           <p className="text-sm line-clamp-3 mt-2 text-neutral-300">
             {entityDescription || "No description available"}
           </p>
         </Show>
-        <Show condition={!entityDescription}>
+        <Show condition={!(entityType === EntityType.NEWS)}>
           <div className="space-y-2">
             <div className="flex justify-between items-center">
               <span className="text-sm text-neutral-300">Identifier</span>
@@ -265,14 +254,24 @@ export function EntityCard<T extends keyof EntityMap>({
         </Show>
         <div className="flex justify-between items-center mt-4">
           <div className="flex items-center justify-between text-sm text-muted-foreground">
-            {formattedDate && <span>{formattedDate}</span>}
+            {subHeader && (
+              <span className="flex gap-2">
+                <Show
+                  condition={entityType !== EntityType.NEWS}
+                  fallback={<HistoryIcon className="h-3 w-3 mt-1" />}
+                >
+                  <EyeIcon className="h-3 w-3 mt-1" />
+                </Show>
+                {subHeader}
+              </span>
+            )}
           </div>
           <Show
             condition={entityType === EntityType.NEWS}
             fallback={
               <Summarizer
                 entityType={entityType}
-                entityId={(entity as Asset | Debt | Institution | Goal)._id}
+                entityId={(entity as Asset | Debt | Space | Goal)._id}
               />
             }
           >
@@ -293,7 +292,7 @@ export function EntityCard<T extends keyof EntityMap>({
             <Button
               variant="default"
               asChild
-              className="w-full gap-2 bg-border hover:bg-border"
+              className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
             >
               <Link
                 href={(entity as Article).url ?? ""}
@@ -306,13 +305,13 @@ export function EntityCard<T extends keyof EntityMap>({
             </Button>
           )}
         </Show>
-        <Show condition={entityType === EntityType.INSTITUTION}>
+        <Show condition={entityType === EntityType.SPACE}>
           <Button
             variant="default"
-            className="w-full gap-2 bg-border hover:bg-border"
+            className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
             onClick={(): void =>
               router.push(
-                `/products/wealthanalyzer/institution/${(entity as Institution)._id}`
+                `/products/wealthanalyzer/space/${(entity as Space)._id}`
               )
             }
           >
@@ -333,7 +332,7 @@ export function EntityCard<T extends keyof EntityMap>({
           >
             <Button
               variant="default"
-              className="w-full gap-2 bg-border hover:bg-border"
+              className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
             >
               View Details
               <Eye className="h-4 w-4" />

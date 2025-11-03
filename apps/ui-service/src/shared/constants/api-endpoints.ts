@@ -10,7 +10,6 @@ export const endPoints = {
   signOut: `${apiHost}/auth/signout`,
   updateAttribute: `${apiHost}/auth/attribute`,
   // Platform Service
-  activityTrends: `${apiHost}/activity/trends`,
   createCheckoutSession: `${apiHost}/subscription/checkout`,
   subscribe: `${apiHost}/subscription/subscribe`,
   getProductConfig: `${apiHost}/config/product-config`,
@@ -18,10 +17,10 @@ export const endPoints = {
   getSubscriptionConfig: `${apiHost}/config/subscription-config`,
   intelligence: `${apiHost}/intelligence`,
   // Products Service
-  institution: `${apiHost}/institution`,
+  space: `${apiHost}/space`,
   asset: `${apiHost}/asset`,
   debt: `${apiHost}/debt`,
   goal: `${apiHost}/goal`,
   taxAdvisor: `${apiHost}/taxadvisor`,
-  finNews: `${apiHost}/finnews`,
+  financeNews: `${apiHost}/financenews`,
 }

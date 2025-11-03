@@ -1,9 +1,3 @@
-export enum InstitutionType {
-  BANK = "BANK",
-  GOVERNMENT = "GOVERNMENT",
-  OTHER = "OTHER",
-}
-
 export enum AssetType {
   LUMPSUM_DEPOSIT = "LUMPSUM_DEPOSIT",
   RECURRING_DEPOSIT = "RECURRING_DEPOSIT",

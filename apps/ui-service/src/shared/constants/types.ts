@@ -1,11 +1,5 @@
 import { Currency } from "country-code-enum"
 
-export enum InstitutionType {
-  BANK = "BANK",
-  GOVERNMENT = "GOVERNMENT",
-  OTHER = "OTHER",
-}
-
 export enum AssetType {
   LUMPSUM_DEPOSIT = "LUMPSUM_DEPOSIT",
   RECURRING_DEPOSIT = "RECURRING_DEPOSIT",
@@ -34,7 +28,7 @@ export type User = {
   baseCurrency: Currency
   avatar: string | null | undefined
   reduceCarbonEmissions: boolean
-  activityLog: boolean
+  analyticsData: boolean
   hasTrial: boolean
   createdAt: string
 }
@@ -54,10 +48,6 @@ export type Subscription = {
   isActive: boolean
 }
 
-export type ActivityTrends = {
-  totalUsage: number
-}
-
 export type Thread = {
   _id: string
   threadId: string
@@ -67,19 +57,19 @@ export type Thread = {
   createdAt: string
 }
 
-export type Institution = {
+export type Space = {
   _id: string
   userId: string
-  institutionName: string
+  spaceName: string
   presentValuation: number | null | undefined
-  institutionType: InstitutionType
   createdAt: string
+  analyticsTrend: string | number | null | undefined
 }
 
 export type Asset = {
   _id: string // COMMON
   userId: string // COMMON
-  institutionId: string // COMMON
+  spaceId: string // COMMON
   assetType: AssetType // COMMON
   assetName: string // COMMON
   identifier: string // COMMON
@@ -97,6 +87,7 @@ export type Asset = {
   currentValuation?: number // LIQUID, RETIREMENT, REAL_ESTATE, METAL, OTHER
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
+  analyticsTrend: string | number | null | undefined
 }
 
 export type Debt = {
@@ -120,6 +111,7 @@ export type Debt = {
   nextEmiDate: string
   isMaturityApproaching: boolean
   isMatured: boolean
+  analyticsTrend: string | number | null | undefined
 }
 
 export type Goal = {
@@ -128,6 +120,7 @@ export type Goal = {
   goalDate: Date
   goalAmount: number
   createdAt: string
+  analyticsTrend: string | number | null | undefined
 }
 
 export type Valuation = {
