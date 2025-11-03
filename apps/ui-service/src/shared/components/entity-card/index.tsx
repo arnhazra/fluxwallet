@@ -13,7 +13,9 @@ import {
   CreditCard,
   ExternalLink,
   Eye,
+  EyeIcon,
   GoalIcon,
+  HistoryIcon,
   Newspaper,
   OctagonAlert,
   Plus,
@@ -60,13 +62,13 @@ export function EntityCard<T extends keyof EntityMap>({
   const [{ user }] = useUserContext()
   const router = useRouter()
   const [entityBadgeText, setEnytityBadgeText] = useState("")
-  const [articleImageErr, setArticleImageErr] = useState(false)
+  const [articleImageError, setArticleImageError] = useState(false)
   const [enityTitle, setEntityTitle] = useState("")
   const [entityDescription, setEntityDescription] = useState<string | null>(
     null
   )
   const [identifier, setIdentifier] = useState("")
-  const [formattedDate, setFormattedDate] = useState("")
+  const [subHeader, setSubHeader] = useState("")
   const [valuation, setValuation] = useState<{
     valuationHeader: string
     valuationAmount: number | null | undefined
@@ -76,7 +78,7 @@ export function EntityCard<T extends keyof EntityMap>({
   })
 
   const handleArticleImageError = () => {
-    setArticleImageErr(true)
+    setArticleImageError(true)
   }
 
   useEffect(() => {
@@ -86,12 +88,10 @@ export function EntityCard<T extends keyof EntityMap>({
             addSuffix: true,
           })
         : null
-      setFormattedDate(date ?? "")
+      setSubHeader(date ?? "")
     } else {
-      const date = formatDistanceToNow(new Date((entity as Asset).createdAt), {
-        addSuffix: true,
-      })
-      setFormattedDate(date)
+      const analyticsTrend = (entity as Asset).analyticsTrend
+      setSubHeader(analyticsTrend?.toString() ?? "0")
     }
   }, [entity])
 
@@ -148,7 +148,7 @@ export function EntityCard<T extends keyof EntityMap>({
       <div className="relative aspect-video overflow-hidden bg-muted rounded-t-3xl">
         <Show condition={entityType === EntityType.NEWS}>
           <Show
-            condition={!!(entity as Article).urlToImage && !articleImageErr}
+            condition={!!(entity as Article).urlToImage && !articleImageError}
             fallback={
               <img
                 src={entityImageMap[EntityType.NEWS]}
@@ -254,7 +254,17 @@ export function EntityCard<T extends keyof EntityMap>({
         </Show>
         <div className="flex justify-between items-center mt-4">
           <div className="flex items-center justify-between text-sm text-muted-foreground">
-            {formattedDate && <span>{formattedDate}</span>}
+            {subHeader && (
+              <span className="flex gap-2">
+                <Show
+                  condition={entityType !== EntityType.NEWS}
+                  fallback={<HistoryIcon className="h-3 w-3 mt-1" />}
+                >
+                  <EyeIcon className="h-3 w-3 mt-1" />
+                </Show>
+                {subHeader}
+              </span>
+            )}
           </div>
           <Show
             condition={entityType === EntityType.NEWS}

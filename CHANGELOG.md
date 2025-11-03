@@ -2,6 +2,7 @@
 
 ## Version 2.1
 
+- Added analytics trend for all type of entities
 - Enhanced structure by rebranding Institutions to Spaces
 - Improved analytics capabilities with rebranded Analytics module and Anonymous Analytics support
 - Implemented improved navigation with home button integration in sidebar

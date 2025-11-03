@@ -2,15 +2,10 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { Goal, TotalDebtDetails, Valuation } from "@/shared/constants/types"
 import useQuery from "@/shared/hooks/use-query"
-import { useRouter } from "nextjs-toploader/app"
 import StatCard from "./stat-card"
 import { CalendarClock, GoalIcon, TrendingDown, TrendingUp } from "lucide-react"
-import { useUserContext } from "@/context/user.provider"
 
 export default function StatCardStack() {
-  const router = useRouter()
-  const [{ user }] = useUserContext()
-
   const { data: wealthData } = useQuery<Valuation>({
     queryKey: ["get-total-wealth"],
     queryUrl: `${endPoints.asset}/total-wealth`,
@@ -63,9 +58,9 @@ export default function StatCardStack() {
             statTitle="Goal Progress"
             statDescription={`${goalPercentage.toFixed(0)}% Complete`}
             additionalComponent={
-              <div className="w-full bg-neutral-700 rounded-full h-2">
+              <div className="w-full bg-neutral-700 rounded-sm h-2">
                 <div
-                  className="bg-primary h-2 rounded-full mt-4"
+                  className="bg-primary h-2 rounded-sm mt-4"
                   style={{ width: `${goalPercentage.toFixed(0)}%` }}
                 />
               </div>

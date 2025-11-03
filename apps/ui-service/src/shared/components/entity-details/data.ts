@@ -10,6 +10,7 @@ export const excludedKeys = [
   "isMaturityApproaching",
   "isMatured",
   "debtPurpose",
+  "analyticsTrend",
 ]
 
 export const amountKeys = [

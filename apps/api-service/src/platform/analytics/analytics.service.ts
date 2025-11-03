@@ -3,7 +3,6 @@ import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateAnalyticsCommand } from "./commands/impl/create-analytics.command"
 import { Analytics } from "./schemas/analytics.schema"
-import { GetCountDto } from "./dto/get-count.dto"
 import { GetAnalyticsQuery } from "./queries/impl/get-analytics-count.query"
 
 @Injectable()
@@ -23,10 +22,10 @@ export class AnalyticsService {
     }
   }
 
-  async getAnalyticsCount(getCountDto: GetCountDto) {
+  async getAnalyticsCount(searchKeyword: string) {
     try {
       return this.queryBus.execute<GetAnalyticsQuery, { totalUsage: number }>(
-        new GetAnalyticsQuery(getCountDto)
+        new GetAnalyticsQuery({ searchKeyword })
       )
     } catch (error) {
       throw error

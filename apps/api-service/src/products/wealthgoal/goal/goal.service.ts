@@ -9,14 +9,15 @@ import { UpdateGoalCommand } from "./commands/impl/update-goal.command"
 import { FindGoalsByUserQuery } from "./queries/impl/find-goal-by-user.query"
 import { FindGoalByIdQuery } from "./queries/impl/find-goal-by-id.query"
 import { FindNearestGoalQuery } from "./queries/impl/find-nearest-goal.query"
-import { OnEvent } from "@nestjs/event-emitter"
+import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 
 @Injectable()
 export class GoalService {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   @OnEvent(EventMap.CreateGoal)
@@ -33,8 +34,23 @@ export class GoalService {
   @OnEvent(EventMap.GetGoalList)
   async findMyGoals(userId: string) {
     try {
-      return await this.queryBus.execute<FindGoalsByUserQuery, Goal[]>(
+      const goals = await this.queryBus.execute<FindGoalsByUserQuery, Goal[]>(
         new FindGoalsByUserQuery(userId)
+      )
+
+      return await Promise.all(
+        goals.map(async (goal) => {
+          const data: { totalUsage: string | number | null | undefined } = (
+            await this.eventEmitter.emitAsync(
+              EventMap.GetAnalyticsTrend,
+              goal._id
+            )
+          ).shift()
+          return {
+            ...(goal.toObject?.() ?? goal),
+            analyticsTrend: data?.totalUsage,
+          }
+        })
       )
     } catch (error) {
       throw new Error(statusMessages.connectionError)
@@ -44,9 +60,16 @@ export class GoalService {
   @OnEvent(EventMap.GetNearestGoal)
   async findNearestGoal(userId: string) {
     try {
-      return await this.queryBus.execute<FindNearestGoalQuery, Goal>(
+      const goal = await this.queryBus.execute<FindNearestGoalQuery, Goal>(
         new FindNearestGoalQuery(userId)
       )
+      const data: { totalUsage: string | number | null | undefined } = (
+        await this.eventEmitter.emitAsync(EventMap.GetAnalyticsTrend, goal._id)
+      ).shift()
+      return {
+        ...(goal.toObject?.() ?? goal),
+        analyticsTrend: data?.totalUsage,
+      }
     } catch (error) {
       throw new Error(statusMessages.connectionError)
     }
@@ -55,9 +78,16 @@ export class GoalService {
   @OnEvent(EventMap.GetGoalDetailsById)
   async findGoalById(reqUserId: string, goalId: string) {
     try {
-      return await this.queryBus.execute<FindGoalByIdQuery, Goal>(
+      const goal = await this.queryBus.execute<FindGoalByIdQuery, Goal>(
         new FindGoalByIdQuery(reqUserId, goalId)
       )
+      const data: { totalUsage: string | number | null | undefined } = (
+        await this.eventEmitter.emitAsync(EventMap.GetAnalyticsTrend, goal._id)
+      ).shift()
+      return {
+        ...(goal.toObject?.() ?? goal),
+        analyticsTrend: data?.totalUsage,
+      }
     } catch (error) {
       throw new Error(statusMessages.connectionError)
     }

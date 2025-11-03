@@ -1,16 +1,8 @@
-import {
-  Controller,
-  Post,
-  BadRequestException,
-  Body,
-  UseGuards,
-} from "@nestjs/common"
+import { Controller, BadRequestException } from "@nestjs/common"
 import { AnalyticsService } from "./analytics.service"
 import { CreateAnalyticsDto } from "./dto/create-analytics.dto"
 import { EventMap } from "../../shared/constants/event.map"
 import { OnEvent } from "@nestjs/event-emitter"
-import { GetCountDto } from "./dto/get-count.dto"
-import { AuthGuard } from "@/auth/auth.guard"
 import { statusMessages } from "@/shared/constants/status-messages"
 
 @Controller("analytics")
@@ -22,11 +14,10 @@ export class AnalyticsController {
     this.analyticsService.createAnalytics(createAnalyticsDto)
   }
 
-  @UseGuards(AuthGuard)
-  @Post("trends")
-  async getAnalyticsCount(@Body() getCountDto: GetCountDto) {
+  @OnEvent(EventMap.GetAnalyticsTrend)
+  async getAnalyticsCount(searchKeyword: string) {
     try {
-      return await this.analyticsService.getAnalyticsCount(getCountDto)
+      return await this.analyticsService.getAnalyticsCount(searchKeyword)
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }

@@ -98,6 +98,7 @@ export default function Page() {
 
   return (
     <div className="w-[100%] sm:w-[90%] md:w-[75%] lg:w-[60%] mx-auto">
+      <p className="mt-4 mb-4 text-2xl">Your Account</p>
       <section className="grid gap-2 mb-2" id="user-details-section">
         <SectionPanel
           icon={

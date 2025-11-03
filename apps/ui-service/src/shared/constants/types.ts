@@ -48,10 +48,6 @@ export type Subscription = {
   isActive: boolean
 }
 
-export type AnalyticsTrend = {
-  totalUsage: number
-}
-
 export type Thread = {
   _id: string
   threadId: string
@@ -67,6 +63,7 @@ export type Space = {
   spaceName: string
   presentValuation: number | null | undefined
   createdAt: string
+  analyticsTrend: string | number | null | undefined
 }
 
 export type Asset = {
@@ -90,6 +87,7 @@ export type Asset = {
   currentValuation?: number // LIQUID, RETIREMENT, REAL_ESTATE, METAL, OTHER
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
+  analyticsTrend: string | number | null | undefined
 }
 
 export type Debt = {
@@ -113,6 +111,7 @@ export type Debt = {
   nextEmiDate: string
   isMaturityApproaching: boolean
   isMatured: boolean
+  analyticsTrend: string | number | null | undefined
 }
 
 export type Goal = {
@@ -121,6 +120,7 @@ export type Goal = {
   goalDate: Date
   goalAmount: number
   createdAt: string
+  analyticsTrend: string | number | null | undefined
 }
 
 export type Valuation = {

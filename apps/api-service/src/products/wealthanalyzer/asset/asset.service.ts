@@ -9,7 +9,7 @@ import { CreateAssetCommand } from "./commands/impl/create-asset.command"
 import { CreateAssetRequestDto } from "./dto/request/create-asset.request.dto"
 import { UpdateAssetCommand } from "./commands/impl/update-asset.command"
 import { FindAssetsByUserQuery } from "./queries/impl/find-assets-by-user.query"
-import { OnEvent } from "@nestjs/event-emitter"
+import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { AssetType } from "@/shared/constants/types"
 import calculateComplexValuation from "./lib/calculate-complex-valuation"
@@ -20,7 +20,8 @@ import { isMatured, isMaturityApproaching } from "./lib/maturity-calculator"
 export class AssetService {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus
+    private readonly commandBus: CommandBus,
+    private readonly eventEmitter: EventEmitter2
   ) {}
 
   async createAsset(userId: string, requestBody: CreateAssetRequestDto) {
@@ -47,11 +48,18 @@ export class AssetService {
       return await Promise.all(
         assets.map(async (asset) => {
           const valuation = await this.calculateAssetValuation(asset)
+          const data: { totalUsage: string | number | null | undefined } = (
+            await this.eventEmitter.emitAsync(
+              EventMap.GetAnalyticsTrend,
+              asset._id
+            )
+          ).shift()
           return {
             ...(asset.toObject?.() ?? asset),
             presentValuation: valuation,
             isMaturityApproaching: isMaturityApproaching(asset),
             isMatured: isMatured(asset),
+            analyticsTrend: data?.totalUsage,
           }
         })
       )
@@ -71,11 +79,18 @@ export class AssetService {
       return await Promise.all(
         assets.map(async (asset) => {
           const valuation = await this.calculateAssetValuation(asset)
+          const data: { totalUsage: string | number | null | undefined } = (
+            await this.eventEmitter.emitAsync(
+              EventMap.GetAnalyticsTrend,
+              asset._id
+            )
+          ).shift()
           return {
             ...(asset.toObject?.() ?? asset),
             presentValuation: valuation,
             isMaturityApproaching: isMaturityApproaching(asset),
             isMatured: isMatured(asset),
+            analyticsTrend: data?.totalUsage,
           }
         })
       )
@@ -92,11 +107,15 @@ export class AssetService {
       )
 
       const valuation = await this.calculateAssetValuation(asset)
+      const data: { totalUsage: string | number | null | undefined } = (
+        await this.eventEmitter.emitAsync(EventMap.GetAnalyticsTrend, asset._id)
+      ).shift()
       return {
         ...(asset.toObject?.() ?? asset),
         presentValuation: valuation,
         isMaturityApproaching: isMaturityApproaching(asset),
         isMatured: isMatured(asset),
+        analyticsTrend: data?.totalUsage,
       }
     } catch (error) {
       throw new Error(statusMessages.connectionError)
