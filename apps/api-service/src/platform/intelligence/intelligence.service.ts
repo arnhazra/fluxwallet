@@ -58,8 +58,8 @@ export class IntelligenceService {
       ).shift()
 
       const args: ChatReqParams = {
-        temperature: 1.0,
-        topP: 1.0,
+        temperature: 0.8,
+        topP: 0.8,
         thread,
         prompt,
         threadId,
@@ -93,8 +93,8 @@ export class IntelligenceService {
         newsContent,
         newsDescription,
         newsTitle,
-        temperature: 1.0,
-        topP: 1.0,
+        temperature: 0.8,
+        topP: 0.8,
         user,
       }
 
