@@ -6,7 +6,6 @@ import { createAgent } from "langchain"
 import { User } from "@/auth/schemas/user.schema"
 import { ChatAgent } from "../agents/chat.agent"
 import { RedisService } from "@/shared/redis/redis.service"
-import { encode } from "@toon-format/toon"
 
 export interface ChatReqParams {
   temperature: number
@@ -28,17 +27,14 @@ export class ChatStrategy {
     const systemInstruction = await this.redisService.get(
       "chat-system-instruction"
     )
-    const productConfig = JSON.parse(
-      await this.redisService.get("product-config")
-    )
-    const solutionConfig = JSON.parse(
-      await this.redisService.get("solution-config")
-    )
+    const productConfig = await this.redisService.get("product-config")
+    const solutionConfig = await this.redisService.get("solution-config")
+
     const content = systemInstruction
       .replaceAll("{appName}", config.APP_NAME)
-      .replaceAll("{userDetails}", encode(JSON.parse(JSON.stringify(user))))
-      .replaceAll("{productList}", encode(productConfig))
-      .replaceAll("{solutionList}", encode(solutionConfig))
+      .replaceAll("{userDetails}", JSON.stringify(user))
+      .replaceAll("{productList}", productConfig)
+      .replaceAll("{solutionList}", solutionConfig)
 
     return content
   }
