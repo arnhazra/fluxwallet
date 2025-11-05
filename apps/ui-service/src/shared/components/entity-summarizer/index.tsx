@@ -81,7 +81,7 @@ export default function Summarizer({
             <Sparkles className="h-4 w-4" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4 asset-modal">
+        <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-white">
               <IconContainer ai>

@@ -2,7 +2,8 @@
 
 ## Version 2.2 PLAN
 
-- Rebrand FinanceNews app to Discover
+- Rebranding of FinanceNews app to Discover
+- Added turn off feature for Intelligence & data usage agreement
 - Improve analytics code to have generic function that adds analytics to entities
 - Introduce ExpenseTrack app
 - Improve authentication with approval codes & better email template
