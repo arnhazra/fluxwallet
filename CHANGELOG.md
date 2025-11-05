@@ -2,8 +2,8 @@
 
 ## Version 2.2 PLAN
 
-- Improve analytics code to have generic function that adds analytics to entities
 - Rebrand FinanceNews app to Discover
+- Improve analytics code to have generic function that adds analytics to entities
 - Introduce ExpenseTrack app
 - Improve authentication with approval codes & better email template
 
