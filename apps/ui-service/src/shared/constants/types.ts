@@ -30,6 +30,7 @@ export type User = {
   reduceCarbonEmissions: boolean
   analyticsData: boolean
   hasTrial: boolean
+  useIntelligence: boolean
   createdAt: string
 }
 

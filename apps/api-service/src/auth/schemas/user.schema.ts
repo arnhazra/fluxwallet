@@ -30,6 +30,9 @@ export class User extends Document {
   analyticsData: boolean
 
   @Prop({ type: Boolean, default: true })
+  useIntelligence: boolean
+
+  @Prop({ type: Boolean, default: true })
   hasTrial: boolean
 }
 

@@ -18,6 +18,7 @@ import LoaderIcon from "../loader-icon"
 import { streamResponseText } from "@/shared/lib/stream-response"
 import IconContainer from "../icon-container"
 import { EntityType } from "../entity-card/data"
+import { useUserContext } from "@/context/user.provider"
 
 interface SummarizerProps {
   entityId: string
@@ -36,6 +37,7 @@ export default function Summarizer({
 }: SummarizerProps) {
   const [open, setOpen] = useState(false)
   const [summarizedText, setSummarizedText] = useState("")
+  const [{ user }] = useUserContext()
 
   const { data, isLoading } = useQuery<{ response: string | null | undefined }>(
     {
@@ -67,43 +69,45 @@ export default function Summarizer({
   }, [data, isLoading])
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button
-          className="text-white font-semibold ui-soft-gradient hover:opacity-90 transition"
-          variant="default"
-          size="icon"
-          title="Summarize"
-        >
-          <Sparkles className="h-4 w-4" />
-        </Button>
-      </DialogTrigger>
-      <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4 asset-modal">
-        <DialogHeader>
-          <DialogTitle className="flex items-center gap-2 text-white">
-            <IconContainer ai>
-              <Sparkles className="h-4 w-4" />
-            </IconContainer>
-            Summarizer
-          </DialogTitle>
-        </DialogHeader>
-        <div className="mt-2">
-          <Show condition={isLoading || !summarizedText}>
-            <p className="flex items-center text-md text-white">
-              <LoaderIcon />
-              Summarizing {entityType}...
-            </p>
-          </Show>
-          <Show condition={!isLoading && !!summarizedText}>
-            <MarkdownRenderer markdown={summarizedText ?? ""} />
-          </Show>
-        </div>
-        <DialogFooter>
-          <Button onClick={close} variant="secondary" className="text-black">
-            Close
+    <Show condition={user.useIntelligence}>
+      <Dialog open={open} onOpenChange={setOpen}>
+        <DialogTrigger asChild>
+          <Button
+            className="text-white font-semibold ui-soft-gradient hover:opacity-90 transition"
+            variant="default"
+            size="icon"
+            title="Summarize"
+          >
+            <Sparkles className="h-4 w-4" />
           </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
+        </DialogTrigger>
+        <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4 asset-modal">
+          <DialogHeader>
+            <DialogTitle className="flex items-center gap-2 text-white">
+              <IconContainer ai>
+                <Sparkles className="h-4 w-4" />
+              </IconContainer>
+              Summarizer
+            </DialogTitle>
+          </DialogHeader>
+          <div className="mt-2">
+            <Show condition={isLoading || !summarizedText}>
+              <p className="flex items-center text-md text-white">
+                <LoaderIcon />
+                Summarizing {entityType}...
+              </p>
+            </Show>
+            <Show condition={!isLoading && !!summarizedText}>
+              <MarkdownRenderer markdown={summarizedText ?? ""} />
+            </Show>
+          </div>
+          <DialogFooter>
+            <Button onClick={close} variant="secondary" className="text-black">
+              Close
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+    </Show>
   )
 }
