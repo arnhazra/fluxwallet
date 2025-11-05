@@ -30,5 +30,5 @@ export const createEntityUrlMap = {
   [EntityType.DEBT]: `/products/debttrack/createdebt`,
   [EntityType.SPACE]: `/products/wealthanalyzer/create/space`,
   [EntityType.GOAL]: `/products/wealthgoal/creategoal`,
-  [EntityType.NEWS]: `/products/financenews`,
+  [EntityType.NEWS]: `/products/discover`,
 }

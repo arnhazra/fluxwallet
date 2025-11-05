@@ -10,8 +10,8 @@ import { useUserContext } from "@/context/user.provider"
 export default function Page() {
   const [{ searchKeyword }] = useUserContext()
   const { data } = useQuery<FindNewsResponse>({
-    queryKey: ["finance-news"],
-    queryUrl: `${endPoints.financeNews}`,
+    queryKey: ["discover-news"],
+    queryUrl: `${endPoints.discover}`,
     method: HTTPMethods.GET,
   })
 

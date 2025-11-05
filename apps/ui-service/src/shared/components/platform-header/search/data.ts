@@ -3,7 +3,7 @@ export const searchMapByUrl = {
   "/products/wealthanalyzer/dashboard": "space",
   "/products/wealthanalyzer/space": "asset",
   "/products/debttrack/dashboard": "debt",
-  "/products/financenews": "news",
+  "/products/discover": "news",
 }
 
 export function getSearchLabel(pathName: string) {
