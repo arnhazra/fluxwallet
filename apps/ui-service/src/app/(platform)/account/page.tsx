@@ -162,7 +162,7 @@ export default function Page() {
             </IconContainer>
           }
           title="Analytics Data"
-          content="Choose whether to save the things you do. If disabled, we still collect anonymous analytics data to improve the app."
+          content="Choose whether to save the things you do. If disabled, we still collect anonymous analytics data to improve the app"
           actionComponents={[
             <Switch
               checked={user.analyticsData}
