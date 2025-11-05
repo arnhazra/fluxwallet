@@ -2,16 +2,16 @@
 
 - @aws-crypto/sha256-js: AWS Crypto library for computing SHA-256 hashes in JavaScript.
 - @langchain/openai: Langchain integration with OpenAI models for efficient indexing and querying.
-- @nestjs: Fast backend framework for Node.js to build APIs, providing a robust structure for web applications.
+- @nestjs: Fast backend framework for nodejs to build APIs, providing a robust structure for web applications.
 - class-transformer: Library for transforming plain JavaScript objects to class constructors and vice versa.
 - class-validator: Validation library for TypeScript and JavaScript that works both on the frontend and backend.
 - dotenv: Loads environment variables from a .env file, enabling configuration management.
 - googleapis: Official Google library for interacting with Google APIs, including OAuth2 for authentication and authorization.
 - jsonwebtoken: Generates and validates JSON Web Tokens (JWTs) for user authentication and authorization in web applications.
 - langchain: A data framework for connecting AI models with structured and unstructured data sources.
-- mongoose: Elegant MongoDB object modeling for Node.js, facilitating interaction with MongoDB databases.
-- nodemailer: Sends email from Node.js, allowing applications to send transactional emails.
-- pathe: Utility for working with file paths in Node.js, providing a simple API for path manipulation.
+- mongoose: Elegant MongoDB object modeling for nodejs, facilitating interaction with MongoDB databases.
+- nodemailer: Sends email from nodejs, allowing applications to send transactional emails.
+- pathe: Utility for working with file paths in nodejs, providing a simple API for path manipulation.
 - reflect-metadata: Provides metadata reflection capabilities for JavaScript.
 - rxjs: Library for reactive programming, enabling asynchronous programming with observable sequences.
 - stripe: Payment processing library for integrating Stripe payments into web applications.
@@ -23,7 +23,7 @@
 - class-variance-authority: Library for calculating variance and standard deviation in JavaScript classes.
 - clsx: Utility for constructing className strings conditionally in JavaScript and TypeScript.
 - date-fns: Lightweight JavaScript date library for parsing, validating, and formatting dates and times.
-- ky: Promise-based fetch client for the browser and Node.js, simplifying asynchronous fetch requests.
+- ky: Promise-based fetch client for the browser and nodejs, simplifying asynchronous fetch requests.
 - lucide-react: Library of SVG icon components for React applications.
 - next: Popular JS framework for building user interfaces based on React.
 - prop-types: Runtime type checking for React props, ensuring data integrity in React components.
@@ -34,8 +34,8 @@
 - tailwindcss-animate: Collection of animation utilities for Tailwind CSS, enhancing UI animations in web applications.
 - source-map-support: Adds source map support for stack traces, aiding in debugging TypeScript and JavaScript code.
 - ts-loader: TypeScript loader for webpack, enabling TypeScript compilation in webpack projects.
-- ts-node: TypeScript execution and REPL for Node.js, allowing execution of TypeScript files directly.
-- tsconfig-paths: TypeScript path mapping plugin for Node.js, simplifying module resolution with TypeScript.
+- ts-node: TypeScript execution and REPL for nodejs, allowing execution of TypeScript files directly.
+- tsconfig-paths: TypeScript path mapping plugin for nodejs, simplifying module resolution with TypeScript.
 - typescript: Typed superset of JavaScript that compiles to plain JavaScript, providing type safety and modern language features.
 - concurrently: Utility for running multiple commands concurrently, simplifying development workflows.
 - tailwindcss: Utility-first CSS framework for creating responsive and scalable UIs.
