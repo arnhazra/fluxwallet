@@ -63,6 +63,7 @@ export type Space = {
   userId: string
   spaceName: string
   presentValuation: number | null | undefined
+  assetCount: number | null | undefined
   createdAt: string
   analyticsTrend: string | number | null | undefined
 }

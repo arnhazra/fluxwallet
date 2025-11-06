@@ -8,7 +8,6 @@ export enum EventMap {
   ActivateTrial = "activateTrial",
   GetTotalWealth = "getTotalWealth",
   GetTotalDebt = "getTotalDebt",
-  FindSpaceByName = "findSpaceByName",
   CreateSpace = "createSpace",
   GetSpaceList = "getSpaceList",
   GetAssetList = "getAssetList",

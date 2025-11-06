@@ -209,7 +209,7 @@ export class AssetService {
         assets.map((asset) => this.calculateAssetValuation(asset))
       )
       const total = valuations.reduce((sum, val) => sum + val, 0)
-      return total
+      return { total, assetCount: assets ? assets.length : 0 }
     } catch (error) {
       throw new Error()
     }

@@ -71,7 +71,7 @@ export class ChatAgent {
       try {
         const space: any = (
           await this.eventEmitter.emitAsync(
-            EventMap.FindSpaceByName,
+            EventMap.GetSpaceList,
             userId,
             spaceName
           )

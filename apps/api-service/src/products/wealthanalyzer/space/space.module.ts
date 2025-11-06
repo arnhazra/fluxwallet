@@ -11,7 +11,6 @@ import { FindAllSpaceQueryHandler } from "./queries/handler/find-all-spaces.hand
 import { FindSpaceByIdQueryHandler } from "./queries/handler/find-space-by-id.handler"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { UpdateSpaceCommandHandler } from "./commands/handler/update-space.handler"
-import { FindSpaceByNameQueryHandler } from "./queries/handler/find-space-by-name.handler"
 import { AssetModule } from "../asset/asset.module"
 
 @Module({
@@ -32,7 +31,6 @@ import { AssetModule } from "../asset/asset.module"
     DeleteSpaceCommandHandler,
     FindAllSpaceQueryHandler,
     FindSpaceByIdQueryHandler,
-    FindSpaceByNameQueryHandler,
   ],
 })
 export class SpaceModule {}

@@ -10,7 +10,6 @@ import { CreateSpaceRequestDto } from "./dto/request/create-space.request.dto"
 import { UpdateSpaceCommand } from "./commands/impl/update-space.command"
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
-import { FindSpaceByNameQuery } from "./queries/impl/find-space-by-name.query"
 import { AssetService } from "../asset/asset.service"
 
 @Injectable()
@@ -53,7 +52,8 @@ export class SpaceService {
         ).shift()
         return {
           ...(space.toObject?.() ?? space),
-          presentValuation: valuation,
+          presentValuation: valuation.total,
+          assetCount: valuation.assetCount,
           analyticsTrend: data?.totalUsage,
         }
       })
@@ -76,28 +76,9 @@ export class SpaceService {
       ).shift()
       return {
         ...(space.toObject?.() ?? space),
-        presentValuation: valuation,
+        presentValuation: valuation.total,
+        assetCount: valuation.assetCount,
         analyticsTrend: data?.totalUsage,
-      }
-    } catch (error) {
-      throw new Error(statusMessages.connectionError)
-    }
-  }
-
-  @OnEvent(EventMap.FindSpaceByName)
-  async findSpaceByName(reqUserId: string, spaceName: string) {
-    try {
-      const space = await this.queryBus.execute<FindSpaceByNameQuery, Space>(
-        new FindSpaceByNameQuery(reqUserId, spaceName)
-      )
-
-      const valuation = await this.assetService.calculateSpaceValuation(
-        reqUserId,
-        space._id.toString()
-      )
-      return {
-        ...(space.toObject?.() ?? space),
-        presentValuation: valuation,
       }
     } catch (error) {
       throw new Error(statusMessages.connectionError)
