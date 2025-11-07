@@ -55,7 +55,6 @@ export class DebtService {
     }
   }
 
-  @OnEvent(EventMap.GetDebtDetailsById)
   async findDebtById(reqUserId: string, debtId: string) {
     try {
       const debt = await this.queryBus.execute<FindDebtByIdQuery, Debt>(

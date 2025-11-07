@@ -9,9 +9,9 @@ import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import { User } from "@/auth/schemas/user.schema"
 import { SummarizeDto } from "./dto/summarize.dto"
-import { ChatReqParams, ChatStrategy } from "./strategies/chat.strategy"
+import { ChatArgs, ChatStrategy } from "./strategies/chat.strategy"
 import {
-  SummarizeReqParams,
+  SummarizeArgs,
   SummarizerStrategy,
 } from "./strategies/summarizer.strategy"
 
@@ -57,16 +57,13 @@ export class IntelligenceService {
         })
       ).shift()
 
-      const args: ChatReqParams = {
-        temperature: 0.8,
-        topP: 0.8,
+      const args: ChatArgs = {
         thread,
         prompt,
-        threadId,
         user,
       }
 
-      const { response } = await this.chatStrategy.chatStrategy(args)
+      const { response } = await this.chatStrategy.chat(args)
       await this.commandBus.execute<CreateThreadCommand, Thread>(
         new CreateThreadCommand(String(user.id), threadId, prompt, response)
       )
@@ -78,8 +75,7 @@ export class IntelligenceService {
 
   async summarize(summarizeDto: SummarizeDto, userId: string) {
     try {
-      const { entityId, entityType, newsContent, newsDescription, newsTitle } =
-        summarizeDto
+      const { entityType, entityDetails } = summarizeDto
 
       const user: User = (
         await this.eventEmitter.emitAsync(EventMap.GetUserDetails, {
@@ -87,18 +83,13 @@ export class IntelligenceService {
         })
       ).shift()
 
-      const args: SummarizeReqParams = {
-        entityId,
+      const args: SummarizeArgs = {
         entityType,
-        newsContent,
-        newsDescription,
-        newsTitle,
-        temperature: 0.8,
-        topP: 0.8,
+        entityDetails,
         user,
       }
 
-      const { response } = await this.summarizeStrategy.summarizeStrategy(args)
+      const { response } = await this.summarizeStrategy.summarize(args)
       return { response }
     } catch (error) {
       throw error

@@ -13,9 +13,5 @@ export class SummarizeDto {
   entityType: EntityType
 
   @IsNotEmpty()
-  entityId: string
-
-  newsTitle: string | null | undefined
-  newsDescription: string | null | undefined
-  newsContent: string | null | undefined
+  entityDetails: string
 }

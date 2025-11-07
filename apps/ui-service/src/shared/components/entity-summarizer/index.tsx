@@ -21,19 +21,13 @@ import { EntityType } from "../entity-card/data"
 import { useUserContext } from "@/context/user.provider"
 
 interface SummarizerProps {
-  entityId: string
   entityType: EntityType
-  newsTitle?: string | null
-  newsDescription?: string | null
-  newsContent?: string | null
+  entityDetails: string
 }
 
-export default function Summarizer({
+export default function EntitySummarizer({
   entityType,
-  entityId,
-  newsTitle,
-  newsDescription,
-  newsContent,
+  entityDetails,
 }: SummarizerProps) {
   const [open, setOpen] = useState(false)
   const [summarizedText, setSummarizedText] = useState("")
@@ -41,15 +35,12 @@ export default function Summarizer({
 
   const { data, isLoading } = useQuery<{ response: string | null | undefined }>(
     {
-      queryKey: ["summarize", entityType, entityId, newsTitle ?? ""],
+      queryKey: ["summarize", entityType, entityDetails],
       queryUrl: `${endPoints.intelligence}/summarize`,
       method: HTTPMethods.POST,
       requestBody: {
         entityType,
-        entityId,
-        newsTitle,
-        newsDescription,
-        newsContent,
+        entityDetails,
       },
       suspense: false,
       enabled: open && !summarizedText,

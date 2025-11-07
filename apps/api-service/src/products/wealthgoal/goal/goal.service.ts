@@ -75,7 +75,6 @@ export class GoalService {
     }
   }
 
-  @OnEvent(EventMap.GetGoalDetailsById)
   async findGoalById(reqUserId: string, goalId: string) {
     try {
       const goal = await this.queryBus.execute<FindGoalByIdQuery, Goal>(

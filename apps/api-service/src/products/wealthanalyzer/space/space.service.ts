@@ -60,7 +60,6 @@ export class SpaceService {
     )
   }
 
-  @OnEvent(EventMap.GetSpaceDetailsById)
   async findSpaceById(reqUserId: string, spaceId: string) {
     try {
       const space = await this.queryBus.execute<FindSpaceByIdQuery, Space>(

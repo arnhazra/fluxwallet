@@ -11,7 +11,6 @@ import { FetchThreadByIdQueryHandler } from "./queries/handler/fetch-thread-by-i
 import { HttpModule } from "@nestjs/axios"
 import { ChatAgent } from "./agents/chat.agent"
 import { config } from "@/config"
-import { SummarizeAgent } from "./agents/summarize.agent"
 import { SummarizerStrategy } from "./strategies/summarizer.strategy"
 import { ChatStrategy } from "./strategies/chat.strategy"
 
@@ -34,7 +33,6 @@ import { ChatStrategy } from "./strategies/chat.strategy"
     IntelligenceRepository,
     SummarizerStrategy,
     ChatStrategy,
-    SummarizeAgent,
     ChatAgent,
     CreateThreadCommandHandler,
     FetchThreadByIdQueryHandler,

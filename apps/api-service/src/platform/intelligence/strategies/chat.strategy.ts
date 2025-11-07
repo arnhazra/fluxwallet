@@ -1,18 +1,16 @@
 import { Injectable } from "@nestjs/common"
 import { Thread } from "../schemas/thread.schema"
 import { config } from "@/config"
-import { ChatOpenAI } from "@langchain/openai"
-import { createAgent } from "langchain"
+import { ChatOpenAI, ChatOpenAICallOptions } from "@langchain/openai"
+import { createAgent, SystemMessage, HumanMessage, AIMessage } from "langchain"
 import { User } from "@/auth/schemas/user.schema"
 import { ChatAgent } from "../agents/chat.agent"
 import { RedisService } from "@/shared/redis/redis.service"
+import { llm } from "../llm/llm"
 
-export interface ChatReqParams {
-  temperature: number
-  topP: number
+export interface ChatArgs {
   thread: Thread[]
   prompt: string
-  threadId: string
   user: User
 }
 
@@ -24,22 +22,21 @@ export class ChatStrategy {
   ) {}
 
   private async getChatSystemInstruction(user: User) {
-    const systemInstruction = await this.redisService.get(
-      "chat-system-instruction"
-    )
+    const data = await this.redisService.get("chat-system-instruction")
     const productConfig = await this.redisService.get("product-config")
     const solutionConfig = await this.redisService.get("solution-config")
 
-    const content = systemInstruction
+    return data
       .replaceAll("{appName}", config.APP_NAME)
       .replaceAll("{userDetails}", JSON.stringify(user))
       .replaceAll("{productList}", productConfig)
       .replaceAll("{solutionList}", solutionConfig)
-
-    return content
   }
 
-  private async runChatAgent(llm: any, args: ChatReqParams) {
+  private async runChatAgent(
+    llm: ChatOpenAI<ChatOpenAICallOptions>,
+    args: ChatArgs
+  ) {
     const { thread, prompt, user } = args
     const systemInstruction = await this.getChatSystemInstruction(user)
 
@@ -64,32 +61,22 @@ export class ChatStrategy {
     })
 
     const chatHistory = thread.flatMap((t) => [
-      { role: "user", content: t.prompt },
-      { role: "assistant", content: t.response },
+      new HumanMessage(t.prompt),
+      new AIMessage(t.response),
     ])
 
     const { messages } = await chatAgent.invoke({
       messages: [
-        { role: "system", content: systemInstruction },
+        new SystemMessage(systemInstruction),
         ...chatHistory,
-        { role: "user", content: prompt },
+        new HumanMessage(prompt),
       ],
     })
 
     return messages[messages.length - 1]?.content.toString()
   }
 
-  async chatStrategy(args: ChatReqParams) {
-    const llm = new ChatOpenAI({
-      model: config.AZURE_OPENAI_BASE_MODEL,
-      temperature: args.temperature,
-      topP: args.topP,
-      apiKey: config.AZURE_OPENAI_API_KEY,
-      configuration: {
-        baseURL: config.AZURE_OPENAI_DEPLOYMENT_URI,
-        apiKey: config.AZURE_OPENAI_API_KEY,
-      },
-    })
+  async chat(args: ChatArgs) {
     const response = await this.runChatAgent(llm, args)
     return { response }
   }
