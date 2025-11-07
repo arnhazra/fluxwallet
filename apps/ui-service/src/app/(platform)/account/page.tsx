@@ -113,7 +113,7 @@ export default function Page() {
     }
   }
 
-  const viewIntelligenceDataAgreement = async () => {
+  const viewIntelligenceDataAgreement = async (from: string) => {
     const consent = await confirm({
       title: `${appName} Intelligence Data Agreement`,
       desc: `By enabling ${appName} Intelligence, you agree to allow ${appName} the system to process certain data to provide AI-powered 
@@ -124,7 +124,7 @@ export default function Page() {
       and related functionality. It is not used to build public datasets or to train unrelated models.`,
     })
 
-    if (!consent) {
+    if (from === "switch" && !consent) {
       saveIntelligenceUsage(false)
     } else {
       saveIntelligenceUsage(true)
@@ -199,12 +199,12 @@ export default function Page() {
           title={`${appName} Intelligence`}
           content={
             <>
-              Choose whether you want to enable Intelligence features inside the
-              app. This will allow the app to use our AI model to enhance your
-              experience. View and accept the{" "}
+              An Intelligent system integrated deeply within {appName} platform.
+              Enabling this will allow the platform to use our AI model to
+              enhance your experience. View and accept the{" "}
               <span
                 className="text-primary cursor-pointer"
-                onClick={viewIntelligenceDataAgreement}
+                onClick={() => viewIntelligenceDataAgreement("link")}
               >
                 Intelligence Data Agreement
               </span>{" "}
@@ -218,7 +218,7 @@ export default function Page() {
                 if (!value) {
                   saveIntelligenceUsage(value)
                 } else {
-                  viewIntelligenceDataAgreement()
+                  viewIntelligenceDataAgreement("switch")
                 }
               }}
             />,
