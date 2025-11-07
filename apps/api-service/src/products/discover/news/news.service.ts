@@ -1,16 +1,16 @@
 import { Injectable } from "@nestjs/common"
-import { DiscoverResponseDto } from "./dto/discover-response.dto"
+import { NewsResponseDto } from "./dto/news-response.dto"
 import { HttpService } from "@nestjs/axios"
 import { lastValueFrom } from "rxjs"
 import { config } from "@/config"
 
 @Injectable()
-export class DiscoverService {
+export class NewsService {
   constructor(private readonly httpService: HttpService) {}
 
-  async getNewsArticles(): Promise<DiscoverResponseDto> {
+  async getNewsArticles(): Promise<NewsResponseDto> {
     const response = await lastValueFrom(
-      this.httpService.get<DiscoverResponseDto>(config.NEWS_API_URI)
+      this.httpService.get<NewsResponseDto>(config.NEWS_API_URI)
     )
     return response.data
   }

@@ -1,16 +1,16 @@
 import { Injectable } from "@nestjs/common"
 import { InjectModel } from "@nestjs/mongoose"
+import { Expense } from "./schemas/expense.schema"
 import { ProductsDbConnectionMap } from "@/shared/constants/db-connection.map"
-import { Thread } from "./schemas/thread.schema"
 import { Model } from "mongoose"
 import { EntityRepository } from "@/shared/entity/entity.repository"
 
 @Injectable()
-export class TaxAdvisorRepository extends EntityRepository<Thread> {
+export class ExpenseRepository extends EntityRepository<Expense> {
   constructor(
-    @InjectModel(Thread.name, ProductsDbConnectionMap.TaxAdvisor)
-    private threadModel: Model<Thread>
+    @InjectModel(Expense.name, ProductsDbConnectionMap.ExpenseTrack)
+    private expenseModel: Model<Expense>
   ) {
-    super(threadModel)
+    super(expenseModel)
   }
 }

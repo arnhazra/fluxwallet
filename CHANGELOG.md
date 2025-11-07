@@ -4,6 +4,7 @@
 
 - Improve analytics code to have generic function that adds analytics to entities
 - Introduce ExpenseTrack app
+- Deprecated TaxAdvisor app
 - Improve authentication with approval codes & better email template
 
 ## Version 2.2

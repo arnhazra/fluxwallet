@@ -200,15 +200,13 @@ export default function Page() {
           content={
             <>
               An Intelligent system integrated deeply within {appName} platform.
-              Enabling this will allow the platform to use our AI model to
-              enhance your experience. View and accept the{" "}
+              This uses AI to enhance your experience. View the{" "}
               <span
                 className="text-primary cursor-pointer"
                 onClick={() => viewIntelligenceDataAgreement("link")}
               >
-                Intelligence Data Agreement
-              </span>{" "}
-              to use this feature
+                Intelligence Data Agreement.
+              </span>
             </>
           }
           actionComponents={[
