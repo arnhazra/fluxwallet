@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.3 Plan
+
+- Improve analytics code to have generic function that adds analytics to entities
+- Introduce ExpenseTrack app
+- Improve authentication with approval codes & better email template
+
 ## Version 2.2
 
 - Rebranding of FinanceNews app to Discover
