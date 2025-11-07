@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.2
+
+- Rebranding of FinanceNews app to Discover
+- Added turn off feature for Intelligence & data usage agreement
+- Revamped architecture of intelligence summarizer
+
 ## Version 2.1
 
 - Added analytics trend for all type of entities

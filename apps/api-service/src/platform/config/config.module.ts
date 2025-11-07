@@ -1,10 +1,9 @@
 import { Module } from "@nestjs/common"
 import { ConfigService } from "./config.service"
 import { ConfigController } from "./config.controller"
-import { CqrsModule } from "@nestjs/cqrs"
 
 @Module({
-  imports: [CqrsModule],
+  imports: [],
   controllers: [ConfigController],
   providers: [ConfigService],
 })

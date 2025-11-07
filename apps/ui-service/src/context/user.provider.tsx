@@ -22,6 +22,7 @@ const initialState: UserState = {
     role: "",
     hasTrial: false,
     avatar: null,
+    useIntelligence: false,
   },
   subscription: null,
   searchKeyword: "",

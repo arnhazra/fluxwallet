@@ -30,6 +30,7 @@ export type User = {
   reduceCarbonEmissions: boolean
   analyticsData: boolean
   hasTrial: boolean
+  useIntelligence: boolean
   createdAt: string
 }
 
@@ -62,6 +63,7 @@ export type Space = {
   userId: string
   spaceName: string
   presentValuation: number | null | undefined
+  assetCount: number | null | undefined
   createdAt: string
   analyticsTrend: string | number | null | undefined
 }

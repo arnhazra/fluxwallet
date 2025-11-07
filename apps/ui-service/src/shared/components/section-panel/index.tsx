@@ -6,7 +6,7 @@ import MaskText from "@/shared/components/mask"
 interface SectionPanelProps {
   title: string
   icon: ReactNode
-  content: string
+  content: ReactNode
   masked?: boolean
   actionComponents?: ReactNode[]
 }
@@ -27,7 +27,7 @@ export default function SectionPanel({
             <p className="text-sm">{title}</p>
             <p className="text-sm text-neutral-300">
               <Show condition={!!masked} fallback={content}>
-                <MaskText value={content} />
+                <MaskText value={content?.toString() ?? ""} />
               </Show>
             </p>
           </div>

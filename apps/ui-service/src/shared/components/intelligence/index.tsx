@@ -8,7 +8,6 @@ import {
   Bot,
   User,
   ArrowUp,
-  Sparkle,
   Sparkles,
   ExternalLink,
 } from "lucide-react"
@@ -24,10 +23,12 @@ import { Thread } from "@/shared/constants/types"
 import IconContainer from "../icon-container"
 import { streamResponseText } from "@/shared/lib/stream-response"
 import { useRouter } from "nextjs-toploader/app"
+import { useUserContext } from "@/context/user.provider"
 
 export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
   const [threadId, setThreadId] = useState<string | null>(null)
+  const [{ user }] = useUserContext()
   const [prompt, setPrompt] = useState("")
   const [isLoading, setLoading] = useState(false)
   const [messages, setMessages] = useState<string[]>([])
@@ -81,7 +82,7 @@ export default function Intelligence() {
   }
 
   return (
-    <>
+    <Show condition={user.useIntelligence}>
       <Button
         onClick={() => setIsOpen(true)}
         variant="default"
@@ -99,7 +100,7 @@ export default function Intelligence() {
       )}
 
       <div
-        className={`fixed top-0 bg-background/5 backdrop-blur-md border-l border-border/10 right-0 h-full w-full sm:w-96 flex flex-col transition-transform duration-300 ease-in-out z-50 ${
+        className={`fixed top-0 bg-background border-l border-border/10 right-0 h-full w-full sm:w-96 flex flex-col transition-transform duration-300 ease-in-out z-50 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -262,6 +263,6 @@ export default function Intelligence() {
           </form>
         </div>
       </div>
-    </>
+    </Show>
   )
 }

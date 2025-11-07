@@ -29,7 +29,6 @@ import { Tooltip, TooltipContent, TooltipTrigger } from "../ui/tooltip"
 import IconContainer from "../icon-container"
 import { formatDistanceToNow } from "date-fns"
 import { Button } from "@/shared/components/ui/button"
-import Summarizer from "../entity-summarizer"
 import { useEffect, useState } from "react"
 import { formatDate } from "@/shared/lib/format-date"
 import { EntityDetails } from "../entity-details"
@@ -41,6 +40,7 @@ import {
   EntityMap,
   EntityType,
 } from "./data"
+import EntitySummarizer from "../entity-summarizer"
 
 const entityIconMap = {
   [EntityType.ASSET]: <Banknote className="h-4 w-4" />,
@@ -266,24 +266,10 @@ export function EntityCard<T extends keyof EntityMap>({
               </span>
             )}
           </div>
-          <Show
-            condition={entityType === EntityType.NEWS}
-            fallback={
-              <Summarizer
-                entityType={entityType}
-                entityId={(entity as Asset | Debt | Space | Goal)._id}
-              />
-            }
-          >
-            <Summarizer
-              key={(entity as Article).title}
-              entityId={(entity as Article).url || "news-article"}
-              entityType={EntityType.NEWS}
-              newsTitle={(entity as Article).title}
-              newsContent={(entity as Article).content}
-              newsDescription={(entity as Article).description}
-            />
-          </Show>
+          <EntitySummarizer
+            entityDetails={JSON.stringify(entity)}
+            entityType={entityType}
+          />
         </div>
       </CardContent>
       <CardFooter className="pt-0">

@@ -3,7 +3,7 @@ import { WealthAnalyzerModule } from "./wealthanalyzer/wealthanalyzer.module"
 import { DebtTrackModule } from "./debttrack/debttrack.module"
 import { TaxAdvisorModule } from "./taxadvisor/taxadvisor.module"
 import { WealthGoalModule } from "./wealthgoal/wealthgoal.module"
-import { FinanceNewsModule } from "./financenews/financenews.module"
+import { DiscoverModule } from "./discover/discover.module"
 
 @Module({
   imports: [
@@ -11,7 +11,7 @@ import { FinanceNewsModule } from "./financenews/financenews.module"
     WealthAnalyzerModule,
     DebtTrackModule,
     WealthGoalModule,
-    FinanceNewsModule,
+    DiscoverModule,
   ],
 })
 export class ProductsModule {}

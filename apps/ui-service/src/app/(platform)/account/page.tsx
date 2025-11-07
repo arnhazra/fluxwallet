@@ -18,23 +18,25 @@ import {
   CalendarClock,
   PieChart,
   GitCompare,
+  Sparkles,
 } from "lucide-react"
 import EditCurrency from "@/shared/components/edit-currency"
 import { usePromptContext } from "@/shared/providers/prompt.provider"
 import notify from "@/shared/hooks/use-notify"
 import IconContainer from "@/shared/components/icon-container"
 import { Switch } from "@/shared/components/ui/switch"
-import Show from "@/shared/components/show"
 import { formatDate } from "@/shared/lib/format-date"
 import {
   Avatar,
   AvatarFallback,
   AvatarImage,
 } from "@/shared/components/ui/avatar"
+import { useConfirmContext } from "@/shared/providers/confirm.provider"
 
 export default function Page() {
   const [{ user, subscription }, dispatch] = useUserContext()
   const { prompt } = usePromptContext()
+  const { confirm } = useConfirmContext()
 
   const editName = async () => {
     const { hasConfirmed, value } = await prompt(false, "Your Name", user.name)
@@ -93,6 +95,39 @@ export default function Page() {
       })
     } catch (error) {
       notify(uiConstants.genericError, "error")
+    }
+  }
+
+  const saveIntelligenceUsage = async (updatedSettings: boolean) => {
+    try {
+      dispatch("setUser", { useIntelligence: updatedSettings })
+      await ky.patch(endPoints.updateAttribute, {
+        json: {
+          attributeName: "useIntelligence",
+          attributeValue: updatedSettings,
+        },
+        timeout: FETCH_TIMEOUT,
+      })
+    } catch (error) {
+      notify(uiConstants.genericError, "error")
+    }
+  }
+
+  const viewIntelligenceDataAgreement = async () => {
+    const consent = await confirm({
+      title: `${appName} Intelligence Data Agreement`,
+      desc: `By enabling ${appName} Intelligence, you agree to allow ${appName} the system to process certain data to provide AI-powered 
+      enhancements. We want to be completely clear about what that means, what is and isn’t shared, and how your information is handled.
+      When you use AI features, the app may send text or structured data to a language model so it can analyze, summarize, 
+      or generate helpful responses. This processing happens securely and is designed to improve your experience for example, 
+      by offering insights, suggestions, or automated assistance. The data you provide is used only for producing those responses 
+      and related functionality. It is not used to build public datasets or to train unrelated models.`,
+    })
+
+    if (!consent) {
+      saveIntelligenceUsage(false)
+    } else {
+      saveIntelligenceUsage(true)
     }
   }
 
@@ -157,12 +192,46 @@ export default function Page() {
         />
         <SectionPanel
           icon={
+            <IconContainer ai>
+              <Sparkles className="h-4 w-4" />
+            </IconContainer>
+          }
+          title={`${appName} Intelligence`}
+          content={
+            <>
+              Choose whether you want to enable Intelligence features inside the
+              app. This will allow the app to use our AI model to enhance your
+              experience. View and accept the{" "}
+              <span
+                className="text-primary cursor-pointer"
+                onClick={viewIntelligenceDataAgreement}
+              >
+                Intelligence Data Agreement
+              </span>{" "}
+              to use this feature
+            </>
+          }
+          actionComponents={[
+            <Switch
+              checked={user.useIntelligence}
+              onCheckedChange={(value) => {
+                if (!value) {
+                  saveIntelligenceUsage(value)
+                } else {
+                  viewIntelligenceDataAgreement()
+                }
+              }}
+            />,
+          ]}
+        />
+        <SectionPanel
+          icon={
             <IconContainer>
               <PieChart className="h-4 w-4" />
             </IconContainer>
           }
           title="Analytics Data"
-          content="Choose whether to save the things you do. If disabled, we still collect anonymous analytics data to improve the app."
+          content="Choose whether to save the things you do. If disabled, we still collect anonymous analytics data to improve the app"
           actionComponents={[
             <Switch
               checked={user.analyticsData}
@@ -209,7 +278,7 @@ export default function Page() {
             </IconContainer>
           }
           title={`${appName} Platform Version`}
-          content="2.1"
+          content="2.2"
         />
         <SectionPanel
           icon={

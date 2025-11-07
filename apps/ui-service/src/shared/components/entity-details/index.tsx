@@ -93,7 +93,7 @@ export function EntityDetails({
       <DialogTrigger asChild onClick={() => setOpen(true)}>
         {children}
       </DialogTrigger>
-      <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4 asset-modal">
+      <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4">
         <DialogHeader>
           <div className="flex justify-between">
             <div>
