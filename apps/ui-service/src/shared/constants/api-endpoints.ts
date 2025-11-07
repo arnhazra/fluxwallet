@@ -21,5 +21,5 @@ export const endPoints = {
   asset: `${apiHost}/asset`,
   debt: `${apiHost}/debt`,
   goal: `${apiHost}/goal`,
-  discover: `${apiHost}/discover`,
+  news: `${apiHost}/news`,
 }

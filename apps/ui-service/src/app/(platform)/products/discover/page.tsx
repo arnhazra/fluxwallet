@@ -11,7 +11,7 @@ export default function Page() {
   const [{ searchKeyword }] = useUserContext()
   const { data } = useQuery<FindNewsResponse>({
     queryKey: ["discover-news"],
-    queryUrl: `${endPoints.discover}`,
+    queryUrl: `${endPoints.news}`,
     method: HTTPMethods.GET,
   })
 
