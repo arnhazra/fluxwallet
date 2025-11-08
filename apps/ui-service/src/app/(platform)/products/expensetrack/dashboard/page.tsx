@@ -4,6 +4,8 @@ import {
   ExpenseTrackerTable,
   formatCategoryName,
 } from "@/shared/components/data-table"
+import { EntityType } from "@/shared/components/entity-card/data"
+import EntitySummarizer from "@/shared/components/entity-summarizer"
 import StatCardStack from "@/shared/components/stat-card/stat-card-stack"
 import {
   Card,
@@ -68,6 +70,10 @@ export default function Page() {
             </CardDescription>
           </div>
           <div className="flex gap-3">
+            <EntitySummarizer
+              entityType={EntityType.EXPENSE}
+              entityDetails={`${getNameFromMonthValue(selectedMonth)} - ${JSON.stringify(expenses.data)}`}
+            />
             <Select value={category} onValueChange={setSelectedCategory}>
               <SelectTrigger className="w-48 bg-neutral-800 text-white border border-border rounded-lg">
                 <SelectValue placeholder="All Categories" />
