@@ -11,7 +11,6 @@ interface StatCardProps {
   statTitle: string
   statValue: number
   statDescription: string
-  additionalDescription?: string
   additionalComponent?: ReactNode
 }
 
@@ -20,7 +19,6 @@ export default function StatCard({
   statTitle,
   statValue,
   statDescription,
-  additionalDescription,
   additionalComponent,
 }: StatCardProps) {
   const [{ user }] = useUserContext()
@@ -38,11 +36,6 @@ export default function StatCard({
           </p>
           <div className="space-y-2">
             <p className="text-sm text-neutral-300">{statDescription}</p>
-            <Show condition={!!additionalDescription}>
-              <p className="text-sm text-neutral-300">
-                {additionalDescription}
-              </p>
-            </Show>
             <Show condition={!!additionalComponent}>{additionalComponent}</Show>
           </div>
         </div>

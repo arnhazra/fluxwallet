@@ -333,7 +333,7 @@ export function EntityCard<T extends keyof EntityMap>({
 export function AddEntityCard({ entityType }: { entityType: EntityType }) {
   return (
     <Link href={createEntityUrlMap[entityType]}>
-      <Card className="w-full max-w-sm h-[22rem] flex items-center justify-center bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
+      <Card className="w-full max-w-xs mx-auto h-[22rem] flex items-center justify-center bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
         <IconContainer>
           <Plus className="w-15 h-15" />
         </IconContainer>

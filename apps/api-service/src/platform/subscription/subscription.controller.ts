@@ -11,7 +11,7 @@ import { SubscriptionService } from "./subscription.service"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { statusMessages } from "@/shared/constants/status-messages"
 
-@Controller("subscription")
+@Controller("platform/subscription")
 export class SubscriptionController {
   constructor(private readonly subscriptionService: SubscriptionService) {}
 

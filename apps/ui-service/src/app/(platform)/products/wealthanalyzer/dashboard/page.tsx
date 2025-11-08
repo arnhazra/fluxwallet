@@ -7,14 +7,15 @@ import { AddEntityCard, EntityCard } from "@/shared/components/entity-card"
 import { EntityType } from "@/shared/components/entity-card/data"
 import StatCardStack from "@/shared/components/stat-card/stat-card-stack"
 import { useUserContext } from "@/context/user.provider"
+import { buildQueryUrl } from "@/shared/lib/build-url"
 
 export default function Page() {
   const [{ searchKeyword }] = useUserContext()
   const spaces = useQuery<Space[]>({
     queryKey: ["get-spaces", searchKeyword],
-    queryUrl: `${endPoints.space}?searchKeyword=${encodeURIComponent(
-      searchKeyword
-    )}`,
+    queryUrl: buildQueryUrl(endPoints.space, {
+      searchKeyword: encodeURIComponent(searchKeyword),
+    }),
     method: HTTPMethods.GET,
     suspense: !!searchKeyword.length ? false : true,
   })

@@ -20,13 +20,13 @@ export enum RecurringFrequency {
   YEARLY = "YEARLY",
 }
 
-export type User = {
+export interface User {
   _id: string
   email: string
   name: string
   role: string
   baseCurrency: Currency
-  avatar: string | null | undefined
+  avatar?: string | null
   reduceCarbonEmissions: boolean
   analyticsData: boolean
   hasTrial: boolean
@@ -34,13 +34,13 @@ export type User = {
   createdAt: string
 }
 
-export type SubscriptionConfig = {
+export interface SubscriptionConfig {
   price: string
   features: string[]
   trialSubscription: string
 }
 
-export type Subscription = {
+export interface Subscription {
   _id: string
   userId: string
   price: number
@@ -49,33 +49,33 @@ export type Subscription = {
   isActive: boolean
 }
 
-export type Thread = {
+export interface Thread {
   _id: string
   threadId: string
   userId: string
-  prompt: string | null | undefined
-  response: string | null | undefined
+  prompt?: string | null
+  response?: string | null
   createdAt: string
 }
 
-export type Space = {
+export interface Space {
   _id: string
   userId: string
   spaceName: string
-  presentValuation: number | null | undefined
-  assetCount: number | null | undefined
+  presentValuation?: number | null
+  assetCount?: number | null
   createdAt: string
-  analyticsTrend: string | number | null | undefined
+  analyticsTrend?: string | number | null
 }
 
-export type Asset = {
+export interface Asset {
   _id: string // COMMON
   userId: string // COMMON
   spaceId: string // COMMON
   assetType: AssetType // COMMON
   assetName: string // COMMON
   identifier: string // COMMON
-  presentValuation: number | null | undefined // COMMON
+  presentValuation?: number | null // COMMON
   createdAt: Date // COMMON
   isMaturityApproaching: boolean // COMMON
   isMatured: boolean // COMMON
@@ -89,10 +89,10 @@ export type Asset = {
   currentValuation?: number // LIQUID, RETIREMENT, REAL_ESTATE, METAL, OTHER
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
-  analyticsTrend: string | number | null | undefined
+  analyticsTrend?: string | number | null
 }
 
-export type Debt = {
+export interface Debt {
   _id: string
   userId: string
   debtPurpose: string
@@ -113,20 +113,20 @@ export type Debt = {
   nextEmiDate: string
   isMaturityApproaching: boolean
   isMatured: boolean
-  analyticsTrend: string | number | null | undefined
+  analyticsTrend?: string | number | null
 }
 
-export type Goal = {
+export interface Goal {
   _id: string
   userId: string
   goalDate: Date
   goalAmount: number
   createdAt: string
-  analyticsTrend: string | number | null | undefined
+  analyticsTrend?: string | number | null
 }
 
-export type Valuation = {
-  presentValuation: number | null | undefined
+export interface Valuation {
+  presentValuation?: number | null
 }
 
 export interface Product {
@@ -162,7 +162,7 @@ export interface TotalDebtDetails {
   totalPrincipal: number
 }
 
-export type Article = {
+export interface Article {
   source?: {
     id?: string | null
     name?: string | null
@@ -176,8 +176,34 @@ export type Article = {
   content?: string | null
 }
 
-export type FindNewsResponse = {
+export interface FindNewsResponse {
   status?: string | null
   totalResults?: number | null
   articles?: Article[] | null
+}
+
+export enum ExpenseCategory {
+  FOOD_GROCERIES = "FOOD_GROCERIES",
+  TRANSPORTATION = "TRANSPORTATION",
+  HOUSING_RENT = "HOUSING_RENT",
+  BILLS_UTILITIES = "BILLS_UTILITIES",
+  ENTERTAINMENT = "ENTERTAINMENT",
+  SHOPPING = "SHOPPING",
+  EDUCATION = "EDUCATION",
+  DEBT_INSTALLMENT = "DEBT_INSTALLMENT",
+  MISCELLANEOUS = "MISCELLANEOUS",
+}
+
+export interface Expense {
+  _id: string
+  userId: string
+  title?: string
+  expenseAmount: number
+  expenseCategory: ExpenseCategory
+  expenseDate: Date
+}
+
+export interface ExpenseResponse {
+  total?: number | null
+  expenses?: Expense[] | null
 }

@@ -16,7 +16,7 @@ import { statusMessages } from "@/shared/constants/status-messages"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { CreateSpaceRequestDto } from "./dto/request/create-space.request.dto"
 
-@Controller("space")
+@Controller("products/wealthanalyzer/space")
 export class SpaceController {
   constructor(private readonly service: SpaceService) {}
 

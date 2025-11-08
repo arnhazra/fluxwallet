@@ -4,6 +4,7 @@ export const searchMapByUrl = {
   "/products/wealthanalyzer/space": "asset",
   "/products/debttrack/dashboard": "debt",
   "/products/discover": "news",
+  "/products/expensetrack/dashboard": "expense",
 }
 
 export function getSearchLabel(pathName: string) {

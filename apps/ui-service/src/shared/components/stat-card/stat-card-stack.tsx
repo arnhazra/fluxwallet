@@ -36,32 +36,42 @@ export default function StatCardStack() {
             icon={<TrendingUp className="h-5 w-5" />}
             statTitle="Total Assets"
             statDescription="Portfolio Valuation"
-            additionalDescription="Sum of all active investments"
+            additionalComponent={
+              <p className="text-sm text-neutral-300">
+                Sum of all active assets
+              </p>
+            }
             statValue={wealthData?.presentValuation ?? 0}
           />
           <StatCard
             icon={<TrendingDown className="h-5 w-5" />}
             statTitle="Current Liabilities"
             statDescription="Total Outstanding"
-            additionalDescription="Current debt balance"
+            additionalComponent={
+              <p className="text-sm text-neutral-300">Current debt balance</p>
+            }
             statValue={debtData?.remainingDebt ?? 0}
           />
           <StatCard
             icon={<CalendarClock className="h-5 w-5" />}
             statTitle="Monthly EMI"
             statDescription="Total Monthly Payments"
-            additionalDescription="Combined EMI amount"
+            additionalComponent={
+              <p className="text-sm text-neutral-300">Combined EMI amount</p>
+            }
             statValue={debtData?.totalEMI ?? 0}
           />
           <StatCard
             icon={<GoalIcon className="h-5 w-5" />}
             statTitle="Goal Progress"
-            statDescription={`${goalPercentage.toFixed(0)}% Complete`}
+            statDescription={`${goalPercentage >= 100 ? 100 : goalPercentage.toFixed(0)}% Complete`}
             additionalComponent={
               <div className="w-full bg-neutral-700 rounded-sm h-2">
                 <div
                   className="bg-primary h-2 rounded-sm mt-4"
-                  style={{ width: `${goalPercentage.toFixed(0)}%` }}
+                  style={{
+                    width: `${goalPercentage >= 100 ? 100 : goalPercentage.toFixed(0)}%`,
+                  }}
                 />
               </div>
             }

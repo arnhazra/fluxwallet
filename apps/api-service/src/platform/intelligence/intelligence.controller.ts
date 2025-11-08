@@ -14,7 +14,7 @@ import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { SummarizeDto } from "./dto/summarize.dto"
 import { statusMessages } from "@/shared/constants/status-messages"
 
-@Controller("intelligence")
+@Controller("platform/intelligence")
 export class IntelligenceController {
   constructor(private readonly service: IntelligenceService) {}
 

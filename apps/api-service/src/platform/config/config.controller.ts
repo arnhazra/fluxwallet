@@ -2,7 +2,7 @@ import { Controller, BadRequestException, Get, Param } from "@nestjs/common"
 import { ConfigService } from "./config.service"
 import { statusMessages } from "@/shared/constants/status-messages"
 
-@Controller("config")
+@Controller("platform/config")
 export class ConfigController {
   constructor(private readonly service: ConfigService) {}
 

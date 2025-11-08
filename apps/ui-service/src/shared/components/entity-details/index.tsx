@@ -34,6 +34,12 @@ type EntityDetailsProps = {
   children: ReactNode
 }
 
+enum DeleteQueryKey {
+  ASSET = "get-assets",
+  DEBT = "get-debts",
+  GOAL = "get-goals",
+}
+
 export function EntityDetails({
   entityType,
   entity,
@@ -78,7 +84,11 @@ export function EntityDetails({
         await ky.delete(
           `${deleteEntityAPIUriMap[entityType as keyof typeof deleteEntityAPIUriMap]}/${(entity as Asset | Debt | Goal)._id}`
         )
-        queryClient.refetchQueries({ queryKey: ["get-assets"] })
+        queryClient.refetchQueries({
+          queryKey: [
+            `${DeleteQueryKey[entityType.toUpperCase() as keyof typeof DeleteQueryKey]}`,
+          ],
+        })
         notify(`${uiConstants.entityDeleted} ${entityType}`, "success")
       } catch (error) {
         notify(uiConstants.genericError, "error")

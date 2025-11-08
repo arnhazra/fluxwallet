@@ -16,6 +16,7 @@ import IconContainer from "@/shared/components/icon-container"
 import { AddEntityCard, EntityCard } from "@/shared/components/entity-card"
 import { EntityType } from "@/shared/components/entity-card/data"
 import { useUserContext } from "@/context/user.provider"
+import { buildQueryUrl } from "@/shared/lib/build-url"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: spaceId = "" } = use(params)
@@ -31,9 +32,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
   const assets = useQuery<Asset[]>({
     queryKey: ["get-assets", spaceId, searchKeyword],
-    queryUrl: `${endPoints.asset}/space/${spaceId}?searchKeyword=${encodeURIComponent(
-      searchKeyword
-    )}`,
+    queryUrl: buildQueryUrl(`${endPoints.asset}/space/${spaceId}`, {
+      searchKeyword: encodeURIComponent(searchKeyword),
+    }),
     method: HTTPMethods.GET,
     suspense: !!searchKeyword.length ? false : true,
   })

@@ -7,6 +7,7 @@ export enum EntityType {
   DEBT = "debt",
   GOAL = "goal",
   NEWS = "news",
+  EXPENSE = "expense",
 }
 
 export type EntityMap = {
