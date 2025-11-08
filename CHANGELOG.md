@@ -2,6 +2,7 @@
 
 ## Version 2.3 Plan
 
+- Minor tweaks & improvements across UI
 - Improve analytics code to have generic function that adds analytics to entities
 - Introduction of ExpenseTrack app
 - Improve authentication with approval codes & better email template
