@@ -10,6 +10,7 @@ import { FindExpensesByUserQuery } from "./queries/impl/find-expense-by-user.que
 import { FindExpenseByIdQuery } from "./queries/impl/find-expense-by-id.query"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
+import { ExpenseCategory } from "@/shared/constants/types"
 
 @Injectable()
 export class ExpenseService {
@@ -29,26 +30,20 @@ export class ExpenseService {
     }
   }
 
-  async findMyExpenses(userId: string) {
+  async findMyExpenses(
+    userId: string,
+    monthFilter?: string,
+    searchKeyword?: string,
+    expenseCategory?: ExpenseCategory
+  ) {
     try {
-      const expenses = await this.queryBus.execute<
-        FindExpensesByUserQuery,
-        Expense[]
-      >(new FindExpensesByUserQuery(userId))
-
-      return await Promise.all(
-        expenses.map(async (expense) => {
-          const data: { totalUsage: string | number | null | undefined } = (
-            await this.eventEmitter.emitAsync(
-              EventMap.GetAnalyticsTrend,
-              expense._id
-            )
-          ).shift()
-          return {
-            ...(expense.toObject?.() ?? expense),
-            analyticsTrend: data?.totalUsage,
-          }
-        })
+      return await this.queryBus.execute<FindExpensesByUserQuery>(
+        new FindExpensesByUserQuery(
+          userId,
+          monthFilter,
+          searchKeyword,
+          expenseCategory
+        )
       )
     } catch (error) {
       throw new Error(statusMessages.connectionError)

@@ -9,11 +9,13 @@ import {
   Body,
   Put,
   BadRequestException,
+  Query,
 } from "@nestjs/common"
 import { ExpenseService } from "./expense.service"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { CreateExpenseRequestDto } from "./dto/request/create-expense.request.dto"
+import { ExpenseCategory } from "@/shared/constants/types"
 
 @Controller("products/expensetrack/expense")
 export class ExpenseController {
@@ -36,9 +38,19 @@ export class ExpenseController {
 
   @UseGuards(AuthGuard)
   @Get()
-  async findMyExpenses(@Request() request: ModRequest) {
+  async findMyExpenses(
+    @Request() request: ModRequest,
+    @Query("month") monthFilter?: string,
+    @Query("searchKeyword") searchKeyword?: string,
+    @Query("category") expenseCategory?: ExpenseCategory
+  ) {
     try {
-      return await this.service.findMyExpenses(request.user.userId)
+      return await this.service.findMyExpenses(
+        request.user.userId,
+        monthFilter,
+        searchKeyword,
+        expenseCategory
+      )
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError
