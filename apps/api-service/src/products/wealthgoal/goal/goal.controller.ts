@@ -15,7 +15,7 @@ import { statusMessages } from "@/shared/constants/status-messages"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { CreateGoalRequestDto } from "./dto/request/create-goal.request.dto"
 
-@Controller("goal")
+@Controller("products/wealthgoal/goal")
 export class GoalController {
   constructor(private readonly service: GoalService) {}
 

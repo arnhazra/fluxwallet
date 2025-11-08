@@ -15,7 +15,7 @@ import { statusMessages } from "@/shared/constants/status-messages"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { CreateExpenseRequestDto } from "./dto/request/create-expense.request.dto"
 
-@Controller("expense")
+@Controller("products/expensetrack/expense")
 export class ExpenseController {
   constructor(private readonly service: ExpenseService) {}
 

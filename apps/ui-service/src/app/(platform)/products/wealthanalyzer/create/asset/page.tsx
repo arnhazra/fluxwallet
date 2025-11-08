@@ -86,7 +86,7 @@ export default function Page() {
   })
 
   const spaces = useQuery<Space[]>({
-    queryKey: ["get-spaces-build-asset"],
+    queryKey: ["get-spaces"],
     queryUrl: endPoints.space,
     method: HTTPMethods.GET,
   })

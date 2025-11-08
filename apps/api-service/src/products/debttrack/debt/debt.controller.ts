@@ -16,7 +16,7 @@ import { statusMessages } from "@/shared/constants/status-messages"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { CreateDebtRequestDto } from "./dto/request/create-debt.request.dto"
 
-@Controller("debt")
+@Controller("products/debttrack/debt")
 export class DebtController {
   constructor(private readonly service: DebtService) {}
 

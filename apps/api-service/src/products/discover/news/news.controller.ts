@@ -2,7 +2,7 @@ import { Controller, BadRequestException, Get, UseGuards } from "@nestjs/common"
 import { NewsService } from "./news.service"
 import { AuthGuard } from "@/auth/auth.guard"
 
-@Controller("news")
+@Controller("products/discover/news")
 export class NewsController {
   constructor(private readonly service: NewsService) {}
 
