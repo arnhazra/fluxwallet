@@ -13,11 +13,11 @@ import { useUserContext } from "@/context/user.provider"
 import { Badge } from "../ui/badge"
 import Show from "../show"
 
-const formatCategoryName = (category: ExpenseCategory): string => {
+export const formatCategoryName = (category: ExpenseCategory): string => {
   return category
     .split("_")
     .map((word) => word.charAt(0) + word.slice(1).toLowerCase())
-    .join(" ")
+    .join(" & ")
 }
 
 export const ExpenseTrackerTable = ({ expenses, total }: ExpenseResponse) => {
