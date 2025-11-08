@@ -24,6 +24,7 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import { ExpenseCategory, ExpenseResponse } from "@/shared/constants/types"
 import useQuery from "@/shared/hooks/use-query"
 import { buildQueryUrl } from "@/shared/lib/build-url"
+import { formatCurrency } from "@/shared/lib/format-currency"
 import {
   generateMonthList,
   getNameFromMonthValue,
@@ -31,8 +32,8 @@ import {
 import { useState } from "react"
 
 export default function Page() {
-  const [{ searchKeyword }] = useUserContext()
-  const [category, setSelectedCategory] = useState("")
+  const [{ searchKeyword, user }] = useUserContext()
+  const [category, setSelectedCategory] = useState("all")
   const [selectedMonth, setSelectedMonth] = useState(
     `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, "0")}`
   )
@@ -48,7 +49,7 @@ export default function Page() {
     queryUrl: buildQueryUrl(endPoints.expense, {
       month: selectedMonth,
       searchKeyword,
-      category,
+      category: category === "all" ? "" : category,
     }),
     method: HTTPMethods.GET,
     suspense: !!searchKeyword.length ? false : true,
@@ -61,8 +62,9 @@ export default function Page() {
         <CardHeader className="flex flex-row items-center justify-between space-y-0">
           <div className="space-y-2">
             <CardTitle>Your {getNameFromMonthValue(selectedMonth)}</CardTitle>
-            <CardDescription className="text-neutral-100">
-              Total expense: {expenses.data?.total}
+            <CardDescription className="text-primary">
+              Total expense:{" "}
+              {formatCurrency(expenses.data?.total ?? 0, user.baseCurrency)}
             </CardDescription>
           </div>
           <div className="flex gap-3">
@@ -71,6 +73,9 @@ export default function Page() {
                 <SelectValue placeholder="All Categories" />
               </SelectTrigger>
               <SelectContent className="bg-background text-white border border-border rounded-lg">
+                <SelectItem key="all" value="all" className="rounded-lg">
+                  All Categories
+                </SelectItem>
                 {Object.values(ExpenseCategory).map((category) => {
                   return (
                     <SelectItem

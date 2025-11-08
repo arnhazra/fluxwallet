@@ -11,6 +11,6 @@ export class FindMyExpensesQueryDto {
   searchKeyword?: string
 
   @IsOptional()
-  @IsEnum(ExpenseCategory)
+  @IsString()
   category?: ExpenseCategory
 }
