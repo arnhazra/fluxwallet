@@ -64,6 +64,16 @@ export class ExpenseController {
   }
 
   @UseGuards(AuthGuard)
+  @Get("start-month")
+  async findStartMonth(@Request() request: ModRequest) {
+    try {
+      return await this.service.findStartMonth(request.user.userId)
+    } catch (error) {
+      throw new BadRequestException(error.message)
+    }
+  }
+
+  @UseGuards(AuthGuard)
   @Get("/:expenseId")
   async findExpenseById(@Request() request: ModRequest, @Param() params: any) {
     try {

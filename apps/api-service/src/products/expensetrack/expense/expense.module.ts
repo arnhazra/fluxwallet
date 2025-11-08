@@ -11,6 +11,7 @@ import { FindExpenseByIdQueryHandler } from "./queries/handler/find-expense-by-i
 import { EntityModule } from "@/shared/entity/entity.module"
 import { UpdateExpenseCommandHandler } from "./commands/handler/update-expense.handler"
 import { FindExpensesByUserQueryHandler } from "./queries/handler/find-expense-by-user.handler"
+import { FindStartMonthByUserQueryHandler } from "./queries/handler/find-start-month-by-user.handler"
 
 @Module({
   imports: [
@@ -29,6 +30,7 @@ import { FindExpensesByUserQueryHandler } from "./queries/handler/find-expense-b
     DeleteExpenseCommandHandler,
     FindExpensesByUserQueryHandler,
     FindExpenseByIdQueryHandler,
+    FindStartMonthByUserQueryHandler,
   ],
 })
 export class ExpenseModule {}

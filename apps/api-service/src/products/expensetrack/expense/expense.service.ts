@@ -11,6 +11,7 @@ import { FindExpenseByIdQuery } from "./queries/impl/find-expense-by-id.query"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { ExpenseCategory } from "@/shared/constants/types"
+import { FindStartMonthByUserQuery } from "./queries/impl/find-start-month-by-user.query"
 
 @Injectable()
 export class ExpenseService {
@@ -99,6 +100,14 @@ export class ExpenseService {
       throw new Error(statusMessages.connectionError)
     } catch (error) {
       throw new Error(statusMessages.connectionError)
+    }
+  }
+
+  async findStartMonth(userId: string) {
+    try {
+      return await this.queryBus.execute(new FindStartMonthByUserQuery(userId))
+    } catch (error) {
+      throw new Error(error)
     }
   }
 }
