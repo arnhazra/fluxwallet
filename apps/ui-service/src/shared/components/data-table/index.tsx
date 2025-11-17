@@ -12,6 +12,13 @@ import { formatCurrency } from "@/shared/lib/format-currency"
 import { useUserContext } from "@/context/user.provider"
 import { Badge } from "../ui/badge"
 import Show from "../show"
+import { Trash } from "lucide-react"
+import { useConfirmContext } from "@/shared/providers/confirm.provider"
+import ky from "ky"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import { useQueryClient } from "@tanstack/react-query"
+import notify from "@/shared/hooks/use-notify"
+import { uiConstants } from "@/shared/constants/global-constants"
 
 export const formatCategoryName = (category: ExpenseCategory): string => {
   return category
@@ -22,6 +29,28 @@ export const formatCategoryName = (category: ExpenseCategory): string => {
 
 export const ExpenseTrackerTable = ({ expenses, total }: ExpenseResponse) => {
   const [{ user }] = useUserContext()
+  const { confirm } = useConfirmContext()
+  const queryClient = useQueryClient()
+
+  const deleteExpense = async (expenseId: string): Promise<void> => {
+    const confirmed = await confirm({
+      title: `Delete Expense`,
+      desc: `Are you sure you want to delete this Expense?`,
+    })
+
+    if (confirmed) {
+      try {
+        await ky.delete(`${endPoints.expense}/${expenseId}`)
+        queryClient.refetchQueries({
+          queryKey: ["get-expenses"],
+        })
+        notify(`${uiConstants.entityDeleted} expense`, "success")
+      } catch (error) {
+        notify(uiConstants.genericError, "error")
+      }
+    }
+  }
+
   if (!expenses || expenses.length === 0) {
     return (
       <div className="flex items-center justify-center py-12 text-muted-foreground">
@@ -41,6 +70,7 @@ export const ExpenseTrackerTable = ({ expenses, total }: ExpenseResponse) => {
               Amount
             </TableHead>
             <TableHead className="text-neutral-200">Date</TableHead>
+            <TableHead className="text-neutral-200">Action</TableHead>
           </TableRow>
         </TableHeader>
         <TableBody>
@@ -64,6 +94,9 @@ export const ExpenseTrackerTable = ({ expenses, total }: ExpenseResponse) => {
                 {typeof expense.expenseDate === "string"
                   ? new Date(expense.expenseDate).toLocaleDateString()
                   : expense.expenseDate.toLocaleDateString()}
+              </TableCell>
+              <TableCell onClick={() => deleteExpense(expense._id)}>
+                <Trash className="h-5 w-5 text-secondary cursor-pointer" />
               </TableCell>
             </TableRow>
           ))}

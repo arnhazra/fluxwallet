@@ -7,6 +7,7 @@ import {
 import { EntityType } from "@/shared/components/entity-card/data"
 import EntitySummarizer from "@/shared/components/entity-summarizer"
 import StatCardStack from "@/shared/components/stat-card/stat-card-stack"
+import { Button } from "@/shared/components/ui/button"
 import {
   Card,
   CardContent,
@@ -31,9 +32,12 @@ import {
   generateMonthList,
   getNameFromMonthValue,
 } from "@/shared/lib/generate-month-list"
+import { PlusCircle } from "lucide-react"
+import { useRouter } from "nextjs-toploader/app"
 import { useState } from "react"
 
 export default function Page() {
+  const router = useRouter()
   const [{ searchKeyword, user }] = useUserContext()
   const [category, setSelectedCategory] = useState("all")
   const [selectedMonth, setSelectedMonth] = useState(
@@ -70,6 +74,16 @@ export default function Page() {
             </CardDescription>
           </div>
           <div className="flex gap-3">
+            <Button
+              size="icon"
+              variant="default"
+              className="bg-primary hover:bg-primary"
+              onClick={(): void =>
+                router.push(`/products/expensetrack/createexpense`)
+              }
+            >
+              <PlusCircle className="h-4 w-4 text-black" />
+            </Button>
             <EntitySummarizer
               entityType={EntityType.EXPENSE}
               entityDetails={`${getNameFromMonthValue(selectedMonth)} - ${JSON.stringify(expenses.data)}`}
