@@ -1,5 +1,11 @@
 # Changelog
 
+## Version 2.3
+
+- Minor tweaks & improvements across UI
+- Introduction of ExpenseTrack app
+- Dependency updates & bug fixes
+
 ## Version 2.2
 
 - Rebranding of FinanceNews app to Discover
@@ -51,7 +57,6 @@
 
 ## Version 1.5
 
-- Integrated email agent functionality in TaxAdvisor
 - Implemented debt and goal creation tools in Intelligence module
 
 ## Version 1.4
@@ -75,7 +80,6 @@
 
 - Deployed comprehensive entity summarization system
 - Resolved Intelligence chat issues and enhanced agents
-- Upgraded TaxAdvisor chat agents
 - Implemented various system improvements
 
 ## Version 1.0

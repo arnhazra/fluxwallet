@@ -24,22 +24,22 @@ export default function Page() {
   const router = useRouter()
   const [checked, setChecked] = useState(false)
   const subscriptionPricing = useQuery<SubscriptionConfig>({
-    queryKey: ["subscription-pricing"],
-    queryUrl: endPoints.getSubscriptionConfig,
+    queryKey: ["subscription-config"],
+    queryUrl: `${endPoints.getConfig}/subscription-config`,
     method: HTTPMethods.GET,
     suspense: false,
   })
 
   const products = useQuery<ProductsConfig>({
-    queryKey: ["getProductConfig"],
-    queryUrl: endPoints.getProductConfig,
+    queryKey: ["product-config"],
+    queryUrl: `${endPoints.getConfig}/product-config`,
     method: HTTPMethods.GET,
     suspense: false,
   })
 
   const solutions = useQuery<SolutionConfig>({
-    queryKey: ["getSolutionConfig"],
-    queryUrl: endPoints.getSolutionConfig,
+    queryKey: ["solution-config"],
+    queryUrl: `${endPoints.getConfig}/solution-config`,
     method: HTTPMethods.GET,
     suspense: false,
   })

@@ -23,8 +23,8 @@ export default function Page() {
   const router = useRouter()
 
   const { data } = useQuery<ProductsConfig>({
-    queryKey: ["getProductConfig"],
-    queryUrl: endPoints.getProductConfig,
+    queryKey: ["product-config"],
+    queryUrl: `${endPoints.getConfig}/product-config`,
     method: HTTPMethods.GET,
   })
 

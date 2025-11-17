@@ -15,8 +15,8 @@ import * as Icons from "lucide-react"
 export default function PlatformHeader() {
   const pathName = usePathname()
   const products = useQuery<ProductsConfig>({
-    queryKey: ["getProductConfig"],
-    queryUrl: endPoints.getProductConfig,
+    queryKey: ["product-config"],
+    queryUrl: `${endPoints.getConfig}/product-config`,
     method: HTTPMethods.GET,
   })
 
