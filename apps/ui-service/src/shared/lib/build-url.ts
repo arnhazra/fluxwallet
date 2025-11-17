@@ -11,6 +11,5 @@ export function buildQueryUrl(
   })
 
   const queryString = searchParams.toString()
-  console.log(queryString)
   return queryString ? `${baseUrl}?${queryString}` : baseUrl
 }
