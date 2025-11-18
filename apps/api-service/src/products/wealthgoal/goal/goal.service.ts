@@ -63,12 +63,20 @@ export class GoalService {
       const goal = await this.queryBus.execute<FindNearestGoalQuery, Goal>(
         new FindNearestGoalQuery(userId)
       )
-      const data: { totalUsage: string | number | null | undefined } = (
-        await this.eventEmitter.emitAsync(EventMap.GetAnalyticsTrend, goal._id)
-      ).shift()
-      return {
-        ...(goal.toObject?.() ?? goal),
-        analyticsTrend: data?.totalUsage,
+      if (goal) {
+        const data: { totalUsage: string | number | null | undefined } = (
+          await this.eventEmitter.emitAsync(
+            EventMap.GetAnalyticsTrend,
+            goal._id
+          )
+        ).shift()
+
+        return {
+          ...(goal.toObject?.() ?? goal),
+          analyticsTrend: data?.totalUsage,
+        }
+      } else {
+        return null
       }
     } catch (error) {
       throw new Error(statusMessages.connectionError)

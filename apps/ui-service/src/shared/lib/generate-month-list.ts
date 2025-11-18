@@ -1,5 +1,10 @@
-export function generateMonthList(startMonth: string) {
-  if (!startMonth) return []
+export function generateMonthList(startMonth: string | null | undefined) {
+  if (!startMonth) {
+    const now = new Date()
+    const year = now.getFullYear()
+    const month = String(now.getMonth() + 1).padStart(2, "0")
+    startMonth = `${year}-${month}`
+  }
 
   const start = new Date(`${startMonth}-01`)
   const now = new Date()
@@ -12,6 +17,7 @@ export function generateMonthList(startMonth: string) {
     months.push(`${year}-${month}`)
     start.setMonth(start.getMonth() + 1)
   }
+
   return months.reverse()
 }
 

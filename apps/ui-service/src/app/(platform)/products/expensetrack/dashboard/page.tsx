@@ -44,7 +44,7 @@ export default function Page() {
     `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, "0")}`
   )
 
-  const startMonth = useQuery<any>({
+  const startMonth = useQuery<{ startMonth: null | string }>({
     queryKey: ["start-month"],
     queryUrl: `${endPoints.expense}/start-month`,
     method: HTTPMethods.GET,
@@ -64,6 +64,43 @@ export default function Page() {
   return (
     <div className="mx-auto grid w-full items-start gap-6">
       <StatCardStack />
+      <div className="flex gap-4 ml-auto">
+        <Select value={category} onValueChange={setSelectedCategory}>
+          <SelectTrigger className="w-40 bg-neutral-800 text-white border border-border rounded-lg">
+            <SelectValue placeholder="All Categories" />
+          </SelectTrigger>
+          <SelectContent className="bg-background text-white border border-border rounded-lg">
+            <SelectItem key="all" value="all" className="rounded-lg">
+              All Categories
+            </SelectItem>
+            {Object.values(ExpenseCategory).map((category) => {
+              return (
+                <SelectItem
+                  key={category}
+                  value={category}
+                  className="rounded-lg"
+                >
+                  {formatCategoryName(category)}
+                </SelectItem>
+              )
+            })}
+          </SelectContent>
+        </Select>
+        <Select value={selectedMonth} onValueChange={setSelectedMonth}>
+          <SelectTrigger className="w-32 bg-neutral-800 text-white border border-border rounded-lg">
+            <SelectValue placeholder="All Months" />
+          </SelectTrigger>
+          <SelectContent className="bg-background text-white border border-border rounded-lg">
+            {generateMonthList(startMonth.data?.startMonth).map((month) => {
+              return (
+                <SelectItem key={month} value={month} className="rounded-lg">
+                  {getNameFromMonthValue(month)}
+                </SelectItem>
+              )
+            })}
+          </SelectContent>
+        </Select>
+      </div>
       <Card className="bg-background text-white border border-border mb-4">
         <CardHeader className="flex flex-row items-center justify-between space-y-0">
           <div className="space-y-2">
@@ -88,45 +125,6 @@ export default function Page() {
               entityType={EntityType.EXPENSE}
               entityDetails={`${getNameFromMonthValue(selectedMonth)} - ${JSON.stringify(expenses.data)}`}
             />
-            <Select value={category} onValueChange={setSelectedCategory}>
-              <SelectTrigger className="w-48 bg-neutral-800 text-white border border-border rounded-lg">
-                <SelectValue placeholder="All Categories" />
-              </SelectTrigger>
-              <SelectContent className="bg-background text-white border border-border rounded-lg">
-                <SelectItem key="all" value="all" className="rounded-lg">
-                  All Categories
-                </SelectItem>
-                {Object.values(ExpenseCategory).map((category) => {
-                  return (
-                    <SelectItem
-                      key={category}
-                      value={category}
-                      className="rounded-lg"
-                    >
-                      {formatCategoryName(category)}
-                    </SelectItem>
-                  )
-                })}
-              </SelectContent>
-            </Select>
-            <Select value={selectedMonth} onValueChange={setSelectedMonth}>
-              <SelectTrigger className="w-32 bg-neutral-800 text-white border border-border rounded-lg">
-                <SelectValue placeholder="All Months" />
-              </SelectTrigger>
-              <SelectContent className="bg-background text-white border border-border rounded-lg">
-                {generateMonthList(startMonth.data.startMonth).map((month) => {
-                  return (
-                    <SelectItem
-                      key={month}
-                      value={month}
-                      className="rounded-lg"
-                    >
-                      {getNameFromMonthValue(month)}
-                    </SelectItem>
-                  )
-                })}
-              </SelectContent>
-            </Select>
           </div>
         </CardHeader>
         <CardContent>
