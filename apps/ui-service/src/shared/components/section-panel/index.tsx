@@ -25,11 +25,11 @@ export default function SectionPanel({
           {icon}
           <div className="space-y-0.5">
             <p className="text-sm">{title}</p>
-            <p className="text-sm text-neutral-300">
+            <div className="text-sm text-neutral-300">
               <Show condition={!!masked} fallback={content}>
                 <MaskText value={content?.toString() ?? ""} />
               </Show>
-            </p>
+            </div>
           </div>
         </div>
         <div>

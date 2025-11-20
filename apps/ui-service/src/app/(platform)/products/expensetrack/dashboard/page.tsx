@@ -1,12 +1,12 @@
 "use client"
 import { useUserContext } from "@/context/user.provider"
-import {
-  ExpenseTrackerTable,
-  formatCategoryName,
-} from "@/shared/components/data-table"
 import { EntityType } from "@/shared/components/entity-card/data"
 import EntitySummarizer from "@/shared/components/entity-summarizer"
+import IconContainer from "@/shared/components/icon-container"
+import SectionPanel from "@/shared/components/section-panel"
+import Show from "@/shared/components/show"
 import StatCardStack from "@/shared/components/stat-card/stat-card-stack"
+import { Badge } from "@/shared/components/ui/badge"
 import { Button } from "@/shared/components/ui/button"
 import {
   Card,
@@ -23,8 +23,10 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { endPoints } from "@/shared/constants/api-endpoints"
+import { uiConstants } from "@/shared/constants/global-constants"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { ExpenseCategory, ExpenseResponse } from "@/shared/constants/types"
+import notify from "@/shared/hooks/use-notify"
 import useQuery from "@/shared/hooks/use-query"
 import { buildQueryUrl } from "@/shared/lib/build-url"
 import { formatCurrency } from "@/shared/lib/format-currency"
@@ -32,14 +34,27 @@ import {
   generateMonthList,
   getNameFromMonthValue,
 } from "@/shared/lib/generate-month-list"
-import { PlusCircle } from "lucide-react"
+import { useConfirmContext } from "@/shared/providers/confirm.provider"
+import { useQueryClient } from "@tanstack/react-query"
+import ky from "ky"
+import { PiggyBank, PlusCircle, Trash, Trash2 } from "lucide-react"
 import { useRouter } from "nextjs-toploader/app"
-import { useState } from "react"
+import { useEffect, useState } from "react"
+
+export const formatCategoryName = (category: ExpenseCategory): string => {
+  return category
+    .split("_")
+    .map((word) => word.charAt(0) + word.slice(1).toLowerCase())
+    .join("/")
+}
 
 export default function Page() {
   const router = useRouter()
+  const { confirm } = useConfirmContext()
   const [{ searchKeyword, user }] = useUserContext()
+  const queryClient = useQueryClient()
   const [category, setSelectedCategory] = useState("all")
+  const [totalExpense, setTotalExpense] = useState(0)
   const [selectedMonth, setSelectedMonth] = useState(
     `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, "0")}`
   )
@@ -61,10 +76,70 @@ export default function Page() {
     suspense: !!searchKeyword.length ? false : true,
   })
 
+  useEffect(() => {
+    if (totalExpense === 0) {
+      setTotalExpense(expenses.data?.total || 0)
+    }
+  }, [expenses.data?.total])
+
+  const deleteExpense = async (expenseId: string): Promise<void> => {
+    const confirmed = await confirm({
+      title: `Delete Expense`,
+      desc: `Are you sure you want to delete this Expense?`,
+    })
+
+    if (confirmed) {
+      try {
+        await ky.delete(`${endPoints.expense}/${expenseId}`)
+        queryClient.refetchQueries({
+          queryKey: ["get-expenses"],
+        })
+        notify(`${uiConstants.entityDeleted} expense`, "success")
+      } catch (error) {
+        notify(uiConstants.genericError, "error")
+      }
+    }
+  }
+
+  const renderExpenses = expenses.data?.expenses?.map((expense) => {
+    return (
+      <div className="mb-2" key={expense._id}>
+        <SectionPanel
+          key={expense._id}
+          icon={
+            <IconContainer>
+              <PiggyBank className="h-4 w-4" />
+            </IconContainer>
+          }
+          title={expense.title || "Untitled Expense"}
+          content={
+            <div className="block">
+              <div className="text-primary mb-1">
+                {formatCurrency(expense.expenseAmount, user.baseCurrency)}
+              </div>
+              <Badge className="bg-primary text-black hover:bg-primary">
+                {formatCategoryName(expense.expenseCategory)}
+              </Badge>
+            </div>
+          }
+          actionComponents={[
+            <Button
+              className="bg-secondary hover:bg-secondary"
+              size="icon"
+              onClick={() => deleteExpense(expense._id)}
+            >
+              <Trash className="h-4 w-4" />
+            </Button>,
+          ]}
+        />
+      </div>
+    )
+  })
+
   return (
     <div className="mx-auto grid w-full items-start gap-6">
       <StatCardStack />
-      <div className="flex gap-4 ml-auto">
+      <div className="flex gap-4">
         <Select value={category} onValueChange={setSelectedCategory}>
           <SelectTrigger className="w-40 bg-neutral-800 text-white border border-border rounded-lg">
             <SelectValue placeholder="All Categories" />
@@ -107,8 +182,14 @@ export default function Page() {
             <CardTitle>Your {getNameFromMonthValue(selectedMonth)}</CardTitle>
             <CardDescription className="text-primary">
               Total expense:{" "}
-              {formatCurrency(expenses.data?.total ?? 0, user.baseCurrency)}
+              {formatCurrency(totalExpense ?? 0, user.baseCurrency)}
             </CardDescription>
+            <Show condition={!category || category !== "all"}>
+              <CardDescription className="text-primary">
+                Expense for {formatCategoryName(category as ExpenseCategory)}:{" "}
+                {formatCurrency(expenses.data?.total ?? 0, user.baseCurrency)}
+              </CardDescription>
+            </Show>
           </div>
           <div className="flex gap-3">
             <Button
@@ -127,12 +208,7 @@ export default function Page() {
             />
           </div>
         </CardHeader>
-        <CardContent>
-          <ExpenseTrackerTable
-            expenses={expenses.data?.expenses}
-            total={expenses.data?.total}
-          />
-        </CardContent>
+        <CardContent>{renderExpenses}</CardContent>
       </Card>
     </div>
   )

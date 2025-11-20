@@ -64,7 +64,7 @@ export default function EntitySummarizer({
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogTrigger asChild>
           <Button
-            className="h-9 w-9 text-white font-semibold ui-soft-gradient hover:opacity-90 transition"
+            className="text-white font-semibold ui-soft-gradient hover:opacity-90 transition"
             variant="default"
             size="icon"
             title="Summarize"

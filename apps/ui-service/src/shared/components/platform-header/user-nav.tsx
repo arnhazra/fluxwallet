@@ -24,7 +24,7 @@ export function UserNav() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Avatar className="h-9 w-9 cursor-pointer">
+        <Avatar className="cursor-pointer">
           <AvatarImage src={user.avatar ?? ""} alt={user.name} />
           <AvatarFallback className="bg-neutral-800">
             <User className="h-4 w-4 text-primary" />
