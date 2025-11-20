@@ -17,7 +17,7 @@ export default function Page() {
       searchKeyword: encodeURIComponent(searchKeyword),
     }),
     method: HTTPMethods.GET,
-    suspense: !!searchKeyword.length ? false : true,
+    suspense: !!searchKeyword ? false : true,
   })
 
   const renderDebts = debts?.data?.map((debt) => (

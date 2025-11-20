@@ -73,7 +73,7 @@ export default function Page() {
       category: category === "all" ? "" : category,
     }),
     method: HTTPMethods.GET,
-    suspense: !!searchKeyword.length ? false : true,
+    suspense: !!searchKeyword ? false : true,
   })
 
   useEffect(() => {

@@ -36,7 +36,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       searchKeyword: encodeURIComponent(searchKeyword),
     }),
     method: HTTPMethods.GET,
-    suspense: !!searchKeyword.length ? false : true,
+    suspense: !!searchKeyword ? false : true,
   })
 
   const renderAssets = assets?.data?.map((asset) => {
