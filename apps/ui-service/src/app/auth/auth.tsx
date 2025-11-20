@@ -1,5 +1,5 @@
 "use client"
-import { appName, uiConstants } from "@/shared/constants/global-constants"
+import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import ky from "ky"
 import { useState } from "react"
 import Show from "@/shared/components/show"
@@ -96,7 +96,7 @@ export default function AuthenticationPage({
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm bg-background border-border text-white">
           <CardHeader>
-            <CardTitle className="text-2xl">{appName}</CardTitle>
+            <CardTitle className="text-2xl">{platformName}</CardTitle>
             <CardDescription className="text-primary">
               <Show
                 condition={authStep === 1}

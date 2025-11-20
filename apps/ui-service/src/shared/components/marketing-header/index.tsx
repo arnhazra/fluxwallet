@@ -8,7 +8,7 @@ import {
   SheetTrigger,
 } from "@/shared/components/ui/sheet"
 import { generalUserLinks } from "./data"
-import { appName, uiConstants } from "@/shared/constants/global-constants"
+import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import { cn } from "@/shared/lib/tw-class-util"
 import IconContainer from "../icon-container"
 
@@ -23,7 +23,7 @@ export default function MarketingHeader() {
           <IconContainer>
             <Wallet className="h-4 w-4" />
           </IconContainer>
-          {appName}
+          {platformName}
         </Link>
         <nav className="hidden md:flex items-center justify-start gap-3 flex-1">
           {generalUserLinks.map((item, index) => (

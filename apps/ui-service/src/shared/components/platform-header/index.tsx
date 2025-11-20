@@ -1,7 +1,7 @@
 import Link from "next/link"
 import { Wallet } from "lucide-react"
 import HeaderSearch from "./search/header-search"
-import { appName } from "@/shared/constants/global-constants"
+import { platformName } from "@/shared/constants/global-constants"
 import { UserNav } from "./user-nav"
 import IconContainer from "../icon-container"
 import { usePathname } from "next/navigation"
@@ -52,7 +52,7 @@ export default function PlatformHeader() {
             <IconContainer>
               <Wallet className="h-4 w-4" />
             </IconContainer>
-            <span className="hidden md:inline">{appName}</span>
+            <span className="hidden md:inline">{platformName}</span>
           </Link>
         </Show>
         <HeaderSearch />

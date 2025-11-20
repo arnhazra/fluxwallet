@@ -2,7 +2,7 @@ import * as Icons from "lucide-react"
 import { App, Solution } from "@/shared/constants/types"
 import IconContainer from "../icon-container"
 import { useRouter } from "nextjs-toploader/app"
-import { appName } from "@/shared/constants/global-constants"
+import { platformName } from "@/shared/constants/global-constants"
 import Show from "../show"
 
 export function AppCard({ app }: { app: App }) {
@@ -16,7 +16,7 @@ export function AppCard({ app }: { app: App }) {
     >
       <div className="flex justify-between items-center mb-12">
         <div>
-          <p className="text-xs">{appName}</p>
+          <p className="text-xs">{platformName}</p>
           <h2 className="text-xl">{app.displayName}</h2>
         </div>
         <IconContainer>
@@ -42,7 +42,7 @@ export function SolutionCard({
       <div className="flex justify-between items-center mb-12">
         <div>
           <Show condition={!!ai}>
-            <p className="text-xs">{appName}</p>
+            <p className="text-xs">{platformName}</p>
           </Show>
           <h2 className={!!ai ? "text-xl" : "text-3xl"}>
             {solution.displayName}

@@ -31,7 +31,7 @@ export function verifyOTP(email: string, hash: string, otp: string): boolean {
 }
 
 export function requestOTPEmailSubject() {
-  return `${config.APP_NAME} OTP`
+  return `${config.PLATFORM_NAME} OTP`
 }
 
 export function requestOTPEmailBody(otp: string) {
@@ -40,7 +40,7 @@ export function requestOTPEmailBody(otp: string) {
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>${config.APP_NAME} OTP</title>
+    <title>${config.PLATFORM_NAME} OTP</title>
     <style>
       body {
         margin: 0;
@@ -102,15 +102,15 @@ export function requestOTPEmailBody(otp: string) {
   </head>
   <body>
     <div class="container">
-      <h1>${config.APP_NAME}</h1>
+      <h1>${config.PLATFORM_NAME}</h1>
       <p>Hello there,</p>
-      <p>Use the key below as your <strong>${config.APP_NAME}</strong> OTP. Please do not share it with anyone.</p>
+      <p>Use the key below as your <strong>${config.PLATFORM_NAME}</strong> OTP. Please do not share it with anyone.</p>
       <p>This OTP is valid for only 5 minutes.</p>
       <div class="otp">${otp}</div>
-      <p>Warm regards,<br />The ${config.APP_NAME} Team</p>
+      <p>Warm regards,<br />The ${config.PLATFORM_NAME} Team</p>
 
       <div class="footer">
-        <p>${config.APP_NAME}</p>
+        <p>${config.PLATFORM_NAME}</p>
         <p>Worldwide</p>
       </div>
     </div>

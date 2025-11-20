@@ -3,7 +3,7 @@ envConfig({ path: "./.env.development" })
 
 export const config = {
   NODE_ENV: process.env.NODE_ENV,
-  APP_NAME: process.env.APP_NAME,
+  PLATFORM_NAME: process.env.PLATFORM_NAME,
   AUTH_DATABASE_URI: process.env.AUTH_DATABASE_URI,
   PLATFORM_DATABASE_URI: process.env.PLATFORM_DATABASE_URI,
   APPS_DATABASE_URI: process.env.APPS_DATABASE_URI,

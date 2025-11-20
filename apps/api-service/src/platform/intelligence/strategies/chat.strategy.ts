@@ -27,7 +27,7 @@ export class ChatStrategy {
     const solutionConfig = await this.redisService.get("solution-config")
 
     return data
-      .replaceAll("{appName}", config.APP_NAME)
+      .replaceAll("{platformName}", config.PLATFORM_NAME)
       .replaceAll("{todaysDate}", new Date().toString())
       .replaceAll("{userDetails}", JSON.stringify(user))
       .replaceAll("{appList}", appConfig)

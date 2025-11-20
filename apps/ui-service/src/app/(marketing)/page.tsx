@@ -6,7 +6,7 @@ import {
   SolutionConfig,
   SubscriptionConfig,
 } from "@/shared/constants/types"
-import { appName, uiConstants } from "@/shared/constants/global-constants"
+import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import { BoxIcon, Check, Coins, Lightbulb, Play } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/tw-class-util"
@@ -134,7 +134,7 @@ export default function Page() {
         </Badge>
 
         <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-          Your finances deserve both intelligence and protection. {appName}
+          Your finances deserve both intelligence and protection. {platformName}
           combines real-time tracking, smart categorization, and insightful
           reporting, all built on a privacy-first foundation that respects your
           data and puts you in charge.
@@ -191,7 +191,7 @@ export default function Page() {
         <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <p className="text-center text-sm leading-loose md:text-left">
-              © {new Date().getFullYear()} {appName}{" "}
+              © {new Date().getFullYear()} {platformName}{" "}
               {uiConstants.copyrightText}
             </p>
           </div>

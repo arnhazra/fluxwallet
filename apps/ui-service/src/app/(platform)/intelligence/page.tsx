@@ -7,7 +7,7 @@ import { Bot, User, ArrowUp, Sparkles } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import { appName, uiConstants } from "@/shared/constants/global-constants"
+import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "@/shared/components/markdown"
 import Show from "@/shared/components/show"
 import { Thread } from "@/shared/constants/types"
@@ -109,7 +109,7 @@ export default function Page() {
                       <Sparkles className="h-5 w-5" />
                     </IconContainer>
                   </div>
-                  <p className="text-white">{appName} Intelligence</p>
+                  <p className="text-white">{platformName} Intelligence</p>
                   <p className="text-xs mt-2 text-neutral-300 p-6">
                     {uiConstants.aiSafetyStatement}
                   </p>
@@ -223,8 +223,8 @@ export default function Page() {
       <Show condition={!user.useIntelligence}>
         <Error
           error={{
-            name: `${appName} Intelligence`,
-            message: `Please Enable ${appName} Intelligence in Account Settings to use this feature`,
+            name: `${platformName} Intelligence`,
+            message: `Please Enable ${platformName} Intelligence in Account Settings to use this feature`,
           }}
         />
       </Show>
