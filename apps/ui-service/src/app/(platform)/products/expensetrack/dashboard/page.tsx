@@ -25,7 +25,10 @@ import {
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { ExpenseCategory, ExpenseResponse } from "@/shared/constants/types"
+import {
+  ExpenseResponse,
+  ExpenseCategoryConfig,
+} from "@/shared/constants/types"
 import notify from "@/shared/hooks/use-notify"
 import useQuery from "@/shared/hooks/use-query"
 import { buildQueryUrl } from "@/shared/lib/build-url"
@@ -41,13 +44,7 @@ import ky from "ky"
 import { PiggyBank, PlusCircle, Trash, Trash2 } from "lucide-react"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect, useState } from "react"
-
-export const formatCategoryName = (category: ExpenseCategory): string => {
-  return category
-    .split("_")
-    .map((word) => word.charAt(0) + word.slice(1).toLowerCase())
-    .join("/")
-}
+import * as Icons from "lucide-react"
 
 export default function Page() {
   const router = useRouter()
@@ -59,6 +56,13 @@ export default function Page() {
   const [selectedMonth, setSelectedMonth] = useState(
     `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, "0")}`
   )
+
+  const expenseCategoryConfig = useQuery<ExpenseCategoryConfig>({
+    queryKey: ["expense-category-config"],
+    queryUrl: `${endPoints.getConfig}/expense-category-config`,
+    method: HTTPMethods.GET,
+    suspense: false,
+  })
 
   const startMonth = useQuery<{ startMonth: null | string }>({
     queryKey: ["start-month"],
@@ -103,13 +107,19 @@ export default function Page() {
   }
 
   const renderExpenses = expenses.data?.expenses?.map((expense) => {
+    const expenseCategory = expenseCategoryConfig.data?.expenseCategories.find(
+      (item) => item.value === expense.expenseCategory
+    )
+    const ExpenseCategoryIcon =
+      (Icons as any)[expenseCategory?.icon || ""] || Icons.PiggyBank
+
     return (
       <div className="mb-2" key={expense._id}>
         <SectionPanel
           key={expense._id}
           icon={
             <IconContainer>
-              <PiggyBank className="h-4 w-4" />
+              <ExpenseCategoryIcon className="h-4 w-4" />
             </IconContainer>
           }
           title={expense.title || "Untitled Expense"}
@@ -124,7 +134,7 @@ export default function Page() {
                 {formatDate(expense.expenseDate, true, false)}
               </div>
               <Badge className="bg-primary text-black hover:bg-primary">
-                {formatCategoryName(expense.expenseCategory)}
+                {expenseCategory?.displayName}
               </Badge>
             </div>
           }
@@ -154,14 +164,14 @@ export default function Page() {
             <SelectItem key="all" value="all" className="rounded-lg">
               All Categories
             </SelectItem>
-            {Object.values(ExpenseCategory).map((category) => {
+            {expenseCategoryConfig.data?.expenseCategories.map((category) => {
               return (
                 <SelectItem
-                  key={category}
-                  value={category}
+                  key={category.value}
+                  value={category.value}
                   className="rounded-lg"
                 >
-                  {formatCategoryName(category)}
+                  {category.displayName}
                 </SelectItem>
               )
             })}
@@ -192,7 +202,7 @@ export default function Page() {
             </CardDescription>
             <Show condition={!category || category !== "all"}>
               <CardDescription className="text-primary">
-                Expense for {formatCategoryName(category as ExpenseCategory)}:{" "}
+                Expense for {category}:{" "}
                 {formatCurrency(expenses.data?.total ?? 0, user.baseCurrency)}
               </CardDescription>
             </Show>

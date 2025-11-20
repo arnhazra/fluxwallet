@@ -23,7 +23,6 @@ import ky from "ky"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { formatDate } from "@/shared/lib/format-date"
-import { ExpenseCategory } from "@/shared/constants/types"
 import {
   Select,
   SelectContent,
@@ -31,11 +30,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select"
+import useQuery from "@/shared/hooks/use-query"
+import { ExpenseCategoryConfig } from "@/shared/constants/types"
+import HTTPMethods from "@/shared/constants/http-methods"
 
 interface ExpenseFormData {
   title?: string
   expenseAmount?: number
-  expenseCategory?: ExpenseCategory
+  expenseCategory?: string
   expenseDate?: Date
 }
 
@@ -43,6 +45,13 @@ type MessageType = "success" | "error"
 
 export default function Page() {
   const [formData, setFormData] = useState<ExpenseFormData>({})
+
+  const expenseCategoryConfig = useQuery<ExpenseCategoryConfig>({
+    queryKey: ["expense-category-config"],
+    queryUrl: `${endPoints.getConfig}/expense-category-config`,
+    method: HTTPMethods.GET,
+    suspense: false,
+  })
 
   const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
     msg: "",
@@ -117,13 +126,19 @@ export default function Page() {
                     <SelectValue placeholder="Select expense category" />
                   </SelectTrigger>
                   <SelectContent className="w-full bg-background text-white border-border">
-                    {Object.values(ExpenseCategory).map((item) => (
-                      <SelectItem key={item} value={item}>
-                        <div className="flex items-center gap-2">
-                          {item.replace("_", " & ")}
-                        </div>
-                      </SelectItem>
-                    ))}
+                    {expenseCategoryConfig.data?.expenseCategories.map(
+                      (category) => {
+                        return (
+                          <SelectItem
+                            key={category.value}
+                            value={category.value}
+                            className="rounded-lg"
+                          >
+                            {category.displayName}
+                          </SelectItem>
+                        )
+                      }
+                    )}
                   </SelectContent>
                 </Select>
               </div>
