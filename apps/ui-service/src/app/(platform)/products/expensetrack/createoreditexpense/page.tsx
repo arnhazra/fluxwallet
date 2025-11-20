@@ -1,6 +1,6 @@
 "use client"
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Card,
@@ -31,8 +31,11 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import useQuery from "@/shared/hooks/use-query"
-import { ExpenseCategoryConfig } from "@/shared/constants/types"
+import { Expense, ExpenseCategoryConfig } from "@/shared/constants/types"
 import HTTPMethods from "@/shared/constants/http-methods"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
+import Show from "@/shared/components/show"
 
 interface ExpenseFormData {
   title?: string
@@ -45,13 +48,36 @@ type MessageType = "success" | "error"
 
 export default function Page() {
   const [formData, setFormData] = useState<ExpenseFormData>({})
+  const searchParams = useSearchParams()
+  const expenseId = searchParams.get("expenseId")
+  const router = useRouter()
 
   const expenseCategoryConfig = useQuery<ExpenseCategoryConfig>({
     queryKey: ["expense-category-config"],
     queryUrl: `${endPoints.getConfig}/expense-category-config`,
     method: HTTPMethods.GET,
+  })
+
+  const expenseDetails = useQuery<Expense>({
+    queryKey: ["get-expense-details"],
+    queryUrl: `${endPoints.expense}/${expenseId}`,
+    method: HTTPMethods.GET,
+    enabled: !!expenseId,
     suspense: false,
   })
+
+  useEffect(() => {
+    if (!!expenseDetails.error) {
+      router.push("/products/expensetrack/createoreditexpense")
+    }
+
+    setFormData({
+      expenseAmount: expenseDetails.data?.expenseAmount,
+      expenseCategory: expenseDetails.data?.expenseCategory,
+      expenseDate: expenseDetails.data?.expenseDate,
+      title: expenseDetails.data?.title,
+    })
+  }, [expenseDetails.data, expenseDetails.error])
 
   const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
     msg: "",
@@ -66,18 +92,34 @@ export default function Page() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    try {
-      e.preventDefault()
-      await ky.post(endPoints.expense, {
-        timeout: FETCH_TIMEOUT,
-        json: formData,
-      })
-      setMessage({ msg: "Expense added successfully!", type: "success" })
-    } catch (error) {
-      setMessage({
-        msg: "Failed to add expense. Please try again.",
-        type: "error",
-      })
+    if (expenseId) {
+      try {
+        e.preventDefault()
+        await ky.put(`${endPoints.expense}/${expenseId}`, {
+          timeout: FETCH_TIMEOUT,
+          json: formData,
+        })
+        setMessage({ msg: "Expense updated successfully!", type: "success" })
+      } catch (error) {
+        setMessage({
+          msg: "Failed to update expense. Please try again.",
+          type: "error",
+        })
+      }
+    } else {
+      try {
+        e.preventDefault()
+        await ky.post(endPoints.expense, {
+          timeout: FETCH_TIMEOUT,
+          json: formData,
+        })
+        setMessage({ msg: "Expense added successfully!", type: "success" })
+      } catch (error) {
+        setMessage({
+          msg: "Failed to add expense. Please try again.",
+          type: "error",
+        })
+      }
     }
   }
 
@@ -88,7 +130,9 @@ export default function Page() {
           <CardHeader className="border-b border-neutral-800">
             <CardTitle className="flex items-center gap-2 text-neutral-100">
               <PiggyBank className="h-6 w-6 text-primary" />
-              Add New Expense
+              <Show condition={!expenseId} fallback="Update Expense">
+                Add New Expense
+              </Show>
             </CardTitle>
             <CardDescription className="text-primary">
               Fill in the details for your expense.
@@ -205,7 +249,9 @@ export default function Page() {
                   variant="default"
                   className="bg-primary hover:bg-primary ml-auto text-black"
                 >
-                  Add Expense
+                  <Show condition={!expenseId} fallback="Update Expense">
+                    Add Expense
+                  </Show>
                 </Button>
               </div>
             </form>

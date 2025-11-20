@@ -41,7 +41,6 @@ import {
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useQueryClient } from "@tanstack/react-query"
 import ky from "ky"
-import { PiggyBank, PlusCircle, Trash, Trash2 } from "lucide-react"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect, useState } from "react"
 import * as Icons from "lucide-react"
@@ -61,7 +60,6 @@ export default function Page() {
     queryKey: ["expense-category-config"],
     queryUrl: `${endPoints.getConfig}/expense-category-config`,
     method: HTTPMethods.GET,
-    suspense: false,
   })
 
   const startMonth = useQuery<{ startMonth: null | string }>({
@@ -140,11 +138,22 @@ export default function Page() {
           }
           actionComponents={[
             <Button
+              className="bg-primary hover:bg-primary"
+              size="icon"
+              onClick={() =>
+                router.replace(
+                  `/products/expensetrack/createoreditexpense?expenseId=${expense._id}`
+                )
+              }
+            >
+              <Icons.Pen className="h-4 w-4" />
+            </Button>,
+            <Button
               className="bg-secondary hover:bg-secondary"
               size="icon"
               onClick={() => deleteExpense(expense._id)}
             >
-              <Trash className="h-4 w-4" />
+              <Icons.Trash className="h-4 w-4" />
             </Button>,
           ]}
         />
@@ -213,10 +222,10 @@ export default function Page() {
               variant="default"
               className="bg-primary hover:bg-primary"
               onClick={(): void =>
-                router.push(`/products/expensetrack/createexpense`)
+                router.push(`/products/expensetrack/createoreditexpense`)
               }
             >
-              <PlusCircle className="h-4 w-4 text-black" />
+              <Icons.Plus className="h-4 w-4 text-black" />
             </Button>
             <EntitySummarizer
               entityType={EntityType.EXPENSE}
