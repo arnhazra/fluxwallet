@@ -245,7 +245,7 @@ export default function Page() {
               <Leaf className="h-4 w-4" />
             </IconContainer>
           }
-          title="Reduce Carbon Emissions"
+          title="Optimize API Calls"
           content={`Turn this settings on to reduce carbon footprints inside ${appName} by optimizing API calls`}
           actionComponents={[
             <Switch
