@@ -111,7 +111,11 @@ export class AuthService {
       const {
         user: { _id: derivedUserId },
       } = resp
-      this.updateAttribute(derivedUserId as string, "avatar", data.picture)
+      this.updateAttribute(
+        derivedUserId as unknown as string,
+        "avatar",
+        data.picture
+      )
       return resp
     } catch (error) {
       throw new Error(statusMessages.connectionError)
