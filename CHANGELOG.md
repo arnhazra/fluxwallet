@@ -2,6 +2,10 @@
 
 ## Version 2.3
 
+- Added agentic tools for ExpenseTrack
+
+## Version 2.3
+
 - Minor tweaks & improvements across UI
 - Introduction of ExpenseTrack app
 - Dependency updates & bug fixes
