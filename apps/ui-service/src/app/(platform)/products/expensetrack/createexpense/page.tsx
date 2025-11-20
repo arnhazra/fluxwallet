@@ -164,7 +164,7 @@ export default function Page() {
                     <Calendar
                       mode="single"
                       captionLayout="dropdown"
-                      startMonth={new Date()}
+                      startMonth={new Date(2000, 0)}
                       endMonth={new Date(2100, 0)}
                       selected={formData.expenseDate}
                       disabled={(date) => date > new Date()}

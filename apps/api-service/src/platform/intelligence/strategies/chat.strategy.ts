@@ -28,6 +28,7 @@ export class ChatStrategy {
 
     return data
       .replaceAll("{appName}", config.APP_NAME)
+      .replaceAll("{todaysDate}", new Date().toString())
       .replaceAll("{userDetails}", JSON.stringify(user))
       .replaceAll("{productList}", productConfig)
       .replaceAll("{solutionList}", solutionConfig)
@@ -57,6 +58,8 @@ export class ChatStrategy {
         this.chatAgent.getTotalDebtTool,
         this.chatAgent.createDebtTool,
         this.chatAgent.createGoalTool,
+        this.chatAgent.getExpenseByMonthTool,
+        this.chatAgent.createExpenseTool,
       ],
     })
 

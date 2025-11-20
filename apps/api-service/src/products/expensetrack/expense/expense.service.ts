@@ -8,7 +8,7 @@ import { CreateExpenseRequestDto } from "./dto/request/create-expense.request.dt
 import { UpdateExpenseCommand } from "./commands/impl/update-expense.command"
 import { FindExpensesByUserQuery } from "./queries/impl/find-expense-by-user.query"
 import { FindExpenseByIdQuery } from "./queries/impl/find-expense-by-id.query"
-import { EventEmitter2 } from "@nestjs/event-emitter"
+import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { ExpenseCategory } from "@/shared/constants/types"
 import { FindStartMonthByUserQuery } from "./queries/impl/find-start-month-by-user.query"
@@ -21,6 +21,7 @@ export class ExpenseService {
     private readonly eventEmitter: EventEmitter2
   ) {}
 
+  @OnEvent(EventMap.CreateExpense)
   async createExpense(userId: string, requestBody: CreateExpenseRequestDto) {
     try {
       return await this.commandBus.execute<CreateExpenseCommand, Expense>(
@@ -31,6 +32,7 @@ export class ExpenseService {
     }
   }
 
+  @OnEvent(EventMap.GetExpenseByMonth)
   async findMyExpenses(
     userId: string,
     monthFilter?: string,
