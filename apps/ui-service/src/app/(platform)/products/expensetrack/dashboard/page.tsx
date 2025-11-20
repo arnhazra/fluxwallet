@@ -208,7 +208,18 @@ export default function Page() {
             />
           </div>
         </CardHeader>
-        <CardContent>{renderExpenses}</CardContent>
+        <CardContent>
+          <Show
+            condition={!!expenses.data?.expenses?.length}
+            fallback={
+              <p className="text-center text-secondary">
+                No recorded expenses to show
+              </p>
+            }
+          >
+            {renderExpenses}
+          </Show>
+        </CardContent>
       </Card>
     </div>
   )
