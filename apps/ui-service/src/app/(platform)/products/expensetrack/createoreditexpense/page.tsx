@@ -11,7 +11,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import { CalendarIcon, PiggyBank } from "lucide-react"
+import { CalendarIcon, HandCoins } from "lucide-react"
 import {
   Popover,
   PopoverContent,
@@ -36,6 +36,7 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import { useSearchParams } from "next/navigation"
 import { useRouter } from "nextjs-toploader/app"
 import Show from "@/shared/components/show"
+import IconContainer from "@/shared/components/icon-container"
 
 interface ExpenseFormData {
   title?: string
@@ -129,7 +130,9 @@ export default function Page() {
         <Card className="bg-background border-border">
           <CardHeader className="border-b border-neutral-800">
             <CardTitle className="flex items-center gap-2 text-neutral-100">
-              <PiggyBank className="h-6 w-6 text-primary" />
+              <IconContainer>
+                <HandCoins className="h-4 w-4" />
+              </IconContainer>
               <Show condition={!expenseId} fallback="Update Expense">
                 Add New Expense
               </Show>

@@ -109,7 +109,7 @@ export default function Page() {
       (item) => item.value === expense.expenseCategory
     )
     const ExpenseCategoryIcon =
-      (Icons as any)[expenseCategory?.icon || ""] || Icons.PiggyBank
+      (Icons as any)[expenseCategory?.icon || ""] || Icons.HandCoins
 
     return (
       <div className="mb-2" key={expense._id}>
