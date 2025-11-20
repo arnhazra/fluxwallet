@@ -3,6 +3,7 @@
 ## Version 2.3
 
 - Added agentic tools for ExpenseTrack
+- Added edit option for expenses
 
 ## Version 2.3
 
