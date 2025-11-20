@@ -30,6 +30,7 @@ import notify from "@/shared/hooks/use-notify"
 import useQuery from "@/shared/hooks/use-query"
 import { buildQueryUrl } from "@/shared/lib/build-url"
 import { formatCurrency } from "@/shared/lib/format-currency"
+import { formatDate } from "@/shared/lib/format-date"
 import {
   generateMonthList,
   getNameFromMonthValue,
@@ -114,8 +115,13 @@ export default function Page() {
           title={expense.title || "Untitled Expense"}
           content={
             <div className="block">
-              <div className="text-primary mb-1">
-                {formatCurrency(expense.expenseAmount, user.baseCurrency)}
+              <div className="mb-1">
+                <span className="text-primary">
+                  {formatCurrency(expense.expenseAmount, user.baseCurrency)}{" "}
+                  on{" "}
+                </span>
+
+                {formatDate(expense.expenseDate, true, false)}
               </div>
               <Badge className="bg-primary text-black hover:bg-primary">
                 {formatCategoryName(expense.expenseCategory)}
