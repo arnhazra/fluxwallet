@@ -1,4 +1,4 @@
-export const appName = process.env.NEXT_PUBLIC_APP_NAME!
+export const platformName = process.env.NEXT_PUBLIC_PLATFORM_NAME!
 
 export const uiConstants = {
   homeHeader: "Invest for future",
@@ -23,9 +23,9 @@ export const uiConstants = {
     "This action cannot be undone. Click continue to proceed, or cancel to go back.",
   copyrightText: ` Inc. All rights reserved.`,
   pricingTitle: `Pricing`,
-  privacyPolicyStatement: `By using ${appName}, you agree to our Privacy Policy.`,
+  privacyPolicyStatement: `By using ${platformName}, you agree to our Privacy Policy.`,
   verifyEmailStatement: `Enter the OTP we've sent to your email to verify your identity.`,
-  aiSafetyStatement: `This is a Generative AI Agent integrated within ${appName} and this may make mistakes. Please review results carefully.`,
+  aiSafetyStatement: `This is a Generative AI Agent integrated within ${platformName} and this may make mistakes. Please review results carefully.`,
 }
 
 export const imageUrls = {

@@ -1,29 +1,29 @@
 import * as Icons from "lucide-react"
-import { Product, Solution } from "@/shared/constants/types"
+import { App, Solution } from "@/shared/constants/types"
 import IconContainer from "../icon-container"
 import { useRouter } from "nextjs-toploader/app"
-import { appName } from "@/shared/constants/global-constants"
+import { platformName } from "@/shared/constants/global-constants"
 import Show from "../show"
 
-export function ProductCard({ product }: { product: Product }) {
-  const ProductIcon = (Icons as any)[product.icon] || Icons.HelpCircle
+export function AppCard({ app }: { app: App }) {
+  const AppIcon = (Icons as any)[app.icon] || Icons.HelpCircle
   const router = useRouter()
 
   return (
     <div
       className={`bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20 cursor-pointer`}
-      onClick={() => router.push(product.url)}
+      onClick={() => router.push(app.url)}
     >
       <div className="flex justify-between items-center mb-12">
         <div>
-          <p className="text-xs">{appName}</p>
-          <h2 className="text-xl">{product.displayName}</h2>
+          <p className="text-xs">{platformName}</p>
+          <h2 className="text-xl">{app.displayName}</h2>
         </div>
         <IconContainer>
-          <ProductIcon className="h-5 w-5" />
+          <AppIcon className="h-5 w-5" />
         </IconContainer>
       </div>
-      <p className="text-sm leading-relaxed justify">{product.description}</p>
+      <p className="text-sm leading-relaxed justify">{app.description}</p>
     </div>
   )
 }
@@ -42,7 +42,7 @@ export function SolutionCard({
       <div className="flex justify-between items-center mb-12">
         <div>
           <Show condition={!!ai}>
-            <p className="text-xs">{appName}</p>
+            <p className="text-xs">{platformName}</p>
           </Show>
           <h2 className={!!ai ? "text-xl" : "text-3xl"}>
             {solution.displayName}

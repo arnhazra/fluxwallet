@@ -1,7 +1,7 @@
 "use client"
 import IconContainer from "@/shared/components/icon-container"
 import { Progress } from "@/shared/components/ui/progress"
-import { appName } from "@/shared/constants/global-constants"
+import { platformName } from "@/shared/constants/global-constants"
 import { Wallet } from "lucide-react"
 
 export default function Loading() {
@@ -10,7 +10,7 @@ export default function Loading() {
       <IconContainer>
         <Wallet className="h-4 w-4" />
       </IconContainer>
-      <p className="text-white">Loading {appName}</p>
+      <p className="text-white">Loading {platformName}</p>
       <Progress
         indeterminate
         className="xl:w-[20%] lg:w-[25%] md:w-[30%] w-[50%] rounded-3xl"

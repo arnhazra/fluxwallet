@@ -12,7 +12,7 @@ import { SubscriptionConfig } from "@/shared/constants/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
-import { appName, uiConstants } from "@/shared/constants/global-constants"
+import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import { useUserContext } from "@/context/user.provider"
 import notify from "@/shared/hooks/use-notify"
 import Show from "../show"
@@ -85,14 +85,14 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
             <IconContainer>
               <Wallet className="h-4 w-4" />
             </IconContainer>
-            {appName} Subscription
+            {platformName} Subscription
           </DialogTitle>
           <DialogDescription className="text-neutral-300">
             <Show
               condition={!user.hasTrial}
               fallback="Activate your free subscription"
             >
-              Subscribe to continue using {appName}
+              Subscribe to continue using {platformName}
             </Show>
           </DialogDescription>
           <Show condition={!user.hasTrial}>

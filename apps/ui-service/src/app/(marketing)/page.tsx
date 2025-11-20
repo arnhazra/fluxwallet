@@ -2,11 +2,11 @@
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import {
-  ProductsConfig,
+  AppsConfig,
   SolutionConfig,
   SubscriptionConfig,
 } from "@/shared/constants/types"
-import { appName, uiConstants } from "@/shared/constants/global-constants"
+import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import { BoxIcon, Check, Coins, Lightbulb, Play } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/tw-class-util"
@@ -14,7 +14,7 @@ import { buttonVariants } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
 import Loading from "../loading"
 import useQuery from "@/shared/hooks/use-query"
-import { SolutionCard, ProductCard } from "@/shared/components/marketing-cards"
+import { SolutionCard, AppCard } from "@/shared/components/marketing-cards"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect, useState } from "react"
 import MarketingHeader from "@/shared/components/marketing-header"
@@ -30,9 +30,9 @@ export default function Page() {
     suspense: false,
   })
 
-  const products = useQuery<ProductsConfig>({
-    queryKey: ["product-config"],
-    queryUrl: `${endPoints.getConfig}/product-config`,
+  const apps = useQuery<AppsConfig>({
+    queryKey: ["app-config"],
+    queryUrl: `${endPoints.getConfig}/app-config`,
     method: HTTPMethods.GET,
     suspense: false,
   })
@@ -72,23 +72,23 @@ export default function Page() {
     </section>
   )
 
-  const renderProductsSection = (
+  const renderAppsSection = (
     <section
-      id="products"
+      id="apps"
       className="container space-y-6 py-8 md:py-12 lg:py-24 lg:rounded-3xl"
     >
       <div className="mx-auto flex max-w-[58rem] flex-col items-center space-y-4 text-center">
         <Badge className="p-2 ps-4 pe-4 text-md bg-background text-primary border border-border rounded-full shadow-md shadow-primary/20">
           <BoxIcon className="h-4 w-4 me-2" />
-          {products?.data?.title}
+          {apps?.data?.title}
         </Badge>
         <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-          {products?.data?.desc}
+          {apps?.data?.desc}
         </p>
       </div>
       <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">
-        {products?.data?.products?.map((product) => (
-          <ProductCard key={product.productName} product={product} />
+        {apps?.data?.apps?.map((app) => (
+          <AppCard key={app.appName} app={app} />
         ))}
       </div>
     </section>
@@ -134,7 +134,7 @@ export default function Page() {
         </Badge>
 
         <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-          Your finances deserve both intelligence and protection. {appName}
+          Your finances deserve both intelligence and protection. {platformName}
           combines real-time tracking, smart categorization, and insightful
           reporting, all built on a privacy-first foundation that respects your
           data and puts you in charge.
@@ -191,7 +191,7 @@ export default function Page() {
         <div className="container flex flex-col items-center justify-between gap-4 py-10 md:h-24 md:flex-row md:py-0">
           <div className="flex flex-col items-center gap-4 px-8 md:flex-row md:gap-2 md:px-0">
             <p className="text-center text-sm leading-loose md:text-left">
-              © {new Date().getFullYear()} {appName}{" "}
+              © {new Date().getFullYear()} {platformName}{" "}
               {uiConstants.copyrightText}
             </p>
           </div>
@@ -215,7 +215,7 @@ export default function Page() {
     <Show
       condition={
         !subscriptionPricing.isLoading &&
-        !products.isLoading &&
+        !apps.isLoading &&
         !solutions.isLoading
       }
       fallback={<Loading />}
@@ -223,7 +223,7 @@ export default function Page() {
       <div className="min-h-screen w-full text-white">
         <MarketingHeader />
         {renderHeroSection}
-        {renderProductsSection}
+        {renderAppsSection}
         {renderSolutionsSection}
         {renderPricingSection}
       </div>

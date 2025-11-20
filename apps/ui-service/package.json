@@ -1,6 +1,6 @@
 {
   "name": "ui-service",
-  "version": "2.3",
+  "version": "2.4",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -42,7 +42,7 @@
     "react-dom": "^19",
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
-    "sass": "^1.94.0",
+    "sass": "^1.94.2",
     "sonner": "^2.0.7",
     "tailwind-merge": "^2.5.5",
     "tailwindcss-animate": "^1.0.7"

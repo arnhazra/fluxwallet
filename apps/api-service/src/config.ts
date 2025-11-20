@@ -3,10 +3,10 @@ envConfig({ path: "./.env.development" })
 
 export const config = {
   NODE_ENV: process.env.NODE_ENV,
-  APP_NAME: process.env.APP_NAME,
+  PLATFORM_NAME: process.env.PLATFORM_NAME,
   AUTH_DATABASE_URI: process.env.AUTH_DATABASE_URI,
   PLATFORM_DATABASE_URI: process.env.PLATFORM_DATABASE_URI,
-  PRODUCTS_DATABASE_URI: process.env.PRODUCTS_DATABASE_URI,
+  APPS_DATABASE_URI: process.env.APPS_DATABASE_URI,
   REDIS_URI: process.env.REDIS_URI,
   AZURE_OPENAI_API_KEY: process.env.AZURE_OPENAI_API_KEY,
   AZURE_OPENAI_DEPLOYMENT_URI: process.env.AZURE_OPENAI_DEPLOYMENT_URI,

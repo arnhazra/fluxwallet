@@ -129,18 +129,18 @@ export interface Valuation {
   presentValuation?: number | null
 }
 
-export interface Product {
-  productName: string
+export interface App {
+  appName: string
   displayName: string
   description: string
   icon: string
   url: string
 }
 
-export interface ProductsConfig {
+export interface AppsConfig {
   title: string
   desc: string
-  products: Product[]
+  apps: App[]
 }
 
 export interface Solution {
@@ -182,16 +182,12 @@ export interface FindNewsResponse {
   articles?: Article[] | null
 }
 
-export enum ExpenseCategory {
-  FOOD_GROCERIES = "FOOD_GROCERIES",
-  TRANSPORTATION = "TRANSPORTATION",
-  HOUSING_RENT = "HOUSING_RENT",
-  BILLS_UTILITIES = "BILLS_UTILITIES",
-  ENTERTAINMENT = "ENTERTAINMENT",
-  SHOPPING = "SHOPPING",
-  EDUCATION = "EDUCATION",
-  DEBT_INSTALLMENT = "DEBT_INSTALLMENT",
-  MISCELLANEOUS = "MISCELLANEOUS",
+export interface ExpenseCategoryConfig {
+  expenseCategories: {
+    displayName: string
+    value: string
+    icon: string
+  }[]
 }
 
 export interface Expense {
@@ -199,7 +195,7 @@ export interface Expense {
   userId: string
   title?: string
   expenseAmount: number
-  expenseCategory: ExpenseCategory
+  expenseCategory: string
   expenseDate: Date
 }
 

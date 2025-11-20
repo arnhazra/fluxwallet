@@ -1,9 +1,9 @@
 "use client"
-import { ProductCard } from "@/shared/components/marketing-cards"
+import { AppCard } from "@/shared/components/marketing-cards"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
-import { ProductsConfig } from "@/shared/constants/types"
+import { AppsConfig } from "@/shared/constants/types"
 import { useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
@@ -22,26 +22,24 @@ export default function Page() {
   const queryClient = useQueryClient()
   const router = useRouter()
 
-  const { data } = useQuery<ProductsConfig>({
-    queryKey: ["product-config"],
-    queryUrl: `${endPoints.getConfig}/product-config`,
+  const { data } = useQuery<AppsConfig>({
+    queryKey: ["app-config"],
+    queryUrl: `${endPoints.getConfig}/app-config`,
     method: HTTPMethods.GET,
   })
 
-  const renderProducts = () => {
-    if (!data?.products) return null
+  const renderApps = () => {
+    if (!data?.apps) return null
 
     const searchPattern = new RegExp(searchKeyword, "i")
-    return data.products
+    return data.apps
       .filter(
-        (product) =>
-          searchPattern.test(product.displayName) ||
-          searchPattern.test(product.productName) ||
-          searchPattern.test(product.description)
+        (app) =>
+          searchPattern.test(app.displayName) ||
+          searchPattern.test(app.appName) ||
+          searchPattern.test(app.description)
       )
-      .map((product) => (
-        <ProductCard key={product.productName} product={product} />
-      ))
+      .map((app) => <AppCard key={app.appName} app={app} />)
   }
 
   const subscribe = async () => {
@@ -71,7 +69,7 @@ export default function Page() {
       <StatCardStack />
       <section>
         <div className="mx-auto grid justify-center gap-4 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-4">
-          {renderProducts()}
+          {renderApps()}
         </div>
       </section>
     </div>

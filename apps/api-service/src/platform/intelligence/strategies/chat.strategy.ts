@@ -23,13 +23,14 @@ export class ChatStrategy {
 
   private async getChatSystemInstruction(user: User) {
     const data = await this.redisService.get("chat-system-instruction")
-    const productConfig = await this.redisService.get("product-config")
+    const appConfig = await this.redisService.get("app-config")
     const solutionConfig = await this.redisService.get("solution-config")
 
     return data
-      .replaceAll("{appName}", config.APP_NAME)
+      .replaceAll("{platformName}", config.PLATFORM_NAME)
+      .replaceAll("{todaysDate}", new Date().toString())
       .replaceAll("{userDetails}", JSON.stringify(user))
-      .replaceAll("{productList}", productConfig)
+      .replaceAll("{appList}", appConfig)
       .replaceAll("{solutionList}", solutionConfig)
   }
 
@@ -57,6 +58,8 @@ export class ChatStrategy {
         this.chatAgent.getTotalDebtTool,
         this.chatAgent.createDebtTool,
         this.chatAgent.createGoalTool,
+        this.chatAgent.getExpenseByMonthTool,
+        this.chatAgent.createExpenseTool,
       ],
     })
 

@@ -3,7 +3,7 @@ import CopyToClipboard from "@/shared/components/copy"
 import SectionPanel from "../../../shared/components/section-panel"
 import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import { appName, uiConstants } from "@/shared/constants/global-constants"
+import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import { useUserContext } from "@/context/user.provider"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import ky from "ky"
@@ -115,8 +115,8 @@ export default function Page() {
 
   const viewIntelligenceDataAgreement = async (from: string) => {
     const consent = await confirm({
-      title: `${appName} Intelligence Data Agreement`,
-      desc: `By enabling ${appName} Intelligence, you agree to allow ${appName} the system to process certain data to provide AI-powered 
+      title: `${platformName} Intelligence Data Agreement`,
+      desc: `By enabling ${platformName} Intelligence, you agree to allow ${platformName} the system to process certain data to provide AI-powered 
       enhancements. We want to be completely clear about what that means, what is and isn’t shared, and how your information is handled.
       When you use AI features, the app may send text or structured data to a language model so it can analyze, summarize, 
       or generate helpful responses. This processing happens securely and is designed to improve your experience for example, 
@@ -173,7 +173,7 @@ export default function Page() {
               <IdCardLanyard className="h-4 w-4" />
             </IconContainer>
           }
-          title={`${appName} ID`}
+          title={`${platformName} ID`}
           content={user._id}
           masked
           actionComponents={[<CopyToClipboard value={user._id} />]}
@@ -196,11 +196,11 @@ export default function Page() {
               <Sparkles className="h-4 w-4" />
             </IconContainer>
           }
-          title={`${appName} Intelligence`}
+          title={`${platformName} Intelligence`}
           content={
             <>
-              An Intelligent system integrated deeply within {appName} platform.
-              This uses AI to enhance your experience. View the{" "}
+              An Intelligent system integrated deeply within {platformName}{" "}
+              platform. This uses AI to enhance your experience. View the{" "}
               <span
                 className="text-primary cursor-pointer"
                 onClick={() => viewIntelligenceDataAgreement("link")}
@@ -245,8 +245,8 @@ export default function Page() {
               <Leaf className="h-4 w-4" />
             </IconContainer>
           }
-          title="Reduce Carbon Emissions"
-          content={`Turn this settings on to reduce carbon footprints inside ${appName} by optimizing API calls`}
+          title="Optimize API Calls"
+          content={`Turn this settings on to reduce carbon footprints inside ${platformName} by optimizing API calls`}
           actionComponents={[
             <Switch
               checked={user.reduceCarbonEmissions}
@@ -275,8 +275,8 @@ export default function Page() {
               <GitCompare className="h-4 w-4" />
             </IconContainer>
           }
-          title={`${appName} Platform Version`}
-          content="2.3"
+          title={`${platformName} Platform Version`}
+          content="2.4"
         />
         <SectionPanel
           icon={
