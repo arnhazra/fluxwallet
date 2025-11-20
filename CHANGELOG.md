@@ -1,6 +1,6 @@
 # Changelog
 
-## Version 2.3
+## Version 2.4
 
 - Added agentic tools for ExpenseTrack
 - Added edit option for expenses
