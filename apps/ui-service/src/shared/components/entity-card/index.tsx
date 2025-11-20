@@ -296,9 +296,7 @@ export function EntityCard<T extends keyof EntityMap>({
             variant="default"
             className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
             onClick={(): void =>
-              router.push(
-                `/products/wealthanalyzer/space/${(entity as Space)._id}`
-              )
+              router.push(`/apps/wealthanalyzer/space/${(entity as Space)._id}`)
             }
           >
             View Assets

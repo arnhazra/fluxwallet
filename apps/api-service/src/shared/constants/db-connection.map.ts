@@ -3,7 +3,7 @@ export enum GeneralDbConnectionMap {
   Platform = "platform",
 }
 
-export enum ProductsDbConnectionMap {
+export enum AppsDbConnectionMap {
   WealthAnalyzer = "wealthanalyzer",
   DebtTrack = "debttrack",
   WealthGoal = "wealthgoal",

@@ -1,6 +1,6 @@
 import { Module, DynamicModule } from "@nestjs/common"
 import {
-  ProductsDbConnectionMap,
+  AppsDbConnectionMap,
   GeneralDbConnectionMap,
 } from "@/shared/constants/db-connection.map"
 import { ModelDefinition, MongooseModule } from "@nestjs/mongoose"
@@ -9,7 +9,7 @@ import { ModelDefinition, MongooseModule } from "@nestjs/mongoose"
 export class EntityModule {
   static forRoot(
     uri: string,
-    dbConnectionName: ProductsDbConnectionMap | GeneralDbConnectionMap
+    dbConnectionName: AppsDbConnectionMap | GeneralDbConnectionMap
   ): DynamicModule {
     return MongooseModule.forRootAsync({
       useFactory: () => ({
@@ -22,7 +22,7 @@ export class EntityModule {
 
   static forFeature(
     models: ModelDefinition[],
-    dbConnectionName: ProductsDbConnectionMap | GeneralDbConnectionMap
+    dbConnectionName: AppsDbConnectionMap | GeneralDbConnectionMap
   ): DynamicModule {
     return MongooseModule.forFeature(models, dbConnectionName)
   }

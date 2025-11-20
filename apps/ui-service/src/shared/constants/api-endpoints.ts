@@ -14,11 +14,11 @@ export const endPoints = {
   subscribe: `${apiHost}/platform/subscription/subscribe`,
   getConfig: `${apiHost}/platform/config`,
   intelligence: `${apiHost}/platform/intelligence`,
-  // Products Service
-  space: `${apiHost}/products/wealthanalyzer/space`,
-  asset: `${apiHost}/products/wealthanalyzer/asset`,
-  debt: `${apiHost}/products/debttrack/debt`,
-  goal: `${apiHost}/products/wealthgoal/goal`,
-  news: `${apiHost}/products/discover/news`,
-  expense: `${apiHost}/products/expensetrack/expense`,
+  // Apps Service
+  space: `${apiHost}/apps/wealthanalyzer/space`,
+  asset: `${apiHost}/apps/wealthanalyzer/asset`,
+  debt: `${apiHost}/apps/debttrack/debt`,
+  goal: `${apiHost}/apps/wealthgoal/goal`,
+  news: `${apiHost}/apps/discover/news`,
+  expense: `${apiHost}/apps/expensetrack/expense`,
 }

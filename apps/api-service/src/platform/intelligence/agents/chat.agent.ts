@@ -1,6 +1,3 @@
-import { Debt } from "@/products/debttrack/debt/schemas/debt.schema"
-import { Asset } from "@/products/wealthanalyzer/asset/schemas/asset.schema"
-import { Space } from "@/products/wealthanalyzer/space/schemas/space.schema"
 import { AssetType, ExpenseCategory } from "@/shared/constants/types"
 import { Currency } from "country-code-enum"
 import { EventMap } from "@/shared/constants/event.map"
@@ -8,9 +5,12 @@ import { tool } from "langchain"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { z } from "zod"
-import { Goal } from "@/products/wealthgoal/goal/schemas/goal.schema"
 import { nlDate } from "@/shared/utils/nl-date"
-import { Expense } from "@/products/expensetrack/expense/schemas/expense.schema"
+import { Space } from "@/apps/wealthanalyzer/space/schemas/space.schema"
+import { Asset } from "@/apps/wealthanalyzer/asset/schemas/asset.schema"
+import { Goal } from "@/apps/wealthgoal/goal/schemas/goal.schema"
+import { Expense } from "@/apps/expensetrack/expense/schemas/expense.schema"
+import { Debt } from "@/apps/debttrack/debt/schemas/debt.schema"
 
 @Injectable()
 export class ChatAgent {

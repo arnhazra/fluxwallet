@@ -27,10 +27,10 @@ export const entityImageMap = {
 }
 
 export const createEntityUrlMap = {
-  [EntityType.ASSET]: "/products/wealthanalyzer/create/asset",
-  [EntityType.DEBT]: "/products/debttrack/createdebt",
-  [EntityType.SPACE]: "/products/wealthanalyzer/create/space",
-  [EntityType.GOAL]: "/products/wealthgoal/creategoal",
-  [EntityType.NEWS]: "/products/discover",
-  [EntityType.EXPENSE]: "/products/expensetrack/createexpense",
+  [EntityType.ASSET]: "/apps/wealthanalyzer/create/asset",
+  [EntityType.DEBT]: "/apps/debttrack/createdebt",
+  [EntityType.SPACE]: "/apps/wealthanalyzer/create/space",
+  [EntityType.GOAL]: "/apps/wealthgoal/creategoal",
+  [EntityType.NEWS]: "/apps/discover",
+  [EntityType.EXPENSE]: "/apps/expensetrack/createexpense",
 }

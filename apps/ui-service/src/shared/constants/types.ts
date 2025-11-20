@@ -129,18 +129,18 @@ export interface Valuation {
   presentValuation?: number | null
 }
 
-export interface Product {
-  productName: string
+export interface App {
+  appName: string
   displayName: string
   description: string
   icon: string
   url: string
 }
 
-export interface ProductsConfig {
+export interface AppsConfig {
   title: string
   desc: string
-  products: Product[]
+  apps: App[]
 }
 
 export interface Solution {
