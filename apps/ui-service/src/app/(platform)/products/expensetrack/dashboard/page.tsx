@@ -146,7 +146,7 @@ export default function Page() {
                 )
               }
             >
-              <Icons.Pen className="h-4 w-4" />
+              <Icons.Pen className="h-4 w-4 text-black" />
             </Button>,
             <Button
               className="bg-secondary hover:bg-secondary"
@@ -211,8 +211,12 @@ export default function Page() {
             </CardDescription>
             <Show condition={!category || category !== "all"}>
               <CardDescription className="text-primary">
-                Expense for {category}:{" "}
-                {formatCurrency(expenses.data?.total ?? 0, user.baseCurrency)}
+                {
+                  expenseCategoryConfig.data?.expenseCategories.find(
+                    (item) => item.value === category
+                  )?.displayName
+                }
+                : {formatCurrency(expenses.data?.total ?? 0, user.baseCurrency)}
               </CardDescription>
             </Show>
           </div>
