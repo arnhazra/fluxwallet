@@ -1,4 +1,4 @@
-export const platformName = process.env.NEXT_PUBLIC_PLATFORM_NAME!
+export const platformName = process.env.NEXT_PUBLIC_BRAND_NAME!
 
 export const uiConstants = {
   homeHeader: "Invest for future",
