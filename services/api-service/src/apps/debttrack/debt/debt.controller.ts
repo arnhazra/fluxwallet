@@ -85,7 +85,7 @@ export class DebtController {
   }
 
   @UseGuards(AuthGuard)
-  @Post("total")
+  @Post("total-debt")
   async calculateTotalDebt(@Request() request: ModRequest) {
     try {
       const { remainingDebt, totalEMI, totalPrincipal } =

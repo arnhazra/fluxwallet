@@ -3,8 +3,8 @@
   "version": "2.4",
   "description": "an wealth management platform",
   "scripts": {
-    "api-service": "npm run dev --prefix apps/api-service",
-    "ui-service": "npm run dev --prefix apps/ui-service",
+    "api-service": "npm run dev --prefix services/api-service",
+    "ui-service": "npm run dev --prefix services/ui-service",
     "dev": "concurrently \"npm run api-service\" \"npm run ui-service\"",
     "publish": "git add . && git commit -m \"Publish App\" && git push",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""

@@ -6,6 +6,7 @@
 - Added edit option for expenses
 - Rebranding of products to apps
 - Minor bug fixes & performance improvements
+- Architectural changes across servicesz
 
 ## Version 2.3
 

@@ -6,8 +6,8 @@ node_modules
 .env.production
 .vercel
 dist
-apps/ui-service/.next
-apps/ui-service/.vercel
-apps/ui-service/*.tsbuildinfo
-apps/ui-service/out
-apps/api-service/build
+services/ui-service/.next
+services/ui-service/.vercel
+services/ui-service/*.tsbuildinfo
+services/ui-service/out
+services/api-service/build

@@ -83,7 +83,7 @@ export default function Page() {
           {apps?.data?.title}
         </Badge>
         <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7">
-          {apps?.data?.desc}
+          {apps?.data?.description}
         </p>
       </div>
       <div className="mx-auto grid justify-center gap-4 sm:grid-cols-1 md:max-w-[35rem] md:grid-cols-1 lg:max-w-[50rem] lg:grid-cols-2 xl:max-w-[68rem] xl:grid-cols-3">

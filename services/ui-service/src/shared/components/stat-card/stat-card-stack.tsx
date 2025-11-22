@@ -28,13 +28,13 @@ export default function StatCardStack() {
 
   const { data: debtData } = useQuery<TotalDebtDetails>({
     queryKey: ["get-total-debt"],
-    queryUrl: `${endPoints.debt}/total`,
+    queryUrl: `${endPoints.debt}/total-debt`,
     method: HTTPMethods.POST,
   })
 
   const { data: nearestGoalData } = useQuery<Goal>({
     queryKey: ["find-nearest-goal"],
-    queryUrl: `${endPoints.goal}/nearest`,
+    queryUrl: `${endPoints.goal}/nearest-goal`,
     method: HTTPMethods.GET,
   })
 
