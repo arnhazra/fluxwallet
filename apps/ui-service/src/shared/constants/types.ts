@@ -139,7 +139,7 @@ export interface App {
 
 export interface AppsConfig {
   title: string
-  desc: string
+  description: string
   apps: App[]
 }
 

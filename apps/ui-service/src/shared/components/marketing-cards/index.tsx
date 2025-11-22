@@ -11,10 +11,10 @@ export function AppCard({ app }: { app: App }) {
 
   return (
     <div
-      className={`bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20 cursor-pointer`}
+      className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
       onClick={() => router.push(app.url)}
     >
-      <div className="flex justify-between items-center mb-12">
+      <div className="flex justify-between items-center mb-6">
         <div>
           <p className="text-xs">{platformName}</p>
           <h2 className="text-xl">{app.displayName}</h2>

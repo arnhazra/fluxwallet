@@ -15,7 +15,6 @@ import { ExpenseService } from "./expense.service"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { AuthGuard, ModRequest } from "@/auth/auth.guard"
 import { CreateExpenseRequestDto } from "./dto/request/create-expense.request.dto"
-import { ExpenseCategory } from "@/shared/constants/types"
 import { FindMyExpensesQueryDto } from "./dto/request/find-my-expenses.request.dto"
 
 @Controller("apps/expensetrack/expense")

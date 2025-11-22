@@ -47,7 +47,7 @@ export class GoalController {
   }
 
   @UseGuards(AuthGuard)
-  @Get("nearest")
+  @Get("nearest-goal")
   async findNearestGoal(@Request() request: ModRequest) {
     try {
       return await this.service.findNearestGoal(request.user.userId)
