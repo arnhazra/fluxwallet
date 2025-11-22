@@ -1,5 +1,7 @@
 # Changelog
 
+## Version 2.5
+
 ## Version 2.4
 
 - Added agentic tools for ExpenseTrack
