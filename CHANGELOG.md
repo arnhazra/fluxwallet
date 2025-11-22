@@ -1,13 +1,12 @@
 # Changelog
 
-## Version 2.5
-
 ## Version 2.4
 
 - Added agentic tools for ExpenseTrack
 - Added edit option for expenses
 - Rebranding of products to apps
 - Minor bug fixes & performance improvements
+- Architectural changes across servicesz
 
 ## Version 2.3
 
