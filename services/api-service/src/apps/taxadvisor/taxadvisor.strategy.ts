@@ -1,11 +1,11 @@
 import { Injectable } from "@nestjs/common"
 import { Thread } from "./schemas/thread.schema"
 import { config } from "@/config"
-import { ChatOpenAI } from "@langchain/openai"
 import { createAgent } from "langchain"
 import { User } from "@/auth/schemas/user.schema"
 import { RedisService } from "@/shared/redis/redis.service"
-import { TaxAdvisorTools } from "./tools/taxadvisor.tool"
+import { TaxAdvisorAgent } from "./agents/taxadvisor.agent"
+import { llm } from "@/platform/intelligence/llm/llm"
 
 export interface TaxAdvisorStrategyType {
   temperature: number
@@ -20,7 +20,7 @@ export interface TaxAdvisorStrategyType {
 export class TaxAdvisorStrategy {
   constructor(
     private readonly redisService: RedisService,
-    private readonly taxAdvisorTools: TaxAdvisorTools
+    private readonly taxAdvisorAgent: TaxAdvisorAgent
   ) {}
 
   private async getSystemInstruction(user: User) {
@@ -38,7 +38,7 @@ export class TaxAdvisorStrategy {
 
     const agent = createAgent({
       model: llm,
-      tools: [this.taxAdvisorTools.sendEmailTool],
+      tools: [this.taxAdvisorAgent.sendEmailTool],
     })
 
     const chatHistory = thread.flatMap((t) => [
@@ -57,17 +57,7 @@ export class TaxAdvisorStrategy {
     return messages[messages.length - 1]?.content.toString()
   }
 
-  async taxAdvisorStrategy(args: TaxAdvisorStrategyType) {
-    const llm = new ChatOpenAI({
-      model: config.AZURE_OPENAI_BASE_MODEL,
-      temperature: args.temperature,
-      topP: args.topP,
-      apiKey: config.AZURE_OPENAI_API_KEY,
-      configuration: {
-        baseURL: config.AZURE_OPENAI_DEPLOYMENT_URI,
-        apiKey: config.AZURE_OPENAI_API_KEY,
-      },
-    })
+  async advise(args: TaxAdvisorStrategyType) {
     const response = await this.runAdvisorAgent(llm, args)
     return { response }
   }

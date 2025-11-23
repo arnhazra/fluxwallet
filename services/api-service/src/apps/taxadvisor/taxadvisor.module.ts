@@ -11,7 +11,7 @@ import { FetchThreadByIdQueryHandler } from "./queries/handler/fetch-thread-by-i
 import { HttpModule } from "@nestjs/axios"
 import { TaxAdvisorStrategy } from "./taxadvisor.strategy"
 import { config } from "@/config"
-import { TaxAdvisorTools } from "./tools/taxadvisor.tool"
+import { TaxAdvisorAgent } from "./agents/taxadvisor.agent"
 
 @Module({
   imports: [
@@ -30,7 +30,7 @@ import { TaxAdvisorTools } from "./tools/taxadvisor.tool"
   providers: [
     TaxAdvisorService,
     TaxAdvisorRepository,
-    TaxAdvisorTools,
+    TaxAdvisorAgent,
     TaxAdvisorStrategy,
     CreateThreadCommandHandler,
     FetchThreadByIdQueryHandler,
