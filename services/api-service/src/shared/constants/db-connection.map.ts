@@ -8,4 +8,5 @@ export enum AppsDbConnectionMap {
   DebtTrack = "debttrack",
   WealthGoal = "wealthgoal",
   ExpenseTrack = "expensetrack",
+  TaxAdvisor = "taxadvisor",
 }
