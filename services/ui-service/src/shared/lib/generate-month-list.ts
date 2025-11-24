@@ -21,6 +21,13 @@ export function generateMonthList(startMonth: string | null | undefined) {
   return months.reverse()
 }
 
+export function getCurrentMonthString(): string {
+  const now = new Date()
+  const year = now.getFullYear()
+  const month = String(now.getMonth() + 1).padStart(2, "0")
+  return `${year}-${month}`
+}
+
 export function getNameFromMonthValue(month: string | null | undefined) {
   if (!month) return ""
   const date = new Date(`${month}-01`)

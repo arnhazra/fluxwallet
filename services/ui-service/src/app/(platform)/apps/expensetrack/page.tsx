@@ -36,6 +36,7 @@ import { formatCurrency } from "@/shared/lib/format-currency"
 import { formatDate } from "@/shared/lib/format-date"
 import {
   generateMonthList,
+  getCurrentMonthString,
   getNameFromMonthValue,
 } from "@/shared/lib/generate-month-list"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
@@ -52,9 +53,7 @@ export default function Page() {
   const queryClient = useQueryClient()
   const [category, setSelectedCategory] = useState("all")
   const [totalExpense, setTotalExpense] = useState(0)
-  const [selectedMonth, setSelectedMonth] = useState(
-    `${new Date().getFullYear()}-${String(new Date().getMonth() + 1).padStart(2, "0")}`
-  )
+  const [selectedMonth, setSelectedMonth] = useState(getCurrentMonthString())
 
   const expenseCategoryConfig = useQuery<ExpenseCategoryConfig>({
     queryKey: ["expense-category-config"],
