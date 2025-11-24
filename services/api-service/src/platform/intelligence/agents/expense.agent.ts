@@ -80,7 +80,7 @@ export class ExpenseAgent {
           .optional()
           .describe("expense purpose given by the user - optional"),
         expenseCategory: z
-          .enum(ExpenseCategory)
+          .nativeEnum(ExpenseCategory)
           .describe(
             `category of the expense - you should decide based on description user gave, if not then ask`
           ),
