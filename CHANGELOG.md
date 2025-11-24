@@ -1,5 +1,7 @@
 # Changelog
 
+## Version 2.6
+
 ## Version 2.5
 
 - Added TaxAdvisor application

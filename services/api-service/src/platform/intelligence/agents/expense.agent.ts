@@ -4,7 +4,6 @@ import { tool } from "langchain"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { z } from "zod"
-import { nlDate } from "@/shared/utils/nl-date"
 import { Expense } from "@/apps/expensetrack/expense/schemas/expense.schema"
 
 @Injectable()
@@ -81,16 +80,18 @@ export class ExpenseAgent {
           .optional()
           .describe("expense purpose given by the user - optional"),
         expenseCategory: z
-          .nativeEnum(ExpenseCategory)
+          .enum(ExpenseCategory)
           .describe(
             `category of the expense - you should decide based on description user gave, if not then ask`
           ),
         expenseAmount: z.coerce
           .number()
           .describe("expense amount given by the user"),
-        expenseDate: nlDate.describe(
-          `expense date; natural language allowed (e.g., "Dec 15", "2025-12-15") - must not be future date`
-        ),
+        expenseDate: z
+          .string()
+          .describe(
+            `expense date; natural language allowed (e.g., "next Friday", "in 2 months", "2025-01-31") you need to convert to date object`
+          ),
       }),
     }
   )
