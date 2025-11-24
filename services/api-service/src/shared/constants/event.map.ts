@@ -11,7 +11,6 @@ export enum EventMap {
   CreateSpace = "createSpace",
   GetSpaceList = "getSpaceList",
   GetAssetList = "getAssetList",
-  UpdateAttribute = "updateAttribute",
   GetDebtList = "getDebtList",
   GetGoalList = "getGoalList",
   GetNearestGoal = "getNearestGoal",

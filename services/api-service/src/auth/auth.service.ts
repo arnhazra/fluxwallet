@@ -202,7 +202,6 @@ export class AuthService {
     }
   }
 
-  @OnEvent(EventMap.UpdateAttribute)
   async updateAttribute<K extends keyof User>(
     userId: string,
     attributeName: K,
