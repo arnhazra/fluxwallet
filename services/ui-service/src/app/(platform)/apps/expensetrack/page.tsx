@@ -5,7 +5,7 @@ import EntitySummarizer from "@/shared/components/entity-summarizer"
 import IconContainer from "@/shared/components/icon-container"
 import SectionPanel from "@/shared/components/section-panel"
 import Show from "@/shared/components/show"
-import StatCardStack from "@/shared/components/stat-card/stat-card-stack"
+import WidgetStack from "@/shared/components/widget/widget-stack"
 import { Badge } from "@/shared/components/ui/badge"
 import { Button } from "@/shared/components/ui/button"
 import {
@@ -162,7 +162,7 @@ export default function Page() {
 
   return (
     <div className="mx-auto grid w-full items-start gap-6">
-      <StatCardStack />
+      <WidgetStack />
       <div className="flex gap-4">
         <Select value={category} onValueChange={setSelectedCategory}>
           <SelectTrigger className="w-40 bg-neutral-800 text-white border border-border rounded-lg">
