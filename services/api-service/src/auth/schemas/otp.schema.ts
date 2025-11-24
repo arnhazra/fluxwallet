@@ -1,17 +1,17 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document } from "mongoose"
+import {
+  createSchemaFromClass,
+  Entity,
+  EntityProp,
+  IdentifiableEntitySchmea,
+} from "@/shared/entity/entity.schema"
 
-@Schema({
-  versionKey: false,
-  collection: "otps",
-  timestamps: { createdAt: true, updatedAt: false },
-})
-export class OneTimePassword extends Document {
-  @Prop({ required: true, unique: true })
+@Entity({ collection: "otps" })
+export class OneTimePassword extends IdentifiableEntitySchmea {
+  @EntityProp({ required: true, unique: true })
   email: string
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   hashedOTP: string
 }
 
-export const OTPSchema = SchemaFactory.createForClass(OneTimePassword)
+export const OTPSchema = createSchemaFromClass(OneTimePassword)

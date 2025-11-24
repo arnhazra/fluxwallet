@@ -1,63 +1,65 @@
 import { Space } from "../../space/schemas/space.schema"
 import { User } from "@/auth/schemas/user.schema"
 import { AssetType, RecurringFrequency } from "@/shared/constants/types"
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document, Types } from "mongoose"
+import {
+  createSchemaFromClass,
+  Entity,
+  EntityProp,
+  IdentifiableEntitySchmea,
+  ObjectId,
+  ObjectIdType,
+} from "@/shared/entity/entity.schema"
 
-@Schema({
-  versionKey: false,
-  collection: "assets",
-  timestamps: { createdAt: true, updatedAt: false },
-})
-export class Asset extends Document {
-  @Prop({ type: Types.ObjectId, ref: User.name, required: true })
-  userId: Types.ObjectId // COMMON
+@Entity({ collection: "assets" })
+export class Asset extends IdentifiableEntitySchmea {
+  @EntityProp({ type: ObjectIdType, ref: User.name, required: true })
+  userId: ObjectId // COMMON
 
-  @Prop({
-    type: Types.ObjectId,
+  @EntityProp({
+    type: ObjectIdType,
     ref: Space.name,
     required: true,
   })
-  spaceId: Types.ObjectId // COMMON
+  spaceId: ObjectId // COMMON
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   assetType: AssetType // COMMON
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   assetName: string // COMMON
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   identifier: string // COMMON
 
-  @Prop()
+  @EntityProp()
   startDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
 
-  @Prop()
+  @EntityProp()
   maturityDate?: Date // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
 
-  @Prop()
+  @EntityProp()
   amountInvested?: number // LUMPSUM_DEPOSIT, BOND
 
-  @Prop()
+  @EntityProp()
   expectedReturnRate?: number // LUMPSUM_DEPOSIT, RECURRING_DEPOSIT, BOND
 
-  @Prop()
+  @EntityProp()
   contributionAmount?: number // RECURRING_DEPOSIT
 
-  @Prop()
+  @EntityProp()
   contributionFrequency?: RecurringFrequency // RECURRING_DEPOSIT
 
-  @Prop()
+  @EntityProp()
   valuationOnPurchase?: number // REAL_ESTATE, METAL, OTHER
 
-  @Prop()
+  @EntityProp()
   currentValuation?: number // LIQUID, REAL_ESTATE, METAL, OTHER
 
-  @Prop()
+  @EntityProp()
   units?: number // EQUITY, CRYPTO
 
-  @Prop()
+  @EntityProp()
   unitPurchasePrice?: number // EQUITY, CRYPTO
 }
 
-export const AssetSchema = SchemaFactory.createForClass(Asset)
+export const AssetSchema = createSchemaFromClass(Asset)

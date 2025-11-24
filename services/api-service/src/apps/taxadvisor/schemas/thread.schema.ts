@@ -1,23 +1,25 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document, Types } from "mongoose"
+import {
+  createSchemaFromClass,
+  Entity,
+  EntityProp,
+  IdentifiableEntitySchmea,
+  ObjectId,
+  ObjectIdType,
+} from "@/shared/entity/entity.schema"
 
-@Schema({
-  versionKey: false,
-  collection: "threads",
-  timestamps: { createdAt: true, updatedAt: false },
-})
-export class Thread extends Document {
-  @Prop({ type: Types.ObjectId, required: true })
-  readonly threadId: Types.ObjectId
+@Entity({ collection: "threads" })
+export class Thread extends IdentifiableEntitySchmea {
+  @EntityProp({ type: ObjectIdType, required: true })
+  readonly threadId: ObjectId
 
-  @Prop({ type: Types.ObjectId, required: true })
-  readonly userId: Types.ObjectId
+  @EntityProp({ type: ObjectIdType, required: true })
+  readonly userId: ObjectId
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   readonly prompt: string
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   readonly response: string
 }
 
-export const ThreadSchema = SchemaFactory.createForClass(Thread)
+export const ThreadSchema = createSchemaFromClass(Thread)
