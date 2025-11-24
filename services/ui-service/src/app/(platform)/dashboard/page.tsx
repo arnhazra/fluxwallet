@@ -68,6 +68,7 @@ export default function Page() {
     <div className="mx-auto grid w-full items-start gap-6">
       <WidgetStack />
       <section>
+        <p className="text-xl mb-4 -mt-2 ms-1">Apps</p>
         <div className="mx-auto grid justify-center gap-4 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-4">
           {renderApps()}
         </div>
