@@ -10,15 +10,13 @@ interface StatCardProps {
   icon: ReactNode
   statTitle: string
   statValue: number
-  statDescription: string
   additionalComponent?: ReactNode
 }
 
-export default function StatCard({
+export default function WidgetCard({
   icon,
   statTitle,
   statValue,
-  statDescription,
   additionalComponent,
 }: StatCardProps) {
   const [{ user }] = useUserContext()
@@ -34,8 +32,7 @@ export default function StatCard({
           <p className="text-3xl font-bold text-white">
             {formatCurrency(statValue, user.baseCurrency)}
           </p>
-          <div className="space-y-2">
-            <p className="text-sm text-neutral-300">{statDescription}</p>
+          <div className="mt-4">
             <Show condition={!!additionalComponent}>{additionalComponent}</Show>
           </div>
         </div>
