@@ -9,25 +9,20 @@ import { Space } from "@/apps/wealthanalyzer/space/schemas/space.schema"
 export class SpaceAgent {
   constructor(private readonly eventEmitter: EventEmitter2) {}
 
-  public getSpaceValuationTool = tool(
+  public createSpaceTool = tool(
     async ({ userId, spaceName }: { userId: string; spaceName: string }) => {
       try {
-        const space: any = (
-          await this.eventEmitter.emitAsync(
-            EventMap.GetSpaceList,
-            userId,
-            spaceName
-          )
-        ).shift()
-        const valuation = space.presentValuation ?? 0
-        return `Valuation is ${valuation}`
+        await this.eventEmitter.emitAsync(EventMap.CreateSpace, userId, {
+          spaceName,
+        })
+        return "Space created successfully"
       } catch (error) {
-        return "Unable to get the valuation"
+        return "Failed to create the space"
       }
     },
     {
-      name: "get_space_valuation_by_space_name",
-      description: "Get space valuation for a specific space",
+      name: "create_space",
+      description: "Create a space for a user",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
         spaceName: z.string().describe("space name given by the user"),
@@ -69,20 +64,25 @@ export class SpaceAgent {
     }
   )
 
-  public createSpaceTool = tool(
+  public getSpaceValuationTool = tool(
     async ({ userId, spaceName }: { userId: string; spaceName: string }) => {
       try {
-        await this.eventEmitter.emitAsync(EventMap.CreateSpace, userId, {
-          spaceName,
-        })
-        return "Space created successfully"
+        const space: any = (
+          await this.eventEmitter.emitAsync(
+            EventMap.GetSpaceList,
+            userId,
+            spaceName
+          )
+        ).shift()
+        const valuation = space.presentValuation ?? 0
+        return `Valuation is ${valuation}`
       } catch (error) {
-        return "Failed to create the space"
+        return "Unable to get the valuation"
       }
     },
     {
-      name: "create_space",
-      description: "Create a space for a user",
+      name: "get_space_valuation_by_space_name",
+      description: "Get space valuation for a specific space",
       schema: z.object({
         userId: z.string().describe("user id of the user"),
         spaceName: z.string().describe("space name given by the user"),
