@@ -2,6 +2,8 @@
 
 ## Version 2.6
 
+- Minor UI modernization & Code refactoring
+
 ## Version 2.5
 
 - Added TaxAdvisor application
