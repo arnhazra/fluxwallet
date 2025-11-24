@@ -2,8 +2,8 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindAssetsBySpaceQuery } from "../impl/find-assets-by-space.query"
 import { AssetRepository } from "../../asset.repository"
 import objectId from "@/shared/utils/convert-objectid"
-import { FilterQuery } from "mongoose"
 import { Asset } from "../../schemas/asset.schema"
+import { QueryFilter } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindAssetsBySpaceQuery)
 export class FindAssetsBySpaceQueryHandler
@@ -14,7 +14,7 @@ export class FindAssetsBySpaceQueryHandler
   async execute(query: FindAssetsBySpaceQuery) {
     const { userId, spaceId, searchKeyword } = query
 
-    const filter: FilterQuery<Asset> = {
+    const filter: QueryFilter<Asset> = {
       userId: objectId(userId),
       spaceId: objectId(spaceId),
     }

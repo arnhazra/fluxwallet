@@ -4,7 +4,7 @@ import {
   SchemaOptions,
   Prop as EntityProp,
 } from "@nestjs/mongoose"
-import { Document, Types } from "mongoose"
+import { Document, Types, FilterQuery as QueryFilter } from "mongoose"
 
 export abstract class IdentifiableEntitySchmea extends Document {}
 
@@ -21,6 +21,6 @@ export function createSchemaFromClass<T>(cls: new () => T) {
   return schema
 }
 
-export { EntityProp }
+export { EntityProp, QueryFilter }
 export type ObjectId = Types.ObjectId
 export const ObjectIdType = Types.ObjectId

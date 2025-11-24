@@ -2,8 +2,8 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindAllSpaceQuery } from "../impl/find-all-spaces.query"
 import { SpaceRepository } from "../../space.repository"
 import objectId from "@/shared/utils/convert-objectid"
-import { FilterQuery } from "mongoose"
 import { Space } from "../../schemas/space.schema"
+import { QueryFilter } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindAllSpaceQuery)
 export class FindAllSpaceQueryHandler
@@ -14,7 +14,7 @@ export class FindAllSpaceQueryHandler
   async execute(query: FindAllSpaceQuery) {
     const { userId, searchKeyword } = query
 
-    const filter: FilterQuery<Space> = {
+    const filter: QueryFilter<Space> = {
       userId: objectId(userId),
     }
 

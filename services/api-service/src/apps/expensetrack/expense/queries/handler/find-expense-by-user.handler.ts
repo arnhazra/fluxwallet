@@ -2,8 +2,8 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindExpensesByUserQuery } from "../impl/find-expense-by-user.query"
 import { ExpenseRepository } from "../../expense.repository"
 import objectId from "@/shared/utils/convert-objectid"
-import { FilterQuery } from "mongoose"
 import { Expense } from "../../schemas/expense.schema"
+import { QueryFilter } from "@/shared/entity/entity.schema"
 
 export function getCurrentMonthString(): string {
   const now = new Date()
@@ -21,7 +21,7 @@ export class FindExpensesByUserQueryHandler
   async execute(query: FindExpensesByUserQuery) {
     const { userId, monthFilter, searchKeyword, expenseCategory } = query
 
-    const matchStage: FilterQuery<Expense> = {
+    const matchStage: QueryFilter<Expense> = {
       userId: objectId(userId),
     }
 

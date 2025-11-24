@@ -3,6 +3,7 @@
 ## Version 2.5
 
 - Added TaxAdvisor application
+- Created entity schema to improve code reusability for mongoose & nest-mongoose
 
 ## Version 2.4
 

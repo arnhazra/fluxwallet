@@ -2,8 +2,8 @@ import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindDebtsByUserQuery } from "../impl/find-debt-by-user.query"
 import { DebtRepository } from "../../debt.repository"
 import objectId from "@/shared/utils/convert-objectid"
-import { FilterQuery } from "mongoose"
 import { Debt } from "../../schemas/debt.schema"
+import { QueryFilter } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindDebtsByUserQuery)
 export class FindDebtsByUserQueryHandler
@@ -14,7 +14,7 @@ export class FindDebtsByUserQueryHandler
   async execute(query: FindDebtsByUserQuery) {
     const { userId, searchKeyword } = query
 
-    const filter: FilterQuery<Debt> = {
+    const filter: QueryFilter<Debt> = {
       userId: objectId(userId),
     }
 

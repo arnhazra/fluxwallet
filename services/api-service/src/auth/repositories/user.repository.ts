@@ -1,18 +1,21 @@
 import { Injectable } from "@nestjs/common"
-import { InjectModel } from "@nestjs/mongoose"
 import { User } from "../schemas/user.schema"
 import { GeneralDbConnectionMap } from "@/shared/constants/db-connection.map"
-import { FilterQuery, Model } from "mongoose"
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
-import { EntityRepository } from "@/shared/entity/entity.repository"
+import {
+  EntityModel,
+  EntityRepository,
+  InjectEntityModel,
+} from "@/shared/entity/entity.repository"
 import objectId from "@/shared/utils/convert-objectid"
+import { QueryFilter } from "@/shared/entity/entity.schema"
 
 @Injectable()
 export class UserRepository extends EntityRepository<User> {
   constructor(
-    @InjectModel(User.name, GeneralDbConnectionMap.Auth)
-    private userModel: Model<User>
+    @InjectEntityModel(User.name, GeneralDbConnectionMap.Auth)
+    private userModel: EntityModel<User>
   ) {
     super(userModel)
   }
@@ -21,7 +24,7 @@ export class UserRepository extends EntityRepository<User> {
   async findUser<K extends keyof User>(
     filter: Pick<User, K>
   ): Promise<User | null> {
-    return await super.findOne(filter as FilterQuery<User>)
+    return await super.findOne(filter as QueryFilter<User>)
   }
 
   async updateOneById<K extends keyof User>(
