@@ -3,6 +3,7 @@
 ## Version 2.6
 
 - Minor UI modernization & Code refactoring
+- Peer Dependency upgrades & bug fixes
 
 ## Version 2.5
 
