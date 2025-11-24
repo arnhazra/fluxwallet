@@ -5,7 +5,7 @@
 - Added TaxAdvisor application
 - Created entity schema to improve code reusability for mongoose & nest-mongoose
 - Fixed a tanstack query issue where data was cached even after user logged out
-- Major dependency updates on api-service
+- Dependency updates & bug fixes
 
 ## Version 2.4
 
