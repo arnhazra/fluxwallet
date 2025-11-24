@@ -7,7 +7,7 @@ import { FindSubscriptionByUserIdQueryHandler } from "./queries/handler/find-sub
 import { CqrsModule } from "@nestjs/cqrs"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { Subscription, SubscriptionSchema } from "./schemas/subscription.schema"
-import { GeneralDbConnectionMap } from "@/shared/constants/db-connection.map"
+import { GeneralDbConnectionMap } from "@/shared/entity/entity-db-connection.map"
 import { FindBlockListedSessionByIdQueryHandler } from "./queries/handler/find-blocklisted-session.handler"
 import { CreateBlockListedSessionCommandHandler } from "./commands/handler/create-blocklisted-session.handler"
 import { BlockListedSessionRepository } from "./repositories/blocklisted-session.repository"

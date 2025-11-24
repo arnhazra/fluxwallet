@@ -2,7 +2,7 @@ import { Module, DynamicModule } from "@nestjs/common"
 import {
   AppsDbConnectionMap,
   GeneralDbConnectionMap,
-} from "@/shared/constants/db-connection.map"
+} from "@/shared/entity/entity-db-connection.map"
 import { ModelDefinition, MongooseModule } from "@nestjs/mongoose"
 
 @Module({})

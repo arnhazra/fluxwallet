@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { User } from "../schemas/user.schema"
-import { GeneralDbConnectionMap } from "@/shared/constants/db-connection.map"
+import { GeneralDbConnectionMap } from "@/shared/entity/entity-db-connection.map"
 import { OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import {

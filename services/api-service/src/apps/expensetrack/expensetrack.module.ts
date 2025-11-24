@@ -2,7 +2,7 @@ import { Module } from "@nestjs/common"
 import { ExpenseModule } from "./expense/expense.module"
 import { EntityModule } from "@/shared/entity/entity.module"
 import { config } from "@/config"
-import { AppsDbConnectionMap } from "@/shared/constants/db-connection.map"
+import { AppsDbConnectionMap } from "@/shared/entity/entity-db-connection.map"
 
 @Module({
   imports: [

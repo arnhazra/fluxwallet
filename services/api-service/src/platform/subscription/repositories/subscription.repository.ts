@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { Subscription } from "../schemas/subscription.schema"
-import { GeneralDbConnectionMap } from "@/shared/constants/db-connection.map"
+import { GeneralDbConnectionMap } from "@/shared/entity/entity-db-connection.map"
 import {
   EntityModel,
   EntityRepository,

@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { Debt } from "./schemas/debt.schema"
-import { AppsDbConnectionMap } from "@/shared/constants/db-connection.map"
+import { AppsDbConnectionMap } from "@/shared/entity/entity-db-connection.map"
 import {
   EntityRepository,
   EntityModel,

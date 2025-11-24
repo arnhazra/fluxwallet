@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { DeleteDebtCommand } from "../impl/delete-debt.command"
-import { DebtRepository } from "../../debt.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
+import { DebtRepository } from "../../debt.repository"
 
 @CommandHandler(DeleteDebtCommand)
 export class DeleteDebtCommandHandler

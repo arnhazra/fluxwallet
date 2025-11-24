@@ -1,6 +1,6 @@
 import { Injectable } from "@nestjs/common"
 import { BlockListedSession } from "../schemas/blocklisted-session.schema"
-import { GeneralDbConnectionMap } from "@/shared/constants/db-connection.map"
+import { GeneralDbConnectionMap } from "@/shared/entity/entity-db-connection.map"
 import {
   EntityModel,
   EntityRepository,
