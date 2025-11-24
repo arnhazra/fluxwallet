@@ -2,7 +2,6 @@ import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import objectId from "@/shared/utils/convert-objectid"
 import { AnalyticsRepository } from "../../analytics.repository"
 import { CreateAnalyticsCommand } from "../impl/create-analytics.command"
-import { Types } from "mongoose"
 
 @CommandHandler(CreateAnalyticsCommand)
 export class CreateAnalyticsCommandHandler
@@ -16,7 +15,7 @@ export class CreateAnalyticsCommandHandler
     return await this.repository.create({
       method,
       apiUri,
-      userId: userId === null ? new Types.ObjectId() : objectId(userId),
+      userId: userId === null ? objectId() : objectId(userId),
     })
   }
 }

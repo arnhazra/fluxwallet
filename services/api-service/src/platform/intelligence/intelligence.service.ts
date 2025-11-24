@@ -5,7 +5,6 @@ import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { ChatDto } from "./dto/chat.dto"
-import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import { User } from "@/auth/schemas/user.schema"
 import { SummarizeDto } from "./dto/summarize.dto"
@@ -14,6 +13,7 @@ import {
   SummarizeArgs,
   SummarizerStrategy,
 } from "./strategies/summarizer.strategy"
+import objectId from "@/shared/utils/convert-objectid"
 
 @Injectable()
 export class IntelligenceService {
@@ -48,7 +48,7 @@ export class IntelligenceService {
   async chat(chatDto: ChatDto, userId: string) {
     try {
       const { prompt } = chatDto
-      const threadId = chatDto.threadId ?? new Types.ObjectId().toString()
+      const threadId = chatDto.threadId ?? objectId().toString()
       const thread = await this.getThreadById(threadId, !chatDto.threadId)
 
       const user: User = (

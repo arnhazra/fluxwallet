@@ -5,13 +5,13 @@ import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
-import { Types } from "mongoose"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import {
   TaxAdvisorStrategy,
   TaxAdvisorStrategyType,
 } from "./taxadvisor.strategy"
 import { User } from "@/auth/schemas/user.schema"
+import objectId from "@/shared/utils/convert-objectid"
 
 @Injectable()
 export class TaxAdvisorService {
@@ -48,8 +48,7 @@ export class TaxAdvisorService {
   ) {
     try {
       const { prompt } = aiGenerationDto
-      const threadId =
-        aiGenerationDto.threadId ?? new Types.ObjectId().toString()
+      const threadId = aiGenerationDto.threadId ?? objectId().toString()
       const thread = await this.getThreadById(
         threadId,
         !aiGenerationDto.threadId
