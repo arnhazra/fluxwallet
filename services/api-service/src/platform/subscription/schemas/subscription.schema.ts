@@ -1,20 +1,27 @@
 import { User } from "@/auth/schemas/user.schema"
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document, Types } from "mongoose"
+import {
+  createSchemaFromClass,
+  Entity,
+  EntityProp,
+  IdentifiableEntitySchmea,
+  ObjectId,
+  ObjectIdType,
+} from "@/shared/entity/entity.schema"
 
-@Schema({
-  versionKey: false,
-  collection: "subscriptions",
-  timestamps: { createdAt: true, updatedAt: false },
-})
-export class Subscription extends Document {
-  @Prop({ type: Types.ObjectId, ref: User.name, required: true, unique: true })
-  userId: Types.ObjectId
+@Entity({ collection: "subscriptions" })
+export class Subscription extends IdentifiableEntitySchmea {
+  @EntityProp({
+    type: ObjectIdType,
+    ref: User.name,
+    required: true,
+    unique: true,
+  })
+  userId: ObjectId
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   price: number
 
-  @Prop({
+  @EntityProp({
     type: Date,
     default: function () {
       const duration = 365
@@ -24,4 +31,4 @@ export class Subscription extends Document {
   endsAt: Date
 }
 
-export const SubscriptionSchema = SchemaFactory.createForClass(Subscription)
+export const SubscriptionSchema = createSchemaFromClass(Subscription)

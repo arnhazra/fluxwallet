@@ -1,6 +1,6 @@
 {
   "name": "ui-service",
-  "version": "2.4",
+  "version": "2.5",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -38,13 +38,13 @@
     "nextjs-toploader": "^3.9.17",
     "prop-types": "^15.8.1",
     "react": "^19",
-    "react-day-picker": "^9.11.1",
+    "react-day-picker": "^9.11.2",
     "react-dom": "^19",
     "react-markdown": "^10.1.0",
     "rehype-raw": "^7.0.0",
     "sass": "^1.94.2",
     "sonner": "^2.0.7",
-    "tailwind-merge": "^2.5.5",
+    "tailwind-merge": "^3.4.0",
     "tailwindcss-animate": "^1.0.7"
   },
   "devDependencies": {

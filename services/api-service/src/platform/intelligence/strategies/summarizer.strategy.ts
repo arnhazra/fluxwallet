@@ -21,7 +21,7 @@ export class SummarizerStrategy {
     const data = await this.redisService.get("summarizer-system-instruction")
     return data
       .replaceAll("{platformName}", config.PLATFORM_NAME)
-      .replaceAll("{userId}", args.user.id)
+      .replaceAll("{userId}", String(args.user._id))
       .replaceAll("{baseCurrency}", args.user.baseCurrency)
       .replaceAll("{entityType}", args.entityType)
       .replaceAll("{entityDetails}", args.entityDetails)

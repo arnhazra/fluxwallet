@@ -33,6 +33,7 @@ import { SetOTPCommand } from "./commands/impl/set-otp.command"
 import { GetOTPQuery } from "./queries/impl/get-otp.query"
 import { OneTimePassword } from "./schemas/otp.schema"
 import { DeleteOTPCommand } from "./commands/impl/delete-otp.command"
+import { Currency } from "country-code-enum"
 
 @Injectable()
 export class AuthService {
@@ -51,13 +52,13 @@ export class AuthService {
 
       if (user) {
         const refreshTokenFromDB = await this.getRefreshToken({
-          userId: user.id,
+          userId: String(user._id),
         })
 
         if (refreshTokenFromDB) {
           const refreshToken = refreshTokenFromDB.token
           const tokenPayload = {
-            id: user.id,
+            id: String(user._id),
             email: user.email,
             iss: config.UI_URL,
           }
@@ -65,7 +66,7 @@ export class AuthService {
           return { accessToken, refreshToken, user, success: true }
         } else {
           const tokenPayload = {
-            id: user.id,
+            id: String(user._id),
             email: user.email,
             iss: config.UI_URL,
           }
@@ -74,7 +75,10 @@ export class AuthService {
             tokenPayload,
             TokenType.RefreshToken
           )
-          await this.setRefreshToken({ userId: user.id, token: refreshToken })
+          await this.setRefreshToken({
+            userId: String(user._id),
+            token: refreshToken,
+          })
           return { accessToken, refreshToken, user, success: true }
         }
       } else {
@@ -83,14 +87,14 @@ export class AuthService {
         )
 
         const tokenPayload = {
-          id: newUser.id,
+          id: String(newUser._id),
           email: newUser.email,
           iss: config.UI_URL,
         }
         const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
         const refreshToken = generateToken(tokenPayload, TokenType.RefreshToken)
         await this.setRefreshToken({
-          userId: newUser.id,
+          userId: String(newUser._id),
           token: refreshToken,
         })
         return { accessToken, refreshToken, user: newUser, success: true }
@@ -198,11 +202,10 @@ export class AuthService {
     }
   }
 
-  @OnEvent(EventMap.UpdateAttribute)
   async updateAttribute<K extends keyof User>(
     userId: string,
     attributeName: K,
-    attributeValue: User[K]
+    attributeValue: string | number | boolean | null | Currency
   ) {
     try {
       await this.commandBus.execute<UpdateAttributeCommand, User>(

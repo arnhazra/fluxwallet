@@ -1,6 +1,6 @@
 {
   "name": "api-service",
-  "version": "2.4",
+  "version": "2.5",
   "author": "",
   "private": true,
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE",
@@ -33,7 +33,7 @@
     "ioredis": "^5.8.2",
     "jsonwebtoken": "^9.0.2",
     "langchain": "^1.0.6",
-    "mongoose": "^8.20.0",
+    "mongoose": "^9.0.0",
     "nodemailer": "^7.0.10",
     "pathe": "^2.0.3",
     "reflect-metadata": "^0.2.2",

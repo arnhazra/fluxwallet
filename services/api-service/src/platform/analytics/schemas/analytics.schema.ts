@@ -1,21 +1,23 @@
 import { User } from "@/auth/schemas/user.schema"
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document, Types } from "mongoose"
+import {
+  createSchemaFromClass,
+  Entity,
+  EntityProp,
+  IdentifiableEntitySchmea,
+  ObjectId,
+  ObjectIdType,
+} from "@/shared/entity/entity.schema"
 
-@Schema({
-  versionKey: false,
-  collection: "analytics",
-  timestamps: { createdAt: true, updatedAt: false },
-})
-export class Analytics extends Document {
-  @Prop({ type: Types.ObjectId, ref: User.name, required: true })
-  userId: Types.ObjectId
+@Entity({ collection: "analytics" })
+export class Analytics extends IdentifiableEntitySchmea {
+  @EntityProp({ type: ObjectIdType, ref: User.name, required: true })
+  userId: ObjectId
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   method: string
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   apiUri: string
 }
 
-export const AnalyticsSchema = SchemaFactory.createForClass(Analytics)
+export const AnalyticsSchema = createSchemaFromClass(Analytics)

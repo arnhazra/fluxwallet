@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindDebtByIdQuery } from "../impl/find-debt-by-id.query"
 import { DebtRepository } from "../../debt.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindDebtByIdQuery)
 export class FindDebtByIdQueryHandler
@@ -12,8 +12,8 @@ export class FindDebtByIdQueryHandler
   async execute(query: FindDebtByIdQuery) {
     const { debtId, userId } = query
     return await this.repository.findOne({
-      _id: objectId(debtId),
-      userId: objectId(userId),
+      _id: createOrConvertObjectId(debtId),
+      userId: createOrConvertObjectId(userId),
     })
   }
 }

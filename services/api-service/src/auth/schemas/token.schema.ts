@@ -1,18 +1,25 @@
 import { User } from "@/auth/schemas/user.schema"
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document, Types } from "mongoose"
+import {
+  createSchemaFromClass,
+  Entity,
+  EntityProp,
+  IdentifiableEntitySchmea,
+  ObjectId,
+  ObjectIdType,
+} from "@/shared/entity/entity.schema"
 
-@Schema({
-  versionKey: false,
-  collection: "tokens",
-  timestamps: { createdAt: true, updatedAt: false },
-})
-export class Token extends Document {
-  @Prop({ type: Types.ObjectId, ref: User.name, required: true, unique: true })
-  userId: Types.ObjectId
+@Entity({ collection: "tokens" })
+export class Token extends IdentifiableEntitySchmea {
+  @EntityProp({
+    type: ObjectIdType,
+    ref: User.name,
+    required: true,
+    unique: true,
+  })
+  userId: ObjectId
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   token: string
 }
 
-export const TokenSchema = SchemaFactory.createForClass(Token)
+export const TokenSchema = createSchemaFromClass(Token)

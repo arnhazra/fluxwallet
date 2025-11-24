@@ -1,23 +1,24 @@
 import {
-  Model,
+  Model as EntityModel,
   Document,
-  FilterQuery,
+  QueryFilter,
   UpdateQuery,
   PipelineStage,
 } from "mongoose"
+import { InjectModel as InjectEntityModel } from "@nestjs/mongoose"
 
 export abstract class EntityRepository<T extends Document> {
-  constructor(protected readonly entityModel: Model<T>) {}
+  constructor(protected readonly entityModel: EntityModel<T>) {}
 
-  findOne(entityFilterQuery: FilterQuery<T>): Promise<T | null> {
+  findOne(entityFilterQuery: QueryFilter<T>): Promise<T | null> {
     return this.entityModel.findOne(entityFilterQuery)
   }
 
-  find(entityFilterQuery: FilterQuery<T> = {}) {
+  find(entityFilterQuery: QueryFilter<T> = {}) {
     return this.entityModel.find(entityFilterQuery)
   }
 
-  countDocuments(entityFilterQuery: FilterQuery<T> = {}) {
+  countDocuments(entityFilterQuery: QueryFilter<T> = {}) {
     return this.entityModel.countDocuments(entityFilterQuery)
   }
 
@@ -27,7 +28,7 @@ export abstract class EntityRepository<T extends Document> {
   }
 
   async update(
-    entityFilterQuery: FilterQuery<T>,
+    entityFilterQuery: QueryFilter<T>,
     updateEntityDto: UpdateQuery<T>
   ): Promise<T | null> {
     return await this.entityModel
@@ -35,7 +36,7 @@ export abstract class EntityRepository<T extends Document> {
       .exec()
   }
 
-  async delete(entityFilterQuery: FilterQuery<T>): Promise<T | null> {
+  async delete(entityFilterQuery: QueryFilter<T>): Promise<T | null> {
     return await this.entityModel.findOneAndDelete(entityFilterQuery).exec()
   }
 
@@ -43,3 +44,5 @@ export abstract class EntityRepository<T extends Document> {
     return this.entityModel.aggregate(pipeline).exec()
   }
 }
+
+export { EntityModel, InjectEntityModel }

@@ -1,15 +1,15 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document } from "mongoose"
+import {
+  createSchemaFromClass,
+  Entity,
+  EntityProp,
+  IdentifiableEntitySchmea,
+} from "@/shared/entity/entity.schema"
 
-@Schema({
-  versionKey: false,
-  collection: "blocklisted-session-id",
-  timestamps: { createdAt: true, updatedAt: false },
-})
-export class BlockListedSession extends Document {
-  @Prop({ required: true })
+@Entity({ collection: "blocklisted-session-id" })
+export class BlockListedSession extends IdentifiableEntitySchmea {
+  @EntityProp({ required: true })
   stripeSessionId: string
 }
 
 export const BlockListedSessionSchema =
-  SchemaFactory.createForClass(BlockListedSession)
+  createSchemaFromClass(BlockListedSession)

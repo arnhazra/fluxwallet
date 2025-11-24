@@ -1,15 +1,17 @@
 import { Injectable } from "@nestjs/common"
-import { InjectModel } from "@nestjs/mongoose"
 import { Space } from "./schemas/space.schema"
-import { AppsDbConnectionMap } from "@/shared/constants/db-connection.map"
-import { Model } from "mongoose"
-import { EntityRepository } from "@/shared/entity/entity.repository"
+import { AppsDbConnectionMap } from "@/shared/entity/entity-db-connection.map"
+import {
+  EntityModel,
+  EntityRepository,
+  InjectEntityModel,
+} from "@/shared/entity/entity.repository"
 
 @Injectable()
 export class SpaceRepository extends EntityRepository<Space> {
   constructor(
-    @InjectModel(Space.name, AppsDbConnectionMap.WealthAnalyzer)
-    private spaceModel: Model<Space>
+    @InjectEntityModel(Space.name, AppsDbConnectionMap.WealthAnalyzer)
+    private spaceModel: EntityModel<Space>
   ) {
     super(spaceModel)
   }

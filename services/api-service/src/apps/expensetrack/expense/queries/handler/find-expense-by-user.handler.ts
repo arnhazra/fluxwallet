@@ -1,8 +1,10 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindExpensesByUserQuery } from "../impl/find-expense-by-user.query"
 import { ExpenseRepository } from "../../expense.repository"
-import objectId from "@/shared/utils/convert-objectid"
-import { FilterQuery } from "mongoose"
+import {
+  createOrConvertObjectId,
+  QueryFilter,
+} from "@/shared/entity/entity.schema"
 import { Expense } from "../../schemas/expense.schema"
 
 export function getCurrentMonthString(): string {
@@ -21,8 +23,8 @@ export class FindExpensesByUserQueryHandler
   async execute(query: FindExpensesByUserQuery) {
     const { userId, monthFilter, searchKeyword, expenseCategory } = query
 
-    const matchStage: FilterQuery<Expense> = {
-      userId: objectId(userId),
+    const matchStage: QueryFilter<Record<keyof Expense, any>> = {
+      userId: createOrConvertObjectId(userId),
     }
 
     if (searchKeyword) {

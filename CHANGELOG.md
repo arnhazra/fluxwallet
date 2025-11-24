@@ -1,5 +1,13 @@
 # Changelog
 
+## Version 2.5
+
+- Added TaxAdvisor application
+- Created entity schema to improve code reusability for mongoose & nest-mongoose
+- Fixed a tanstack query issue where data was cached even after user logged out
+- Dependency updates & bug fixes
+- Added multi agent architecture for intelligence
+
 ## Version 2.4
 
 - Added agentic tools for ExpenseTrack

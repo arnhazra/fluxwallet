@@ -1,33 +1,35 @@
 import { User } from "@/auth/schemas/user.schema"
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose"
-import { Document, Types } from "mongoose"
+import {
+  createSchemaFromClass,
+  Entity,
+  EntityProp,
+  IdentifiableEntitySchmea,
+  ObjectId,
+  ObjectIdType,
+} from "@/shared/entity/entity.schema"
 
-@Schema({
-  versionKey: false,
-  collection: "debts",
-  timestamps: { createdAt: true, updatedAt: false },
-})
-export class Debt extends Document {
-  @Prop({ type: Types.ObjectId, ref: User.name, required: true })
-  userId: Types.ObjectId
+@Entity({ collection: "debts" })
+export class Debt extends IdentifiableEntitySchmea {
+  @EntityProp({ type: ObjectIdType, ref: User.name, required: true })
+  userId: ObjectId
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   debtPurpose: string
 
-  @Prop({ required: true })
+  @EntityProp({ required: true })
   identifier: string
 
-  @Prop()
+  @EntityProp()
   startDate: Date
 
-  @Prop()
+  @EntityProp()
   endDate: Date
 
-  @Prop()
+  @EntityProp()
   principalAmount: number
 
-  @Prop()
+  @EntityProp()
   interestRate: number
 }
 
-export const DebtSchema = SchemaFactory.createForClass(Debt)
+export const DebtSchema = createSchemaFromClass(Debt)
