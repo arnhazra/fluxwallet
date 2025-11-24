@@ -11,7 +11,7 @@ import {
   TaxAdvisorStrategyType,
 } from "./taxadvisor.strategy"
 import { User } from "@/auth/schemas/user.schema"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @Injectable()
 export class TaxAdvisorService {
@@ -48,7 +48,8 @@ export class TaxAdvisorService {
   ) {
     try {
       const { prompt } = aiGenerationDto
-      const threadId = aiGenerationDto.threadId ?? objectId().toString()
+      const threadId =
+        aiGenerationDto.threadId ?? createOrConvertObjectId().toString()
       const thread = await this.getThreadById(
         threadId,
         !aiGenerationDto.threadId

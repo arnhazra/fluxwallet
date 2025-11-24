@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindGoalsByUserQuery } from "../impl/find-goal-by-user.query"
 import { GoalRepository } from "../../goal.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindGoalsByUserQuery)
 export class FindGoalsByUserQueryHandler
@@ -13,7 +13,7 @@ export class FindGoalsByUserQueryHandler
     const { userId } = query
 
     return this.repository.aggregate([
-      { $match: { userId: objectId(userId) } },
+      { $match: { userId: createOrConvertObjectId(userId) } },
       { $sort: { goalDate: 1 } },
     ])
   }

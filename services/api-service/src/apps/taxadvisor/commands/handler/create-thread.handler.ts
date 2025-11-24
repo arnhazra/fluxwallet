@@ -1,7 +1,7 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
 import { TaxAdvisorRepository } from "../../taxadvisor.repository"
 import { CreateThreadCommand } from "../impl/create-thread.command"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(CreateThreadCommand)
 export class CreateThreadCommandHandler
@@ -12,8 +12,8 @@ export class CreateThreadCommandHandler
   async execute(command: CreateThreadCommand) {
     const { userId, threadId, prompt, response } = command
     return await this.repository.create({
-      userId: objectId(userId),
-      threadId: objectId(threadId),
+      userId: createOrConvertObjectId(userId),
+      threadId: createOrConvertObjectId(threadId),
       prompt,
       response,
     })

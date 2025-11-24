@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { DeleteTokenCommand } from "../impl/delete-token.command"
 import { TokenRepository } from "../../repositories/token.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(DeleteTokenCommand)
 export class DeleteTokenCommandHandler
@@ -11,6 +11,6 @@ export class DeleteTokenCommandHandler
 
   async execute(command: DeleteTokenCommand) {
     const { userId } = command
-    await this.repository.delete({ userId: objectId(userId) })
+    await this.repository.delete({ userId: createOrConvertObjectId(userId) })
   }
 }

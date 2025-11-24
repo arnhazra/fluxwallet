@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { CreateSubscriptionCommand } from "../impl/create-subscription.command"
 import { SubscriptionRepository } from "../../repositories/subscription.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(CreateSubscriptionCommand)
 export class CreateSubscriptionCommandHandler
@@ -11,9 +11,9 @@ export class CreateSubscriptionCommandHandler
 
   async execute(command: CreateSubscriptionCommand) {
     const { userId, price } = command
-    await this.repository.delete({ userId: objectId(userId) })
+    await this.repository.delete({ userId: createOrConvertObjectId(userId) })
     return await this.repository.create({
-      userId: objectId(userId),
+      userId: createOrConvertObjectId(userId),
       price,
     })
   }

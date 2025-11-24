@@ -1,9 +1,11 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindDebtsByUserQuery } from "../impl/find-debt-by-user.query"
 import { DebtRepository } from "../../debt.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import {
+  createOrConvertObjectId,
+  QueryFilter,
+} from "@/shared/entity/entity.schema"
 import { Debt } from "../../schemas/debt.schema"
-import { QueryFilter } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindDebtsByUserQuery)
 export class FindDebtsByUserQueryHandler
@@ -15,7 +17,7 @@ export class FindDebtsByUserQueryHandler
     const { userId, searchKeyword } = query
 
     const filter: QueryFilter<Debt> = {
-      userId: objectId(userId),
+      userId: createOrConvertObjectId(userId),
     }
 
     if (searchKeyword && searchKeyword.trim().length > 0) {

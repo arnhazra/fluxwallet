@@ -13,7 +13,7 @@ import {
   SummarizeArgs,
   SummarizerStrategy,
 } from "./strategies/summarizer.strategy"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @Injectable()
 export class IntelligenceService {
@@ -48,7 +48,7 @@ export class IntelligenceService {
   async chat(chatDto: ChatDto, userId: string) {
     try {
       const { prompt } = chatDto
-      const threadId = chatDto.threadId ?? objectId().toString()
+      const threadId = chatDto.threadId ?? createOrConvertObjectId().toString()
       const thread = await this.getThreadById(threadId, !chatDto.threadId)
 
       const user: User = (

@@ -21,6 +21,10 @@ export function createSchemaFromClass<T>(cls: new () => T) {
   return schema
 }
 
+export function createOrConvertObjectId(param?: string) {
+  return new Types.ObjectId(param)
+}
+
 export { EntityProp, QueryFilter }
 export type ObjectId = Types.ObjectId
 export const ObjectIdType = Types.ObjectId

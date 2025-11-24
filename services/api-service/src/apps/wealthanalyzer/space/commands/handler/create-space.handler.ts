@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { CreateSpaceCommand } from "../impl/create-space.command"
 import { SpaceRepository } from "../../space.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(CreateSpaceCommand)
 export class CreateSpaceCommandHandler
@@ -15,7 +15,7 @@ export class CreateSpaceCommandHandler
       dto: { spaceName },
     } = command
     return await this.repository.create({
-      userId: objectId(userId),
+      userId: createOrConvertObjectId(userId),
       spaceName,
     })
   }

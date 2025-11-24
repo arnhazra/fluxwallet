@@ -8,8 +8,10 @@ import {
   EntityRepository,
   InjectEntityModel,
 } from "@/shared/entity/entity.repository"
-import objectId from "@/shared/utils/convert-objectid"
-import { QueryFilter } from "@/shared/entity/entity.schema"
+import {
+  createOrConvertObjectId,
+  QueryFilter,
+} from "@/shared/entity/entity.schema"
 
 @Injectable()
 export class UserRepository extends EntityRepository<User> {
@@ -32,6 +34,9 @@ export class UserRepository extends EntityRepository<User> {
     key: K,
     value: User[K]
   ): Promise<User | null> {
-    return await super.update({ _id: objectId(userId) }, { [key]: value })
+    return await super.update(
+      { _id: createOrConvertObjectId(userId) },
+      { [key]: value }
+    )
   }
 }

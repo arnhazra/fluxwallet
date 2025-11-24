@@ -1,5 +1,5 @@
 import { CommandHandler, ICommandHandler } from "@nestjs/cqrs"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 import { AnalyticsRepository } from "../../analytics.repository"
 import { CreateAnalyticsCommand } from "../impl/create-analytics.command"
 
@@ -15,7 +15,10 @@ export class CreateAnalyticsCommandHandler
     return await this.repository.create({
       method,
       apiUri,
-      userId: userId === null ? objectId() : objectId(userId),
+      userId:
+        userId === null
+          ? createOrConvertObjectId()
+          : createOrConvertObjectId(userId),
     })
   }
 }

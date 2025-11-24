@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindAssetsByUserQuery } from "../impl/find-assets-by-user.query"
 import { AssetRepository } from "../../asset.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindAssetsByUserQuery)
 export class FindAssetsByUserQueryHandler
@@ -12,7 +12,7 @@ export class FindAssetsByUserQueryHandler
   async execute(query: FindAssetsByUserQuery) {
     const { userId } = query
     return await this.repository.find({
-      userId: objectId(userId),
+      userId: createOrConvertObjectId(userId),
     })
   }
 }

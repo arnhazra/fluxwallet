@@ -1,6 +1,6 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { GoalRepository } from "../../goal.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 import { UpdateGoalCommand } from "../impl/update-goal.command"
 
 @CommandHandler(UpdateGoalCommand)
@@ -12,7 +12,7 @@ export class UpdateGoalCommandHandler
   async execute(command: UpdateGoalCommand) {
     const { goalId, dto } = command
     return await this.repository.update(
-      { _id: objectId(goalId) },
+      { _id: createOrConvertObjectId(goalId) },
       {
         ...dto,
       }

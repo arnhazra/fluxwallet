@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { CreateExpenseCommand } from "../impl/create-expense.command"
 import { ExpenseRepository } from "../../expense.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(CreateExpenseCommand)
 export class CreateExpenseCommandHandler
@@ -12,7 +12,7 @@ export class CreateExpenseCommandHandler
   async execute(command: CreateExpenseCommand) {
     const { userId, dto } = command
     return await this.repository.create({
-      userId: objectId(userId),
+      userId: createOrConvertObjectId(userId),
       ...dto,
     })
   }

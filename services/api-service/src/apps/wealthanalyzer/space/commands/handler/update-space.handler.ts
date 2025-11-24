@@ -1,6 +1,6 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { SpaceRepository } from "../../space.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 import { UpdateSpaceCommand } from "../impl/update-space.command"
 
 @CommandHandler(UpdateSpaceCommand)
@@ -15,7 +15,7 @@ export class UpdateSpaceCommandHandler
       dto: { spaceName },
     } = command
     return await this.repository.update(
-      { _id: objectId(spaceId) },
+      { _id: createOrConvertObjectId(spaceId) },
       {
         spaceName,
       }

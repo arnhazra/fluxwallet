@@ -1,7 +1,7 @@
 import { IQueryHandler, QueryHandler } from "@nestjs/cqrs"
 import { FindStartMonthByUserQuery } from "../impl/find-start-month-by-user.query"
 import { ExpenseRepository } from "../../expense.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindStartMonthByUserQuery)
 export class FindStartMonthByUserQueryHandler
@@ -13,7 +13,7 @@ export class FindStartMonthByUserQueryHandler
     const { userId } = query
 
     const [result] = await this.repository.aggregate([
-      { $match: { userId: objectId(userId) } },
+      { $match: { userId: createOrConvertObjectId(userId) } },
       { $sort: { expenseDate: 1 } },
       { $limit: 1 },
       {

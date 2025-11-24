@@ -1,6 +1,6 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { AssetRepository } from "../../asset.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 import { UpdateAssetCommand } from "../impl/update-asset.command"
 
 @CommandHandler(UpdateAssetCommand)
@@ -13,9 +13,9 @@ export class UpdateAssetCommandHandler
     const { assetId, dto } = command
     const { spaceId, ...otherFields } = dto
     return await this.repository.update(
-      { _id: objectId(assetId) },
+      { _id: createOrConvertObjectId(assetId) },
       {
-        spaceId: objectId(spaceId),
+        spaceId: createOrConvertObjectId(spaceId),
         ...otherFields,
       }
     )

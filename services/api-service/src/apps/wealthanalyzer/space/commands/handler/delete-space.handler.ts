@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { DeleteSpaceCommand } from "../impl/delete-space.command"
 import { SpaceRepository } from "../../space.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(DeleteSpaceCommand)
 export class DeleteSpaceCommandHandler
@@ -11,6 +11,8 @@ export class DeleteSpaceCommandHandler
 
   async execute(command: DeleteSpaceCommand) {
     const { spaceId } = command
-    return await this.repository.delete({ _id: objectId(spaceId) })
+    return await this.repository.delete({
+      _id: createOrConvertObjectId(spaceId),
+    })
   }
 }

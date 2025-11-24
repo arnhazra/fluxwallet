@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { DeleteDebtCommand } from "../impl/delete-debt.command"
 import { DebtRepository } from "../../debt.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(DeleteDebtCommand)
 export class DeleteDebtCommandHandler
@@ -11,6 +11,8 @@ export class DeleteDebtCommandHandler
 
   async execute(command: DeleteDebtCommand) {
     const { debtId } = command
-    return await this.repository.delete({ _id: objectId(debtId) })
+    return await this.repository.delete({
+      _id: createOrConvertObjectId(debtId),
+    })
   }
 }

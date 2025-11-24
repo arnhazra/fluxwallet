@@ -6,7 +6,7 @@ import {
   EntityRepository,
   InjectEntityModel,
 } from "@/shared/entity/entity.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @Injectable()
 export class GoalRepository extends EntityRepository<Goal> {
@@ -22,7 +22,7 @@ export class GoalRepository extends EntityRepository<Goal> {
 
     return await this.goalModel
       .findOne({
-        userId: objectId(userId),
+        userId: createOrConvertObjectId(userId),
         goalDate: { $gte: today },
       })
       .sort({ goalDate: 1 })

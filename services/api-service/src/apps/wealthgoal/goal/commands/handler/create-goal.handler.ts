@@ -1,7 +1,7 @@
 import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { CreateGoalCommand } from "../impl/create-goal.command"
 import { GoalRepository } from "../../goal.repository"
-import objectId from "@/shared/utils/convert-objectid"
+import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(CreateGoalCommand)
 export class CreateGoalCommandHandler
@@ -12,7 +12,7 @@ export class CreateGoalCommandHandler
   async execute(command: CreateGoalCommand) {
     const { userId, dto } = command
     return await this.repository.create({
-      userId: objectId(userId),
+      userId: createOrConvertObjectId(userId),
       ...dto,
     })
   }
