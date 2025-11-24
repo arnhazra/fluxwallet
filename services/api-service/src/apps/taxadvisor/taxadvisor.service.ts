@@ -72,7 +72,7 @@ export class TaxAdvisorService {
 
       const { response } = await this.strategy.advise(args)
       await this.commandBus.execute<CreateThreadCommand, Thread>(
-        new CreateThreadCommand(String(user.id), threadId, prompt, response)
+        new CreateThreadCommand(String(user._id), threadId, prompt, response)
       )
       return { response, threadId }
     } catch (error) {

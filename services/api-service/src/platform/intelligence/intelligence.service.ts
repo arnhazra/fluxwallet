@@ -65,7 +65,7 @@ export class IntelligenceService {
 
       const { response } = await this.chatStrategy.chat(args)
       await this.commandBus.execute<CreateThreadCommand, Thread>(
-        new CreateThreadCommand(String(user.id), threadId, prompt, response)
+        new CreateThreadCommand(String(user._id), threadId, prompt, response)
       )
       return { response, threadId }
     } catch (error) {

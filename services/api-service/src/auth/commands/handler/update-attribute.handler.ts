@@ -13,7 +13,7 @@ export class UpdateAttributeCommandHandler
     return await this.repository.updateOneById(
       userId,
       attributeName,
-      attributeValue
+      attributeValue as any
     )
   }
 }

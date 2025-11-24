@@ -23,7 +23,7 @@ export class FindExpensesByUserQueryHandler
   async execute(query: FindExpensesByUserQuery) {
     const { userId, monthFilter, searchKeyword, expenseCategory } = query
 
-    const matchStage: QueryFilter<Expense> = {
+    const matchStage: QueryFilter<Record<keyof Expense, any>> = {
       userId: createOrConvertObjectId(userId),
     }
 
