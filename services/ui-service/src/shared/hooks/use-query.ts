@@ -46,7 +46,7 @@ export default function useQuery<T>({
   }
 
   return useReactQuery<T, Error>({
-    queryKey,
+    queryKey: [...queryKey, user._id],
     queryFn,
     refetchOnWindowFocus: !user.reduceCarbonEmissions,
     refetchInterval: user.reduceCarbonEmissions ? 0 : 30000,
