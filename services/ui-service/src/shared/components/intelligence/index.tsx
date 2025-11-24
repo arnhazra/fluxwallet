@@ -24,6 +24,7 @@ import IconContainer from "../icon-container"
 import { streamResponseText } from "@/shared/lib/stream-response"
 import { useRouter } from "nextjs-toploader/app"
 import { useUserContext } from "@/context/user.provider"
+import { usePathname } from "next/navigation"
 
 export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
@@ -34,6 +35,7 @@ export default function Intelligence() {
   const [messages, setMessages] = useState<string[]>([])
   const messagesEndRef = useRef<HTMLDivElement>(null)
   const router = useRouter()
+  const pathName = usePathname()
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: "smooth" })
@@ -82,7 +84,7 @@ export default function Intelligence() {
   }
 
   return (
-    <Show condition={user.useIntelligence}>
+    <Show condition={user.useIntelligence && !pathName.match("intelligence")}>
       <Button
         onClick={() => setIsOpen(true)}
         variant="default"
