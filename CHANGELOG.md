@@ -1,5 +1,9 @@
 # Changelog
 
+## Version 2.7
+
+- Dependency upgrades & bug fixes
+
 ## Version 2.6
 
 - Minor UI modernization & Code refactoring
