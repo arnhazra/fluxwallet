@@ -6,10 +6,12 @@ import { AuthModule } from "./auth/auth.module"
 import { AppsModule } from "./apps/apps.module"
 import { SharedModule } from "./shared/shared.module"
 import { RedisModule } from "./shared/redis/redis.module"
+import { LLMModule } from "./shared/llm/llm.module"
 
 @Module({
   imports: [
     EventEmitterModule.forRoot(),
+    LLMModule.forRoot(),
     RedisModule.forRoot(),
     AuthModule,
     PlatformModule,

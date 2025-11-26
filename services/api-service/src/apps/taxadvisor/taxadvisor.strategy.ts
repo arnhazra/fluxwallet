@@ -5,7 +5,7 @@ import { createAgent } from "langchain"
 import { User } from "@/auth/schemas/user.schema"
 import { RedisService } from "@/shared/redis/redis.service"
 import { TaxAdvisorAgent } from "./agents/taxadvisor.agent"
-import { llm } from "@/platform/intelligence/llm/llm"
+import { LLMService } from "@/shared/llm/llm.service"
 
 export interface TaxAdvisorStrategyType {
   temperature: number
@@ -20,7 +20,8 @@ export interface TaxAdvisorStrategyType {
 export class TaxAdvisorStrategy {
   constructor(
     private readonly redisService: RedisService,
-    private readonly taxAdvisorAgent: TaxAdvisorAgent
+    private readonly taxAdvisorAgent: TaxAdvisorAgent,
+    private readonly llmService: LLMService
   ) {}
 
   private async getSystemInstruction(user: User) {
@@ -58,6 +59,7 @@ export class TaxAdvisorStrategy {
   }
 
   async advise(args: TaxAdvisorStrategyType) {
+    const llm = this.llmService.getLLM()
     const response = await this.runAdvisorAgent(llm, args)
     return { response }
   }

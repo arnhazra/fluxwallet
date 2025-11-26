@@ -6,12 +6,12 @@ import { createAgent, SystemMessage, HumanMessage, AIMessage } from "langchain"
 import { User } from "@/auth/schemas/user.schema"
 import { GoalAgent } from "../agents/goal.agent"
 import { RedisService } from "@/shared/redis/redis.service"
-import { llm } from "../llm/llm"
 import { SpaceAgent } from "../agents/space.agent"
 import { AssetAgent } from "../agents/asset.agent"
 import { DebtAgent } from "../agents/debt.agent"
 import { ExpenseAgent } from "../agents/expense.agent"
 import { EmailAgent } from "../agents/email.agent"
+import { LLMService } from "@/shared/llm/llm.service"
 
 export interface ChatArgs {
   thread: Thread[]
@@ -28,7 +28,8 @@ export class ChatStrategy {
     private readonly debtAgent: DebtAgent,
     private readonly expenseAgent: ExpenseAgent,
     private readonly emailAgent: EmailAgent,
-    private readonly redisService: RedisService
+    private readonly redisService: RedisService,
+    private readonly llmService: LLMService
   ) {}
 
   private async getChatSystemInstruction(user: User) {
@@ -89,6 +90,7 @@ export class ChatStrategy {
   }
 
   async chat(args: ChatArgs) {
+    const llm = this.llmService.getLLM()
     const response = await this.runChatAgent(llm, args)
     return { response }
   }
