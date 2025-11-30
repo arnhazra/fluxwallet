@@ -39,13 +39,13 @@ export class AssetController {
   @Get("space/:spaceId")
   async findMyAssetsBySpaceId(
     @Request() request: ModRequest,
-    @Param() params: any,
+    @Param("spaceId") spaceId: string,
     @Query("searchKeyword") searchKeyword?: string
   ) {
     try {
       return await this.service.findMyAssetsBySpaceId(
         request.user.userId,
-        params.spaceId,
+        spaceId,
         searchKeyword
       )
     } catch (error) {
@@ -57,12 +57,12 @@ export class AssetController {
 
   @UseGuards(AuthGuard)
   @Get("/:assetId")
-  async findAssetById(@Request() request: ModRequest, @Param() params: any) {
+  async findAssetById(
+    @Request() request: ModRequest,
+    @Param("assetId") assetId: string
+  ) {
     try {
-      return await this.service.findAssetById(
-        request.user.userId,
-        params.assetId
-      )
+      return await this.service.findAssetById(request.user.userId, assetId)
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError
@@ -74,13 +74,13 @@ export class AssetController {
   @Put(":assetId")
   async updateAssetById(
     @Body() requestBody: CreateAssetRequestDto,
-    @Param() params: any,
+    @Param("assetId") assetId: string,
     @Request() request: ModRequest
   ) {
     try {
       return await this.service.updateAssetById(
         request.user.userId,
-        params.assetId,
+        assetId,
         requestBody
       )
     } catch (error) {
@@ -92,9 +92,12 @@ export class AssetController {
 
   @UseGuards(AuthGuard)
   @Delete("/:assetId")
-  async deleteAsset(@Request() request: ModRequest, @Param() params: any) {
+  async deleteAsset(
+    @Request() request: ModRequest,
+    @Param("assetId") assetId: string
+  ) {
     try {
-      return await this.service.deleteAsset(request.user.userId, params.assetId)
+      return await this.service.deleteAsset(request.user.userId, assetId)
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError

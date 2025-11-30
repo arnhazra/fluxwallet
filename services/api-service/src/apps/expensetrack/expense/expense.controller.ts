@@ -74,12 +74,12 @@ export class ExpenseController {
 
   @UseGuards(AuthGuard)
   @Get("/:expenseId")
-  async findExpenseById(@Request() request: ModRequest, @Param() params: any) {
+  async findExpenseById(
+    @Request() request: ModRequest,
+    @Param("expenseId") expenseId: string
+  ) {
     try {
-      return await this.service.findExpenseById(
-        request.user.userId,
-        params.expenseId
-      )
+      return await this.service.findExpenseById(request.user.userId, expenseId)
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError
@@ -91,13 +91,13 @@ export class ExpenseController {
   @Put(":expenseId")
   async updateExpenseById(
     @Body() requestBody: CreateExpenseRequestDto,
-    @Param() params: any,
+    @Param("expenseId") expenseId: string,
     @Request() request: ModRequest
   ) {
     try {
       return await this.service.updateExpenseById(
         request.user.userId,
-        params.expenseId,
+        expenseId,
         requestBody
       )
     } catch (error) {
@@ -109,12 +109,12 @@ export class ExpenseController {
 
   @UseGuards(AuthGuard)
   @Delete("/:expenseId")
-  async deleteExpense(@Request() request: ModRequest, @Param() params: any) {
+  async deleteExpense(
+    @Request() request: ModRequest,
+    @Param("expenseId") expenseId: string
+  ) {
     try {
-      return await this.service.deleteExpense(
-        request.user.userId,
-        params.expenseId
-      )
+      return await this.service.deleteExpense(request.user.userId, expenseId)
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError

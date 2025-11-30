@@ -3,6 +3,11 @@
 ## Version 2.7
 
 - Dependency upgrades & bug fixes
+- Minor updates across services
+
+## Version 2.7
+
+- Dependency upgrades & bug fixes
 
 ## Version 2.6
 

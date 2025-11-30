@@ -48,9 +48,12 @@ export class DebtController {
 
   @UseGuards(AuthGuard)
   @Get("/:debtId")
-  async findDebtById(@Request() request: ModRequest, @Param() params: any) {
+  async findDebtById(
+    @Request() request: ModRequest,
+    @Param("debtId") debtId: string
+  ) {
     try {
-      return await this.service.findDebtById(request.user.userId, params.debtId)
+      return await this.service.findDebtById(request.user.userId, debtId)
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
@@ -60,13 +63,13 @@ export class DebtController {
   @Put(":debtId")
   async updateDebtById(
     @Body() requestBody: CreateDebtRequestDto,
-    @Param() params: any,
+    @Param("debtId") debtId: string,
     @Request() request: ModRequest
   ) {
     try {
       return await this.service.updateDebtById(
         request.user.userId,
-        params.debtId,
+        debtId,
         requestBody
       )
     } catch (error) {
@@ -76,9 +79,12 @@ export class DebtController {
 
   @UseGuards(AuthGuard)
   @Delete("/:debtId")
-  async deleteDebt(@Request() request: ModRequest, @Param() params: any) {
+  async deleteDebt(
+    @Request() request: ModRequest,
+    @Param("debtId") debtId: string
+  ) {
     try {
-      return await this.service.deleteDebt(request.user.userId, params.debtId)
+      return await this.service.deleteDebt(request.user.userId, debtId)
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)
     }
