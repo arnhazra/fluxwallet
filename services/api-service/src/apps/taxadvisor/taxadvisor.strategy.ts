@@ -6,6 +6,7 @@ import { User } from "@/auth/schemas/user.schema"
 import { RedisService } from "@/shared/redis/redis.service"
 import { TaxAdvisorAgent } from "./agents/taxadvisor.agent"
 import { LLMService } from "@/shared/llm/llm.service"
+import { ChatOpenAI, ChatOpenAICallOptions } from "@langchain/openai"
 
 export interface TaxAdvisorStrategyType {
   temperature: number
@@ -33,7 +34,10 @@ export class TaxAdvisorStrategy {
     return content
   }
 
-  private async runAdvisorAgent(llm: any, args: TaxAdvisorStrategyType) {
+  private async runAdvisorAgent(
+    llm: ChatOpenAI<ChatOpenAICallOptions>,
+    args: TaxAdvisorStrategyType
+  ) {
     const { thread, prompt, user } = args
     const systemInstruction = await this.getSystemInstruction(user)
 

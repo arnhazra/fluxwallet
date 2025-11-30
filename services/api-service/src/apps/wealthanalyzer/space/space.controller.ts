@@ -52,11 +52,14 @@ export class SpaceController {
 
   @UseGuards(AuthGuard)
   @Get("/:spaceId")
-  async findSpaceById(@Request() request: ModRequest, @Param() params: any) {
+  async findSpaceById(
+    @Request() request: ModRequest,
+    @Param("spaceId") spaceId: string
+  ) {
     try {
       const space = await this.service.findSpaceById(
         request.user.userId,
-        params.spaceId
+        spaceId
       )
       if (!space) throw new Error()
       return space
@@ -71,13 +74,13 @@ export class SpaceController {
   @Put(":spaceId")
   async updateSpaceById(
     @Body() requestBody: CreateSpaceRequestDto,
-    @Param() params: any,
+    @Param("spaceId") spaceId: string,
     @Request() request: ModRequest
   ) {
     try {
       return await this.service.updateSpaceById(
         request.user.userId,
-        params.spaceId,
+        spaceId,
         requestBody
       )
     } catch (error) {
@@ -89,9 +92,12 @@ export class SpaceController {
 
   @UseGuards(AuthGuard)
   @Delete("/:spaceId")
-  async deleteSpace(@Request() request: ModRequest, @Param() params: any) {
+  async deleteSpace(
+    @Request() request: ModRequest,
+    @Param("spaceId") spaceId: string
+  ) {
     try {
-      return await this.service.deleteSpace(request.user.userId, params.spaceId)
+      return await this.service.deleteSpace(request.user.userId, spaceId)
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError

@@ -1,6 +1,6 @@
 {
   "name": "api-service",
-  "version": "2.7",
+  "version": "2.8",
   "author": "",
   "private": true,
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE",
@@ -33,14 +33,14 @@
     "jsonwebtoken": "^9.0.2",
     "langchain": "^1.1.1",
     "mongoose": "^8.20.0",
-    "nodemailer": "^7.0.10",
+    "nodemailer": "^7.0.11",
     "pathe": "^2.0.3",
     "reflect-metadata": "^0.2.2",
     "rxjs": "^7.8.2",
     "stripe": "^20.0.0"
   },
   "devDependencies": {
-    "@nestjs/cli": "^11.0.12",
+    "@nestjs/cli": "^11.0.14",
     "@nestjs/schematics": "^11.0.9",
     "@nestjs/testing": "^11.1.9",
     "@types/express": "^5.0.5",

@@ -60,9 +60,12 @@ export class GoalController {
 
   @UseGuards(AuthGuard)
   @Get("/:goalId")
-  async findGoalById(@Request() request: ModRequest, @Param() params: any) {
+  async findGoalById(
+    @Request() request: ModRequest,
+    @Param("goalId") goalId: string
+  ) {
     try {
-      return await this.service.findGoalById(request.user.userId, params.goalId)
+      return await this.service.findGoalById(request.user.userId, goalId)
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError
@@ -74,13 +77,13 @@ export class GoalController {
   @Put(":goalId")
   async updateGoalById(
     @Body() requestBody: CreateGoalRequestDto,
-    @Param() params: any,
+    @Param("goalId") goalId: string,
     @Request() request: ModRequest
   ) {
     try {
       return await this.service.updateGoalById(
         request.user.userId,
-        params.goalId,
+        goalId,
         requestBody
       )
     } catch (error) {
@@ -92,9 +95,12 @@ export class GoalController {
 
   @UseGuards(AuthGuard)
   @Delete("/:goalId")
-  async deleteGoal(@Request() request: ModRequest, @Param() params: any) {
+  async deleteGoal(
+    @Request() request: ModRequest,
+    @Param("goalId") goalId: string
+  ) {
     try {
-      return await this.service.deleteGoal(request.user.userId, params.goalId)
+      return await this.service.deleteGoal(request.user.userId, goalId)
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError
