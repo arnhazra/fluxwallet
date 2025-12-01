@@ -1,5 +1,5 @@
 "use client"
-import { Button } from "@/shared/components/ui/button"
+import { buttonVariants } from "@/shared/components/ui/button"
 import {
   Card,
   CardHeader,
@@ -7,11 +7,10 @@ import {
   CardDescription,
   CardFooter,
 } from "@/shared/components/ui/card"
-import { useRouter } from "nextjs-toploader/app"
+import { cn } from "@/shared/lib/tw-class-util"
+import Link from "next/link"
 
 export default function Error({ error }: { error?: Error }) {
-  const router = useRouter()
-
   return (
     <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
       <Card className="mx-auto min-w-[350px] max-w-sm bg-background border-border text-white">
@@ -22,13 +21,12 @@ export default function Error({ error }: { error?: Error }) {
           </CardDescription>
         </CardHeader>
         <CardFooter>
-          <Button
-            size="lg"
-            className="w-full bg-primary hover:bg-primary text-black"
-            onClick={(): void => router.push("/dashboard")}
+          <Link
+            href="/dashboard"
+            className={`w-full ${cn(buttonVariants({ variant: "default", className: "bg-primary hover:bg-primary text-black" }))} `}
           >
-            Back to Dashboard
-          </Button>
+            Go Back
+          </Link>
         </CardFooter>
       </Card>
     </div>
