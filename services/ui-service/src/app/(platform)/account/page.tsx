@@ -276,7 +276,7 @@ export default function Page() {
             </IconContainer>
           }
           title={`${platformName} Platform Version`}
-          content="2.8"
+          content="2.9"
         />
         <SectionPanel
           icon={
