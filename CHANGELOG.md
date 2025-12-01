@@ -1,6 +1,10 @@
 # Changelog
 
-## Version 2.7
+## Version 2.9
+
+- Dependency upgrades & bug fixes
+
+## Version 2.8
 
 - Dependency upgrades & bug fixes
 - Minor updates across services
