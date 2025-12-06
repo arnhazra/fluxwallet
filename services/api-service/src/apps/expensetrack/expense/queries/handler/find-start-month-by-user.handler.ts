@@ -4,9 +4,7 @@ import { ExpenseRepository } from "../../expense.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindStartMonthByUserQuery)
-export class FindStartMonthByUserQueryHandler
-  implements IQueryHandler<FindStartMonthByUserQuery>
-{
+export class FindStartMonthByUserQueryHandler implements IQueryHandler<FindStartMonthByUserQuery> {
   constructor(private readonly repository: ExpenseRepository) {}
 
   async execute(query: FindStartMonthByUserQuery) {

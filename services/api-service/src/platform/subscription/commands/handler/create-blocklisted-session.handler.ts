@@ -3,9 +3,7 @@ import { CreateBlockListedSessionCommand } from "../impl/create-blocklisted-sess
 import { BlockListedSessionRepository } from "../../repositories/blocklisted-session.repository"
 
 @CommandHandler(CreateBlockListedSessionCommand)
-export class CreateBlockListedSessionCommandHandler
-  implements ICommandHandler<CreateBlockListedSessionCommand>
-{
+export class CreateBlockListedSessionCommandHandler implements ICommandHandler<CreateBlockListedSessionCommand> {
   constructor(private readonly repository: BlockListedSessionRepository) {}
 
   async execute(command: CreateBlockListedSessionCommand) {

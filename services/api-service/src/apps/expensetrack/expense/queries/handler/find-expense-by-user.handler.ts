@@ -15,9 +15,7 @@ export function getCurrentMonthString(): string {
 }
 
 @QueryHandler(FindExpensesByUserQuery)
-export class FindExpensesByUserQueryHandler
-  implements IQueryHandler<FindExpensesByUserQuery>
-{
+export class FindExpensesByUserQueryHandler implements IQueryHandler<FindExpensesByUserQuery> {
   constructor(private readonly repository: ExpenseRepository) {}
 
   async execute(query: FindExpensesByUserQuery) {

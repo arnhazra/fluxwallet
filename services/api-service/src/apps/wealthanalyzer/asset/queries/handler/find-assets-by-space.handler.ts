@@ -8,9 +8,7 @@ import {
 import { Asset } from "../../schemas/asset.schema"
 
 @QueryHandler(FindAssetsBySpaceQuery)
-export class FindAssetsBySpaceQueryHandler
-  implements IQueryHandler<FindAssetsBySpaceQuery>
-{
+export class FindAssetsBySpaceQueryHandler implements IQueryHandler<FindAssetsBySpaceQuery> {
   constructor(private readonly repository: AssetRepository) {}
 
   async execute(query: FindAssetsBySpaceQuery) {

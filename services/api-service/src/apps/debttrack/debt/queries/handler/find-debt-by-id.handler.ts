@@ -4,9 +4,7 @@ import { DebtRepository } from "../../debt.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindDebtByIdQuery)
-export class FindDebtByIdQueryHandler
-  implements IQueryHandler<FindDebtByIdQuery>
-{
+export class FindDebtByIdQueryHandler implements IQueryHandler<FindDebtByIdQuery> {
   constructor(private readonly repository: DebtRepository) {}
 
   async execute(query: FindDebtByIdQuery) {

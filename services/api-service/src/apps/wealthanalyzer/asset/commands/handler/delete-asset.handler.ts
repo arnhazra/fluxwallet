@@ -4,9 +4,7 @@ import { AssetRepository } from "../../asset.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(DeleteAssetCommand)
-export class DeleteAssetCommandHandler
-  implements ICommandHandler<DeleteAssetCommand>
-{
+export class DeleteAssetCommandHandler implements ICommandHandler<DeleteAssetCommand> {
   constructor(private readonly repository: AssetRepository) {}
 
   async execute(command: DeleteAssetCommand) {

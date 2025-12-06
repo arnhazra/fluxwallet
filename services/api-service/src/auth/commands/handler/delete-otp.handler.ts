@@ -3,9 +3,7 @@ import { DeleteOTPCommand } from "../impl/delete-otp.command"
 import { OTPRepository } from "@/auth/repositories/otp.repository"
 
 @CommandHandler(DeleteOTPCommand)
-export class DeleteOTPCommandHandler
-  implements ICommandHandler<DeleteOTPCommand>
-{
+export class DeleteOTPCommandHandler implements ICommandHandler<DeleteOTPCommand> {
   constructor(private readonly repository: OTPRepository) {}
 
   async execute(command: DeleteOTPCommand) {

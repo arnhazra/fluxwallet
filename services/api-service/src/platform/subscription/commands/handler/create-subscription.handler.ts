@@ -4,9 +4,7 @@ import { SubscriptionRepository } from "../../repositories/subscription.reposito
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(CreateSubscriptionCommand)
-export class CreateSubscriptionCommandHandler
-  implements ICommandHandler<CreateSubscriptionCommand>
-{
+export class CreateSubscriptionCommandHandler implements ICommandHandler<CreateSubscriptionCommand> {
   constructor(private readonly repository: SubscriptionRepository) {}
 
   async execute(command: CreateSubscriptionCommand) {

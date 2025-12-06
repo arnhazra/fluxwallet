@@ -4,9 +4,7 @@ import { SubscriptionRepository } from "../../repositories/subscription.reposito
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindSubscriptionByUserIdQuery)
-export class FindSubscriptionByUserIdQueryHandler
-  implements IQueryHandler<FindSubscriptionByUserIdQuery>
-{
+export class FindSubscriptionByUserIdQueryHandler implements IQueryHandler<FindSubscriptionByUserIdQuery> {
   constructor(private readonly repository: SubscriptionRepository) {}
 
   async execute(query: FindSubscriptionByUserIdQuery) {

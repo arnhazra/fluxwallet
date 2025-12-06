@@ -4,9 +4,7 @@ import { GoalRepository } from "../../goal.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(CreateGoalCommand)
-export class CreateGoalCommandHandler
-  implements ICommandHandler<CreateGoalCommand>
-{
+export class CreateGoalCommandHandler implements ICommandHandler<CreateGoalCommand> {
   constructor(private readonly repository: GoalRepository) {}
 
   async execute(command: CreateGoalCommand) {

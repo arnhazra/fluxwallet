@@ -3,9 +3,7 @@ import { UserRepository } from "../../repositories/user.repository"
 import { UpdateAttributeCommand } from "../impl/update-attribute.command"
 
 @CommandHandler(UpdateAttributeCommand)
-export class UpdateAttributeCommandHandler
-  implements ICommandHandler<UpdateAttributeCommand>
-{
+export class UpdateAttributeCommandHandler implements ICommandHandler<UpdateAttributeCommand> {
   constructor(private readonly repository: UserRepository) {}
 
   async execute(command: UpdateAttributeCommand) {

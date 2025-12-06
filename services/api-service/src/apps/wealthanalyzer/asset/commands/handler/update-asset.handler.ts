@@ -4,9 +4,7 @@ import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 import { UpdateAssetCommand } from "../impl/update-asset.command"
 
 @CommandHandler(UpdateAssetCommand)
-export class UpdateAssetCommandHandler
-  implements ICommandHandler<UpdateAssetCommand>
-{
+export class UpdateAssetCommandHandler implements ICommandHandler<UpdateAssetCommand> {
   constructor(private readonly repository: AssetRepository) {}
 
   async execute(command: UpdateAssetCommand) {

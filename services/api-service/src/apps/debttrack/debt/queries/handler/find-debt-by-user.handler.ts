@@ -8,9 +8,7 @@ import {
 import { Debt } from "../../schemas/debt.schema"
 
 @QueryHandler(FindDebtsByUserQuery)
-export class FindDebtsByUserQueryHandler
-  implements IQueryHandler<FindDebtsByUserQuery>
-{
+export class FindDebtsByUserQueryHandler implements IQueryHandler<FindDebtsByUserQuery> {
   constructor(private readonly repository: DebtRepository) {}
 
   async execute(query: FindDebtsByUserQuery) {

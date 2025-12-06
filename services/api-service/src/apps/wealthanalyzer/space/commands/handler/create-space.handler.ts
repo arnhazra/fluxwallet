@@ -4,9 +4,7 @@ import { SpaceRepository } from "../../space.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(CreateSpaceCommand)
-export class CreateSpaceCommandHandler
-  implements ICommandHandler<CreateSpaceCommand>
-{
+export class CreateSpaceCommandHandler implements ICommandHandler<CreateSpaceCommand> {
   constructor(private readonly repository: SpaceRepository) {}
 
   async execute(command: CreateSpaceCommand) {

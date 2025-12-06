@@ -4,9 +4,7 @@ import { AssetRepository } from "../../asset.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindAssetByIdQuery)
-export class FindAssetByIdQueryHandler
-  implements IQueryHandler<FindAssetByIdQuery>
-{
+export class FindAssetByIdQueryHandler implements IQueryHandler<FindAssetByIdQuery> {
   constructor(private readonly repository: AssetRepository) {}
 
   async execute(query: FindAssetByIdQuery) {

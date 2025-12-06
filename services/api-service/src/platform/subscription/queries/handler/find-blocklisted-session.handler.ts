@@ -3,9 +3,7 @@ import { FindBlockListedSessionByIdQuery } from "../impl/find-blocklisted-sessio
 import { BlockListedSessionRepository } from "../../repositories/blocklisted-session.repository"
 
 @QueryHandler(FindBlockListedSessionByIdQuery)
-export class FindBlockListedSessionByIdQueryHandler
-  implements IQueryHandler<FindBlockListedSessionByIdQuery>
-{
+export class FindBlockListedSessionByIdQueryHandler implements IQueryHandler<FindBlockListedSessionByIdQuery> {
   constructor(private readonly repository: BlockListedSessionRepository) {}
 
   async execute(query: FindBlockListedSessionByIdQuery) {

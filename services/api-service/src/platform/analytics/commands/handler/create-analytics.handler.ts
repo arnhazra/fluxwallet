@@ -4,9 +4,7 @@ import { AnalyticsRepository } from "../../analytics.repository"
 import { CreateAnalyticsCommand } from "../impl/create-analytics.command"
 
 @CommandHandler(CreateAnalyticsCommand)
-export class CreateAnalyticsCommandHandler
-  implements ICommandHandler<CreateAnalyticsCommand>
-{
+export class CreateAnalyticsCommandHandler implements ICommandHandler<CreateAnalyticsCommand> {
   constructor(private readonly repository: AnalyticsRepository) {}
 
   async execute(command: CreateAnalyticsCommand) {

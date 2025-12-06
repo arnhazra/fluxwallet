@@ -4,9 +4,7 @@ import { FetchThreadByIdQuery } from "../impl/fetch-thread-by-id.query"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FetchThreadByIdQuery)
-export class FetchThreadByIdQueryHandler
-  implements IQueryHandler<FetchThreadByIdQuery>
-{
+export class FetchThreadByIdQueryHandler implements IQueryHandler<FetchThreadByIdQuery> {
   constructor(private readonly repository: TaxAdvisorRepository) {}
 
   async execute(query: FetchThreadByIdQuery) {

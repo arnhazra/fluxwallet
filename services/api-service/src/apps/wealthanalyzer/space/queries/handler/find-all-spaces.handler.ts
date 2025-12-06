@@ -8,9 +8,7 @@ import {
 import { Space } from "../../schemas/space.schema"
 
 @QueryHandler(FindAllSpaceQuery)
-export class FindAllSpaceQueryHandler
-  implements IQueryHandler<FindAllSpaceQuery>
-{
+export class FindAllSpaceQueryHandler implements IQueryHandler<FindAllSpaceQuery> {
   constructor(private readonly repository: SpaceRepository) {}
 
   async execute(query: FindAllSpaceQuery) {

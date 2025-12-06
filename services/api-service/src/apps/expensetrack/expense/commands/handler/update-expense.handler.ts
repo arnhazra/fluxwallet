@@ -4,9 +4,7 @@ import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 import { UpdateExpenseCommand } from "../impl/update-expense.command"
 
 @CommandHandler(UpdateExpenseCommand)
-export class UpdateExpenseCommandHandler
-  implements ICommandHandler<UpdateExpenseCommand>
-{
+export class UpdateExpenseCommandHandler implements ICommandHandler<UpdateExpenseCommand> {
   constructor(private readonly repository: ExpenseRepository) {}
 
   async execute(command: UpdateExpenseCommand) {

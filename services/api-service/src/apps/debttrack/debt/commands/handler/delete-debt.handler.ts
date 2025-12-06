@@ -4,9 +4,7 @@ import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 import { DebtRepository } from "../../debt.repository"
 
 @CommandHandler(DeleteDebtCommand)
-export class DeleteDebtCommandHandler
-  implements ICommandHandler<DeleteDebtCommand>
-{
+export class DeleteDebtCommandHandler implements ICommandHandler<DeleteDebtCommand> {
   constructor(private readonly repository: DebtRepository) {}
 
   async execute(command: DeleteDebtCommand) {

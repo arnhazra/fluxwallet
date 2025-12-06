@@ -4,9 +4,7 @@ import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 import { UpdateGoalCommand } from "../impl/update-goal.command"
 
 @CommandHandler(UpdateGoalCommand)
-export class UpdateGoalCommandHandler
-  implements ICommandHandler<UpdateGoalCommand>
-{
+export class UpdateGoalCommandHandler implements ICommandHandler<UpdateGoalCommand> {
   constructor(private readonly repository: GoalRepository) {}
 
   async execute(command: UpdateGoalCommand) {

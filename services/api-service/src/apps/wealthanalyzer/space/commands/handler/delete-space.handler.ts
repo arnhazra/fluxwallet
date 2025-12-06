@@ -4,9 +4,7 @@ import { SpaceRepository } from "../../space.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(DeleteSpaceCommand)
-export class DeleteSpaceCommandHandler
-  implements ICommandHandler<DeleteSpaceCommand>
-{
+export class DeleteSpaceCommandHandler implements ICommandHandler<DeleteSpaceCommand> {
   constructor(private readonly repository: SpaceRepository) {}
 
   async execute(command: DeleteSpaceCommand) {

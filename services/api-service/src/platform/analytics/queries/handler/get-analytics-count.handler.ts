@@ -3,9 +3,7 @@ import { GetAnalyticsQuery } from "../impl/get-analytics-count.query"
 import { AnalyticsRepository } from "../../analytics.repository"
 
 @QueryHandler(GetAnalyticsQuery)
-export class GetAnalyticsQueryHandler
-  implements IQueryHandler<GetAnalyticsQuery>
-{
+export class GetAnalyticsQueryHandler implements IQueryHandler<GetAnalyticsQuery> {
   constructor(private readonly repository: AnalyticsRepository) {}
 
   async execute(query: GetAnalyticsQuery) {

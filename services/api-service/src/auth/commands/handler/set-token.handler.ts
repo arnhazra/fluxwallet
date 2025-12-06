@@ -4,9 +4,7 @@ import { TokenRepository } from "../../repositories/token.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(SetTokenCommand)
-export class SetTokenCommandHandler
-  implements ICommandHandler<SetTokenCommand>
-{
+export class SetTokenCommandHandler implements ICommandHandler<SetTokenCommand> {
   constructor(private readonly repository: TokenRepository) {}
 
   async execute(command: SetTokenCommand) {

@@ -4,9 +4,7 @@ import { GoalRepository } from "../../goal.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @QueryHandler(FindGoalByIdQuery)
-export class FindGoalByIdQueryHandler
-  implements IQueryHandler<FindGoalByIdQuery>
-{
+export class FindGoalByIdQueryHandler implements IQueryHandler<FindGoalByIdQuery> {
   constructor(private readonly repository: GoalRepository) {}
 
   async execute(query: FindGoalByIdQuery) {

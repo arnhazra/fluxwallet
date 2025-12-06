@@ -4,9 +4,7 @@ import { TokenRepository } from "../../repositories/token.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 
 @CommandHandler(DeleteTokenCommand)
-export class DeleteTokenCommandHandler
-  implements ICommandHandler<DeleteTokenCommand>
-{
+export class DeleteTokenCommandHandler implements ICommandHandler<DeleteTokenCommand> {
   constructor(private readonly repository: TokenRepository) {}
 
   async execute(command: DeleteTokenCommand) {
