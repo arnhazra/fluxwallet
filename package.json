@@ -5,7 +5,8 @@
   "scripts": {
     "api-service": "npm run dev --prefix services/api-service",
     "ui-service": "npm run dev --prefix services/ui-service",
-    "dev": "concurrently \"npm run api-service\" \"npm run ui-service\"",
+    "new-ui-service": "npm run dev --prefix services/new-ui-service",
+    "dev": "concurrently \"npm run api-service\" \"npm run ui-service\" \"npm run new-ui-service\"",
     "publish": "git add . && git commit -m \"Publish App\" && git push",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
