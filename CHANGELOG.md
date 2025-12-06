@@ -1,8 +1,13 @@
 # Changelog
 
+## Version 3.0
+
+-
+
 ## Version 2.9
 
 - Dependency upgrades & bug fixes
+- Fix security vulnerability of nextjs 16
 
 ## Version 2.8
 
