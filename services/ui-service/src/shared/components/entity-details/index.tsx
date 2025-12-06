@@ -110,7 +110,7 @@ export function EntityDetails({
               <DialogTitle>{displayName}</DialogTitle>
               <Badge
                 variant="default"
-                className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary mt-2"
+                className="w-fit bg-primary hover:bg-primary text-black mt-2"
               >
                 {entityBadgeText}
               </Badge>
