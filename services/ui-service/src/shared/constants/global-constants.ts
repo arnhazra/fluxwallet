@@ -3,7 +3,7 @@ export const platformName = process.env.NEXT_PUBLIC_PLATFORM_NAME!
 export const uiConstants = {
   homeHeader: "Invest for future",
   homeIntro:
-    "Effortlessly manage your wealth — track assets, monitor net worth, liabilities and set a goal to unlock real-time insights.",
+    "Intelligently manage your wealth — track assets, monitor net worth, liabilities, goals & expenses to unlock real-time insights.",
   connectionErrorMessage: "Unable to connect. Please check your internet.",
   authVerificationMessage: "Checking your credentials",
   errorMessage: "Page not found",

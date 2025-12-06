@@ -56,9 +56,7 @@ export class TaxAdvisorService {
       )
 
       const user: User = (
-        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, {
-          _id: userId,
-        })
+        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, userId)
       ).shift()
 
       const args: TaxAdvisorStrategyType = {

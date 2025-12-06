@@ -216,6 +216,17 @@ export class AuthService {
     }
   }
 
+  @OnEvent(EventMap.GetUserDetails)
+  async findUser(userId: string): Promise<User | null> {
+    try {
+      return await this.queryBus.execute<FindUserByIdQuery, User>(
+        new FindUserByIdQuery(userId)
+      )
+    } catch (error) {
+      return null
+    }
+  }
+
   async setRefreshToken(setTokenDto: SetTokenDto) {
     try {
       const { userId, token } = setTokenDto

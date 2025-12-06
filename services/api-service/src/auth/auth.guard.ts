@@ -44,7 +44,7 @@ export class AuthGuard implements CanActivate {
         const userId = decodedAccessToken.id
         const userResponse: User[] = await this.eventEmitter.emitAsync(
           EventMap.GetUserDetails,
-          { _id: userId }
+          userId
         )
 
         if (!userResponse || !userResponse.length) {
@@ -77,7 +77,7 @@ export class AuthGuard implements CanActivate {
 
         const user: User[] = await this.eventEmitter.emitAsync(
           EventMap.GetUserDetails,
-          { _id: userId }
+          userId
         )
         const { analyticsData, email, role } = user?.shift()
         request.user = { userId, role }

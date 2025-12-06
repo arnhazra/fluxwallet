@@ -228,7 +228,7 @@ export default function Page() {
               <PieChart className="h-4 w-4" />
             </IconContainer>
           }
-          title="Analytics Data"
+          title={`${platformName} Analytics`}
           content="Choose whether to save the things you do. If disabled, we still collect anonymous analytics data to improve the app"
           actionComponents={[
             <Switch
