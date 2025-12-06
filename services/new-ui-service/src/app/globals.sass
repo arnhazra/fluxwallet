@@ -1,0 +1,17 @@
+@import "tailwindcss"
+
+@theme
+  --color-main: #121212
+  --color-background: #151616
+  --color-border: #27272a
+  --color-primary: #1ED760
+  --color-secondary: #ff2056
+
+@layer base
+  *
+    border-color: var(--color-border)
+    outline-color: color-mix(in srgb, var(--color-border) 50%, transparent)
+
+  body
+    background-color: var(--color-background)
+    color: var(--color-primary)
