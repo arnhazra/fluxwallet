@@ -62,7 +62,7 @@ export default function WidgetStack() {
           />
           <WidgetCard
             icon={<PiggyBank className="h-5 w-5" />}
-            statTitle="Current month expense"
+            statTitle="Current Month Expense"
             additionalComponent={
               <p className="text-sm text-primary">
                 {getNameFromMonthValue(selectedMonth)}
