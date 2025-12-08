@@ -91,11 +91,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
             >
               <Pen className="h-4 w-4" />
             </Button>,
-            <Button
-              onClick={handleDeleteSpace}
-              variant="destructive"
-              size="icon"
-            >
+            <Button onClick={handleDeleteSpace} variant="secondary" size="icon">
               <Trash className="h-4 w-4" />
             </Button>,
           ]}

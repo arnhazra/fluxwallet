@@ -32,7 +32,7 @@ export default function WidgetCard({
           <p className="text-3xl font-bold text-white">
             {formatCurrency(statValue, user.baseCurrency)}
           </p>
-          <div className="mt-4">
+          <div className="mt-2">
             <Show condition={!!additionalComponent}>{additionalComponent}</Show>
           </div>
         </div>

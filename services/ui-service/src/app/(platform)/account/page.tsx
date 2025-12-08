@@ -289,7 +289,7 @@ export default function Page() {
           actionComponents={[
             <Button
               size="icon"
-              variant="destructive"
+              variant="secondary"
               onClick={(): Promise<void> => signOut()}
             >
               <CircleArrowRight className="h-4 w-4" />

@@ -103,15 +103,12 @@ export function EntityDetails({
       <DialogTrigger asChild onClick={() => setOpen(true)}>
         {children}
       </DialogTrigger>
-      <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4">
+      <DialogContent className="w-[25rem] bg-background border-border outline-none text-white [&>button]:hidden">
         <DialogHeader>
           <div className="flex justify-between">
             <div>
               <DialogTitle>{displayName}</DialogTitle>
-              <Badge
-                variant="default"
-                className="w-fit bg-primary hover:bg-primary text-black mt-2"
-              >
+              <Badge variant="outline" className="w-fit text-white mt-2">
                 {entityBadgeText}
               </Badge>
               <DialogDescription></DialogDescription>

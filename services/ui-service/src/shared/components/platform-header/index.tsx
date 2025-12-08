@@ -30,7 +30,7 @@ export default function PlatformHeader() {
 
   return (
     <header className="relative z-50 top-0 flex h-[64px] items-center bg-background text-white">
-      <div className="mx-auto flex w-full max-w-[90rem] items-center justify-between px-4 md:px-6">
+      <div className="mx-auto flex w-full max-w-[88rem] items-center justify-between px-4 md:px-6">
         <Show condition={!!selectedApp}>
           <Link
             href={selectedApp?.url ?? "/dashboard"}
