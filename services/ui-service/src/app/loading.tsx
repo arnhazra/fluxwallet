@@ -13,7 +13,7 @@ export default function Loading() {
       <p className="text-white">Loading {platformName}</p>
       <Progress
         indeterminate
-        className="h-1 xl:w-[20%] lg:w-[25%] md:w-[30%] w-[50%] rounded-3xl"
+        className="bg-neutral-800 h-1 xl:w-[20%] lg:w-[25%] md:w-[30%] w-[50%] rounded-3xl"
       />
     </div>
   )

@@ -58,7 +58,7 @@ export default function MarketingHeader() {
         <div className="flex items-center space-x-4 md:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <Button variant="default" size="icon" className="shrink-0">
+              <Button variant="outline" size="icon" className="shrink-0">
                 <PanelLeft className="h-5 w-5" />
               </Button>
             </SheetTrigger>
