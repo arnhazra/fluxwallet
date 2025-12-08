@@ -173,17 +173,6 @@ export default function Page() {
         <SectionPanel
           icon={
             <IconContainer>
-              <IdCardLanyard className="h-4 w-4" />
-            </IconContainer>
-          }
-          title={`${platformName} ID`}
-          content={user._id}
-          masked
-          actionComponents={[<CopyToClipboard value={user._id} />]}
-        />
-        <SectionPanel
-          icon={
-            <IconContainer>
               <Globe className="h-4 w-4" />
             </IconContainer>
           }
