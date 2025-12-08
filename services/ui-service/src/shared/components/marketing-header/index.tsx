@@ -65,7 +65,7 @@ export default function MarketingHeader() {
 
             <SheetContent
               side="right"
-              className="bg-background text-white border-none"
+              className="bg-background text-white border-none px-6 pt-2"
             >
               <SheetTitle></SheetTitle>
 
