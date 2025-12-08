@@ -1,15 +1,16 @@
 "use client"
-
 import * as React from "react"
 import * as ProgressPrimitive from "@radix-ui/react-progress"
-
 import { cn } from "@/shared/lib/utils"
 
 function Progress({
   className,
   value,
+  indeterminate,
   ...props
-}: React.ComponentProps<typeof ProgressPrimitive.Root>) {
+}: React.ComponentProps<typeof ProgressPrimitive.Root> & {
+  indeterminate?: boolean
+}) {
   return (
     <ProgressPrimitive.Root
       data-slot="progress"
@@ -19,11 +20,15 @@ function Progress({
       )}
       {...props}
     >
-      <ProgressPrimitive.Indicator
-        data-slot="progress-indicator"
-        className="bg-primary h-full w-full flex-1 transition-all"
-        style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
-      />
+      {indeterminate ? (
+        <div className="absolute inset-y-0 left-0 w-1/3 bg-primary animate-progress-indeterminate" />
+      ) : (
+        <ProgressPrimitive.Indicator
+          data-slot="progress-indicator"
+          className="bg-primary h-full w-full flex-1 transition-all"
+          style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+        />
+      )}
     </ProgressPrimitive.Root>
   )
 }

@@ -11,7 +11,10 @@ export default function Loading() {
         <Wallet className="h-4 w-4" />
       </IconContainer>
       <p className="text-white">Loading {platformName}</p>
-      <Progress className="xl:w-[20%] lg:w-[25%] md:w-[30%] w-[50%] rounded-3xl" />
+      <Progress
+        indeterminate
+        className="h-1 xl:w-[20%] lg:w-[25%] md:w-[30%] w-[50%] rounded-3xl"
+      />
     </div>
   )
 }
