@@ -65,7 +65,7 @@ export default function Page() {
     <div className="w-full max-w-2xl mx-auto p-4">
       <Card className="bg-background text-white border-border">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="text-2xl flex items-center gap-2">
             <Package className="h-5 w-5 text-primary" />
             Add Space
           </CardTitle>

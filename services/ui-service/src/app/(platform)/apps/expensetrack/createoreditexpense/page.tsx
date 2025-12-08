@@ -129,7 +129,7 @@ export default function Page() {
       <div className="max-w-4xl mx-auto">
         <Card className="bg-background border-border">
           <CardHeader className="border-b border-neutral-800">
-            <CardTitle className="flex items-center gap-2 text-neutral-100">
+            <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
               <IconContainer>
                 <HandCoins className="h-4 w-4" />
               </IconContainer>

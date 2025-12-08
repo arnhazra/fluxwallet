@@ -167,7 +167,7 @@ export default function Page() {
       <div className="max-w-4xl mx-auto">
         <Card className="bg-background border-border">
           <CardHeader className="border-b border-neutral-800">
-            <CardTitle className="flex items-center gap-2 text-neutral-100">
+            <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
               <BadgeDollarSign className="h-6 w-6 text-primary" />
               Add New Asset
             </CardTitle>

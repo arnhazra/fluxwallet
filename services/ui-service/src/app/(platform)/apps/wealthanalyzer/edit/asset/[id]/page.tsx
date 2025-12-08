@@ -195,7 +195,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       <div className="max-w-4xl mx-auto">
         <Card className="bg-neutral-900 border-neutral-800">
           <CardHeader className="border-b border-neutral-800">
-            <CardTitle className="flex items-center gap-2 text-neutral-100">
+            <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
               <BadgeDollarSign className="h-6 w-6 text-primary" />
               Update Asset
             </CardTitle>
