@@ -28,17 +28,11 @@ export default function GoogleOAuth({ handleSuccess }: GoogleOAuthProps) {
   return (
     <Button
       variant="secondary"
-      className="w-full h-12 mt-2 border-border text-white bg-neutral-800 hover:bg-neutral-800"
+      className="w-full h-12 mt-2 border-border text-white bg-neutral-800 hover:bg-neutral-800 rounded-full"
       onClick={() => login()}
     >
       Continue with Google
-      <Image
-        className="ms-2"
-        src="/google-logo.ico"
-        alt="Google"
-        width={20}
-        height={20}
-      />
+      <Image src="/google-logo.ico" alt="Google" width={20} height={20} />
     </Button>
   )
 }

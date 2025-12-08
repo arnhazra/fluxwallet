@@ -94,7 +94,7 @@ export default function AuthenticationPage({
     <>
       <MarketingHeader />
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
-        <Card className="mx-auto max-w-sm bg-background border-border text-white">
+        <Card className="mx-auto max-w-sm bg-background border-border text-white rounded-3xl">
           <CardHeader>
             <CardTitle className="text-2xl">{platformName}</CardTitle>
             <CardDescription className="text-primary">
