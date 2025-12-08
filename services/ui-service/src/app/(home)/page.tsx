@@ -17,6 +17,7 @@ import useQuery from "@/shared/hooks/use-query"
 import { AppCard } from "@/shared/components/app-card"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect, useState } from "react"
+import Cookies from "js-cookie"
 import HomePageHeader from "@/shared/components/homepage-header"
 import { Badge } from "@/shared/components/ui/badge"
 import { SolutionCard } from "@/shared/components/solution-card"
@@ -206,7 +207,7 @@ export default function Page() {
   )
 
   useEffect(() => {
-    const refreshToken = localStorage.getItem("refreshToken")
+    const refreshToken = Cookies.get("refreshToken")
     if (refreshToken) {
       router.replace("/dashboard")
     } else {

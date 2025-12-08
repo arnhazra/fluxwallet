@@ -3,6 +3,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
 import ky from "ky"
 import { ReactNode, useState } from "react"
+import Cookies from "js-cookie"
 import Show from "@/shared/components/show"
 import AuthProvider from "../auth/auth"
 import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
@@ -26,7 +27,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
   const getUserDetails = async () => {
-    if (!localStorage.getItem("accessToken")) {
+    if (!Cookies.get("accessToken")) {
       setAuthorized(false)
       return null
     } else {

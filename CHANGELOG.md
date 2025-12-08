@@ -4,6 +4,7 @@
 
 - Added dynamic widgets
 - Upgraded tailwind to v4
+- Moved from Localstorage to Cookies
 - Major refactor acrosss components to match new design system
 
 ## Version 2.9

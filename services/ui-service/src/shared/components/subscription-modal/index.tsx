@@ -21,6 +21,7 @@ import LoaderIcon from "../loader-icon"
 import IconContainer from "../icon-container"
 import { useRouter } from "nextjs-toploader/app"
 import { useQueryClient } from "@tanstack/react-query"
+import Cookies from "js-cookie"
 
 interface SubscriptionModalProps {
   data: SubscriptionConfig | undefined
@@ -69,7 +70,8 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
   }
 
   const signOut = async () => {
-    localStorage.clear()
+    Cookies.remove("accessToken")
+    Cookies.remove("refreshToken")
     window.location.replace("/")
   }
 

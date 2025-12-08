@@ -31,6 +31,7 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/shared/components/ui/avatar"
+import Cookies from "js-cookie"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 
 export default function Page() {
@@ -60,10 +61,12 @@ export default function Page() {
   const signOut = async () => {
     try {
       await ky.post(endPoints.signOut, { timeout: FETCH_TIMEOUT })
-      localStorage.clear()
+      Cookies.remove("accessToken")
+      Cookies.remove("refreshToken")
       window.location.replace("/")
     } catch (error) {
-      localStorage.clear()
+      Cookies.remove("accessToken")
+      Cookies.remove("refreshToken")
       window.location.replace("/")
     }
   }

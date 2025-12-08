@@ -1,5 +1,6 @@
 "use client"
 import { useUserContext } from "@/context/user.provider"
+import Cookies from "js-cookie"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -17,7 +18,8 @@ export function UserNav() {
   const [{ user }] = useUserContext()
 
   const signOut = async () => {
-    localStorage.clear()
+    Cookies.remove("accessToken")
+    Cookies.remove("refreshToken")
     window.location.replace("/")
   }
 

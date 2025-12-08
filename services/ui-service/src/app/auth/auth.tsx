@@ -1,5 +1,6 @@
 "use client"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
+import Cookies from "js-cookie"
 import ky from "ky"
 import { useState } from "react"
 import Show from "@/shared/components/show"
@@ -64,8 +65,8 @@ export default function AuthenticationPage({
           timeout: FETCH_TIMEOUT,
         })
         .json()
-      localStorage.setItem("accessToken", response.accessToken)
-      localStorage.setItem("refreshToken", response.refreshToken)
+      Cookies.set("accessToken", response.accessToken, { expires: 180 })
+      Cookies.set("refreshToken", response.refreshToken, { expires: 180 })
       onAuthorized(true)
     } catch (error: any) {
       notify(uiConstants.invalidOTP, "error")
@@ -79,8 +80,8 @@ export default function AuthenticationPage({
     setAuthLoading(true)
 
     try {
-      localStorage.setItem("accessToken", userData.accessToken)
-      localStorage.setItem("refreshToken", userData.refreshToken)
+      Cookies.set("accessToken", userData.accessToken, { expires: 180 })
+      Cookies.set("refreshToken", userData.refreshToken, { expires: 180 })
       onAuthorized(true)
     } catch (error: any) {
       notify(uiConstants.invalidOTP, "error")
