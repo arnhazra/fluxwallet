@@ -108,3 +108,7 @@ select {
 .animate-progress-indeterminate {
   animation: progress-indeterminate 1.2s infinite linear;
 }
+
+button {
+  cursor: pointer;
+}
