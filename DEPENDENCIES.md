@@ -28,7 +28,6 @@
 - prop-types: Runtime type checking for React props, ensuring data integrity in React components.
 - react: Popular JavaScript library for building user interfaces, facilitating component-based UI development.
 - react-dom: React package for working with the DOM, enabling React components to interact with the browser.
-- sass: CSS preprocessor that adds power and elegance to traditional CSS, providing features like variables, nesting, and mixins.
 - tailwind-merge: Utility for merging Tailwind CSS classes, enabling dynamic class composition in Tailwind CSS projects.
 - tailwindcss-animate: Collection of animation utilities for Tailwind CSS, enhancing UI animations in web applications.
 - source-map-support: Adds source map support for stack traces, aiding in debugging TypeScript and JavaScript code.
