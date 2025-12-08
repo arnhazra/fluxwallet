@@ -47,18 +47,6 @@ export class GoalController {
   }
 
   @UseGuards(AuthGuard)
-  @Get("nearest-goal")
-  async findNearestGoal(@Request() request: ModRequest) {
-    try {
-      return await this.service.findNearestGoal(request.user.userId)
-    } catch (error) {
-      throw new BadRequestException(
-        error.message || statusMessages.connectionError
-      )
-    }
-  }
-
-  @UseGuards(AuthGuard)
   @Get("/:goalId")
   async findGoalById(
     @Request() request: ModRequest,

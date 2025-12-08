@@ -104,19 +104,4 @@ export class AssetController {
       )
     }
   }
-
-  @UseGuards(AuthGuard)
-  @Post("total-wealth")
-  async calculateTotalWealth(@Request() request: ModRequest) {
-    try {
-      const presentValuation = await this.service.calculateTotalWealth(
-        request.user.userId
-      )
-      return { presentValuation }
-    } catch (error) {
-      throw new BadRequestException(
-        error.message || statusMessages.connectionError
-      )
-    }
-  }
 }
