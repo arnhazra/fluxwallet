@@ -16,7 +16,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/components/ui/card"
-import MarketingHeader from "@/shared/components/marketing-header"
+import HomePageHeader from "@/shared/components/homepage-header"
 import notify from "@/shared/hooks/use-notify"
 import GoogleOAuth from "./google-oauth"
 
@@ -92,7 +92,7 @@ export default function AuthenticationPage({
 
   return (
     <>
-      <MarketingHeader />
+      <HomePageHeader />
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
         <Card className="mx-auto max-w-sm bg-background border-border text-white rounded-3xl">
           <CardHeader>

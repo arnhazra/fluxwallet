@@ -14,11 +14,12 @@ import { buttonVariants } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
 import Loading from "../loading"
 import useQuery from "@/shared/hooks/use-query"
-import { SolutionCard, AppCard } from "@/shared/components/marketing-cards"
+import { AppCard } from "@/shared/components/app-card"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect, useState } from "react"
-import MarketingHeader from "@/shared/components/marketing-header"
+import HomePageHeader from "@/shared/components/homepage-header"
 import { Badge } from "@/shared/components/ui/badge"
+import { SolutionCard } from "@/shared/components/solution-card"
 
 export default function Page() {
   const router = useRouter()
@@ -225,7 +226,7 @@ export default function Page() {
       fallback={<Loading />}
     >
       <div className="min-h-screen w-full text-white">
-        <MarketingHeader />
+        <HomePageHeader />
         {renderHeroSection}
         {renderAppsSection}
         {renderSolutionsSection}
