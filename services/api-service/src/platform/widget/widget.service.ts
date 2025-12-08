@@ -33,7 +33,7 @@ export class WidgetService {
           icon: "PiggyBank",
           title: "Current Month Expense",
           value: Number(expenseData.total),
-          additionalInfo: `${String(new Date().getMonth() + 1).padStart(2, "0")}-${new Date().getFullYear()}`,
+          additionalInfo: `Expense for ${String(new Date().getMonth() + 1).padStart(2, "0")}-${new Date().getFullYear()}`,
         },
         {
           icon: "TrendingDown",
