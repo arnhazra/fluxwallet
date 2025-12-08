@@ -96,7 +96,7 @@ export default function Intelligence() {
 
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/30 backdrop-blur-xs z-40 transition-opacity duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}

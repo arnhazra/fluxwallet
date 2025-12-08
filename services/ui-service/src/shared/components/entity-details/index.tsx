@@ -129,7 +129,7 @@ export function EntityDetails({
               >
                 <Pen className="text-black h-4 w-4" />
               </Button>
-              <Button onClick={deleteEntity} variant="destructive" size="icon">
+              <Button onClick={deleteEntity} variant="secondary" size="icon">
                 <Trash className="h-4 w-4" />
               </Button>
             </div>
@@ -154,7 +154,7 @@ export function EntityDetails({
           </ul>
         </div>
         <DialogFooter>
-          <Button variant="secondary" onClick={(): void => setOpen(false)}>
+          <Button variant="outline" onClick={(): void => setOpen(false)}>
             Close
           </Button>
         </DialogFooter>
