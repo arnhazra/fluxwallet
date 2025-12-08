@@ -2,7 +2,8 @@
 
 ## Version 3.0
 
--
+- Upgraded tailwind to v4
+- Major refactor acrosss components to match new design system
 
 ## Version 2.9
 
