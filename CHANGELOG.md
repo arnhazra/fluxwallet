@@ -2,6 +2,7 @@
 
 ## Version 3.0
 
+- Added dynamic widgets
 - Upgraded tailwind to v4
 - Major refactor acrosss components to match new design system
 

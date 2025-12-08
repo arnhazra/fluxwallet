@@ -7,6 +7,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
 import { EmailModule } from "./email/email.module"
 import { ConfigModule } from "./config/config.module"
 import { IntelligenceModule } from "./intelligence/intelligence.module"
+import { WidgetModule } from "./widget/widget.module"
 
 @Module({
   imports: [
@@ -19,6 +20,7 @@ import { IntelligenceModule } from "./intelligence/intelligence.module"
     EmailModule,
     ConfigModule,
     IntelligenceModule,
+    WidgetModule,
   ],
 })
 export class PlatformModule {}

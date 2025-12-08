@@ -129,6 +129,13 @@ export interface Valuation {
   presentValuation?: number | null
 }
 
+export interface Widget {
+  icon: string
+  title: string
+  value: number
+  additionalInfo: string
+}
+
 export interface App {
   appName: string
   displayName: string

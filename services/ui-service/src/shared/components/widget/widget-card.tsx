@@ -4,20 +4,19 @@ import { Card, CardContent } from "@/shared/components/ui/card"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import IconContainer from "../icon-container"
 import { ReactNode } from "react"
-import Show from "../show"
 
 interface StatCardProps {
   icon: ReactNode
   statTitle: string
   statValue: number
-  additionalComponent?: ReactNode
+  additionalInfo: string
 }
 
 export default function WidgetCard({
   icon,
   statTitle,
   statValue,
-  additionalComponent,
+  additionalInfo,
 }: StatCardProps) {
   const [{ user }] = useUserContext()
 
@@ -33,7 +32,7 @@ export default function WidgetCard({
             {formatCurrency(statValue, user.baseCurrency)}
           </p>
           <div className="mt-2">
-            <Show condition={!!additionalComponent}>{additionalComponent}</Show>
+            <p className="text-sm text-neutral-300">{additionalInfo}</p>
           </div>
         </div>
       </CardContent>

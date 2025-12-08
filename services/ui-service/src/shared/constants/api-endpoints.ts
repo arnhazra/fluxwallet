@@ -14,6 +14,7 @@ export const endPoints = {
   subscribe: `${apiHost}/platform/subscription/subscribe`,
   getConfig: `${apiHost}/platform/config`,
   intelligence: `${apiHost}/platform/intelligence`,
+  widgets: `${apiHost}/platform/widgets`,
   // Apps Service
   space: `${apiHost}/apps/wealthanalyzer/space`,
   asset: `${apiHost}/apps/wealthanalyzer/asset`,
