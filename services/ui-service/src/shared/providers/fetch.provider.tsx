@@ -16,7 +16,7 @@ interceptor.on("response", ({ response }) => {
   if (response.headers.has("token") || response.headers.has("Token")) {
     const newAccessToken =
       response.headers.get("token") ?? response.headers.get("Token") ?? ""
-    Cookies.set("accessToken", newAccessToken, { expires: 180 })
+    Cookies.set("accessToken", newAccessToken, { expires: 180, secure: true })
   }
 
   if (response.status === 401) {

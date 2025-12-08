@@ -65,8 +65,14 @@ export default function AuthenticationPage({
           timeout: FETCH_TIMEOUT,
         })
         .json()
-      Cookies.set("accessToken", response.accessToken, { expires: 180 })
-      Cookies.set("refreshToken", response.refreshToken, { expires: 180 })
+      Cookies.set("accessToken", response.accessToken, {
+        expires: 180,
+        secure: true,
+      })
+      Cookies.set("refreshToken", response.refreshToken, {
+        expires: 180,
+        secure: true,
+      })
       onAuthorized(true)
     } catch (error: any) {
       notify(uiConstants.invalidOTP, "error")
@@ -80,8 +86,14 @@ export default function AuthenticationPage({
     setAuthLoading(true)
 
     try {
-      Cookies.set("accessToken", userData.accessToken, { expires: 180 })
-      Cookies.set("refreshToken", userData.refreshToken, { expires: 180 })
+      Cookies.set("accessToken", userData.accessToken, {
+        expires: 180,
+        secure: true,
+      })
+      Cookies.set("refreshToken", userData.refreshToken, {
+        expires: 180,
+        secure: true,
+      })
       onAuthorized(true)
     } catch (error: any) {
       notify(uiConstants.invalidOTP, "error")
