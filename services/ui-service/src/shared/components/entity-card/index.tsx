@@ -144,7 +144,7 @@ export function EntityCard<T extends keyof EntityMap>({
   }, [entityType, entity])
 
   return (
-    <Card className="w-full max-w-xs mx-auto h-[22rem] flex flex-col relative hover:shadow-md transition-shadow bg-background border-border text-white">
+    <Card className="w-full max-w-xs mx-auto h-[22rem] flex flex-col relative hover:shadow-md transition-shadow bg-background border-border text-white pt-0 overflow-hidden">
       <div className="relative aspect-video overflow-hidden bg-muted rounded-t-3xl">
         <Show condition={entityType === EntityType.NEWS}>
           <Show
@@ -185,7 +185,7 @@ export function EntityCard<T extends keyof EntityMap>({
       </div>
       <CardHeader className="flex-grow">
         <div className="flex items-center justify-between">
-          <CardTitle className="text-xl font-semibold truncate text-white">
+          <CardTitle className="text-xl font-semibold text-white truncate max-w-full">
             {enityTitle}
           </CardTitle>
           <div className="flex items-center justify-between">
@@ -331,9 +331,9 @@ export function EntityCard<T extends keyof EntityMap>({
 export function AddEntityCard({ entityType }: { entityType: EntityType }) {
   return (
     <Link href={createEntityUrlMap[entityType]}>
-      <Card className="w-full max-w-xs mx-auto h-[22rem] flex items-center justify-center bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
+      <Card className="w-full max-w-xs mx-auto h-[22rem] flex flex-row items-center justify-center gap-1 bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
         <IconContainer>
-          <Plus className="w-15 h-15" />
+          <Plus className="w-4 h-4" />
         </IconContainer>
         <p className="ms-2 text-lg font-medium capitalize">Add {entityType}</p>
       </Card>
