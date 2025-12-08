@@ -12,7 +12,7 @@ import { cn } from "@/shared/lib/tw-class-util"
 export default function NotFound() {
   return (
     <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
-      <Card className="mx-auto max-w-sm bg-background border-border text-white">
+      <Card className="mx-auto w-full max-w-sm bg-background border-border text-white">
         <CardHeader>
           <CardTitle className="text-2xl">Not Found</CardTitle>
           <CardDescription className="text-white">
