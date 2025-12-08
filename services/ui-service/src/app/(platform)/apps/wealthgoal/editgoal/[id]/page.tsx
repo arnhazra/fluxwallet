@@ -104,7 +104,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     <Button
                       variant="outline"
                       className={cn(
-                        "w-full justify-start text-left font-normal bg-neutral-800 border-neutral-700 text-neutral-100 hover:bg-neutral-700",
+                        "w-full justify-start text-left font-normal bg-background border-border text-neutral-100 hover:bg-background",
                         !formData.goalDate && "text-neutral-500"
                       )}
                     >
@@ -114,7 +114,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                         : "Pick a date"}
                     </Button>
                   </PopoverTrigger>
-                  <PopoverContent className="w-auto p-0 bg-neutral-800 border-neutral-700">
+                  <PopoverContent className="w-auto p-0 bg-background border-border">
                     <Calendar
                       mode="single"
                       captionLayout="dropdown"
@@ -124,7 +124,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       disabled={(date) => date < new Date()}
                       onSelect={(date) => handleInputChange("goalDate", date)}
                       showOutsideDays={false}
-                      className="bg-neutral-800 text-neutral-100"
+                      className="bg-background text-neutral-100"
                     />
                   </PopoverContent>
                 </Popover>
@@ -147,7 +147,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                     )
                   }
                   placeholder="0.00"
-                  className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                  className="bg-background border-border text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                 />
               </div>
 
