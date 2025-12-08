@@ -38,4 +38,4 @@
 - concurrently: Utility for running multiple commands concurrently, simplifying development workflows.
 - tailwindcss: Utility-first CSS framework for creating responsive and scalable UIs.
 - postcss: Tool for transforming CSS with JavaScript plugins, enabling advanced CSS processing in build pipelines.
-- autoprefixer: PostCSS plugin for adding vendor prefixes to CSS rules, ensuring cross-browser compatibility.
+- js-cookie: Cookie library for JavaScript Ecosystem.
