@@ -23,7 +23,7 @@ export default function WidgetCard({
 
   return (
     <Card className="bg-background border border-border relative overflow-hidden hover:shadow-md hover:shadow-primary/20">
-      <CardContent className="p-6">
+      <CardContent>
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm text-neutral-300">{statTitle}</span>
           <IconContainer>{icon}</IconContainer>
