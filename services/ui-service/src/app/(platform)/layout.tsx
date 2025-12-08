@@ -74,9 +74,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const appLayout = (
     <div className="min-h-screen w-full text-white hero-landing relative">
       <PlatformHeader />
-      <div className="w-full px-4 sm:container sm:max-w-[90rem] mt-4">
-        {children}
-      </div>
+      <div className="w-full px-4 mt-4">{children}</div>
       <Intelligence />
       <SubscriptionModal data={subscriptionPricing.data} />
     </div>

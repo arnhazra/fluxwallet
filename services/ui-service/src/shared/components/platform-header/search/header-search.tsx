@@ -55,7 +55,7 @@ export default function HeaderSearch() {
           <Button
             variant="default"
             size="icon"
-            className="bg-neutral-800 hover:bg-neutral-700"
+            className="bg-neutral-800 hover:bg-neutral-700 rounded-full"
             onClick={(): void => router.replace("/dashboard")}
           >
             <HomeIcon className="h-4 w-4" />

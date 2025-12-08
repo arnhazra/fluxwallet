@@ -22,7 +22,7 @@ export default function WidgetCard({
   const [{ user }] = useUserContext()
 
   return (
-    <Card className="bg-background border border-border relative overflow-hidden hover:shadow-md hover:shadow-primary/20">
+    <Card className="bg-background border border-border rounded-3xl relative overflow-hidden hover:shadow-md hover:shadow-primary/20">
       <CardContent>
         <div className="flex items-center justify-between mb-2">
           <span className="text-sm text-neutral-300">{statTitle}</span>
