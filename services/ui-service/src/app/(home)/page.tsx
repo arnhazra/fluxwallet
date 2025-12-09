@@ -7,7 +7,13 @@ import {
   SubscriptionConfig,
 } from "@/shared/constants/types"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
-import { BoxIcon, Check, Coins, Lightbulb, Play } from "lucide-react"
+import {
+  BoxIcon,
+  Check,
+  Coins,
+  Lightbulb,
+  CircleArrowRight,
+} from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/utils"
 import { buttonVariants } from "@/shared/components/ui/button"
@@ -68,7 +74,8 @@ export default function Page() {
             })
           )}
         >
-          <Play className="me-2 h-4 w-4" /> {uiConstants.getStartedButton}
+          {uiConstants.getStartedButton}
+          <CircleArrowRight className="ms-2 h-4 w-4" />
         </Link>
       </div>
     </section>
@@ -182,7 +189,8 @@ export default function Page() {
                   })
                 )}
               >
-                <Play className="me-2 h-4 w-4" /> {uiConstants.getStartedButton}
+                {uiConstants.getStartedButton}
+                <CircleArrowRight className="ms-2 h-4 w-4" />
               </Link>
             </div>
           </>

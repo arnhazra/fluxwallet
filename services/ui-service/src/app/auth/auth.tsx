@@ -94,7 +94,7 @@ export default function AuthenticationPage({
     <>
       <HomePageHeader />
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
-        <Card className="mx-auto max-w-sm bg-background border-border text-white rounded-3xl">
+        <Card className="mx-auto w-full max-w-sm bg-background border-border text-white">
           <CardHeader>
             <CardTitle className="text-2xl">{platformName}</CardTitle>
             <CardDescription className="text-primary">
@@ -146,11 +146,9 @@ export default function AuthenticationPage({
                 </form>
                 <div className="relative text-center text-sm">
                   <div className="relative z-0 flex items-center">
-                    <div className="flex-grow border-t border-border"></div>
                     <span className="bg-card text-muted-foreground px-2 z-10">
                       Or continue with
                     </span>
-                    <div className="flex-grow border-t border-border"></div>
                   </div>
                 </div>
                 <GoogleOAuth handleSuccess={googleOAuthLogin} />

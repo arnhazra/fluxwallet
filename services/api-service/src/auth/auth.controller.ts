@@ -31,10 +31,10 @@ export class AuthController {
   async googleOAuth(@Body() googleOAuthDto: GoogleOAuthDto) {
     try {
       const response = await this.service.googleOAuth(googleOAuthDto)
-      const { accessToken, refreshToken, user, success } = response
+      const { accessToken, refreshToken, success } = response
 
       if (success) {
-        return { accessToken, refreshToken, user }
+        return { accessToken, refreshToken }
       } else {
         throw new BadRequestException(statusMessages.connectionError)
       }
@@ -58,10 +58,10 @@ export class AuthController {
   async validateOTP(@Body() validateOTPDto: VerifyOTPDto) {
     try {
       const response = await this.service.validateOTP(validateOTPDto)
-      const { accessToken, refreshToken, user } = response
+      const { accessToken, refreshToken } = response
 
       if (response.success) {
-        return { accessToken, refreshToken, user }
+        return { accessToken, refreshToken }
       } else {
         throw new BadRequestException(statusMessages.invalidOTP)
       }
