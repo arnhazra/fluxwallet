@@ -5,8 +5,6 @@ import { Input } from "@/shared/components/ui/input"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
 import { Bot, User, ArrowUp, Sparkles } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "@/shared/components/markdown"
 import Show from "@/shared/components/show"
@@ -19,6 +17,7 @@ import { useRouter } from "nextjs-toploader/app"
 import IconContainer from "@/shared/components/icon-container"
 import { streamResponseText } from "@/shared/lib/stream-response"
 import Error from "@/app/error"
+import api from "@/shared/lib/ky-api"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -66,10 +65,9 @@ export default function Page() {
     setLoading(true)
 
     try {
-      const res: Thread = await ky
+      const res: Thread = await api
         .post(`${endPoints.intelligence}/chat`, {
           json: { prompt, threadId: threadId ?? undefined },
-          timeout: FETCH_TIMEOUT,
         })
         .json()
 

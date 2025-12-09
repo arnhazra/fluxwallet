@@ -5,11 +5,8 @@ import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import { useUserContext } from "@/context/user.provider"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import ky from "ky"
 import {
   User,
-  IdCardLanyard,
   AtSign,
   CircleArrowRight,
   Globe,
@@ -33,6 +30,7 @@ import {
 } from "@/shared/components/ui/avatar"
 import Cookies from "js-cookie"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
+import api from "@/shared/lib/ky-api"
 
 export default function Page() {
   const [{ user, subscription }, dispatch] = useUserContext()
@@ -45,12 +43,11 @@ export default function Page() {
     if (hasConfirmed) {
       try {
         dispatch("setUser", { name: value as string })
-        await ky.patch(endPoints.updateAttribute, {
+        await api.patch(endPoints.updateAttribute, {
           json: {
             attributeName: "name",
             attributeValue: value,
           },
-          timeout: FETCH_TIMEOUT,
         })
       } catch (error) {
         notify(uiConstants.genericError, "error")
@@ -60,7 +57,7 @@ export default function Page() {
 
   const signOut = async () => {
     try {
-      await ky.post(endPoints.signOut, { timeout: FETCH_TIMEOUT })
+      await api.post(endPoints.signOut)
       Cookies.remove("accessToken")
       Cookies.remove("refreshToken")
       window.location.replace("/")
@@ -74,12 +71,11 @@ export default function Page() {
   const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUser", { reduceCarbonEmissions: updatedSettings })
-      await ky.patch(endPoints.updateAttribute, {
+      await api.patch(endPoints.updateAttribute, {
         json: {
           attributeName: "reduceCarbonEmissions",
           attributeValue: updatedSettings,
         },
-        timeout: FETCH_TIMEOUT,
       })
     } catch (error) {
       notify(uiConstants.genericError, "error")
@@ -89,12 +85,11 @@ export default function Page() {
   const saveAnalyticsSettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUser", { analyticsData: updatedSettings })
-      await ky.patch(endPoints.updateAttribute, {
+      await api.patch(endPoints.updateAttribute, {
         json: {
           attributeName: "analyticsData",
           attributeValue: updatedSettings,
         },
-        timeout: FETCH_TIMEOUT,
       })
     } catch (error) {
       notify(uiConstants.genericError, "error")
@@ -104,12 +99,11 @@ export default function Page() {
   const saveIntelligenceUsage = async (updatedSettings: boolean) => {
     try {
       dispatch("setUser", { useIntelligence: updatedSettings })
-      await ky.patch(endPoints.updateAttribute, {
+      await api.patch(endPoints.updateAttribute, {
         json: {
           attributeName: "useIntelligence",
           attributeValue: updatedSettings,
         },
-        timeout: FETCH_TIMEOUT,
       })
     } catch (error) {
       notify(uiConstants.genericError, "error")

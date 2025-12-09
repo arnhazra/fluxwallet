@@ -7,6 +7,7 @@ import {
   Patch,
   Request,
   UseGuards,
+  UnauthorizedException,
 } from "@nestjs/common"
 import { AuthService } from "./auth.service"
 import { RequestOTPDto } from "./dto/request-otp.dto"
@@ -64,6 +65,21 @@ export class AuthController {
       } else {
         throw new BadRequestException(statusMessages.invalidOTP)
       }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  @Post("refresh")
+  async refresh(@Body() body: any) {
+    try {
+      const { refreshToken: oldRefreshToken } = body
+      if (!oldRefreshToken) {
+        throw new UnauthorizedException(statusMessages.refreshTokenMissing)
+      }
+      const response = await this.service.refresh(oldRefreshToken)
+      const { accessToken, refreshToken } = response
+      return { accessToken, refreshToken }
     } catch (error) {
       throw error
     }

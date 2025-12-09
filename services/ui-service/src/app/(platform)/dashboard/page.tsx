@@ -7,13 +7,12 @@ import { AppsConfig } from "@/shared/constants/types"
 import { useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { useRouter } from "nextjs-toploader/app"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
 import WidgetStack from "@/shared/components/widget/widget-stack"
 import { useUserContext } from "@/context/user.provider"
+import api from "@/shared/lib/ky-api"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -44,10 +43,8 @@ export default function Page() {
 
   const subscribe = async () => {
     try {
-      await ky
-        .get(`${endPoints.subscribe}?sub_session_id=${subscriptionSessionId}`, {
-          timeout: FETCH_TIMEOUT,
-        })
+      await api
+        .get(`${endPoints.subscribe}?sub_session_id=${subscriptionSessionId}`)
         .json()
       queryClient.refetchQueries({ queryKey: ["user-details"] })
       notify(uiConstants.subscriptionSuccess, "success")

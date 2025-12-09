@@ -10,8 +10,6 @@ import {
 } from "@/shared/components/ui/dialog"
 import { SubscriptionConfig } from "@/shared/constants/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import ky from "ky"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import { useUserContext } from "@/context/user.provider"
 import notify from "@/shared/hooks/use-notify"
@@ -22,6 +20,7 @@ import IconContainer from "../icon-container"
 import { useRouter } from "nextjs-toploader/app"
 import { useQueryClient } from "@tanstack/react-query"
 import Cookies from "js-cookie"
+import api from "@/shared/lib/ky-api"
 
 interface SubscriptionModalProps {
   data: SubscriptionConfig | undefined
@@ -43,11 +42,7 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
     if (user.hasTrial) {
       try {
         setLoading(true)
-        await ky
-          .post(endPoints.activateTrial, {
-            timeout: FETCH_TIMEOUT,
-          })
-          .json()
+        await api.post(endPoints.activateTrial).json()
         queryClient.refetchQueries({ queryKey: ["user-details"] })
         notify(uiConstants.subscriptionSuccess, "success")
       } catch (error) {
@@ -57,10 +52,8 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
       }
     } else {
       try {
-        const response: any = await ky
-          .post(endPoints.createCheckoutSession, {
-            timeout: FETCH_TIMEOUT,
-          })
+        const response: any = await api
+          .post(endPoints.createCheckoutSession)
           .json()
         window.location = response.redirectUrl
       } catch (error) {

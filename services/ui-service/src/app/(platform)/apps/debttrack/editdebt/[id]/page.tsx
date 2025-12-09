@@ -19,13 +19,12 @@ import {
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
 import { cn } from "@/shared/lib/tw-class-util"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import useQuery from "@/shared/hooks/use-query"
 import { Debt } from "@/shared/constants/types"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { formatDate } from "@/shared/lib/format-date"
+import api from "@/shared/lib/ky-api"
 
 interface DebtFormData {
   debtPurpose: string
@@ -87,8 +86,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault()
-      await ky.put(`${endPoints.debt}/${debtId}`, {
-        timeout: FETCH_TIMEOUT,
+      await api.put(`${endPoints.debt}/${debtId}`, {
         json: formData,
       })
       setMessage({ msg: "Debt updated successfully!", type: "success" })

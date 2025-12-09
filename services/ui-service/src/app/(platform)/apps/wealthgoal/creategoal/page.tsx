@@ -19,10 +19,9 @@ import {
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
 import { cn } from "@/shared/lib/tw-class-util"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { formatDate } from "@/shared/lib/format-date"
+import api from "@/shared/lib/ky-api"
 
 interface GoalFormData {
   goalDate?: Date
@@ -49,8 +48,7 @@ export default function Page() {
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault()
-      await ky.post(endPoints.goal, {
-        timeout: FETCH_TIMEOUT,
+      await api.post(endPoints.goal, {
         json: formData,
       })
       setMessage({ msg: "Goal added successfully!", type: "success" })

@@ -11,7 +11,6 @@ import { ReactNode, useEffect, useState } from "react"
 import { Badge } from "../ui/badge"
 import { formatKey, formatValue } from "@/shared/lib/format-key-value"
 import { Pen, Trash } from "lucide-react"
-import ky from "ky"
 import notify from "@/shared/hooks/use-notify"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
@@ -27,6 +26,7 @@ import {
   EntityTypeForDetailModal,
   excludedKeys,
 } from "./data"
+import api from "@/shared/lib/ky-api"
 
 type EntityDetailsProps = {
   entityType: EntityTypeForDetailModal
@@ -81,7 +81,7 @@ export function EntityDetails({
 
     if (confirmed) {
       try {
-        await ky.delete(
+        await api.delete(
           `${deleteEntityAPIUriMap[entityType as keyof typeof deleteEntityAPIUriMap]}/${(entity as Asset | Debt | Goal)._id}`
         )
         queryClient.refetchQueries({

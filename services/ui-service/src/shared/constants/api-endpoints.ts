@@ -7,6 +7,7 @@ export const endPoints = {
   googleOAuthLogin: `${apiHost}/auth/googleoauth`,
   userDetails: `${apiHost}/auth/userdetails`,
   activateTrial: `${apiHost}/auth/activatetrial`,
+  refresh: `${apiHost}/auth/refresh`,
   signOut: `${apiHost}/auth/signout`,
   updateAttribute: `${apiHost}/auth/attribute`,
   // Platform Service

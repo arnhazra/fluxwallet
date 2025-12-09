@@ -8,16 +8,9 @@ import { statusMessages } from "../shared/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "../shared/constants/event.map"
 import { User } from "@/auth/schemas/user.schema"
-import { Response, Request } from "express"
-import { Token } from "./schemas/token.schema"
-import {
-  decodeAccessToken,
-  generateToken,
-  TokenType,
-  verifyAccessToken,
-} from "@/auth/utils/jwt.util"
+import { Request } from "express"
+import { TokenType, verifyToken } from "@/auth/utils/jwt.util"
 import * as jwt from "jsonwebtoken"
-import { config } from "@/config"
 
 export interface ModRequest extends Request {
   user: {
@@ -32,76 +25,43 @@ export class AuthGuard implements CanActivate {
 
   async canActivate(context: ExecutionContext): Promise<boolean> {
     const request: ModRequest = context.switchToHttp().getRequest()
-    const globalResponse: Response = context.switchToHttp().getResponse()
     const accessToken = request.headers["authorization"]?.split(" ")[1]
-    const refreshToken = request.headers["refresh_token"]
 
     try {
-      if (!accessToken || !refreshToken) {
-        throw new UnauthorizedException(statusMessages.unauthorized)
-      } else {
-        const decodedAccessToken = verifyAccessToken(accessToken)
-        const userId = decodedAccessToken.id
-        const userResponse: User[] = await this.eventEmitter.emitAsync(
-          EventMap.GetUserDetails,
-          userId
-        )
-
-        if (!userResponse || !userResponse.length) {
-          throw new UnauthorizedException(statusMessages.unauthorized)
-        } else {
-          const { analyticsData, role } = userResponse.shift()
-          request.user = { userId, role }
-          const { method, url: apiUri } = request
-          this.eventEmitter.emit(EventMap.CreateAnalytics, {
-            userId: analyticsData ? userId : null,
-            method,
-            apiUri,
-          })
-          return true
-        }
+      if (!accessToken) {
+        throw new UnauthorizedException(statusMessages.accessTokenMissing)
       }
+
+      const decodedAccessToken = verifyToken(accessToken, TokenType.AccessToken)
+      const userId = decodedAccessToken.id
+      const userResponse: User[] = await this.eventEmitter.emitAsync(
+        EventMap.GetUserDetails,
+        userId
+      )
+
+      if (!userResponse || !userResponse.length) {
+        throw new UnauthorizedException(statusMessages.accessTokenInvalid)
+      }
+
+      const { analyticsData, role } = userResponse.shift()
+      request.user = { userId, role }
+      const { method, url: apiUri } = request
+      this.eventEmitter.emit(EventMap.CreateAnalytics, {
+        userId: analyticsData ? userId : null,
+        method,
+        apiUri,
+      })
+      return true
     } catch (error) {
       if (error instanceof jwt.TokenExpiredError) {
-        const decodedAccessToken = decodeAccessToken(accessToken)
-        const userId = decodedAccessToken.id
-        const refreshTokenFromDB: Token = (
-          await this.eventEmitter.emitAsync(EventMap.GetRefreshToken, {
-            userId,
-          })
-        ).shift()
-
-        if (!refreshTokenFromDB || refreshToken !== refreshTokenFromDB.token) {
-          throw new UnauthorizedException(statusMessages.unauthorized)
-        }
-
-        const user: User[] = await this.eventEmitter.emitAsync(
-          EventMap.GetUserDetails,
-          userId
-        )
-        const { analyticsData, email, role } = user?.shift()
-        request.user = { userId, role }
-        const { method, url: apiUri } = request
-        this.eventEmitter.emit(EventMap.CreateAnalytics, {
-          userId: analyticsData ? userId : null,
-          method,
-          apiUri,
-        })
-
-        const tokenPayload = {
-          id: userId,
-          email,
-          iss: config.UI_URL,
-        }
-        const newAccessToken = generateToken(
-          tokenPayload,
-          TokenType.AccessToken
-        )
-        globalResponse.setHeader("token", newAccessToken)
-        return true
-      } else {
-        throw new UnauthorizedException(statusMessages.unauthorized)
+        throw new UnauthorizedException(statusMessages.accessTokenExpired)
       }
+
+      if (error instanceof jwt.JsonWebTokenError) {
+        throw new UnauthorizedException(statusMessages.accessTokenInvalid)
+      }
+
+      throw new UnauthorizedException(statusMessages.unauthorized)
     }
   }
 }

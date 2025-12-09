@@ -207,8 +207,8 @@ export default function Page() {
   )
 
   useEffect(() => {
-    const refreshToken = Cookies.get("refreshToken")
-    if (refreshToken) {
+    const accessToken = Cookies.get("accessToken")
+    if (accessToken) {
       router.replace("/dashboard")
     } else {
       setChecked(true)

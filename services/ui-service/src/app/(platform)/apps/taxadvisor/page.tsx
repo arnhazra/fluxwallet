@@ -2,18 +2,9 @@
 import { useState, useRef, useEffect } from "react"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/components/ui/select"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
 import { Bot, User, ArrowUp, Sparkle, Calculator } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "@/shared/components/markdown"
 import Show from "@/shared/components/show"
@@ -25,6 +16,7 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import { useRouter } from "nextjs-toploader/app"
 import { streamResponseText } from "@/shared/lib/stream-response"
 import IconContainer from "@/shared/components/icon-container"
+import api from "@/shared/lib/ky-api"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -72,10 +64,9 @@ export default function Page() {
     setLoading(true)
 
     try {
-      const res: Thread = await ky
+      const res: Thread = await api
         .post(`${endPoints.taxAdvisor}`, {
           json: { prompt, threadId: threadId ?? undefined },
-          timeout: FETCH_TIMEOUT,
         })
         .json()
 

@@ -1,14 +1,12 @@
 "use client"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import Cookies from "js-cookie"
-import ky from "ky"
 import { useState } from "react"
 import Show from "@/shared/components/show"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
 import LoaderIcon from "@/shared/components/loader-icon"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import {
   Card,
@@ -20,6 +18,7 @@ import {
 import HomePageHeader from "@/shared/components/homepage-header"
 import notify from "@/shared/hooks/use-notify"
 import GoogleOAuth from "./google-oauth"
+import api from "@/shared/lib/ky-api"
 
 interface AuthProviderProps {
   onAuthorized: (isAuthorized: boolean) => void
@@ -41,8 +40,8 @@ export default function AuthenticationPage({
     setAuthLoading(true)
 
     try {
-      const response: any = await ky
-        .post(endPoints.requestOTP, { json: state, timeout: FETCH_TIMEOUT })
+      const response: any = await api
+        .post(endPoints.requestOTP, { json: state })
         .json()
       setNewUser(response.newUser)
       setAuthStep(2)
@@ -59,10 +58,9 @@ export default function AuthenticationPage({
     setAuthLoading(true)
 
     try {
-      const response: any = await ky
+      const response: any = await api
         .post(endPoints.validateOTP, {
           json: { ...state, name },
-          timeout: FETCH_TIMEOUT,
         })
         .json()
       Cookies.set("accessToken", response.accessToken, {

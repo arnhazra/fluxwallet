@@ -12,8 +12,6 @@ import {
   ExternalLink,
 } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "../markdown"
 import Show from "../show"
@@ -25,6 +23,7 @@ import { streamResponseText } from "@/shared/lib/stream-response"
 import { useRouter } from "nextjs-toploader/app"
 import { useUserContext } from "@/context/user.provider"
 import { usePathname } from "next/navigation"
+import api from "@/shared/lib/ky-api"
 
 export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
@@ -56,10 +55,9 @@ export default function Intelligence() {
     setLoading(true)
 
     try {
-      const res: Thread = await ky
+      const res: Thread = await api
         .post(`${endPoints.intelligence}/chat`, {
           json: { prompt, threadId: threadId ?? undefined },
-          timeout: FETCH_TIMEOUT,
         })
         .json()
 

@@ -19,8 +19,6 @@ import {
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
 import { cn } from "@/shared/lib/tw-class-util"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { formatDate } from "@/shared/lib/format-date"
 import {
@@ -37,6 +35,7 @@ import { useSearchParams } from "next/navigation"
 import { useRouter } from "nextjs-toploader/app"
 import Show from "@/shared/components/show"
 import IconContainer from "@/shared/components/icon-container"
+import api from "@/shared/lib/ky-api"
 
 interface ExpenseFormData {
   title?: string
@@ -96,8 +95,7 @@ export default function Page() {
     if (expenseId) {
       try {
         e.preventDefault()
-        await ky.put(`${endPoints.expense}/${expenseId}`, {
-          timeout: FETCH_TIMEOUT,
+        await api.put(`${endPoints.expense}/${expenseId}`, {
           json: formData,
         })
         setMessage({ msg: "Expense updated successfully!", type: "success" })
@@ -110,8 +108,7 @@ export default function Page() {
     } else {
       try {
         e.preventDefault()
-        await ky.post(endPoints.expense, {
-          timeout: FETCH_TIMEOUT,
+        await api.post(endPoints.expense, {
           json: formData,
         })
         setMessage({ msg: "Expense added successfully!", type: "success" })

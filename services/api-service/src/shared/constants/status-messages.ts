@@ -8,4 +8,10 @@ export const statusMessages = {
   invalidUser: "Invalid User",
   trialActivated: "You have already activated your trial",
   subscriptionFailure: "Failed to activate the subscription",
+  accessTokenExpired: "Access token expired",
+  accessTokenInvalid: "Invalid access token",
+  accessTokenMissing: "Access token missing",
+  refreshTokenExpired: "Refresh token expired",
+  refreshTokenInvalid: "Invalid refresh token",
+  refreshTokenMissing: "Refresh token missing",
 }
