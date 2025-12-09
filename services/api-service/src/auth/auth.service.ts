@@ -147,7 +147,7 @@ export class AuthService {
     }
   }
 
-  async refresh(currentRefreshToken: string) {
+  async refreshTokens(currentRefreshToken: string) {
     try {
       const decodedRefreshToken = verifyToken(
         currentRefreshToken,

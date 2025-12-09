@@ -40,7 +40,7 @@ export class AuthGuard implements CanActivate {
       )
 
       if (!userResponse || !userResponse.length) {
-        throw new UnauthorizedException(statusMessages.accessTokenInvalid)
+        throw new UnauthorizedException(statusMessages.invalidUser)
       }
 
       const { analyticsData, role } = userResponse.shift()

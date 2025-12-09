@@ -71,13 +71,13 @@ export class AuthController {
   }
 
   @Post("refresh")
-  async refresh(@Body() body: any) {
+  async refreshTokens(@Body() body: any) {
     try {
-      const { refreshToken: oldRefreshToken } = body
-      if (!oldRefreshToken) {
+      const { refreshToken: currentRefreshToken } = body
+      if (!currentRefreshToken) {
         throw new UnauthorizedException(statusMessages.refreshTokenMissing)
       }
-      const response = await this.service.refresh(oldRefreshToken)
+      const response = await this.service.refreshTokens(currentRefreshToken)
       const { accessToken, refreshToken } = response
       return { accessToken, refreshToken }
     } catch (error) {
