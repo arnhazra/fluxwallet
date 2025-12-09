@@ -63,6 +63,10 @@ export function SubscriptionModal({ data }: SubscriptionModalProps) {
   }
 
   const signOut = async () => {
+    const refreshToken = Cookies.get("refreshToken")
+    await api.post(endPoints.signOut, {
+      json: { allDevices: false, refreshToken },
+    })
     Cookies.remove("accessToken")
     Cookies.remove("refreshToken")
     window.location.replace("/")

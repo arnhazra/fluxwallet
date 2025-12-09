@@ -40,6 +40,10 @@ export abstract class EntityRepository<T extends Document> {
     return await this.entityModel.findOneAndDelete(entityFilterQuery).exec()
   }
 
+  async deleteMany(entityFilterQuery: QueryFilter<T>): Promise<any> {
+    return await this.entityModel.deleteMany(entityFilterQuery).exec()
+  }
+
   async aggregate<R = any>(pipeline: PipelineStage[]): Promise<R[]> {
     return this.entityModel.aggregate(pipeline).exec()
   }

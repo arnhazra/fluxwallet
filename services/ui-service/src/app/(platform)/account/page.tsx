@@ -57,7 +57,10 @@ export default function Page() {
 
   const signOut = async () => {
     try {
-      await api.post(endPoints.signOut)
+      const refreshToken = Cookies.get("refreshToken")
+      await api.post(endPoints.signOut, {
+        json: { allDevices: true, refreshToken },
+      })
       Cookies.remove("accessToken")
       Cookies.remove("refreshToken")
       window.location.replace("/")

@@ -26,7 +26,7 @@ import { SetTokenDto } from "./dto/set-token.dto"
 import { GetTokenDto } from "./dto/get-token.dto"
 import { DeleteTokenDto } from "./dto/delete-token.dto"
 import { SetTokenCommand } from "./commands/impl/set-token.command"
-import { GetTokenQuery } from "./queries/impl/get-token.query"
+import { GetTokensQuery } from "./queries/impl/get-tokens.query"
 import { DeleteTokenCommand } from "./commands/impl/delete-token.command"
 import { generateToken, TokenType, verifyToken } from "@/auth/utils/jwt.util"
 import { SetOTPCommand } from "./commands/impl/set-otp.command"
@@ -154,9 +154,12 @@ export class AuthService {
         TokenType.RefreshToken
       )
       const userId = decodedRefreshToken.id
-      const refreshTokenInDb = await this.getRefreshToken({ userId })
+      const refreshTokens = await this.getRefreshTokens({ userId })
+      const matchRefreshToken = refreshTokens.find(
+        (tk) => tk.token === currentRefreshToken
+      )
 
-      if (refreshTokenInDb.token !== currentRefreshToken) {
+      if (!matchRefreshToken) {
         throw new UnauthorizedException(statusMessages.refreshTokenInvalid)
       }
 
@@ -170,6 +173,7 @@ export class AuthService {
 
       const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
       const refreshToken = generateToken(tokenPayload, TokenType.RefreshToken)
+      await this.deleteRefreshToken({ userId, token: currentRefreshToken })
       await this.setRefreshToken({
         userId: String(userDetails.user._id),
         token: refreshToken,
@@ -218,9 +222,13 @@ export class AuthService {
     }
   }
 
-  async signOut(userId: string) {
+  async signOut(allDevices: boolean, userId: string, refreshToken: string) {
     try {
-      await this.deleteRefreshToken({ userId })
+      if (allDevices) {
+        await this.deleteRefreshToken({ userId, token: null })
+      } else {
+        await this.deleteRefreshToken({ userId, token: refreshToken })
+      }
     } catch (error) {
       throw new Error(statusMessages.connectionError)
     }
@@ -260,11 +268,11 @@ export class AuthService {
     }
   }
 
-  async getRefreshToken(getTokenDto: GetTokenDto) {
+  async getRefreshTokens(getTokenDto: GetTokenDto) {
     try {
       const { userId } = getTokenDto
-      return await this.queryBus.execute<GetTokenQuery, Token>(
-        new GetTokenQuery(userId)
+      return await this.queryBus.execute<GetTokensQuery, Token[]>(
+        new GetTokensQuery(userId)
       )
     } catch (error) {
       throw new Error()
@@ -273,8 +281,10 @@ export class AuthService {
 
   async deleteRefreshToken(deleteTokenDto: DeleteTokenDto) {
     try {
-      const { userId } = deleteTokenDto
-      return await this.commandBus.execute(new DeleteTokenCommand(userId))
+      const { userId, token } = deleteTokenDto
+      return await this.commandBus.execute(
+        new DeleteTokenCommand(userId, token)
+      )
     } catch (error) {
       throw new Error()
     }

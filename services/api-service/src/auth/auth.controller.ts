@@ -105,9 +105,13 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Post("signout")
-  async signOut(@Request() request: ModRequest) {
+  async signOut(
+    @Body() reqBody: { allDevices: boolean; refreshToken: string },
+    @Request() request: ModRequest
+  ) {
     try {
-      await this.service.signOut(request.user.userId)
+      const { allDevices, refreshToken } = reqBody
+      await this.service.signOut(allDevices, request.user.userId, refreshToken)
       return { message: statusMessages.signOutSuccess }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)

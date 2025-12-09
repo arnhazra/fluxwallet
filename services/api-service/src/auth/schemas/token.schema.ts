@@ -14,7 +14,6 @@ export class Token extends IdentifiableEntitySchmea {
     type: ObjectIdType,
     ref: User.name,
     required: true,
-    unique: true,
   })
   userId: ObjectId
 
