@@ -5,6 +5,7 @@ import { FetchInterceptor } from "@mswjs/interceptors/fetch"
 import Cookies from "js-cookie"
 import { endPoints } from "../constants/api-endpoints"
 import api from "../lib/ky-api"
+import { defaultCookieOptions } from "../lib/cookie-params"
 
 const interceptor = new FetchInterceptor()
 
@@ -25,8 +26,12 @@ interceptor.on("response", async ({ response, request }) => {
           type TokenResponse = { accessToken: string; refreshToken: string }
           const tokens = (await refreshResponse.json()) as TokenResponse
           if (tokens && tokens.accessToken && tokens.refreshToken) {
-            Cookies.set("accessToken", tokens.accessToken)
-            Cookies.set("refreshToken", tokens.refreshToken)
+            Cookies.set("accessToken", tokens.accessToken, defaultCookieOptions)
+            Cookies.set(
+              "refreshToken",
+              tokens.refreshToken,
+              defaultCookieOptions
+            )
           }
         } catch (error) {
           throw new Error("Refresh token expired")

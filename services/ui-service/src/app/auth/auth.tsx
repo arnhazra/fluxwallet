@@ -19,6 +19,7 @@ import HomePageHeader from "@/shared/components/homepage-header"
 import notify from "@/shared/hooks/use-notify"
 import GoogleOAuth from "./google-oauth"
 import api from "@/shared/lib/ky-api"
+import { defaultCookieOptions } from "@/shared/lib/cookie-params"
 
 interface AuthProviderProps {
   onAuthorized: (isAuthorized: boolean) => void
@@ -63,14 +64,8 @@ export default function AuthenticationPage({
           json: { ...state, name },
         })
         .json()
-      Cookies.set("accessToken", response.accessToken, {
-        expires: 180,
-        secure: true,
-      })
-      Cookies.set("refreshToken", response.refreshToken, {
-        expires: 180,
-        secure: true,
-      })
+      Cookies.set("accessToken", response.accessToken, defaultCookieOptions)
+      Cookies.set("refreshToken", response.refreshToken, defaultCookieOptions)
       onAuthorized(true)
     } catch (error: any) {
       notify(uiConstants.invalidOTP, "error")
@@ -84,14 +79,8 @@ export default function AuthenticationPage({
     setAuthLoading(true)
 
     try {
-      Cookies.set("accessToken", userData.accessToken, {
-        expires: 180,
-        secure: true,
-      })
-      Cookies.set("refreshToken", userData.refreshToken, {
-        expires: 180,
-        secure: true,
-      })
+      Cookies.set("accessToken", userData.accessToken, defaultCookieOptions)
+      Cookies.set("refreshToken", userData.refreshToken, defaultCookieOptions)
       onAuthorized(true)
     } catch (error: any) {
       notify(uiConstants.invalidOTP, "error")
