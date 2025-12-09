@@ -210,7 +210,7 @@ export default function AuthenticationPage({
                 </form>
               </Show>
             </div>
-            <div className="mt-4 text-sm text-neutral-300">
+            <div className="mt-4 text-sm">
               {uiConstants.privacyPolicyStatement}
             </div>
           </CardContent>
