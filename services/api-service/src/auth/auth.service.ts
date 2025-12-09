@@ -260,7 +260,6 @@ export class AuthService {
     }
   }
 
-  @OnEvent(EventMap.GetRefreshToken)
   async getRefreshToken(getTokenDto: GetTokenDto) {
     try {
       const { userId } = getTokenDto
