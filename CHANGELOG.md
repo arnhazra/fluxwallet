@@ -5,7 +5,8 @@
 - Added dynamic widgets
 - Upgraded tailwind to v4
 - Standardized color palette
-- Moved from Localstorage to Cookies
+- Moved from localStorage to secure cookies
+- Added logic to refresh tokens and resend failed requests
 - Major refactor acrosss components to match new design system
 
 ## Version 2.9
