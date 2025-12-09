@@ -47,7 +47,7 @@ function useConfirm() {
 
   const confirmDialog = () => (
     <AlertDialog open={show}>
-      <AlertDialogContent className="bg-background text-white border-border">
+      <AlertDialogContent className="w-[25rem] bg-background text-white border-border">
         <AlertDialogHeader>
           <AlertDialogTitle>{message.title}</AlertDialogTitle>
           <AlertDialogDescription className="text-neutral-300">
@@ -55,7 +55,7 @@ function useConfirm() {
           </AlertDialogDescription>
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <Button variant="secondary" onClick={() => handleConfirm(false)}>
+          <Button variant="outline" onClick={() => handleConfirm(false)}>
             Cancel
           </Button>
           <Button

@@ -1,0 +1,114 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@theme {
+  --color-main: #121212;
+  --color-background: #151616;
+  --color-border: #27272a;
+  --color-primary: #1db954;
+  --color-secondary: #ff2056;
+}
+
+@layer base {
+  * {
+    border-color: var(--color-border);
+    outline-color: color-mix(in srgb, var(--color-border) 50%, transparent);
+  }
+
+  body {
+    background-color: var(--color-background);
+    color: var(--color-primary);
+  }
+}
+
+::-webkit-scrollbar {
+  width: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-font-smoothing: antialiased;
+  background: #121212;
+}
+
+.auth-landing {
+  background:
+    linear-gradient(to top, #121212 40%, #121212d2 100%),
+    url("../assets/hero.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment: fixed;
+}
+
+.hero-landing {
+  background:
+    linear-gradient(to top, #121212 40%, #121212d2 100%),
+    url("../assets/hero.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-attachment: fixed;
+  background-repeat: no-repeat;
+}
+
+.bg-geometric-pattern {
+  background-image:
+    linear-gradient(
+      45deg,
+      transparent 49.5%,
+      rgba(64, 64, 64, 0.3) 49.5%,
+      rgba(64, 64, 64, 0.3) 50.5%,
+      transparent 50.5%
+    ),
+    linear-gradient(
+      -45deg,
+      transparent 49.5%,
+      rgba(64, 64, 64, 0.3) 49.5%,
+      rgba(64, 64, 64, 0.3) 50.5%,
+      transparent 50.5%
+    );
+  background-size: 40px 40px;
+  background-position:
+    0 0,
+    20px 20px;
+}
+
+.ui-soft-gradient {
+  background-image: linear-gradient(to right, #ff416c, #ff4b2b);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  box-shadow: 0 0 7px #ff416c;
+}
+
+input,
+textarea,
+select {
+  font-size: 16px !important;
+}
+
+@keyframes progress-indeterminate {
+  0% {
+    transform: translateX(-100%);
+  }
+
+  100% {
+    transform: translateX(300%);
+  }
+}
+
+.animate-progress-indeterminate {
+  animation: progress-indeterminate 1.2s infinite linear;
+}
+
+button {
+  cursor: pointer;
+}

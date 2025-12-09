@@ -1,12 +1,11 @@
 "use client"
-import ky from "ky"
 import {
   useSuspenseQuery,
   useQuery as useReactQuery,
 } from "@tanstack/react-query"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { useUserContext } from "@/context/user.provider"
+import api from "../lib/ky-api"
 
 interface QueryType<T> {
   queryKey: string[]
@@ -28,10 +27,9 @@ export default function useQuery<T>({
   const [{ user }] = useUserContext()
 
   const queryFn = async () => {
-    const data: any = await ky(queryUrl, {
+    const data: any = await api(queryUrl, {
       method,
       json: requestBody,
-      timeout: FETCH_TIMEOUT,
     }).json()
     return data
   }

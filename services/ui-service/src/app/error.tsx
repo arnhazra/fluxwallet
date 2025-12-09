@@ -7,13 +7,13 @@ import {
   CardDescription,
   CardFooter,
 } from "@/shared/components/ui/card"
-import { cn } from "@/shared/lib/tw-class-util"
+import { cn } from "@/shared/lib/utils"
 import Link from "next/link"
 
 export default function Error({ error }: { error?: Error }) {
   return (
     <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
-      <Card className="mx-auto min-w-[350px] max-w-sm bg-background border-border text-white">
+      <Card className="mx-auto w-full max-w-sm bg-background border-border text-white">
         <CardHeader>
           <CardTitle className="text-2xl">Error</CardTitle>
           <CardDescription className="text-white break-all">

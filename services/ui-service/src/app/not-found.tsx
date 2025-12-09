@@ -7,12 +7,12 @@ import {
 } from "@/shared/components/ui/card"
 import { buttonVariants } from "@/shared/components/ui/button"
 import Link from "next/link"
-import { cn } from "@/shared/lib/tw-class-util"
+import { cn } from "@/shared/lib/utils"
 
 export default function NotFound() {
   return (
     <div className="fixed inset-0 overflow-y-auto flex justify-center items-center">
-      <Card className="mx-auto max-w-sm bg-background border-border text-white">
+      <Card className="mx-auto w-full max-w-sm bg-background border-border text-white">
         <CardHeader>
           <CardTitle className="text-2xl">Not Found</CardTitle>
           <CardDescription className="text-white">

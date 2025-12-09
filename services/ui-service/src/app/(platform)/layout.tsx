@@ -1,11 +1,10 @@
 "use client"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { uiConstants } from "@/shared/constants/global-constants"
-import ky from "ky"
 import { ReactNode, useState } from "react"
+import Cookies from "js-cookie"
 import Show from "@/shared/components/show"
 import AuthProvider from "../auth/auth"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import {
   Subscription,
   SubscriptionConfig,
@@ -20,13 +19,14 @@ import { SubscriptionModal } from "@/shared/components/subscription-modal"
 import notify from "@/shared/hooks/use-notify"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
+import api from "@/shared/lib/ky-api"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
   const [, dispatch] = useUserContext()
   const [isAuthorized, setAuthorized] = useState<boolean>(false)
 
   const getUserDetails = async () => {
-    if (!localStorage.getItem("accessToken")) {
+    if (!Cookies.get("accessToken")) {
       setAuthorized(false)
       return null
     } else {
@@ -34,9 +34,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         const response: {
           user: User
           subscription: Subscription | null
-        } = await ky
-          .get(endPoints.userDetails, { timeout: FETCH_TIMEOUT })
-          .json()
+        } = await api.get(endPoints.userDetails).json()
         dispatch("setUser", response.user)
         dispatch("setSubscription", response.subscription)
         setAuthorized(true)
@@ -74,7 +72,7 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
   const appLayout = (
     <div className="min-h-screen w-full text-white hero-landing relative">
       <PlatformHeader />
-      <div className="w-full px-4 sm:container sm:max-w-[90rem] mt-4">
+      <div className="w-full mx-auto max-w-[90rem] px-4 sm:px-6 lg:px-8 mt-4">
         {children}
       </div>
       <Intelligence />

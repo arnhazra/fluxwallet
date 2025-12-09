@@ -17,12 +17,11 @@ import {
   SelectValue,
 } from "../ui/select"
 import { useUserContext } from "@/context/user.provider"
-import ky from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
 import { Currency } from "country-code-enum"
+import api from "@/shared/lib/ky-api"
 
 export default function EditCurrency({
   baseCurrency,
@@ -36,12 +35,11 @@ export default function EditCurrency({
   const saveCurrency = async () => {
     try {
       dispatch("setUser", { baseCurrency: value })
-      await ky.patch(endPoints.updateAttribute, {
+      await api.patch(endPoints.updateAttribute, {
         json: {
           attributeName: "baseCurrency",
           attributeValue: value,
         },
-        timeout: FETCH_TIMEOUT,
       })
       setOpen(false)
     } catch (error) {

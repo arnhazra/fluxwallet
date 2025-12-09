@@ -8,7 +8,16 @@ export class DeleteTokenCommandHandler implements ICommandHandler<DeleteTokenCom
   constructor(private readonly repository: TokenRepository) {}
 
   async execute(command: DeleteTokenCommand) {
-    const { userId } = command
-    await this.repository.delete({ userId: createOrConvertObjectId(userId) })
+    const { userId, token } = command
+    if (token) {
+      await this.repository.delete({
+        userId: createOrConvertObjectId(userId),
+        token,
+      })
+    } else {
+      await this.repository.deleteMany({
+        userId: createOrConvertObjectId(userId),
+      })
+    }
   }
 }

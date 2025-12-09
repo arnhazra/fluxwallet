@@ -7,6 +7,7 @@ export const endPoints = {
   googleOAuthLogin: `${apiHost}/auth/googleoauth`,
   userDetails: `${apiHost}/auth/userdetails`,
   activateTrial: `${apiHost}/auth/activatetrial`,
+  refresh: `${apiHost}/auth/refresh`,
   signOut: `${apiHost}/auth/signout`,
   updateAttribute: `${apiHost}/auth/attribute`,
   // Platform Service
@@ -14,6 +15,7 @@ export const endPoints = {
   subscribe: `${apiHost}/platform/subscription/subscribe`,
   getConfig: `${apiHost}/platform/config`,
   intelligence: `${apiHost}/platform/intelligence`,
+  widgets: `${apiHost}/platform/widgets`,
   // Apps Service
   space: `${apiHost}/apps/wealthanalyzer/space`,
   asset: `${apiHost}/apps/wealthanalyzer/asset`,

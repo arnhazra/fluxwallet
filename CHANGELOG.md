@@ -1,8 +1,20 @@
 # Changelog
 
+## Version 3.0
+
+- Added dynamic widgets
+- Upgraded tailwind to v4
+- Standardized color palette
+- Dependency updates & bug fixes
+- Added advanced logic for multi device auth
+- Moved from localStorage to secure cookies
+- Added logic to refresh tokens and resend failed requests
+- Major refactor acrosss components to match new design system
+
 ## Version 2.9
 
 - Dependency upgrades & bug fixes
+- Fix security vulnerability of nextjs 16
 
 ## Version 2.8
 

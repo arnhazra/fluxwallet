@@ -7,6 +7,7 @@ import {
   Patch,
   Request,
   UseGuards,
+  UnauthorizedException,
 } from "@nestjs/common"
 import { AuthService } from "./auth.service"
 import { RequestOTPDto } from "./dto/request-otp.dto"
@@ -30,10 +31,10 @@ export class AuthController {
   async googleOAuth(@Body() googleOAuthDto: GoogleOAuthDto) {
     try {
       const response = await this.service.googleOAuth(googleOAuthDto)
-      const { accessToken, refreshToken, user, success } = response
+      const { accessToken, refreshToken, success } = response
 
       if (success) {
-        return { accessToken, refreshToken, user }
+        return { accessToken, refreshToken }
       } else {
         throw new BadRequestException(statusMessages.connectionError)
       }
@@ -57,13 +58,28 @@ export class AuthController {
   async validateOTP(@Body() validateOTPDto: VerifyOTPDto) {
     try {
       const response = await this.service.validateOTP(validateOTPDto)
-      const { accessToken, refreshToken, user } = response
+      const { accessToken, refreshToken } = response
 
       if (response.success) {
-        return { accessToken, refreshToken, user }
+        return { accessToken, refreshToken }
       } else {
         throw new BadRequestException(statusMessages.invalidOTP)
       }
+    } catch (error) {
+      throw error
+    }
+  }
+
+  @Post("refresh")
+  async refreshTokens(@Body() body: any) {
+    try {
+      const { refreshToken: currentRefreshToken } = body
+      if (!currentRefreshToken) {
+        throw new UnauthorizedException(statusMessages.refreshTokenMissing)
+      }
+      const response = await this.service.refreshTokens(currentRefreshToken)
+      const { accessToken, refreshToken } = response
+      return { accessToken, refreshToken }
     } catch (error) {
       throw error
     }
@@ -89,9 +105,13 @@ export class AuthController {
 
   @UseGuards(AuthGuard)
   @Post("signout")
-  async signOut(@Request() request: ModRequest) {
+  async signOut(
+    @Body() reqBody: { allDevices: boolean; refreshToken: string },
+    @Request() request: ModRequest
+  ) {
     try {
-      await this.service.signOut(request.user.userId)
+      const { allDevices, refreshToken } = reqBody
+      await this.service.signOut(allDevices, request.user.userId, refreshToken)
       return { message: statusMessages.signOutSuccess }
     } catch (error) {
       throw new BadRequestException(statusMessages.connectionError)

@@ -5,8 +5,6 @@ import { Input } from "@/shared/components/ui/input"
 import { ScrollArea } from "@/shared/components/ui/scroll-area"
 import { Bot, User, ArrowUp, Sparkles } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "@/shared/components/markdown"
 import Show from "@/shared/components/show"
@@ -19,6 +17,7 @@ import { useRouter } from "nextjs-toploader/app"
 import IconContainer from "@/shared/components/icon-container"
 import { streamResponseText } from "@/shared/lib/stream-response"
 import Error from "@/app/error"
+import api from "@/shared/lib/ky-api"
 
 export default function Page() {
   const searchParams = useSearchParams()
@@ -66,10 +65,9 @@ export default function Page() {
     setLoading(true)
 
     try {
-      const res: Thread = await ky
+      const res: Thread = await api
         .post(`${endPoints.intelligence}/chat`, {
           json: { prompt, threadId: threadId ?? undefined },
-          timeout: FETCH_TIMEOUT,
         })
         .json()
 
@@ -133,7 +131,7 @@ export default function Page() {
                   <div
                     className={`max-w-[80%] p-3 rounded-lg ${index % 2 === 0 ? "text-white" : "text-neutral-100"}`}
                     style={{
-                      backgroundColor: index % 2 === 0 ? "#32cd32" : "#121212",
+                      backgroundColor: index % 2 === 0 ? "#1db954" : "#121212",
                       border: index % 2 === 0 ? "none" : "1px solid #27272a",
                     }}
                   >
@@ -155,7 +153,7 @@ export default function Page() {
                 <div className="flex items-start space-x-2">
                   <div
                     className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
-                    style={{ backgroundColor: "#32cd32" }}
+                    style={{ backgroundColor: "#1db954" }}
                   >
                     <Bot className="h-4 w-4 text-white" />
                   </div>

@@ -3,7 +3,7 @@ import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import { Quicksand } from "next/font/google"
 import Providers from "@/shared/providers"
 import NextTopLoader from "nextjs-toploader"
-import "../shared/styles/globals.sass"
+import "../shared/styles/globals.css"
 
 export const quickSand = Quicksand({ subsets: ["latin"], weight: ["700"] })
 
@@ -21,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       </head>
       <body className={quickSand.className}>
         <Providers>
-          <NextTopLoader color="#1ff675" showSpinner={false} height={2} />
+          <NextTopLoader color="#1db954" showSpinner={false} height={2} />
           <main className="min-h-screen w-full bg-main">{children}</main>
         </Providers>
       </body>

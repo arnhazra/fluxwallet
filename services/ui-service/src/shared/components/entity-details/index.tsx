@@ -11,7 +11,6 @@ import { ReactNode, useEffect, useState } from "react"
 import { Badge } from "../ui/badge"
 import { formatKey, formatValue } from "@/shared/lib/format-key-value"
 import { Pen, Trash } from "lucide-react"
-import ky from "ky"
 import notify from "@/shared/hooks/use-notify"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
@@ -27,6 +26,7 @@ import {
   EntityTypeForDetailModal,
   excludedKeys,
 } from "./data"
+import api from "@/shared/lib/ky-api"
 
 type EntityDetailsProps = {
   entityType: EntityTypeForDetailModal
@@ -81,7 +81,7 @@ export function EntityDetails({
 
     if (confirmed) {
       try {
-        await ky.delete(
+        await api.delete(
           `${deleteEntityAPIUriMap[entityType as keyof typeof deleteEntityAPIUriMap]}/${(entity as Asset | Debt | Goal)._id}`
         )
         queryClient.refetchQueries({
@@ -103,15 +103,12 @@ export function EntityDetails({
       <DialogTrigger asChild onClick={() => setOpen(true)}>
         {children}
       </DialogTrigger>
-      <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4">
+      <DialogContent className="w-[25rem] bg-background border-border outline-none text-white [&>button]:hidden">
         <DialogHeader>
           <div className="flex justify-between">
             <div>
               <DialogTitle>{displayName}</DialogTitle>
-              <Badge
-                variant="default"
-                className="w-fit bg-neutral-800 hover:bg-neutral-800 text-primary mt-2"
-              >
+              <Badge variant="outline" className="w-fit text-white mt-2">
                 {entityBadgeText}
               </Badge>
               <DialogDescription></DialogDescription>
@@ -129,7 +126,7 @@ export function EntityDetails({
               >
                 <Pen className="text-black h-4 w-4" />
               </Button>
-              <Button onClick={deleteEntity} variant="destructive" size="icon">
+              <Button onClick={deleteEntity} variant="secondary" size="icon">
                 <Trash className="h-4 w-4" />
               </Button>
             </div>
@@ -154,7 +151,7 @@ export function EntityDetails({
           </ul>
         </div>
         <DialogFooter>
-          <Button variant="secondary" onClick={(): void => setOpen(false)}>
+          <Button variant="outline" onClick={(): void => setOpen(false)}>
             Close
           </Button>
         </DialogFooter>

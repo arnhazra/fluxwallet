@@ -25,13 +25,12 @@ import {
   PopoverTrigger,
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { AssetType, Space, RecurringFrequency } from "@/shared/constants/types"
 import useQuery from "@/shared/hooks/use-query"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { formatDate } from "@/shared/lib/format-date"
+import api from "@/shared/lib/ky-api"
 
 interface AssetFormData {
   spaceId: string
@@ -101,8 +100,7 @@ export default function Page() {
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault()
-      await ky.post(endPoints.asset, {
-        timeout: FETCH_TIMEOUT,
+      await api.post(endPoints.asset, {
         json: formData,
       })
       setMessage({ msg: "Asset added successfully!", type: "success" })
@@ -167,7 +165,7 @@ export default function Page() {
       <div className="max-w-4xl mx-auto">
         <Card className="bg-background border-border">
           <CardHeader className="border-b border-neutral-800">
-            <CardTitle className="flex items-center gap-2 text-neutral-100">
+            <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
               <BadgeDollarSign className="h-6 w-6 text-primary" />
               Add New Asset
             </CardTitle>

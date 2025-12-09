@@ -52,9 +52,7 @@ export class IntelligenceService {
       const thread = await this.getThreadById(threadId, !chatDto.threadId)
 
       const user: User = (
-        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, {
-          _id: userId,
-        })
+        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, userId)
       ).shift()
 
       const args: ChatArgs = {
@@ -78,9 +76,7 @@ export class IntelligenceService {
       const { entityType, entityDetails } = summarizeDto
 
       const user: User = (
-        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, {
-          _id: userId,
-        })
+        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, userId)
       ).shift()
 
       const args: SummarizeArgs = {

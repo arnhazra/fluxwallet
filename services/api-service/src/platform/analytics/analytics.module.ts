@@ -1,6 +1,5 @@
 import { Module } from "@nestjs/common"
 import { AnalyticsService } from "./analytics.service"
-import { AnalyticsController } from "./analytics.controller"
 import { CqrsModule } from "@nestjs/cqrs"
 import { GeneralDbConnectionMap } from "@/shared/entity/entity-db-connection.map"
 import { Analytics, AnalyticsSchema } from "./schemas/analytics.schema"
@@ -17,7 +16,6 @@ import { GetAnalyticsQueryHandler } from "./queries/handler/get-analytics-count.
       GeneralDbConnectionMap.Platform
     ),
   ],
-  controllers: [AnalyticsController],
   providers: [
     AnalyticsService,
     AnalyticsRepository,

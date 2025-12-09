@@ -5,11 +5,8 @@ import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import { useUserContext } from "@/context/user.provider"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
-import ky from "ky"
 import {
   User,
-  IdCardLanyard,
   AtSign,
   CircleArrowRight,
   Globe,
@@ -31,7 +28,9 @@ import {
   AvatarFallback,
   AvatarImage,
 } from "@/shared/components/ui/avatar"
+import Cookies from "js-cookie"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
+import api from "@/shared/lib/ky-api"
 
 export default function Page() {
   const [{ user, subscription }, dispatch] = useUserContext()
@@ -44,12 +43,11 @@ export default function Page() {
     if (hasConfirmed) {
       try {
         dispatch("setUser", { name: value as string })
-        await ky.patch(endPoints.updateAttribute, {
+        await api.patch(endPoints.updateAttribute, {
           json: {
             attributeName: "name",
             attributeValue: value,
           },
-          timeout: FETCH_TIMEOUT,
         })
       } catch (error) {
         notify(uiConstants.genericError, "error")
@@ -59,11 +57,16 @@ export default function Page() {
 
   const signOut = async () => {
     try {
-      await ky.post(endPoints.signOut, { timeout: FETCH_TIMEOUT })
-      localStorage.clear()
+      const refreshToken = Cookies.get("refreshToken")
+      await api.post(endPoints.signOut, {
+        json: { allDevices: true, refreshToken },
+      })
+      Cookies.remove("accessToken")
+      Cookies.remove("refreshToken")
       window.location.replace("/")
     } catch (error) {
-      localStorage.clear()
+      Cookies.remove("accessToken")
+      Cookies.remove("refreshToken")
       window.location.replace("/")
     }
   }
@@ -71,12 +74,11 @@ export default function Page() {
   const saveSustainabilitySettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUser", { reduceCarbonEmissions: updatedSettings })
-      await ky.patch(endPoints.updateAttribute, {
+      await api.patch(endPoints.updateAttribute, {
         json: {
           attributeName: "reduceCarbonEmissions",
           attributeValue: updatedSettings,
         },
-        timeout: FETCH_TIMEOUT,
       })
     } catch (error) {
       notify(uiConstants.genericError, "error")
@@ -86,12 +88,11 @@ export default function Page() {
   const saveAnalyticsSettings = async (updatedSettings: boolean) => {
     try {
       dispatch("setUser", { analyticsData: updatedSettings })
-      await ky.patch(endPoints.updateAttribute, {
+      await api.patch(endPoints.updateAttribute, {
         json: {
           attributeName: "analyticsData",
           attributeValue: updatedSettings,
         },
-        timeout: FETCH_TIMEOUT,
       })
     } catch (error) {
       notify(uiConstants.genericError, "error")
@@ -101,12 +102,11 @@ export default function Page() {
   const saveIntelligenceUsage = async (updatedSettings: boolean) => {
     try {
       dispatch("setUser", { useIntelligence: updatedSettings })
-      await ky.patch(endPoints.updateAttribute, {
+      await api.patch(endPoints.updateAttribute, {
         json: {
           attributeName: "useIntelligence",
           attributeValue: updatedSettings,
         },
-        timeout: FETCH_TIMEOUT,
       })
     } catch (error) {
       notify(uiConstants.genericError, "error")
@@ -170,17 +170,6 @@ export default function Page() {
         <SectionPanel
           icon={
             <IconContainer>
-              <IdCardLanyard className="h-4 w-4" />
-            </IconContainer>
-          }
-          title={`${platformName} ID`}
-          content={user._id}
-          masked
-          actionComponents={[<CopyToClipboard value={user._id} />]}
-        />
-        <SectionPanel
-          icon={
-            <IconContainer>
               <Globe className="h-4 w-4" />
             </IconContainer>
           }
@@ -228,7 +217,7 @@ export default function Page() {
               <PieChart className="h-4 w-4" />
             </IconContainer>
           }
-          title="Analytics Data"
+          title={`${platformName} Analytics`}
           content="Choose whether to save the things you do. If disabled, we still collect anonymous analytics data to improve the app"
           actionComponents={[
             <Switch
@@ -276,7 +265,7 @@ export default function Page() {
             </IconContainer>
           }
           title={`${platformName} Platform Version`}
-          content="2.9"
+          content="3.0"
         />
         <SectionPanel
           icon={
@@ -289,7 +278,7 @@ export default function Page() {
           actionComponents={[
             <Button
               size="icon"
-              variant="destructive"
+              variant="secondary"
               onClick={(): Promise<void> => signOut()}
             >
               <CircleArrowRight className="h-4 w-4" />

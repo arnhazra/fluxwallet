@@ -9,7 +9,6 @@ export class SetTokenCommandHandler implements ICommandHandler<SetTokenCommand> 
 
   async execute(command: SetTokenCommand) {
     const { userId, token } = command
-    await this.repository.delete({ userId: createOrConvertObjectId(userId) })
     return await this.repository.create({
       userId: createOrConvertObjectId(userId),
       token,

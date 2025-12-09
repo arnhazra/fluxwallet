@@ -41,10 +41,10 @@ import {
 } from "@/shared/lib/generate-month-list"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useQueryClient } from "@tanstack/react-query"
-import ky from "ky"
 import { useRouter } from "nextjs-toploader/app"
 import { useEffect, useState } from "react"
 import * as Icons from "lucide-react"
+import api from "@/shared/lib/ky-api"
 
 export default function Page() {
   const router = useRouter()
@@ -92,7 +92,7 @@ export default function Page() {
 
     if (confirmed) {
       try {
-        await ky.delete(`${endPoints.expense}/${expenseId}`)
+        await api.delete(`${endPoints.expense}/${expenseId}`)
         queryClient.refetchQueries({
           queryKey: ["get-expenses"],
         })

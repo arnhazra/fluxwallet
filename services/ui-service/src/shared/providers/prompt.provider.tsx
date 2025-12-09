@@ -97,7 +97,7 @@ function usePrompt() {
           />
         </AlertDialogHeader>
         <AlertDialogFooter>
-          <Button variant="secondary" onClick={() => handleConfirm(false)}>
+          <Button variant="outline" onClick={() => handleConfirm(false)}>
             Cancel
           </Button>
           <Button

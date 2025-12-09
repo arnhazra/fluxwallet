@@ -1,5 +1,6 @@
 "use client"
 import { useUserContext } from "@/context/user.provider"
+import Cookies from "js-cookie"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -12,12 +13,19 @@ import {
 import { User } from "lucide-react"
 import Link from "next/link"
 import { Avatar, AvatarImage, AvatarFallback } from "../ui/avatar"
+import api from "@/shared/lib/ky-api"
+import { endPoints } from "@/shared/constants/api-endpoints"
 
 export function UserNav() {
   const [{ user }] = useUserContext()
 
   const signOut = async () => {
-    localStorage.clear()
+    const refreshToken = Cookies.get("refreshToken")
+    await api.post(endPoints.signOut, {
+      json: { allDevices: false, refreshToken },
+    })
+    Cookies.remove("accessToken")
+    Cookies.remove("refreshToken")
     window.location.replace("/")
   }
 

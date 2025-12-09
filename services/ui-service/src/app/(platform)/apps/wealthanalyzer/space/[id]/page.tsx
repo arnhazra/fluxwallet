@@ -9,7 +9,6 @@ import { Building, Pen, Trash } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import { useRouter } from "nextjs-toploader/app"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
-import ky from "ky"
 import { uiConstants } from "@/shared/constants/global-constants"
 import notify from "@/shared/hooks/use-notify"
 import IconContainer from "@/shared/components/icon-container"
@@ -17,6 +16,7 @@ import { AddEntityCard, EntityCard } from "@/shared/components/entity-card"
 import { EntityType } from "@/shared/components/entity-card/data"
 import { useUserContext } from "@/context/user.provider"
 import { buildQueryUrl } from "@/shared/lib/build-url"
+import api from "@/shared/lib/ky-api"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: spaceId = "" } = use(params)
@@ -61,7 +61,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
 
     if (confirmed) {
       try {
-        await ky.delete(`${endPoints.space}/${spaceId}`)
+        await api.delete(`${endPoints.space}/${spaceId}`)
         router.push("/apps/wealthanalyzer")
       } catch (error) {
         notify(uiConstants.spaceDeleteFailed, "error")
@@ -91,11 +91,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
             >
               <Pen className="h-4 w-4" />
             </Button>,
-            <Button
-              onClick={handleDeleteSpace}
-              variant="destructive"
-              size="icon"
-            >
+            <Button onClick={handleDeleteSpace} variant="secondary" size="icon">
               <Trash className="h-4 w-4" />
             </Button>,
           ]}

@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common"
+import { Injectable, UnauthorizedException } from "@nestjs/common"
 import { RequestOTPDto } from "./dto/request-otp.dto"
 import { VerifyOTPDto } from "./dto/validate-otp.dto"
 import { config } from "src/config"
@@ -26,14 +26,15 @@ import { SetTokenDto } from "./dto/set-token.dto"
 import { GetTokenDto } from "./dto/get-token.dto"
 import { DeleteTokenDto } from "./dto/delete-token.dto"
 import { SetTokenCommand } from "./commands/impl/set-token.command"
-import { GetTokenQuery } from "./queries/impl/get-token.query"
+import { GetTokensQuery } from "./queries/impl/get-tokens.query"
 import { DeleteTokenCommand } from "./commands/impl/delete-token.command"
-import { generateToken, TokenType } from "@/auth/utils/jwt.util"
+import { generateToken, TokenType, verifyToken } from "@/auth/utils/jwt.util"
 import { SetOTPCommand } from "./commands/impl/set-otp.command"
 import { GetOTPQuery } from "./queries/impl/get-otp.query"
 import { OneTimePassword } from "./schemas/otp.schema"
 import { DeleteOTPCommand } from "./commands/impl/delete-otp.command"
 import { Currency } from "country-code-enum"
+import * as jwt from "jsonwebtoken"
 
 @Injectable()
 export class AuthService {
@@ -51,36 +52,18 @@ export class AuthService {
       )
 
       if (user) {
-        const refreshTokenFromDB = await this.getRefreshToken({
-          userId: String(user._id),
-        })
-
-        if (refreshTokenFromDB) {
-          const refreshToken = refreshTokenFromDB.token
-          const tokenPayload = {
-            id: String(user._id),
-            email: user.email,
-            iss: config.UI_URL,
-          }
-          const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
-          return { accessToken, refreshToken, user, success: true }
-        } else {
-          const tokenPayload = {
-            id: String(user._id),
-            email: user.email,
-            iss: config.UI_URL,
-          }
-          const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
-          const refreshToken = generateToken(
-            tokenPayload,
-            TokenType.RefreshToken
-          )
-          await this.setRefreshToken({
-            userId: String(user._id),
-            token: refreshToken,
-          })
-          return { accessToken, refreshToken, user, success: true }
+        const tokenPayload = {
+          id: String(user._id),
+          email: user.email,
+          iss: config.UI_URL,
         }
+        const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
+        const refreshToken = generateToken(tokenPayload, TokenType.RefreshToken)
+        await this.setRefreshToken({
+          userId: String(user._id),
+          token: refreshToken,
+        })
+        return { accessToken, refreshToken, user, success: true }
       } else {
         const newUser = await this.commandBus.execute<CreateUserCommand, User>(
           new CreateUserCommand(email, name)
@@ -164,6 +147,51 @@ export class AuthService {
     }
   }
 
+  async refreshTokens(currentRefreshToken: string) {
+    try {
+      const decodedRefreshToken = verifyToken(
+        currentRefreshToken,
+        TokenType.RefreshToken
+      )
+      const userId = decodedRefreshToken.id
+      const refreshTokens = await this.getRefreshTokens({ userId })
+      const matchRefreshToken = refreshTokens.find(
+        (tk) => tk.token === currentRefreshToken
+      )
+
+      if (!matchRefreshToken) {
+        throw new UnauthorizedException(statusMessages.refreshTokenInvalid)
+      }
+
+      const userDetails = await this.getUserDetails(userId)
+
+      const tokenPayload = {
+        id: String(userDetails.user._id),
+        email: userDetails.user.email,
+        iss: config.UI_URL,
+      }
+
+      const accessToken = generateToken(tokenPayload, TokenType.AccessToken)
+      const refreshToken = generateToken(tokenPayload, TokenType.RefreshToken)
+      await this.deleteRefreshToken({ userId, token: currentRefreshToken })
+      await this.setRefreshToken({
+        userId: String(userDetails.user._id),
+        token: refreshToken,
+      })
+      return { accessToken, refreshToken }
+    } catch (error) {
+      if (error instanceof jwt.TokenExpiredError) {
+        throw new UnauthorizedException(statusMessages.refreshTokenExpired)
+      }
+
+      if (error instanceof jwt.JsonWebTokenError) {
+        throw new UnauthorizedException(statusMessages.refreshTokenInvalid)
+      }
+
+      throw new UnauthorizedException(statusMessages.unauthorized)
+    }
+  }
+
   async getUserDetails(userId: string) {
     try {
       const user = await this.queryBus.execute<FindUserByIdQuery, User>(
@@ -194,9 +222,13 @@ export class AuthService {
     }
   }
 
-  async signOut(userId: string) {
+  async signOut(allDevices: boolean, userId: string, refreshToken: string) {
     try {
-      await this.deleteRefreshToken({ userId })
+      if (allDevices) {
+        await this.deleteRefreshToken({ userId, token: null })
+      } else {
+        await this.deleteRefreshToken({ userId, token: refreshToken })
+      }
     } catch (error) {
       throw new Error(statusMessages.connectionError)
     }
@@ -216,6 +248,17 @@ export class AuthService {
     }
   }
 
+  @OnEvent(EventMap.GetUserDetails)
+  async findUser(userId: string): Promise<User | null> {
+    try {
+      return await this.queryBus.execute<FindUserByIdQuery, User>(
+        new FindUserByIdQuery(userId)
+      )
+    } catch (error) {
+      return null
+    }
+  }
+
   async setRefreshToken(setTokenDto: SetTokenDto) {
     try {
       const { userId, token } = setTokenDto
@@ -225,12 +268,11 @@ export class AuthService {
     }
   }
 
-  @OnEvent(EventMap.GetRefreshToken)
-  async getRefreshToken(getTokenDto: GetTokenDto) {
+  async getRefreshTokens(getTokenDto: GetTokenDto) {
     try {
       const { userId } = getTokenDto
-      return await this.queryBus.execute<GetTokenQuery, Token>(
-        new GetTokenQuery(userId)
+      return await this.queryBus.execute<GetTokensQuery, Token[]>(
+        new GetTokensQuery(userId)
       )
     } catch (error) {
       throw new Error()
@@ -239,8 +281,10 @@ export class AuthService {
 
   async deleteRefreshToken(deleteTokenDto: DeleteTokenDto) {
     try {
-      const { userId } = deleteTokenDto
-      return await this.commandBus.execute(new DeleteTokenCommand(userId))
+      const { userId, token } = deleteTokenDto
+      return await this.commandBus.execute(
+        new DeleteTokenCommand(userId, token)
+      )
     } catch (error) {
       throw new Error()
     }

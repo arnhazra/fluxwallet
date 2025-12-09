@@ -11,18 +11,11 @@ import {
 } from "@/shared/components/ui/card"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/components/ui/select"
 import { Package } from "lucide-react"
 import { Space } from "@/shared/constants/types"
-import ky, { KyResponse } from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { useRouter } from "nextjs-toploader/app"
+import api from "@/shared/lib/ky-api"
 
 interface SpaceFormData {
   spaceName: string
@@ -49,7 +42,7 @@ export default function Page() {
     setAlertMessage("")
 
     try {
-      const space: KyResponse<Space> = await ky.post(endPoints.space, {
+      const space: any = await api.post(endPoints.space, {
         json: formData,
       })
       router.push(`/apps/wealthanalyzer/space/${(await space.json())._id}`)
@@ -65,7 +58,7 @@ export default function Page() {
     <div className="w-full max-w-2xl mx-auto p-4">
       <Card className="bg-background text-white border-border">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="text-2xl flex items-center gap-2">
             <Package className="h-5 w-5 text-primary" />
             Add Space
           </CardTitle>

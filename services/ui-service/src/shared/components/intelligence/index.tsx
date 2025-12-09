@@ -12,8 +12,6 @@ import {
   ExternalLink,
 } from "lucide-react"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import MarkdownRenderer from "../markdown"
 import Show from "../show"
@@ -25,6 +23,7 @@ import { streamResponseText } from "@/shared/lib/stream-response"
 import { useRouter } from "nextjs-toploader/app"
 import { useUserContext } from "@/context/user.provider"
 import { usePathname } from "next/navigation"
+import api from "@/shared/lib/ky-api"
 
 export default function Intelligence() {
   const [isOpen, setIsOpen] = useState(false)
@@ -56,10 +55,9 @@ export default function Intelligence() {
     setLoading(true)
 
     try {
-      const res: Thread = await ky
+      const res: Thread = await api
         .post(`${endPoints.intelligence}/chat`, {
           json: { prompt, threadId: threadId ?? undefined },
-          timeout: FETCH_TIMEOUT,
         })
         .json()
 
@@ -96,7 +94,7 @@ export default function Intelligence() {
 
       {isOpen && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-50 z-40 transition-opacity duration-300"
+          className="fixed inset-0 bg-black/30 backdrop-blur-xs z-40 transition-opacity duration-300"
           onClick={() => setIsOpen(false)}
         />
       )}
@@ -164,7 +162,7 @@ export default function Intelligence() {
                     index % 2 === 0 ? "text-white" : "text-neutral-100"
                   }`}
                   style={{
-                    backgroundColor: index % 2 === 0 ? "#32cd32" : "#121212",
+                    backgroundColor: index % 2 === 0 ? "#1db954" : "#121212",
                     border: index % 2 === 0 ? "none" : "1px solid #27272a",
                   }}
                 >
@@ -186,7 +184,7 @@ export default function Intelligence() {
               <div className="flex items-start space-x-2">
                 <div
                   className="flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: "#32cd32" }}
+                  style={{ backgroundColor: "#1db954" }}
                 >
                   <Bot className="h-4 w-4 text-white" />
                 </div>

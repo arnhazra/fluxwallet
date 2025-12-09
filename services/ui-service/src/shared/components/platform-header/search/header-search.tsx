@@ -1,6 +1,6 @@
 import { HomeIcon, Search } from "lucide-react"
 import { Input } from "@/shared/components/ui/input"
-import { cn } from "@/shared/lib/tw-class-util"
+import { cn } from "@/shared/lib/utils"
 import { usePathname } from "next/navigation"
 import { useEffect, useRef, useCallback } from "react"
 import { useUserContext } from "@/context/user.provider"
@@ -55,7 +55,7 @@ export default function HeaderSearch() {
           <Button
             variant="default"
             size="icon"
-            className="bg-neutral-800 hover:bg-neutral-700"
+            className="bg-neutral-800 hover:bg-neutral-700 rounded-full h-10 w-10"
             onClick={(): void => router.replace("/dashboard")}
           >
             <HomeIcon className="h-4 w-4" />
@@ -79,7 +79,7 @@ export default function HeaderSearch() {
                 type="search"
                 placeholder={`What ${getSearchLabel(pathName) ?? ""} are you looking for?`}
                 className={cn(
-                  "w-full rounded-full bg-neutral-800 py-2 pl-9 pr-3 text-sm text-white placeholder:text-neutral-400 focus-visible:ring-0 focus-visible:ring-neutral-900",
+                  "w-full h-10 rounded-full bg-neutral-800 py-2 pl-9 pr-3 text-sm text-white placeholder:text-neutral-400 focus-visible:ring-0 focus-visible:ring-neutral-900",
                   "pointer-events-auto",
                   "border-border"
                 )}

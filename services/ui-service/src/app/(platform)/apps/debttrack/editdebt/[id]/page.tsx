@@ -18,14 +18,13 @@ import {
   PopoverTrigger,
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
-import { cn } from "@/shared/lib/tw-class-util"
-import ky from "ky"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
+import { cn } from "@/shared/lib/utils"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import useQuery from "@/shared/hooks/use-query"
 import { Debt } from "@/shared/constants/types"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { formatDate } from "@/shared/lib/format-date"
+import api from "@/shared/lib/ky-api"
 
 interface DebtFormData {
   debtPurpose: string
@@ -87,8 +86,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault()
-      await ky.put(`${endPoints.debt}/${debtId}`, {
-        timeout: FETCH_TIMEOUT,
+      await api.put(`${endPoints.debt}/${debtId}`, {
         json: formData,
       })
       setMessage({ msg: "Debt updated successfully!", type: "success" })
@@ -105,7 +103,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
       <div className="max-w-4xl mx-auto">
         <Card className="bg-background border-border">
           <CardHeader className="border-b border-neutral-800">
-            <CardTitle className="flex items-center gap-2 text-neutral-100">
+            <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
               <BadgeDollarSign className="h-6 w-6 text-primary" />
               Update Debt
             </CardTitle>
@@ -127,7 +125,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       handleInputChange("debtPurpose", e.target.value)
                     }
                     placeholder="e.g. Home Loan, Car Loan"
-                    className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                    className="bg-background border-border text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                     required
                   />
                 </div>
@@ -142,7 +140,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       handleInputChange("identifier", e.target.value)
                     }
                     placeholder="Unique Identifier"
-                    className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                    className="bg-background border-border text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                     required
                   />
                 </div>
@@ -157,7 +155,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       <Button
                         variant="outline"
                         className={cn(
-                          "w-full justify-start text-left font-normal bg-neutral-800 border-neutral-700 text-neutral-100 hover:bg-neutral-700",
+                          "w-full justify-start text-left font-normal bg-background border-border text-neutral-100 hover:bg-background",
                           !formData.startDate && "text-neutral-500"
                         )}
                       >
@@ -167,7 +165,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           : "Pick a date"}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 bg-neutral-800 border-neutral-700">
+                    <PopoverContent className="w-auto p-0 bg-background border-border">
                       <Calendar
                         mode="single"
                         captionLayout="dropdown"
@@ -179,7 +177,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           handleInputChange("startDate", date)
                         }
                         showOutsideDays={false}
-                        className="bg-neutral-800 text-neutral-100"
+                        className="bg-background text-neutral-100"
                       />
                     </PopoverContent>
                   </Popover>
@@ -191,7 +189,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       <Button
                         variant="outline"
                         className={cn(
-                          "w-full justify-start text-left font-normal bg-neutral-800 border-neutral-700 text-neutral-100 hover:bg-neutral-700",
+                          "w-full justify-start text-left font-normal bg-background border-border text-neutral-100 hover:bg-background",
                           !formData.endDate && "text-neutral-500"
                         )}
                       >
@@ -201,7 +199,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                           : "Pick a date"}
                       </Button>
                     </PopoverTrigger>
-                    <PopoverContent className="w-auto p-0 bg-neutral-800 border-neutral-700">
+                    <PopoverContent className="w-auto p-0 bg-background border-border">
                       <Calendar
                         mode="single"
                         selected={formData.endDate}
@@ -213,7 +211,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                         }
                         onSelect={(date) => handleInputChange("endDate", date)}
                         showOutsideDays={false}
-                        className="bg-neutral-800 text-neutral-100"
+                        className="bg-background text-neutral-100"
                       />
                     </PopoverContent>
                   </Popover>
@@ -238,7 +236,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       )
                     }
                     placeholder="0.00"
-                    className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                    className="bg-background border-border text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                   />
                 </div>
                 <div className="space-y-2">
@@ -257,7 +255,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
                       )
                     }
                     placeholder="0.00"
-                    className="bg-neutral-800 border-neutral-700 text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                    className="bg-background border-border text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
                   />
                 </div>
               </div>

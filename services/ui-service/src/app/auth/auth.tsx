@@ -1,13 +1,12 @@
 "use client"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
-import ky from "ky"
+import Cookies from "js-cookie"
 import { useState } from "react"
 import Show from "@/shared/components/show"
 import { Button } from "@/shared/components/ui/button"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
 import LoaderIcon from "@/shared/components/loader-icon"
-import { FETCH_TIMEOUT } from "@/shared/lib/fetch-timeout"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import {
   Card,
@@ -16,9 +15,11 @@ import {
   CardHeader,
   CardTitle,
 } from "@/shared/components/ui/card"
-import MarketingHeader from "@/shared/components/marketing-header"
+import HomePageHeader from "@/shared/components/homepage-header"
 import notify from "@/shared/hooks/use-notify"
 import GoogleOAuth from "./google-oauth"
+import api from "@/shared/lib/ky-api"
+import { defaultCookieOptions } from "@/shared/lib/cookie-params"
 
 interface AuthProviderProps {
   onAuthorized: (isAuthorized: boolean) => void
@@ -40,8 +41,8 @@ export default function AuthenticationPage({
     setAuthLoading(true)
 
     try {
-      const response: any = await ky
-        .post(endPoints.requestOTP, { json: state, timeout: FETCH_TIMEOUT })
+      const response: any = await api
+        .post(endPoints.requestOTP, { json: state })
         .json()
       setNewUser(response.newUser)
       setAuthStep(2)
@@ -58,14 +59,13 @@ export default function AuthenticationPage({
     setAuthLoading(true)
 
     try {
-      const response: any = await ky
+      const response: any = await api
         .post(endPoints.validateOTP, {
           json: { ...state, name },
-          timeout: FETCH_TIMEOUT,
         })
         .json()
-      localStorage.setItem("accessToken", response.accessToken)
-      localStorage.setItem("refreshToken", response.refreshToken)
+      Cookies.set("accessToken", response.accessToken, defaultCookieOptions)
+      Cookies.set("refreshToken", response.refreshToken, defaultCookieOptions)
       onAuthorized(true)
     } catch (error: any) {
       notify(uiConstants.invalidOTP, "error")
@@ -79,8 +79,8 @@ export default function AuthenticationPage({
     setAuthLoading(true)
 
     try {
-      localStorage.setItem("accessToken", userData.accessToken)
-      localStorage.setItem("refreshToken", userData.refreshToken)
+      Cookies.set("accessToken", userData.accessToken, defaultCookieOptions)
+      Cookies.set("refreshToken", userData.refreshToken, defaultCookieOptions)
       onAuthorized(true)
     } catch (error: any) {
       notify(uiConstants.invalidOTP, "error")
@@ -92,9 +92,9 @@ export default function AuthenticationPage({
 
   return (
     <>
-      <MarketingHeader />
+      <HomePageHeader />
       <div className="fixed inset-0 overflow-y-auto flex justify-center items-center auth-landing">
-        <Card className="mx-auto max-w-sm bg-background border-border text-white">
+        <Card className="mx-auto w-full max-w-sm bg-background border-border text-white">
           <CardHeader>
             <CardTitle className="text-2xl">{platformName}</CardTitle>
             <CardDescription className="text-primary">
@@ -146,11 +146,9 @@ export default function AuthenticationPage({
                 </form>
                 <div className="relative text-center text-sm">
                   <div className="relative z-0 flex items-center">
-                    <div className="flex-grow border-t border-border"></div>
                     <span className="bg-card text-muted-foreground px-2 z-10">
                       Or continue with
                     </span>
-                    <div className="flex-grow border-t border-border"></div>
                   </div>
                 </div>
                 <GoogleOAuth handleSuccess={googleOAuthLogin} />
@@ -212,7 +210,7 @@ export default function AuthenticationPage({
                 </form>
               </Show>
             </div>
-            <div className="mt-4 text-sm text-neutral-300">
+            <div className="mt-4 text-sm">
               {uiConstants.privacyPolicyStatement}
             </div>
           </CardContent>

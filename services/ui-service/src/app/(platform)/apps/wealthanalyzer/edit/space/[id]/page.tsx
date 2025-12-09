@@ -11,19 +11,12 @@ import {
 } from "@/shared/components/ui/card"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from "@/shared/components/ui/select"
 import { Package } from "lucide-react"
 import { Space } from "@/shared/constants/types"
-import ky from "ky"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
+import api from "@/shared/lib/ky-api"
 
 interface SpaceFormData {
   spaceName: string
@@ -65,7 +58,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     setAlertMessage("")
 
     try {
-      await ky.put(`${endPoints.space}/${spaceId}`, {
+      await api.put(`${endPoints.space}/${spaceId}`, {
         json: formData,
       })
       setAlertMessage("Space updated successfully!")
@@ -80,7 +73,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
     <div className="w-full max-w-2xl mx-auto p-4">
       <Card className="bg-background text-white border-border">
         <CardHeader>
-          <CardTitle className="flex items-center gap-2">
+          <CardTitle className="text-2xl flex items-center gap-2">
             <Package className="h-5 w-5 text-primary" />
             Edit Space
           </CardTitle>

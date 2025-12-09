@@ -9,13 +9,13 @@ import {
 } from "@/shared/components/ui/sheet"
 import { generalUserLinks } from "./data"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
-import { cn } from "@/shared/lib/tw-class-util"
+import { cn } from "@/shared/lib/utils"
 import IconContainer from "../icon-container"
 
-export default function MarketingHeader() {
+export default function HomePageHeader() {
   return (
-    <header className="relative z-50 top-0 flex h-[64px] items-center bg-background text-white px-4 md:px-6">
-      <div className="flex w-full items-center justify-between lg:container lg:max-w-[90rem]">
+    <header className="relative z-50 top-0 flex h-[64px] items-center bg-background text-white">
+      <div className="mx-auto flex w-full max-w-[90rem] items-center justify-between px-4 md:px-6">
         <Link
           href="/"
           className="flex items-center gap-2 text-xl font-semibold me-8"
@@ -25,6 +25,7 @@ export default function MarketingHeader() {
           </IconContainer>
           {platformName}
         </Link>
+
         <nav className="hidden md:flex items-center justify-start gap-3 flex-1">
           {generalUserLinks.map((item, index) => (
             <Link
@@ -38,6 +39,7 @@ export default function MarketingHeader() {
             </Link>
           ))}
         </nav>
+
         <nav className="hidden md:flex items-center justify-end gap-3 flex-1">
           <Link
             href="/dashboard"
@@ -52,22 +54,21 @@ export default function MarketingHeader() {
             {uiConstants.getStartedButton}
           </Link>
         </nav>
-        <div className="flex items-center space-x-4">
+
+        <div className="flex items-center space-x-4 md:hidden">
           <Sheet>
             <SheetTrigger asChild>
-              <Button
-                variant="default"
-                size="icon"
-                className="shrink-0 md:hidden"
-              >
+              <Button variant="outline" size="icon" className="shrink-0">
                 <PanelLeft className="h-5 w-5" />
               </Button>
             </SheetTrigger>
+
             <SheetContent
               side="right"
-              className="bg-background text-white border-none"
+              className="bg-background text-white border-none px-6 pt-2"
             >
               <SheetTitle></SheetTitle>
+
               <nav className="grid gap-6 text-lg font-medium">
                 <Link
                   href="/"
@@ -77,6 +78,7 @@ export default function MarketingHeader() {
                     <Wallet className="h-4 w-4" />
                   </IconContainer>
                 </Link>
+
                 {generalUserLinks.map((item, index) => (
                   <Link
                     key={index}

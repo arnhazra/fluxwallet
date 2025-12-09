@@ -13,7 +13,7 @@ import { EntityModule } from "@/shared/entity/entity.module"
 import { HttpModule } from "@nestjs/axios"
 import { SetTokenCommandHandler } from "./commands/handler/set-token.handler"
 import { GetOTPQueryHandler } from "./queries/handler/get-otp.handler"
-import { GetTokenQueryHandler } from "./queries/handler/get-token.handler"
+import { GetTokensQueryHandler } from "./queries/handler/get-tokens.handler"
 import { DeleteTokenCommandHandler } from "./commands/handler/delete-token.handler"
 import { Token, TokenSchema } from "./schemas/token.schema"
 import { TokenRepository } from "./repositories/token.repository"
@@ -52,7 +52,7 @@ import { config } from "@/config"
     FindUserByEmailQueryHandler,
     FindUserByIdQueryHandler,
     SetTokenCommandHandler,
-    GetTokenQueryHandler,
+    GetTokensQueryHandler,
     DeleteTokenCommandHandler,
     SetOTPCommandHandler,
     GetOTPQueryHandler,

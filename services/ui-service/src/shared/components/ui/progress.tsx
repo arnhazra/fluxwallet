@@ -1,36 +1,36 @@
 "use client"
-
 import * as React from "react"
 import * as ProgressPrimitive from "@radix-ui/react-progress"
-import { cn } from "@/shared/lib/tw-class-util"
+import { cn } from "@/shared/lib/utils"
 
-interface ProgressProps extends React.ComponentPropsWithoutRef<
-  typeof ProgressPrimitive.Root
-> {
+function Progress({
+  className,
+  value,
+  indeterminate,
+  ...props
+}: React.ComponentProps<typeof ProgressPrimitive.Root> & {
   indeterminate?: boolean
-}
-
-const Progress = React.forwardRef<
-  React.ElementRef<typeof ProgressPrimitive.Root>,
-  ProgressProps
->(({ className, value, indeterminate = false, ...props }, ref) => (
-  <ProgressPrimitive.Root
-    ref={ref}
-    className={cn(
-      "relative h-1 w-full overflow-hidden rounded-full bg-neutral-800",
-      className
-    )}
-    {...props}
-  >
-    <ProgressPrimitive.Indicator
+}) {
+  return (
+    <ProgressPrimitive.Root
+      data-slot="progress"
       className={cn(
-        "h-full w-full flex-1 bg-primary transition-all",
-        indeterminate && "animate-progress origin-left"
+        "bg-primary/20 relative h-2 w-full overflow-hidden rounded-full",
+        className
       )}
-      style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
-    />
-  </ProgressPrimitive.Root>
-))
-Progress.displayName = ProgressPrimitive.Root.displayName
+      {...props}
+    >
+      {indeterminate ? (
+        <div className="absolute inset-y-0 left-0 w-1/3 bg-primary animate-progress-indeterminate" />
+      ) : (
+        <ProgressPrimitive.Indicator
+          data-slot="progress-indicator"
+          className="bg-primary h-full w-full flex-1 transition-all"
+          style={{ transform: `translateX(-${100 - (value || 0)}%)` }}
+        />
+      )}
+    </ProgressPrimitive.Root>
+  )
+}
 
 export { Progress }
