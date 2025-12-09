@@ -9,7 +9,7 @@ import {
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import { BoxIcon, Check, Coins, Lightbulb, Play } from "lucide-react"
 import Link from "next/link"
-import { cn } from "@/shared/lib/tw-class-util"
+import { cn } from "@/shared/lib/utils"
 import { buttonVariants } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
 import Loading from "../loading"

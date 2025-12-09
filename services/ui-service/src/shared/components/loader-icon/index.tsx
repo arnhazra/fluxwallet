@@ -1,4 +1,4 @@
-import { cn } from "../../lib/tw-class-util"
+import { cn } from "../../lib/utils"
 import { Loader } from "lucide-react"
 
 interface LoaderIconProps {

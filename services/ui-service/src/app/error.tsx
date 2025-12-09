@@ -7,7 +7,7 @@ import {
   CardDescription,
   CardFooter,
 } from "@/shared/components/ui/card"
-import { cn } from "@/shared/lib/tw-class-util"
+import { cn } from "@/shared/lib/utils"
 import Link from "next/link"
 
 export default function Error({ error }: { error?: Error }) {

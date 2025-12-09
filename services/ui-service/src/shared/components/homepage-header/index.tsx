@@ -9,7 +9,7 @@ import {
 } from "@/shared/components/ui/sheet"
 import { generalUserLinks } from "./data"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
-import { cn } from "@/shared/lib/tw-class-util"
+import { cn } from "@/shared/lib/utils"
 import IconContainer from "../icon-container"
 
 export default function HomePageHeader() {

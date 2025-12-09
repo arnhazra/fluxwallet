@@ -1,6 +1,6 @@
 import { HomeIcon, Search } from "lucide-react"
 import { Input } from "@/shared/components/ui/input"
-import { cn } from "@/shared/lib/tw-class-util"
+import { cn } from "@/shared/lib/utils"
 import { usePathname } from "next/navigation"
 import { useEffect, useRef, useCallback } from "react"
 import { useUserContext } from "@/context/user.provider"

@@ -18,7 +18,7 @@ import {
   PopoverTrigger,
 } from "@/shared/components/ui/popover"
 import { Calendar } from "@/shared/components/ui/calendar"
-import { cn } from "@/shared/lib/tw-class-util"
+import { cn } from "@/shared/lib/utils"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { formatDate } from "@/shared/lib/format-date"
 import api from "@/shared/lib/ky-api"
