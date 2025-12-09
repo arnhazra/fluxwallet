@@ -4,6 +4,7 @@
 
 - Added dynamic widgets
 - Upgraded tailwind to v4
+- Standardized color palette
 - Moved from Localstorage to Cookies
 - Major refactor acrosss components to match new design system
 

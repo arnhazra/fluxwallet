@@ -59,7 +59,7 @@ export function requestOTPEmailBody(otp: string) {
 
       h1 {
         font-size: 1.8rem;
-        color: #32cd32;
+        color: #1db954;
         margin-bottom: 10px;
         font-weight: 600;
         text-align: center;
@@ -75,7 +75,7 @@ export function requestOTPEmailBody(otp: string) {
       .otp {
         font-size: 2rem;
         font-weight: 600;
-        background-color: #32cd32;
+        background-color: #1db954;
         color: #18181b;
         padding: 12px 24px;
         border-radius: 8px;
