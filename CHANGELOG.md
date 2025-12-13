@@ -1,36 +1,40 @@
 # Changelog
 
-## Version 3.0
+## Version 3.0.1
+
+- React vulnerability fix & dependency updates
+
+## Version 3.0.0
 
 - Added dynamic widgets
 - Upgraded tailwind to v4
 - Standardized color palette
 - Dependency updates & bug fixes
 - Added advanced logic for multi device auth
-- Moved from localStorage to secure cookies
+- Moved from local storage to secure cookies
 - Added logic to refresh tokens and resend failed requests
 - Major refactor acrosss components to match new design system
 
-## Version 2.9
+## Version 2.9.0
 
 - Dependency upgrades & bug fixes
 - Fix security vulnerability of nextjs 16
 
-## Version 2.8
+## Version 2.8.0
 
 - Dependency upgrades & bug fixes
 - Minor updates across services
 
-## Version 2.7
+## Version 2.7.0
 
 - Dependency upgrades & bug fixes
 
-## Version 2.6
+## Version 2.6.0
 
 - Minor UI modernization & Code refactoring
 - Peer Dependency upgrades & bug fixes
 
-## Version 2.5
+## Version 2.5.0
 
 - Added TaxAdvisor application
 - Created entity schema to improve code reusability for mongoose & nest-mongoose
@@ -38,7 +42,7 @@
 - Dependency updates & bug fixes
 - Added multi agent architecture for intelligence
 
-## Version 2.4
+## Version 2.4.0
 
 - Added agentic tools for ExpenseTrack
 - Added edit option for expenses
@@ -46,19 +50,19 @@
 - Minor bug fixes & performance improvements
 - Architectural changes across servicesz
 
-## Version 2.3
+## Version 2.3.0
 
 - Minor tweaks & improvements across UI
 - Introduction of ExpenseTrack app
 - Dependency updates & bug fixes
 
-## Version 2.2
+## Version 2.2.0
 
 - Rebranding of FinanceNews app to Discover
 - Added turn off feature for Intelligence & data usage agreement
 - Revamped architecture of intelligence summarizer
 
-## Version 2.1
+## Version 2.1.0
 
 - Added analytics trend for all type of entities
 - Enhanced structure by rebranding Institutions to Spaces
@@ -67,7 +71,7 @@
 - Upgraded Finance News module with integrated search functionality
 - Modernized settings interface with comprehensive redesign
 
-## Version 2.0
+## Version 2.0.0
 
 - Implemented platform-wide search functionality across applications and dashboard
 - Enhanced Intelligence architecture with integrated news summarization capabilities
@@ -78,75 +82,75 @@
 - Refined user interface design
 - Introduced Finance News application
 
-## Version 1.9
+## Version 1.9.1
 
 - Performed dependency updates and resolved system bugs
 - Implemented UI refinements
 
-## Version 1.8
+## Version 1.9.0
 
 - Updated system dependencies and resolved bugs
 - Refined user interface elements
 - Implemented standardized date formatting
 
-## Version 1.7
+## Version 1.8.1
 
 - Updated system dependencies and resolved bugs
 - Enhanced code performance and efficiency
 
-## Version 1.6
+## Version 1.8.0
 
 - Established standardized asset type conventions
 - Upgraded AI model from Gemini to GPT 4.1
 - Performed code optimization and bug resolution
 - Updated system dependencies
 
-## Version 1.5
+## Version 1.7.3
 
 - Implemented debt and goal creation tools in Intelligence module
 
-## Version 1.4
+## Version 1.7.2
 
 - Migrated configuration management to Redis
 - Implemented Redis integration for configuration handling
 - Enhanced error handling protocols
 
-## Version 1.3
+## Version 1.7.1
 
 - Refined attribute update functionality
 - Updated application dependencies
 - Enhanced error handling system
 
-## Version 1.2
+## Version 1.7.0
 
 - Optimized attribute update functionality
 - Implemented code improvements and new product integration
 
-## Version 1.1
+## Version 1.6.0
 
 - Deployed comprehensive entity summarization system
 - Resolved Intelligence chat issues and enhanced agents
 - Implemented various system improvements
 
-## Version 1.0
+## Version 1.5.0
 
 - Released unified platform with modular product architecture
 - Implemented architectural improvements for enhanced scalability
 - Delivered significant user interface enhancements
 
-## Version 0.9
+## Version 1.4.2
 
 - Implemented secure OTP authentication system
 - Updated dependencies and resolved system issues
 - Optimized codebase
 
-## Version 0.8
+## Version 1.4.1
 
 - Deployed enhanced authentication workflow
 - Integrated Google OAuth functionality
 - Updated system dependencies
 
-## Version 0.7
+## Version 1.4.0
 
 - Implemented asset maturity warning system
 - Enhanced asset valuation calculation
@@ -154,31 +158,31 @@
 - Added advanced agentic workflows
 - Rebranded Portfolio module to Institutions
 
-## Version 0.6
+## Version 1.3.1
 
 - Upgraded Node.js and NPM environments
 - Updated application packages
 - Optimized code and resolved issues
 
-## Version 0.5
+## Version 1.3.0
 
 - Improved system performance and stability
 - Extended agentic workflow capabilities
 - Enhanced UI and codebase optimization
 
-## Version 0.4
+## Version 1.2.1
 
 - Implemented streamlined present valuation calculation
 - Optimized API architecture for valuation process
 - Refined agent logic systems
 
-## Version 0.3
+## Version 1.2.0
 
 - Resolved recurring calculation issues
 - Expanded agentic workflow capabilities
 - Implemented suggested prompts functionality
 
-## Version 0.2
+## Version 1.1.0
 
 - Enhanced system performance and stability
 - Implemented liability management functionality
@@ -187,7 +191,7 @@
 - Added multi-model intelligence support
 - Migrated token storage from Redis to MongoDB for improved reliability
 
-## Version 0.1
+## Version 1.0.0
 
 - Implemented core platform features:
 - Homepage interface
