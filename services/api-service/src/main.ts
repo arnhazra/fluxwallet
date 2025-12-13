@@ -6,7 +6,7 @@ import { config } from "./config"
 async function bootstrap(): Promise<void> {
   const app: INestApplication = await NestFactory.create(MainModule)
   app.useGlobalPipes(new ValidationPipe())
-  app.enableCors({ origin: config.UI_URL })
+  app.enableCors({ origin: "*" })
   await app.listen(8000)
 }
 
