@@ -5,6 +5,7 @@ import { WealthGoalModule } from "./wealthgoal/wealthgoal.module"
 import { DiscoverModule } from "./discover/discover.module"
 import { ExpenseTrackModule } from "./expensetrack/expensetrack.module"
 import { TaxAdvisorModule } from "./taxadvisor/taxadvisor.module"
+import { CashFlowModule } from "./cashflow/cashflow.module"
 
 @Module({
   imports: [
@@ -14,6 +15,7 @@ import { TaxAdvisorModule } from "./taxadvisor/taxadvisor.module"
     WealthGoalModule,
     DiscoverModule,
     TaxAdvisorModule,
+    CashFlowModule,
   ],
 })
 export class AppsModule {}
