@@ -10,4 +10,9 @@ services/ui-service/.next
 services/ui-service/.vercel
 services/ui-service/*.tsbuildinfo
 services/ui-service/out
+services/cron-service/.next
+services/cron-service/.vercel
+services/cron-service/*.tsbuildinfo
+services/cron-service/out
+services/api-service/build
 services/api-service/build
