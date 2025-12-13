@@ -66,7 +66,7 @@ export default function EditCurrency({
           </p>
         </DialogHeader>
         <Select onValueChange={(value: Currency) => setValue(value)}>
-          <SelectTrigger className="bg-background border-border text-white">
+          <SelectTrigger className="bg-background border-border text-white w-full h-12">
             <SelectValue placeholder={value} />
           </SelectTrigger>
           <SelectContent className="bg-background border-border text-white">

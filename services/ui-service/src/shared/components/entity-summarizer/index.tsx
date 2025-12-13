@@ -72,7 +72,7 @@ export default function EntitySummarizer({
             <Sparkles className="h-4 w-4" />
           </Button>
         </DialogTrigger>
-        <DialogContent className="max-w-[25rem] bg-background border-border outline-none text-white -mb-4">
+        <DialogContent className="w-[25rem] bg-background border-border outline-none text-white -mb-4">
           <DialogHeader>
             <DialogTitle className="flex items-center gap-2 text-white">
               <IconContainer ai>
@@ -93,7 +93,7 @@ export default function EntitySummarizer({
             </Show>
           </div>
           <DialogFooter>
-            <Button onClick={close} variant="secondary" className="text-black">
+            <Button onClick={close} variant="outline" className="text-white">
               Close
             </Button>
           </DialogFooter>
