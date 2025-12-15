@@ -1,0 +1,265 @@
+"use client"
+import type React from "react"
+import { useState } from "react"
+import useQuery from "@/shared/hooks/use-query"
+import HTTPMethods from "@/shared/constants/http-methods"
+import { Asset } from "@/shared/constants/types"
+import { Button } from "@/shared/components/ui/button"
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/shared/components/ui/card"
+import { Input } from "@/shared/components/ui/input"
+import { Label } from "@/shared/components/ui/label"
+import { CalendarIcon, ArrowDownCircle } from "lucide-react"
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/shared/components/ui/popover"
+import { Calendar } from "@/shared/components/ui/calendar"
+import { cn } from "@/shared/lib/utils"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import { formatDate } from "@/shared/lib/format-date"
+import api from "@/shared/lib/ky-api"
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/shared/components/ui/select"
+
+enum FlowDirection {
+  Inward = "inward",
+  Outward = "outward",
+}
+
+enum FlowFrequency {
+  Daily = "daily",
+  Weekly = "weekly",
+  Monthly = "monthly",
+  Yearly = "yearly",
+}
+
+interface CashflowFormData {
+  targetAsset?: string
+  flowDirection?: FlowDirection
+  amount?: number
+  frequency?: FlowFrequency
+  nextExecutionAt?: Date
+}
+
+type MessageType = "success" | "error"
+
+export default function Page() {
+  const [formData, setFormData] = useState<CashflowFormData>({})
+  const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
+    msg: "",
+    type: "success",
+  })
+
+  // Fetch assets of type RETIREMENT and LIQUID
+  const { data: assetOptions = [] } = useQuery<Asset[]>({
+    queryKey: ["find-assets-by-type"],
+    queryUrl: `${endPoints.asset}/findassetsbytype`,
+    method: HTTPMethods.POST,
+    requestBody: { assetTypes: ["RETIREMENT", "LIQUID"] },
+    suspense: false,
+  })
+
+  const handleInputChange = (field: keyof CashflowFormData, value: any) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }))
+  }
+
+  const handleSubmit = async (e: React.FormEvent) => {
+    try {
+      e.preventDefault()
+      await api.post(endPoints.createCheckoutSession, {
+        json: formData,
+      })
+      setMessage({ msg: "Cashflow added successfully!", type: "success" })
+    } catch (error) {
+      setMessage({
+        msg: "Failed to add cashflow. Please try again.",
+        type: "error",
+      })
+    }
+  }
+
+  return (
+    <div className="min-h-screen p-6">
+      <div className="max-w-4xl mx-auto">
+        <Card className="bg-background border-border">
+          <CardHeader className="border-b border-neutral-800">
+            <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
+              <ArrowDownCircle className="h-6 w-6 text-primary" />
+              Add New Cashflow
+            </CardTitle>
+            <CardDescription className="text-primary">
+              Fill in the details for your cashflow.
+            </CardDescription>
+          </CardHeader>
+          <CardContent className="p-6">
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="targetAsset" className="text-neutral-200">
+                  Target Asset
+                </Label>
+                <Select
+                  value={formData.targetAsset || ""}
+                  onValueChange={(value) =>
+                    handleInputChange("targetAsset", value)
+                  }
+                  required
+                >
+                  <SelectTrigger className="w-full bg-background text-white border-border">
+                    <SelectValue placeholder="Select asset" />
+                  </SelectTrigger>
+                  <SelectContent className="w-full bg-background text-white border-border">
+                    {assetOptions.map((asset) => (
+                      <SelectItem key={asset._id} value={asset._id}>
+                        {asset.assetName} - {asset.identifier} (
+                        {asset.assetType})
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="flowDirection" className="text-neutral-200">
+                  Flow Direction
+                </Label>
+                <Select
+                  value={formData.flowDirection || ""}
+                  onValueChange={(value) =>
+                    handleInputChange("flowDirection", value as FlowDirection)
+                  }
+                  required
+                >
+                  <SelectTrigger className="w-full bg-background text-white border-border">
+                    <SelectValue placeholder="Select direction" />
+                  </SelectTrigger>
+                  <SelectContent className="w-full bg-background text-white border-border">
+                    <SelectItem value={FlowDirection.Inward}>Inward</SelectItem>
+                    <SelectItem value={FlowDirection.Outward}>
+                      Outward
+                    </SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="amount" className="text-neutral-200">
+                  Amount
+                </Label>
+                <Input
+                  required
+                  id="amount"
+                  type="number"
+                  step="0.01"
+                  value={formData.amount || ""}
+                  onChange={(e) =>
+                    handleInputChange(
+                      "amount",
+                      Number.parseFloat(e.target.value)
+                    )
+                  }
+                  placeholder="0.00"
+                  className="bg-background border-border text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                />
+              </div>
+
+              <div className="space-y-2">
+                <Label htmlFor="frequency" className="text-neutral-200">
+                  Frequency
+                </Label>
+                <Select
+                  value={formData.frequency || ""}
+                  onValueChange={(value) =>
+                    handleInputChange("frequency", value as FlowFrequency)
+                  }
+                  required
+                >
+                  <SelectTrigger className="w-full bg-background text-white border-border">
+                    <SelectValue placeholder="Select frequency" />
+                  </SelectTrigger>
+                  <SelectContent className="w-full bg-background text-white border-border">
+                    <SelectItem value={FlowFrequency.Daily}>Daily</SelectItem>
+                    <SelectItem value={FlowFrequency.Weekly}>Weekly</SelectItem>
+                    <SelectItem value={FlowFrequency.Monthly}>
+                      Monthly
+                    </SelectItem>
+                    <SelectItem value={FlowFrequency.Yearly}>Yearly</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+
+              <div className="space-y-2">
+                <Label className="text-neutral-200">Next Execution Date</Label>
+                <Popover>
+                  <PopoverTrigger asChild>
+                    <Button
+                      variant="outline"
+                      className={cn(
+                        "w-full justify-start text-left font-normal bg-background border-border text-neutral-100 hover:bg-background",
+                        !formData.nextExecutionAt && "text-neutral-500"
+                      )}
+                    >
+                      <CalendarIcon className="mr-2 h-4 w-4" />
+                      {formData.nextExecutionAt
+                        ? formatDate(formData.nextExecutionAt)
+                        : "Pick a date"}
+                    </Button>
+                  </PopoverTrigger>
+                  <PopoverContent className="w-auto p-0 bg-background border-border">
+                    <Calendar
+                      mode="single"
+                      captionLayout="dropdown"
+                      startMonth={new Date()}
+                      endMonth={new Date(2100, 0)}
+                      selected={formData.nextExecutionAt}
+                      disabled={(date) => date < new Date()}
+                      onSelect={(date) =>
+                        handleInputChange("nextExecutionAt", date)
+                      }
+                      showOutsideDays={false}
+                      className="bg-background text-neutral-100"
+                    />
+                  </PopoverContent>
+                </Popover>
+              </div>
+
+              <div className="flex">
+                <Button
+                  type="submit"
+                  variant="default"
+                  className="bg-primary hover:bg-primary ml-auto text-black"
+                >
+                  Add Cashflow
+                </Button>
+              </div>
+            </form>
+
+            {message.msg && (
+              <div
+                className={`mt-4 text-sm ${
+                  message.type === "success" ? "text-primary" : "text-secondary"
+                }`}
+              >
+                {message.msg}
+              </div>
+            )}
+          </CardContent>
+        </Card>
+      </div>
+    </div>
+  )
+}

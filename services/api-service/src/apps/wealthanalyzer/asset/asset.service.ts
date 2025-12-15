@@ -15,6 +15,7 @@ import { AssetType } from "@/shared/constants/types"
 import calculateComplexValuation from "./lib/calculate-complex-valuation"
 import calculateRecurringValuation from "./lib/calculate-recurring-valuation"
 import { isMatured, isMaturityApproaching } from "./lib/maturity-calculator"
+import { FindAssetsByTypesQuery } from "./queries/impl/find-assets-by-types.query"
 
 @Injectable()
 export class AssetService {
@@ -62,6 +63,16 @@ export class AssetService {
             analyticsTrend: data?.totalUsage,
           }
         })
+      )
+    } catch (error) {
+      throw new Error(statusMessages.connectionError)
+    }
+  }
+
+  async findAssetsByTypes(userId: string, assetTypes: string[]) {
+    try {
+      return await this.queryBus.execute<FindAssetsByTypesQuery, Asset[]>(
+        new FindAssetsByTypesQuery(userId, assetTypes)
       )
     } catch (error) {
       throw new Error(statusMessages.connectionError)

@@ -5,14 +5,11 @@ import { AppsDbConnectionMap } from "@/shared/entity/entity-db-connection.map"
 import { CashFlowService } from "./cashflow.service"
 import { CashFlowController } from "./cashflow.controller"
 import { CqrsModule } from "@nestjs/cqrs"
-import { Goal, GoalSchema } from "./schemas/cashflow.schema"
+import { Cashflow, CashflowSchema } from "./schemas/cashflow.schema"
 import { CashFlowRepository } from "./cashflow.repository"
-import { CreateGoalCommandHandler } from "./commands/handler/create-goal.handler"
-import { DeleteGoalCommandHandler } from "./commands/handler/delete-goal.handler"
-import { FindGoalByIdQueryHandler } from "./queries/handler/find-goal-by-id.handler"
-import { UpdateGoalCommandHandler } from "./commands/handler/update-goal.handler"
-import { FindGoalsByUserQueryHandler } from "./queries/handler/find-goal-by-user.handler"
-import { FindNearestGoalQueryHandler } from "./queries/handler/find-nearest-goal.handler"
+import { CreateCashflowCommandHandler } from "./commands/handler/create-cashflow.handler"
+import { DeleteCashflowCommandHandler } from "./commands/handler/delete-cashflow.handler"
+import { FindCashflowsQueryHandler } from "./queries/handler/find-cashflows.handler"
 
 @Module({
   imports: [
@@ -22,20 +19,17 @@ import { FindNearestGoalQueryHandler } from "./queries/handler/find-nearest-goal
       AppsDbConnectionMap.CashFlow
     ),
     EntityModule.forFeature(
-      [{ name: Goal.name, schema: GoalSchema }],
-      AppsDbConnectionMap.WealthGoal
+      [{ name: Cashflow.name, schema: CashflowSchema }],
+      AppsDbConnectionMap.CashFlow
     ),
   ],
   controllers: [CashFlowController],
   providers: [
     CashFlowService,
     CashFlowRepository,
-    CreateGoalCommandHandler,
-    UpdateGoalCommandHandler,
-    DeleteGoalCommandHandler,
-    FindGoalsByUserQueryHandler,
-    FindGoalByIdQueryHandler,
-    FindNearestGoalQueryHandler,
+    CreateCashflowCommandHandler,
+    DeleteCashflowCommandHandler,
+    FindCashflowsQueryHandler,
   ],
 })
 export class CashFlowModule {}

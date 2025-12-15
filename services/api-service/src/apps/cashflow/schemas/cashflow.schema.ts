@@ -9,24 +9,37 @@ import {
   ObjectIdType,
 } from "@/shared/entity/entity.schema"
 
-enum FlowDirection {
+export enum FlowDirection {
   Inward = "inward",
   Outward = "outward",
 }
 
+export enum FlowFrequency {
+  Daily = "daily",
+  Weekly = "weekly",
+  Monthly = "monthly",
+  Yearly = "yearly",
+}
+
 @Entity({ collection: "cashflows" })
-export class Goal extends IdentifiableEntitySchmea {
+export class Cashflow extends IdentifiableEntitySchmea {
   @EntityProp({ type: ObjectIdType, ref: User.name, required: true })
   userId: ObjectId
 
-  @EntityProp({ type: ObjectIdType, required: true, ref: Asset.name })
+  @EntityProp({ type: ObjectIdType, ref: Asset.name, required: true })
   targetAsset: ObjectId
 
-  @EntityProp({ required: true })
+  @EntityProp({ required: true, enum: FlowDirection })
   flowDirection: FlowDirection
 
   @EntityProp({ required: true })
   amount: number
+
+  @EntityProp({ required: true, enum: FlowFrequency })
+  frequency: FlowFrequency
+
+  @EntityProp()
+  nextExecutionAt?: Date
 }
 
-export const GoalSchema = createSchemaFromClass(Goal)
+export const CashflowSchema = createSchemaFromClass(Cashflow)
