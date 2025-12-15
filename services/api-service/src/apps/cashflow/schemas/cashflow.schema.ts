@@ -10,15 +10,15 @@ import {
 } from "@/shared/entity/entity.schema"
 
 export enum FlowDirection {
-  Inward = "inward",
-  Outward = "outward",
+  INWARD = "INWARD",
+  OUTWARD = "OUTWARD",
 }
 
 export enum FlowFrequency {
-  Daily = "daily",
-  Weekly = "weekly",
-  Monthly = "monthly",
-  Yearly = "yearly",
+  DAILY = "DAILY",
+  WEEKLY = "WEEKLY",
+  MONTHLY = "MONTHLY",
+  YEARLY = "YEARLY",
 }
 
 @Entity({ collection: "cashflows" })

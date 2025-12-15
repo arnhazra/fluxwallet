@@ -3,7 +3,7 @@ import type React from "react"
 import { useState } from "react"
 import useQuery from "@/shared/hooks/use-query"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { Asset } from "@/shared/constants/types"
+import { Asset, FlowDirection, FlowFrequency } from "@/shared/constants/types"
 import { Button } from "@/shared/components/ui/button"
 import {
   Card,
@@ -33,18 +33,6 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 
-enum FlowDirection {
-  Inward = "inward",
-  Outward = "outward",
-}
-
-enum FlowFrequency {
-  Daily = "daily",
-  Weekly = "weekly",
-  Monthly = "monthly",
-  Yearly = "yearly",
-}
-
 interface CashflowFormData {
   targetAsset?: string
   flowDirection?: FlowDirection
@@ -62,7 +50,6 @@ export default function Page() {
     type: "success",
   })
 
-  // Fetch assets of type RETIREMENT and LIQUID
   const { data: assetOptions = [] } = useQuery<Asset[]>({
     queryKey: ["find-assets-by-type"],
     queryUrl: `${endPoints.asset}/findassetsbytype`,
@@ -81,7 +68,7 @@ export default function Page() {
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault()
-      await api.post(endPoints.createCheckoutSession, {
+      await api.post(endPoints.cashflow, {
         json: formData,
       })
       setMessage({ msg: "Cashflow added successfully!", type: "success" })
@@ -148,10 +135,11 @@ export default function Page() {
                     <SelectValue placeholder="Select direction" />
                   </SelectTrigger>
                   <SelectContent className="w-full bg-background text-white border-border">
-                    <SelectItem value={FlowDirection.Inward}>Inward</SelectItem>
-                    <SelectItem value={FlowDirection.Outward}>
-                      Outward
-                    </SelectItem>
+                    {Object.values(FlowDirection).map((direction) => (
+                      <SelectItem key={direction} value={direction}>
+                        {direction.charAt(0) + direction.slice(1).toLowerCase()}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>
@@ -192,12 +180,11 @@ export default function Page() {
                     <SelectValue placeholder="Select frequency" />
                   </SelectTrigger>
                   <SelectContent className="w-full bg-background text-white border-border">
-                    <SelectItem value={FlowFrequency.Daily}>Daily</SelectItem>
-                    <SelectItem value={FlowFrequency.Weekly}>Weekly</SelectItem>
-                    <SelectItem value={FlowFrequency.Monthly}>
-                      Monthly
-                    </SelectItem>
-                    <SelectItem value={FlowFrequency.Yearly}>Yearly</SelectItem>
+                    {Object.values(FlowFrequency).map((frequency) => (
+                      <SelectItem key={frequency} value={frequency}>
+                        {frequency.charAt(0) + frequency.slice(1).toLowerCase()}
+                      </SelectItem>
+                    ))}
                   </SelectContent>
                 </Select>
               </div>

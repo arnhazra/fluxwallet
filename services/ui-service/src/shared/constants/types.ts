@@ -20,6 +20,18 @@ export enum RecurringFrequency {
   YEARLY = "YEARLY",
 }
 
+export enum FlowDirection {
+  INWARD = "INWARD",
+  OUTWARD = "OUTWARD",
+}
+
+export enum FlowFrequency {
+  DAILY = "DAILY",
+  WEEKLY = "WEEKLY",
+  MONTHLY = "MONTHLY",
+  YEARLY = "YEARLY",
+}
+
 export interface User {
   _id: string
   email: string
