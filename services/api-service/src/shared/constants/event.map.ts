@@ -17,4 +17,6 @@ export enum EventMap {
   CreateGoal = "createGoal",
   GetExpenseByMonth = "getExpenseByMonth",
   CreateExpense = "createExpense",
+  FindAssetById = "findAssetbyId",
+  UpdateAssetById = "updateAssetById",
 }

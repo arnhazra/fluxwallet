@@ -48,11 +48,10 @@ export class CashFlowController {
     }
   }
 
-  @UseGuards(AuthGuard)
-  @Get()
-  async findCashflows(@Request() request: ModRequest) {
+  @Get("execute")
+  async executeCashFlows() {
     try {
-      return await this.service.findCashflows()
+      return await this.service.executeCashFlows()
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError
