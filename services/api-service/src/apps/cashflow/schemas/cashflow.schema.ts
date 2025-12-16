@@ -29,6 +29,9 @@ export class Cashflow extends IdentifiableEntitySchmea {
   @EntityProp({ type: ObjectIdType, ref: Asset.name, required: true })
   targetAsset: ObjectId
 
+  @EntityProp({ required: true })
+  description: string
+
   @EntityProp({ required: true, enum: FlowDirection })
   flowDirection: FlowDirection
 

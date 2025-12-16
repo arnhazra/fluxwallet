@@ -8,6 +8,7 @@ import {
   Param,
   Body,
   BadRequestException,
+  Query,
 } from "@nestjs/common"
 import { CashFlowService } from "./cashflow.service"
 import { statusMessages } from "@/shared/constants/status-messages"
@@ -26,6 +27,24 @@ export class CashFlowController {
   ) {
     try {
       return await this.service.create(request.user.userId, requestBody)
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
+    }
+  }
+
+  @UseGuards(AuthGuard)
+  @Get()
+  async findMyCashflows(
+    @Request() request: ModRequest,
+    @Query("searchKeyword") searchKeyword?: string
+  ) {
+    try {
+      return await this.service.findMyCashflows(
+        request.user.userId,
+        searchKeyword
+      )
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError

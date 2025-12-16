@@ -11,6 +11,7 @@ export const excludedKeys = [
   "isMatured",
   "debtPurpose",
   "analyticsTrend",
+  "targetAsset",
 ]
 
 export const amountKeys = [
@@ -39,10 +40,12 @@ export const deleteEntityAPIUriMap = {
   asset: endPoints.asset,
   debt: endPoints.debt,
   goal: endPoints.goal,
+  cashflow: endPoints.cashflow,
 }
 
 export enum EntityTypeForDetailModal {
   ASSET = "asset",
   DEBT = "debt",
   GOAL = "goal",
+  CASHFLOW = "cashflow",
 }

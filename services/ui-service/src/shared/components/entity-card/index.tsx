@@ -6,7 +6,14 @@ import {
   CardTitle,
 } from "@/shared/components/ui/card"
 import { Badge } from "@/shared/components/ui/badge"
-import { Article, Asset, Debt, Goal, Space } from "@/shared/constants/types"
+import {
+  Article,
+  Asset,
+  Cashflow,
+  Debt,
+  Goal,
+  Space,
+} from "@/shared/constants/types"
 import {
   Banknote,
   Building,
@@ -19,6 +26,7 @@ import {
   Newspaper,
   OctagonAlert,
   Plus,
+  Workflow,
 } from "lucide-react"
 import Link from "next/link"
 import MaskText from "../mask"
@@ -48,6 +56,7 @@ const entityIconMap = {
   [EntityType.DEBT]: <CreditCard className="h-4 w-4" />,
   [EntityType.GOAL]: <GoalIcon className="h-4 w-4" />,
   [EntityType.NEWS]: <Newspaper className="h-4 w-4" />,
+  [EntityType.CASHFLOW]: <Workflow className="h-4 w-4" />,
 }
 
 type EntityCardProps<T extends keyof EntityMap> = {
@@ -82,20 +91,6 @@ export function EntityCard<T extends keyof EntityMap>({
   }
 
   useEffect(() => {
-    if (entityType === EntityType.NEWS) {
-      const date = (entity as Article).publishedAt
-        ? formatDistanceToNow(new Date((entity as Article).publishedAt ?? ""), {
-            addSuffix: true,
-          })
-        : null
-      setSubHeader(date ?? "")
-    } else {
-      const analyticsTrend = (entity as Asset).analyticsTrend
-      setSubHeader(analyticsTrend?.toString() ?? "0")
-    }
-  }, [entity])
-
-  useEffect(() => {
     switch (entityType) {
       case EntityType.SPACE:
         setEnytityBadgeText("SPACE")
@@ -105,6 +100,7 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Present Valuation",
           valuationAmount: (entity as Space).presentValuation,
         })
+        setSubHeader((entity as Space).analyticsTrend?.toString() ?? "0")
         break
       case EntityType.ASSET:
         setEnytityBadgeText((entity as Asset).assetType.replace("_", " "))
@@ -114,6 +110,7 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Present Valuation",
           valuationAmount: (entity as Asset).presentValuation,
         })
+        setSubHeader((entity as Asset).analyticsTrend?.toString() ?? "0")
         break
       case EntityType.DEBT:
         setEnytityBadgeText("DEBT")
@@ -123,6 +120,7 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "EMI",
           valuationAmount: (entity as Debt).emi,
         })
+        setSubHeader((entity as Debt).analyticsTrend?.toString() ?? "0")
         break
       case EntityType.GOAL:
         setEnytityBadgeText("GOAL")
@@ -132,11 +130,31 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Goal",
           valuationAmount: (entity as Goal).goalAmount,
         })
+        setSubHeader((entity as Goal).analyticsTrend?.toString() ?? "0")
+        break
+      case EntityType.CASHFLOW:
+        setEnytityBadgeText("CASHFLOW")
+        setEntityTitle((entity as Cashflow).description)
+        setIdentifier((entity as Cashflow)._id)
+        setValuation({
+          valuationHeader: "Cashflow Amount",
+          valuationAmount: (entity as Cashflow).amount,
+        })
+        setSubHeader((entity as Space).analyticsTrend?.toString() ?? "0")
         break
       case EntityType.NEWS:
         setEnytityBadgeText((entity as Article).source?.name || "NEWS")
         setEntityTitle((entity as Article).title ?? "")
         setEntityDescription((entity as Article).description || null)
+        const date = (entity as Article).publishedAt
+          ? formatDistanceToNow(
+              new Date((entity as Article).publishedAt ?? ""),
+              {
+                addSuffix: true,
+              }
+            )
+          : null
+        setSubHeader(date ?? "")
         break
       default:
         break
@@ -307,12 +325,13 @@ export function EntityCard<T extends keyof EntityMap>({
           condition={
             entityType === EntityType.ASSET ||
             entityType === EntityType.DEBT ||
-            entityType === EntityType.GOAL
+            entityType === EntityType.GOAL ||
+            entityType === EntityType.CASHFLOW
           }
         >
           <EntityDetails
             entityType={entityType as unknown as EntityTypeForDetailModal}
-            entity={entity as unknown as Asset | Debt | Goal}
+            entity={entity as unknown as Asset | Debt | Goal | Cashflow}
           >
             <Button
               variant="default"

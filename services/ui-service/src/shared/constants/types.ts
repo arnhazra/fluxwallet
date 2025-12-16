@@ -222,3 +222,15 @@ export interface ExpenseResponse {
   total?: number | null
   expenses?: Expense[] | null
 }
+
+export interface Cashflow {
+  _id: string
+  userId: string
+  targetAsset: string
+  description: string
+  flowDirection: FlowDirection
+  amount: number
+  frequency: FlowFrequency
+  nextExecutionAt: string
+  createdAt: string
+}

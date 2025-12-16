@@ -1,5 +1,12 @@
 import { imageUrls } from "@/shared/constants/global-constants"
-import { Article, Asset, Debt, Goal, Space } from "@/shared/constants/types"
+import {
+  Article,
+  Asset,
+  Cashflow,
+  Debt,
+  Goal,
+  Space,
+} from "@/shared/constants/types"
 
 export enum EntityType {
   ASSET = "asset",
@@ -8,6 +15,7 @@ export enum EntityType {
   GOAL = "goal",
   NEWS = "news",
   EXPENSE = "expense",
+  CASHFLOW = "cashflow",
 }
 
 export type EntityMap = {
@@ -16,6 +24,7 @@ export type EntityMap = {
   [EntityType.DEBT]: Debt
   [EntityType.GOAL]: Goal
   [EntityType.NEWS]: Article
+  [EntityType.CASHFLOW]: Cashflow
 }
 
 export const entityImageMap = {
@@ -24,6 +33,7 @@ export const entityImageMap = {
   [EntityType.DEBT]: imageUrls.debt,
   [EntityType.GOAL]: imageUrls.goal,
   [EntityType.NEWS]: imageUrls.newsFallback,
+  [EntityType.CASHFLOW]: imageUrls.goal,
 }
 
 export const createEntityUrlMap = {
@@ -33,4 +43,5 @@ export const createEntityUrlMap = {
   [EntityType.GOAL]: "/apps/wealthgoal/creategoal",
   [EntityType.NEWS]: "/apps/discover",
   [EntityType.EXPENSE]: "/apps/expensetrack/createexpense",
+  [EntityType.CASHFLOW]: "/apps/cashflow/create",
 }

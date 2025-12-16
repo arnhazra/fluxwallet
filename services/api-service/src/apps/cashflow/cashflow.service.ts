@@ -13,6 +13,7 @@ import { CreateCashFlowRequestDto } from "./dto/request/create-cashflow.request.
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { Asset } from "../wealthanalyzer/asset/schemas/asset.schema"
+import { FindCashflowsByUserQuery } from "./queries/impl/find-cashflows-by-user.query"
 
 @Injectable()
 export class CashFlowService {
@@ -30,6 +31,28 @@ export class CashFlowService {
     } catch (error) {
       throw new Error(statusMessages.connectionError)
     }
+  }
+
+  async findMyCashflows(userId: string, searchKeyword?: string) {
+    const cashflows = await this.queryBus.execute<
+      FindCashflowsByUserQuery,
+      Cashflow[]
+    >(new FindCashflowsByUserQuery(userId, searchKeyword))
+
+    return await Promise.all(
+      cashflows.map(async (cashflow) => {
+        const data: { totalUsage: string | number | null | undefined } = (
+          await this.eventEmitter.emitAsync(
+            EventMap.GetAnalyticsTrend,
+            cashflow._id
+          )
+        ).shift()
+        return {
+          ...(cashflow.toObject?.() ?? cashflow),
+          analyticsTrend: data?.totalUsage,
+        }
+      })
+    )
   }
 
   async delete(reqUserId: string, cashflowId: string) {

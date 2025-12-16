@@ -10,6 +10,7 @@ import { CashFlowRepository } from "./cashflow.repository"
 import { CreateCashflowCommandHandler } from "./commands/handler/create-cashflow.handler"
 import { DeleteCashflowCommandHandler } from "./commands/handler/delete-cashflow.handler"
 import { FindCashflowsQueryHandler } from "./queries/handler/find-cashflows.handler"
+import { FindCashflowsByUserQueryHandler } from "./queries/handler/find-cashflows-by-user.handler"
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { FindCashflowsQueryHandler } from "./queries/handler/find-cashflows.hand
     CreateCashflowCommandHandler,
     DeleteCashflowCommandHandler,
     FindCashflowsQueryHandler,
+    FindCashflowsByUserQueryHandler,
   ],
 })
 export class CashFlowModule {}
