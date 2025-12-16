@@ -111,11 +111,13 @@ export class CashFlowService {
           case FlowFrequency.DAILY:
             nextExecution = new Date(baseDate.getTime() + 24 * 60 * 60 * 1000)
             break
+
           case FlowFrequency.WEEKLY:
             nextExecution = new Date(
               baseDate.getTime() + 7 * 24 * 60 * 60 * 1000
             )
             break
+
           case FlowFrequency.MONTHLY: {
             const day = baseDate.getDate()
             const month = baseDate.getMonth()
