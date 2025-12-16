@@ -1,13 +1,12 @@
-# compiled output
-/dist
+# git ignore file
 .DS_Store
 node_modules
 .env.development
 .env.production
 .vercel
 dist
-services/ui-service/.next
-services/ui-service/.vercel
-services/ui-service/*.tsbuildinfo
-services/ui-service/out
-services/api-service/build
+.next
+.vercel
+*.tsbuildinfo
+out
+build

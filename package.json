@@ -1,11 +1,13 @@
 {
   "name": "fluxwallet",
-  "version": "3.0.0",
+  "version": "3.1.0",
   "description": "an wealth management platform",
   "scripts": {
     "api-service": "npm run dev --prefix services/api-service",
+    "cron-service": "npm run dev --prefix services/cron-service",
     "ui-service": "npm run dev --prefix services/ui-service",
-    "dev": "concurrently \"npm run api-service\" \"npm run ui-service\"",
+    "dev": "concurrently \"npm run api-service\" \"npm run cron-service\" \"npm run ui-service\"",
+    "init": "npm install && npm install --prefix services/api-service && npm install --prefix services/cron-service && npm install --prefix services/ui-service",
     "publish": "git add . && git commit -m \"Publish App\" && git push",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },

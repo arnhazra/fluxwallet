@@ -5,6 +5,7 @@ export const searchMapByUrl = {
   "/apps/debttrack": "debt",
   "/apps/discover": "news",
   "/apps/expensetrack": "expense",
+  "/apps/cashflow": "cashflow",
 }
 
 export function getSearchLabel(pathName: string) {

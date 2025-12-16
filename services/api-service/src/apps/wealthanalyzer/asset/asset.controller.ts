@@ -56,6 +56,24 @@ export class AssetController {
   }
 
   @UseGuards(AuthGuard)
+  @Post("findassetsbytype")
+  async findAssetsByType(
+    @Request() request: ModRequest,
+    @Body("assetTypes") assetTypes: string[]
+  ) {
+    try {
+      return await this.service.findAssetsByTypes(
+        request.user.userId,
+        assetTypes
+      )
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
+    }
+  }
+
+  @UseGuards(AuthGuard)
   @Get("/:assetId")
   async findAssetById(
     @Request() request: ModRequest,

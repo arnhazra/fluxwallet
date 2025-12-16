@@ -20,6 +20,18 @@ export enum RecurringFrequency {
   YEARLY = "YEARLY",
 }
 
+export enum FlowDirection {
+  INWARD = "INWARD",
+  OUTWARD = "OUTWARD",
+}
+
+export enum FlowFrequency {
+  DAILY = "DAILY",
+  WEEKLY = "WEEKLY",
+  MONTHLY = "MONTHLY",
+  YEARLY = "YEARLY",
+}
+
 export interface User {
   _id: string
   email: string
@@ -209,4 +221,16 @@ export interface Expense {
 export interface ExpenseResponse {
   total?: number | null
   expenses?: Expense[] | null
+}
+
+export interface Cashflow {
+  _id: string
+  userId: string
+  targetAsset: string
+  description: string
+  flowDirection: FlowDirection
+  amount: number
+  frequency: FlowFrequency
+  nextExecutionAt: string
+  createdAt: string
 }

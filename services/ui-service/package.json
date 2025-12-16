@@ -1,9 +1,9 @@
 {
   "name": "ui-service",
-  "version": "3.0.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "next dev -p 3000",
     "build": "next build",
     "start": "next start"
   },

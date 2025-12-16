@@ -5,7 +5,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "@/shared/components/ui/dialog"
-import { Asset, Debt, Goal } from "@/shared/constants/types"
+import { Asset, Cashflow, Debt, Goal } from "@/shared/constants/types"
 import { DialogDescription, DialogTrigger } from "@radix-ui/react-dialog"
 import { ReactNode, useEffect, useState } from "react"
 import { Badge } from "../ui/badge"
@@ -27,10 +27,11 @@ import {
   excludedKeys,
 } from "./data"
 import api from "@/shared/lib/ky-api"
+import Show from "../show"
 
 type EntityDetailsProps = {
   entityType: EntityTypeForDetailModal
-  entity: Asset | Debt | Goal
+  entity: Asset | Debt | Goal | Cashflow
   children: ReactNode
 }
 
@@ -38,6 +39,7 @@ enum DeleteQueryKey {
   ASSET = "get-assets",
   DEBT = "get-debts",
   GOAL = "get-goals",
+  CASHFLOW = "get-cashflows",
 }
 
 export function EntityDetails({
@@ -67,6 +69,10 @@ export function EntityDetails({
         setEnytityBadgeText("GOAL")
         setDisplayName(formatDate((entity as Goal).goalDate))
         break
+      case EntityTypeForDetailModal.CASHFLOW:
+        setEnytityBadgeText("CASHFLOW")
+        setDisplayName((entity as Cashflow).description)
+        break
       default:
         break
     }
@@ -82,7 +88,7 @@ export function EntityDetails({
     if (confirmed) {
       try {
         await api.delete(
-          `${deleteEntityAPIUriMap[entityType as keyof typeof deleteEntityAPIUriMap]}/${(entity as Asset | Debt | Goal)._id}`
+          `${deleteEntityAPIUriMap[entityType as keyof typeof deleteEntityAPIUriMap]}/${(entity as Asset | Debt | Goal | Cashflow)._id}`
         )
         queryClient.refetchQueries({
           queryKey: [
@@ -114,18 +120,22 @@ export function EntityDetails({
               <DialogDescription></DialogDescription>
             </div>
             <div className="flex gap-2">
-              <Button
-                onClick={(): void =>
-                  router.push(
-                    `${editEntityUrlMap[entityType as keyof typeof editEntityUrlMap]}/${(entity as Asset | Debt | Goal)._id}`
-                  )
-                }
-                variant="default"
-                size="icon"
-                className="p-2 bg-primary hover:bg-primary"
+              <Show
+                condition={entityType !== EntityTypeForDetailModal.CASHFLOW}
               >
-                <Pen className="text-black h-4 w-4" />
-              </Button>
+                <Button
+                  onClick={(): void =>
+                    router.push(
+                      `${editEntityUrlMap[entityType as keyof typeof editEntityUrlMap]}/${(entity as Asset | Debt | Goal)._id}`
+                    )
+                  }
+                  variant="default"
+                  size="icon"
+                  className="p-2 bg-primary hover:bg-primary"
+                >
+                  <Pen className="text-black h-4 w-4" />
+                </Button>
+              </Show>
               <Button onClick={deleteEntity} variant="secondary" size="icon">
                 <Trash className="h-4 w-4" />
               </Button>
@@ -141,7 +151,7 @@ export function EntityDetails({
                   <strong>{formatKey(key)}</strong>{" "}
                   {formatValue(
                     value,
-                    key.includes("Date"),
+                    key.includes("Date") || key === "nextExecutionAt",
                     isAmount(key as keyof Asset),
                     user.baseCurrency,
                     key.includes("Rate")
