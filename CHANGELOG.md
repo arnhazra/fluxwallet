@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 3.1.0
+
+- Introduction of cashflow
+- Dependency updates & bug fixes
+
 ## Version 3.0.1
 
 - React vulnerability fix & dependency updates
