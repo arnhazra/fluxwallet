@@ -3,6 +3,9 @@ import { FlowDirection, FlowFrequency } from "../../schemas/cashflow.schema"
 
 export class CreateCashFlowRequestDto {
   @IsNotEmpty()
+  description: string
+
+  @IsNotEmpty()
   targetAsset: string
 
   @IsEnum(FlowDirection)

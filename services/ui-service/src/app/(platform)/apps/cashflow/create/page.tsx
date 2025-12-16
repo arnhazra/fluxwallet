@@ -34,6 +34,7 @@ import {
 } from "@/shared/components/ui/select"
 
 interface CashflowFormData {
+  description?: string
   targetAsset?: string
   flowDirection?: FlowDirection
   amount?: number
@@ -95,6 +96,23 @@ export default function Page() {
           </CardHeader>
           <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="space-y-2">
+                <Label htmlFor="amount" className="text-neutral-200">
+                  Description
+                </Label>
+                <Input
+                  required
+                  id="description"
+                  type="text"
+                  value={formData.description || ""}
+                  onChange={(e) =>
+                    handleInputChange("description", e.target.value)
+                  }
+                  placeholder="Description of the cashflow"
+                  className="bg-background border-border text-neutral-100 placeholder:text-neutral-500 focus:border-neutral-600"
+                />
+              </div>
+
               <div className="space-y-2">
                 <Label htmlFor="targetAsset" className="text-neutral-200">
                   Target Asset
@@ -190,7 +208,9 @@ export default function Page() {
               </div>
 
               <div className="space-y-2">
-                <Label className="text-neutral-200">Next Execution Date</Label>
+                <Label className="text-neutral-200">
+                  Initial Execution Date
+                </Label>
                 <Popover>
                   <PopoverTrigger asChild>
                     <Button
