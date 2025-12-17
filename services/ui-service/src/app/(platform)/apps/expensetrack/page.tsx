@@ -41,7 +41,7 @@ import {
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "nextjs-toploader/app"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import * as Icons from "lucide-react"
 import api from "@/shared/lib/ky-api"
 
@@ -51,7 +51,6 @@ export default function Page() {
   const [{ searchKeyword, user }] = useUserContext()
   const queryClient = useQueryClient()
   const [category, setSelectedCategory] = useState("all")
-  const [totalExpense, setTotalExpense] = useState(0)
   const [selectedMonth, setSelectedMonth] = useState(getCurrentMonthString())
 
   const expenseCategoryConfig = useQuery<ExpenseCategoryConfig>({
@@ -77,11 +76,14 @@ export default function Page() {
     suspense: !!searchKeyword ? false : true,
   })
 
-  useEffect(() => {
-    if (totalExpense === 0) {
-      setTotalExpense(expenses.data?.total || 0)
-    }
-  }, [expenses.data?.total])
+  const totalExpense = useQuery<ExpenseResponse>({
+    queryKey: ["get-total-expense", selectedMonth],
+    queryUrl: buildQueryUrl(endPoints.expense, {
+      month: selectedMonth,
+      category: "",
+    }),
+    method: HTTPMethods.GET,
+  })
 
   const deleteExpense = async (expenseId: string): Promise<void> => {
     const confirmed = await confirm({
@@ -204,7 +206,7 @@ export default function Page() {
             <CardTitle>Your {getNameFromMonthValue(selectedMonth)}</CardTitle>
             <CardDescription className="text-primary">
               Total expense:{" "}
-              {formatCurrency(totalExpense ?? 0, user.baseCurrency)}
+              {formatCurrency(totalExpense.data?.total ?? 0, user.baseCurrency)}
             </CardDescription>
             <Show condition={!category || category !== "all"}>
               <CardDescription className="text-primary">
