@@ -3,6 +3,7 @@
 ## Version 3.2.0
 
 - Removed analytics fetch for better performance of entities
+- Dependency updates & bug fixes
 
 ## Version 3.1.0
 
