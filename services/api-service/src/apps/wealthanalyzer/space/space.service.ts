@@ -8,7 +8,7 @@ import { DeleteSpaceCommand } from "./commands/impl/delete-space.command"
 import { CreateSpaceCommand } from "./commands/impl/create-space.command"
 import { CreateSpaceRequestDto } from "./dto/request/create-space.request.dto"
 import { UpdateSpaceCommand } from "./commands/impl/update-space.command"
-import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
+import { OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { AssetService } from "../asset/asset.service"
 
@@ -17,8 +17,7 @@ export class SpaceService {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
-    private readonly assetService: AssetService,
-    private readonly eventEmitter: EventEmitter2
+    private readonly assetService: AssetService
   ) {}
 
   @OnEvent(EventMap.CreateSpace)
@@ -44,17 +43,10 @@ export class SpaceService {
           userId,
           space._id.toString()
         )
-        const data: { totalUsage: string | number | null | undefined } = (
-          await this.eventEmitter.emitAsync(
-            EventMap.GetAnalyticsTrend,
-            space._id
-          )
-        ).shift()
         return {
           ...(space.toObject?.() ?? space),
           presentValuation: valuation.total,
           assetCount: valuation.assetCount,
-          analyticsTrend: data?.totalUsage,
         }
       })
     )
@@ -70,14 +62,10 @@ export class SpaceService {
         reqUserId,
         space._id.toString()
       )
-      const data: { totalUsage: string | number | null | undefined } = (
-        await this.eventEmitter.emitAsync(EventMap.GetAnalyticsTrend, space._id)
-      ).shift()
       return {
         ...(space.toObject?.() ?? space),
         presentValuation: valuation.total,
         assetCount: valuation.assetCount,
-        analyticsTrend: data?.totalUsage,
       }
     } catch (error) {
       throw new Error(statusMessages.connectionError)

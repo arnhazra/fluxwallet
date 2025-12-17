@@ -8,7 +8,7 @@ import { CreateExpenseRequestDto } from "./dto/request/create-expense.request.dt
 import { UpdateExpenseCommand } from "./commands/impl/update-expense.command"
 import { FindExpensesByUserQuery } from "./queries/impl/find-expense-by-user.query"
 import { FindExpenseByIdQuery } from "./queries/impl/find-expense-by-id.query"
-import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
+import { OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { ExpenseCategory } from "@/shared/constants/types"
 import { FindStartMonthByUserQuery } from "./queries/impl/find-start-month-by-user.query"
@@ -17,8 +17,7 @@ import { FindStartMonthByUserQuery } from "./queries/impl/find-start-month-by-us
 export class ExpenseService {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus,
-    private readonly eventEmitter: EventEmitter2
+    private readonly commandBus: CommandBus
   ) {}
 
   @OnEvent(EventMap.CreateExpense)
@@ -55,20 +54,9 @@ export class ExpenseService {
 
   async findExpenseById(reqUserId: string, expenseId: string) {
     try {
-      const expense = await this.queryBus.execute<
-        FindExpenseByIdQuery,
-        Expense
-      >(new FindExpenseByIdQuery(reqUserId, expenseId))
-      const data: { totalUsage: string | number | null | undefined } = (
-        await this.eventEmitter.emitAsync(
-          EventMap.GetAnalyticsTrend,
-          expense._id
-        )
-      ).shift()
-      return {
-        ...(expense.toObject?.() ?? expense),
-        analyticsTrend: data?.totalUsage,
-      }
+      return await this.queryBus.execute<FindExpenseByIdQuery, Expense>(
+        new FindExpenseByIdQuery(reqUserId, expenseId)
+      )
     } catch (error) {
       throw new Error(statusMessages.connectionError)
     }

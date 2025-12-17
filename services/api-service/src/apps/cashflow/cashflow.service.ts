@@ -34,25 +34,13 @@ export class CashFlowService {
   }
 
   async findMyCashflows(userId: string, searchKeyword?: string) {
-    const cashflows = await this.queryBus.execute<
-      FindCashflowsByUserQuery,
-      Cashflow[]
-    >(new FindCashflowsByUserQuery(userId, searchKeyword))
-
-    return await Promise.all(
-      cashflows.map(async (cashflow) => {
-        const data: { totalUsage: string | number | null | undefined } = (
-          await this.eventEmitter.emitAsync(
-            EventMap.GetAnalyticsTrend,
-            cashflow._id
-          )
-        ).shift()
-        return {
-          ...(cashflow.toObject?.() ?? cashflow),
-          analyticsTrend: data?.totalUsage,
-        }
-      })
-    )
+    try {
+      return await this.queryBus.execute<FindCashflowsByUserQuery, Cashflow[]>(
+        new FindCashflowsByUserQuery(userId, searchKeyword)
+      )
+    } catch (error) {
+      throw new Error(error ?? statusMessages.connectionError)
+    }
   }
 
   async delete(reqUserId: string, cashflowId: string) {

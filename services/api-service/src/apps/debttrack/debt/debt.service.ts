@@ -8,7 +8,7 @@ import { CreateDebtRequestDto } from "./dto/request/create-debt.request.dto"
 import { UpdateDebtCommand } from "./commands/impl/update-debt.command"
 import { FindDebtsByUserQuery } from "./queries/impl/find-debt-by-user.query"
 import { FindDebtByIdQuery } from "./queries/impl/find-debt-by-id.query"
-import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
+import { OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { calculateDebtDetails } from "./helpers/calculate-debt"
 
@@ -16,8 +16,7 @@ import { calculateDebtDetails } from "./helpers/calculate-debt"
 export class DebtService {
   constructor(
     private readonly queryBus: QueryBus,
-    private readonly commandBus: CommandBus,
-    private readonly eventEmitter: EventEmitter2
+    private readonly commandBus: CommandBus
   ) {}
 
   @OnEvent(EventMap.CreateDebt)
@@ -41,13 +40,7 @@ export class DebtService {
       return await Promise.all(
         debts.map(async (debt) => {
           const calculatedDebtDetails = calculateDebtDetails(debt)
-          const data: { totalUsage: string | number | null | undefined } = (
-            await this.eventEmitter.emitAsync(
-              EventMap.GetAnalyticsTrend,
-              debt._id
-            )
-          ).shift()
-          return { ...calculatedDebtDetails, analyticsTrend: data?.totalUsage }
+          return calculatedDebtDetails
         })
       )
     } catch (error) {
@@ -61,10 +54,7 @@ export class DebtService {
         new FindDebtByIdQuery(reqUserId, debtId)
       )
       const calculatedDebtDetails = calculateDebtDetails(debt)
-      const data: { totalUsage: string | number | null | undefined } = (
-        await this.eventEmitter.emitAsync(EventMap.GetAnalyticsTrend, debt._id)
-      ).shift()
-      return { ...calculatedDebtDetails, analyticsTrend: data?.totalUsage }
+      return calculatedDebtDetails
     } catch (error) {
       throw new Error(statusMessages.connectionError)
     }

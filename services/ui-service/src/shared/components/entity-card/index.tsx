@@ -100,7 +100,6 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Present Valuation",
           valuationAmount: (entity as Space).presentValuation,
         })
-        setSubHeader((entity as Space).analyticsTrend?.toString() ?? "0")
         break
       case EntityType.ASSET:
         setEnytityBadgeText((entity as Asset).assetType.replace("_", " "))
@@ -110,7 +109,6 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Present Valuation",
           valuationAmount: (entity as Asset).presentValuation,
         })
-        setSubHeader((entity as Asset).analyticsTrend?.toString() ?? "0")
         break
       case EntityType.DEBT:
         setEnytityBadgeText("DEBT")
@@ -120,7 +118,6 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "EMI",
           valuationAmount: (entity as Debt).emi,
         })
-        setSubHeader((entity as Debt).analyticsTrend?.toString() ?? "0")
         break
       case EntityType.GOAL:
         setEnytityBadgeText("GOAL")
@@ -130,7 +127,6 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Goal",
           valuationAmount: (entity as Goal).goalAmount,
         })
-        setSubHeader((entity as Goal).analyticsTrend?.toString() ?? "0")
         break
       case EntityType.CASHFLOW:
         setEnytityBadgeText("CASHFLOW")
@@ -140,7 +136,6 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Cashflow Amount",
           valuationAmount: (entity as Cashflow).amount,
         })
-        setSubHeader((entity as Space).analyticsTrend?.toString() ?? "0")
         break
       case EntityType.NEWS:
         setEnytityBadgeText((entity as Article).source?.name || "NEWS")

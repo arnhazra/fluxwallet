@@ -25,7 +25,6 @@ export class AnalyticsService {
     }
   }
 
-  @OnEvent(EventMap.GetAnalyticsTrend)
   async getAnalyticsCount(searchKeyword: string) {
     try {
       return this.queryBus.execute<GetAnalyticsQuery, { totalUsage: number }>(

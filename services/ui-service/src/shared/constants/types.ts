@@ -77,7 +77,6 @@ export interface Space {
   presentValuation?: number | null
   assetCount?: number | null
   createdAt: string
-  analyticsTrend?: string | number | null
 }
 
 export interface Asset {
@@ -101,7 +100,6 @@ export interface Asset {
   currentValuation?: number // LIQUID, RETIREMENT, REAL_ESTATE, METAL, OTHER
   units?: number // EQUITY, CRYPTO
   unitPurchasePrice?: number // EQUITY, CRYPTO
-  analyticsTrend?: string | number | null
 }
 
 export interface Debt {
@@ -125,7 +123,6 @@ export interface Debt {
   nextEmiDate: string
   isMaturityApproaching: boolean
   isMatured: boolean
-  analyticsTrend?: string | number | null
 }
 
 export interface Goal {
@@ -134,7 +131,6 @@ export interface Goal {
   goalDate: Date
   goalAmount: number
   createdAt: string
-  analyticsTrend?: string | number | null
 }
 
 export interface Valuation {
