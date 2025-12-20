@@ -14,7 +14,7 @@ export class CreateCashflowCommandHandler implements ICommandHandler<CreateCashF
     } = command
     return await this.repository.create({
       userId: createOrConvertObjectId(userId),
-      targetAsset: createOrConvertObjectId(),
+      targetAsset: createOrConvertObjectId(targetAsset),
       ...otherFields,
     })
   }
