@@ -1,0 +1,17 @@
+name: Daily API Call
+
+on:
+  schedule:
+    # Runs once every day at 02:00 UTC
+    - cron: "* * * * *"
+  workflow_dispatch: # allows manual trigger from GitHub UI
+
+jobs:
+  call-api:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Call API endpoint
+        run: |
+          curl -X GET "https://api-fluxwallet.vercel.app/platform/email" \
+            -H "Content-Type: application/json"
