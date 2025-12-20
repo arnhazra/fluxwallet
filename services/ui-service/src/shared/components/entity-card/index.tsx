@@ -100,6 +100,12 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Present Valuation",
           valuationAmount: (entity as Space).presentValuation,
         })
+        const spaceCreatedAt = (entity as Space).createdAt
+          ? formatDistanceToNow(new Date((entity as Space).createdAt ?? ""), {
+              addSuffix: true,
+            })
+          : null
+        setSubHeader(spaceCreatedAt ?? "")
         break
       case EntityType.ASSET:
         setEnytityBadgeText((entity as Asset).assetType.replace("_", " "))
@@ -109,6 +115,12 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Present Valuation",
           valuationAmount: (entity as Asset).presentValuation,
         })
+        const assetCreatedAt = (entity as Asset).createdAt
+          ? formatDistanceToNow(new Date((entity as Asset).createdAt ?? ""), {
+              addSuffix: true,
+            })
+          : null
+        setSubHeader(assetCreatedAt ?? "")
         break
       case EntityType.DEBT:
         setEnytityBadgeText("DEBT")
@@ -118,6 +130,12 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "EMI",
           valuationAmount: (entity as Debt).emi,
         })
+        const debtCreatedAt = (entity as Debt).createdAt
+          ? formatDistanceToNow(new Date((entity as Debt).createdAt ?? ""), {
+              addSuffix: true,
+            })
+          : null
+        setSubHeader(debtCreatedAt ?? "")
         break
       case EntityType.GOAL:
         setEnytityBadgeText("GOAL")
@@ -127,6 +145,12 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Goal",
           valuationAmount: (entity as Goal).goalAmount,
         })
+        const goalCreatedAt = (entity as Goal).createdAt
+          ? formatDistanceToNow(new Date((entity as Goal).createdAt ?? ""), {
+              addSuffix: true,
+            })
+          : null
+        setSubHeader(goalCreatedAt ?? "")
         break
       case EntityType.CASHFLOW:
         setEnytityBadgeText("CASHFLOW")
@@ -136,12 +160,21 @@ export function EntityCard<T extends keyof EntityMap>({
           valuationHeader: "Cashflow Amount",
           valuationAmount: (entity as Cashflow).amount,
         })
+        const cashflowCreatedAt = (entity as Cashflow).createdAt
+          ? formatDistanceToNow(
+              new Date((entity as Cashflow).createdAt ?? ""),
+              {
+                addSuffix: true,
+              }
+            )
+          : null
+        setSubHeader(cashflowCreatedAt ?? "")
         break
       case EntityType.NEWS:
         setEnytityBadgeText((entity as Article).source?.name || "NEWS")
         setEntityTitle((entity as Article).title ?? "")
         setEntityDescription((entity as Article).description || null)
-        const date = (entity as Article).publishedAt
+        const newsPublishedAt = (entity as Article).publishedAt
           ? formatDistanceToNow(
               new Date((entity as Article).publishedAt ?? ""),
               {
@@ -149,7 +182,7 @@ export function EntityCard<T extends keyof EntityMap>({
               }
             )
           : null
-        setSubHeader(date ?? "")
+        setSubHeader(newsPublishedAt ?? "")
         break
       default:
         break
@@ -269,12 +302,7 @@ export function EntityCard<T extends keyof EntityMap>({
           <div className="flex items-center justify-between text-sm text-muted-foreground">
             {subHeader && (
               <span className="flex gap-2">
-                <Show
-                  condition={entityType !== EntityType.NEWS}
-                  fallback={<HistoryIcon className="h-3 w-3 mt-1" />}
-                >
-                  <EyeIcon className="h-3 w-3 mt-1" />
-                </Show>
+                <HistoryIcon className="h-3 w-3 mt-1" />
                 {subHeader}
               </span>
             )}
