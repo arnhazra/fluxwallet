@@ -1,5 +1,10 @@
 # Changelog
 
+## Version 3.3.0
+
+- Dependency updates across services
+- Major date bugfix for Cashflow & ExpenseTrack
+
 ## Version 3.2.0
 
 - Fix Cashflow create bug
