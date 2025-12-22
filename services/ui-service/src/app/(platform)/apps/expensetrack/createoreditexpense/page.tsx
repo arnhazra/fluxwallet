@@ -36,6 +36,7 @@ import { useRouter } from "nextjs-toploader/app"
 import Show from "@/shared/components/show"
 import IconContainer from "@/shared/components/icon-container"
 import api from "@/shared/lib/ky-api"
+import { normalizeToUTCNoon } from "@/shared/lib/utc-normalize"
 
 interface ExpenseFormData {
   title?: string
@@ -213,7 +214,10 @@ export default function Page() {
                       selected={formData.expenseDate}
                       disabled={(date) => date > new Date()}
                       onSelect={(date) =>
-                        handleInputChange("expenseDate", date)
+                        handleInputChange(
+                          "expenseDate",
+                          normalizeToUTCNoon(date)
+                        )
                       }
                       showOutsideDays={false}
                       className="bg-background text-neutral-100"
