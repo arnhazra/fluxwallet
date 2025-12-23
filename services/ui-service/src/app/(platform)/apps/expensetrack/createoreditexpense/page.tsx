@@ -50,7 +50,7 @@ type MessageType = "success" | "error"
 export default function Page() {
   const [formData, setFormData] = useState<ExpenseFormData>({})
   const searchParams = useSearchParams()
-  const expenseId = searchParams.get("expenseId")
+  const expenseId = searchParams.get("id")
   const router = useRouter()
 
   const expenseCategoryConfig = useQuery<ExpenseCategoryConfig>({
@@ -68,7 +68,7 @@ export default function Page() {
   })
 
   useEffect(() => {
-    if (!!expenseDetails.error) {
+    if (!!expenseDetails.error || !expenseDetails.data) {
       router.push("/apps/expensetrack/createoreditexpense")
     }
 

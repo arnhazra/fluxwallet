@@ -142,7 +142,7 @@ export default function Page() {
               size="icon"
               onClick={() =>
                 router.replace(
-                  `/apps/expensetrack/createoreditexpense?expenseId=${expense._id}`
+                  `/apps/expensetrack/createoreditexpense?id=${expense._id}`
                 )
               }
             >

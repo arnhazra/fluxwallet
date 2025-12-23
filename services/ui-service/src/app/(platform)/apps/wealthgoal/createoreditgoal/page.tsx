@@ -1,6 +1,6 @@
 "use client"
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Card,
@@ -20,8 +20,16 @@ import {
 import { Calendar } from "@/shared/components/ui/calendar"
 import { cn } from "@/shared/lib/utils"
 import { endPoints } from "@/shared/constants/api-endpoints"
+import useQuery from "@/shared/hooks/use-query"
+import { Goal } from "@/shared/constants/types"
+import HTTPMethods from "@/shared/constants/http-methods"
 import { formatDate } from "@/shared/lib/format-date"
 import api from "@/shared/lib/ky-api"
+import { normalizeToUTCNoon } from "@/shared/lib/utc-normalize"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
+import IconContainer from "@/shared/components/icon-container"
+import Show from "@/shared/components/show"
 
 interface GoalFormData {
   goalDate?: Date
@@ -32,6 +40,31 @@ type MessageType = "success" | "error"
 
 export default function Page() {
   const [formData, setFormData] = useState<GoalFormData>({})
+  const searchParams = useSearchParams()
+  const goalId = searchParams.get("id")
+  const router = useRouter()
+
+  const goal = useQuery<Goal>({
+    queryKey: ["get-goal"],
+    queryUrl: `${endPoints.goal}/${goalId}`,
+    method: HTTPMethods.GET,
+    enabled: !!goalId,
+    suspense: false,
+  })
+
+  useEffect(() => {
+    if (!!goal.error || !goal.data) {
+      router.push("/apps/wealthgoal/createoreditgoal")
+    }
+
+    if (goal.data) {
+      const { goalAmount, goalDate } = goal.data
+      setFormData({
+        goalAmount,
+        goalDate,
+      })
+    }
+  }, [goal.data, goal.error])
 
   const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
     msg: "",
@@ -48,7 +81,7 @@ export default function Page() {
   const handleSubmit = async (e: React.FormEvent) => {
     try {
       e.preventDefault()
-      await api.post(endPoints.goal, {
+      await api.put(`${endPoints.goal}/${goalId}`, {
         json: formData,
       })
       setMessage({ msg: "Goal added successfully!", type: "success" })
@@ -66,8 +99,12 @@ export default function Page() {
         <Card className="bg-background border-border">
           <CardHeader className="border-b border-neutral-800">
             <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
-              <GoalIcon className="h-6 w-6 text-primary" />
-              Add New Goal
+              <IconContainer>
+                <GoalIcon className="h-4 w-4" />
+              </IconContainer>
+              <Show condition={!goalId} fallback="Edit Goal">
+                Add New Goal
+              </Show>
             </CardTitle>
             <CardDescription className="text-primary">
               Fill in the details for your goal.
@@ -100,7 +137,9 @@ export default function Page() {
                       endMonth={new Date(2100, 0)}
                       selected={formData.goalDate}
                       disabled={(date) => date < new Date()}
-                      onSelect={(date) => handleInputChange("goalDate", date)}
+                      onSelect={(date) =>
+                        handleInputChange("goalDate", normalizeToUTCNoon(date))
+                      }
                       showOutsideDays={false}
                       className="bg-background text-neutral-100"
                     />
@@ -135,7 +174,7 @@ export default function Page() {
                   variant="default"
                   className="bg-primary hover:bg-primary ml-auto text-black"
                 >
-                  Add Goal
+                  Save Goal
                 </Button>
               </div>
             </form>
