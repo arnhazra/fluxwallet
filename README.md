@@ -1,6 +1,6 @@
 ## FluxWallet
 
-This platform helps you organize and manage your entire financial life in one place. Add assets across categories, monitor your net worth, liabilities and gain valuable insights into your financial health. Whether you're planning, growing, or preserving wealth — stay informed and in control with a unified, intuitive experience.
+This is an Open Source AI powered wealth management solution that helps you organize and manage your entire financial life in one place. Add assets across categories, debts, goals, monitor your net worth, and gain valuable insights into your financial health. Whether you're planning, growing, or preserving wealth.
 
 ### What is the cost of using this platform ?
 
