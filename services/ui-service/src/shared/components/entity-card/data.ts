@@ -37,7 +37,7 @@ export const entityImageMap = {
 }
 
 export const createEntityUrlMap = {
-  [EntityType.ASSET]: "/apps/wealthanalyzer/create/asset",
+  [EntityType.ASSET]: "/apps/wealthanalyzer/asset/create",
   [EntityType.DEBT]: "/apps/debttrack/createoreditdebt",
   [EntityType.SPACE]: "/apps/wealthanalyzer/createoreditspace",
   [EntityType.GOAL]: "/apps/wealthgoal/createoreditgoal",

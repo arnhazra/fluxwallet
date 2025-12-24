@@ -1,6 +1,6 @@
 "use client"
 import type React from "react"
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Card,
@@ -37,6 +37,8 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import Loading from "@/app/loading"
 import { formatDate } from "@/shared/lib/format-date"
 import api from "@/shared/lib/ky-api"
+import { useRouter } from "nextjs-toploader/app"
+import { useSearchParams } from "next/navigation"
 
 interface AssetFormData {
   spaceId: string
@@ -77,13 +79,17 @@ const frequencyLabels = {
 
 type MessageType = "success" | "error"
 
-export default function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id: assetId = "" } = use(params)
+export default function Page() {
+  const searchParams = useSearchParams()
+  const assetId = searchParams.get("id")
+  const router = useRouter()
 
   const asset = useQuery<Asset>({
-    queryKey: ["get-asset", assetId],
+    queryKey: ["get-asset", assetId ?? ""],
     queryUrl: `${endPoints.asset}/${assetId}`,
     method: HTTPMethods.GET,
+    suspense: false,
+    enabled: !!assetId,
   })
 
   const [formData, setFormData] = useState<AssetFormData | null>({
@@ -98,11 +104,15 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
   })
 
   useEffect(() => {
+    if (!!asset.error || (!asset.isLoading && !asset.data)) {
+      router.push("/apps/wealthanalyzer/asset/create")
+    }
+
     if (asset.data) {
       const { presentValuation, _id, userId, ...otherValues } = asset.data
       setFormData(otherValues)
     }
-  }, [asset.data])
+  }, [asset.data, asset.error, asset.isLoading])
 
   const spaces = useQuery<Space[]>({
     queryKey: ["get-spaces"],
