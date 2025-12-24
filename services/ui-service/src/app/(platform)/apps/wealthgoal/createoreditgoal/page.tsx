@@ -41,6 +41,7 @@ type MessageType = "success" | "error"
 export default function Page() {
   const [formData, setFormData] = useState<GoalFormData>({})
   const searchParams = useSearchParams()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const goalId = searchParams.get("id")
   const router = useRouter()
 
@@ -79,17 +80,38 @@ export default function Page() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    try {
-      e.preventDefault()
-      await api.put(`${endPoints.goal}/${goalId}`, {
-        json: formData,
-      })
-      setMessage({ msg: "Goal added successfully!", type: "success" })
-    } catch (error) {
-      setMessage({
-        msg: "Failed to add goal. Please try again.",
-        type: "error",
-      })
+    e.preventDefault()
+    setIsSubmitting(true)
+    setMessage({ msg: "", type: "success" })
+
+    if (goalId) {
+      try {
+        await api.put(`${endPoints.goal}/${goalId}`, {
+          json: formData,
+        })
+        setMessage({ msg: "Goal added successfully!", type: "success" })
+      } catch (error) {
+        setMessage({
+          msg: "Failed to add goal. Please try again.",
+          type: "error",
+        })
+      } finally {
+        setIsSubmitting(false)
+      }
+    } else {
+      try {
+        await api.post(endPoints.goal, {
+          json: formData,
+        })
+        setMessage({ msg: "Goal added successfully!", type: "success" })
+      } catch (error) {
+        setMessage({
+          msg: "Failed to add goal. Please try again.",
+          type: "error",
+        })
+      } finally {
+        setIsSubmitting(false)
+      }
     }
   }
 
@@ -173,6 +195,7 @@ export default function Page() {
                   type="submit"
                   variant="default"
                   className="bg-primary hover:bg-primary ml-auto text-black"
+                  disabled={isSubmitting}
                 >
                   Save Goal
                 </Button>

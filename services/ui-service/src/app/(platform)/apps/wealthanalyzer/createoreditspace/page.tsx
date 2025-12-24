@@ -24,6 +24,8 @@ interface SpaceFormData {
   spaceName: string
 }
 
+type MessageType = "success" | "error"
+
 export default function Page() {
   const searchParams = useSearchParams()
   const spaceId = searchParams.get("id")
@@ -38,7 +40,10 @@ export default function Page() {
   })
 
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [alertMessage, setAlertMessage] = useState("")
+  const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
+    msg: "",
+    type: "success",
+  })
   const [formData, setFormData] = useState<SpaceFormData>({
     spaceName: "",
   })
@@ -65,17 +70,31 @@ export default function Page() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
-    setAlertMessage("")
+    setMessage({ msg: "", type: "success" })
 
-    try {
-      await api.put(`${endPoints.space}/${spaceId}`, {
-        json: formData,
-      })
-      setAlertMessage("Space updated successfully!")
-    } catch (error) {
-      setAlertMessage("Error updating Space")
-    } finally {
-      setIsSubmitting(false)
+    if (spaceId) {
+      try {
+        await api.put(`${endPoints.space}/${spaceId}`, {
+          json: formData,
+        })
+        setMessage({ msg: "Space updated successfully!", type: "success" })
+      } catch (error) {
+        setMessage({ msg: "Error updating Space", type: "error" })
+      } finally {
+        setIsSubmitting(false)
+      }
+    } else {
+      try {
+        await api.post(endPoints.space, {
+          json: formData,
+        })
+        setMessage({ msg: "Space created successfully!", type: "success" })
+        setFormData({ spaceName: "" })
+      } catch (error) {
+        setMessage({ msg: "Error creating Space", type: "error" })
+      } finally {
+        setIsSubmitting(false)
+      }
     }
   }
 
@@ -113,13 +132,17 @@ export default function Page() {
                 type="submit"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Updating..." : "Update Space"}
+                Save Space
               </Button>
             </div>
           </form>
-          {alertMessage && (
-            <div className="mt-4 text-center text-sm text-primary">
-              {alertMessage}
+          {message.msg && (
+            <div
+              className={`mt-4 text-sm ${
+                message.type === "success" ? "text-primary" : "text-secondary"
+              }`}
+            >
+              {message.msg}
             </div>
           )}
         </CardContent>

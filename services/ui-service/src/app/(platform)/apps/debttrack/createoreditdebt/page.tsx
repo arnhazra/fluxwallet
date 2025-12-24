@@ -44,6 +44,7 @@ type MessageType = "success" | "error"
 export default function Page() {
   const searchParams = useSearchParams()
   const debtId = searchParams.get("id")
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
   const [formData, setFormData] = useState<DebtFormData>({
     debtPurpose: "",
@@ -96,17 +97,38 @@ export default function Page() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
-    try {
-      e.preventDefault()
-      await api.put(`${endPoints.debt}/${debtId}`, {
-        json: formData,
-      })
-      setMessage({ msg: "Debt updated successfully!", type: "success" })
-    } catch (error) {
-      setMessage({
-        msg: "Failed to update debt. Please try again.",
-        type: "error",
-      })
+    e.preventDefault()
+    setIsSubmitting(true)
+    setMessage({ msg: "", type: "success" })
+
+    if (debtId) {
+      try {
+        await api.put(`${endPoints.debt}/${debtId}`, {
+          json: formData,
+        })
+        setMessage({ msg: "Debt updated successfully!", type: "success" })
+      } catch (error) {
+        setMessage({
+          msg: "Failed to update debt. Please try again.",
+          type: "error",
+        })
+      } finally {
+        setIsSubmitting(false)
+      }
+    } else {
+      try {
+        await api.post(endPoints.debt, {
+          json: formData,
+        })
+        setMessage({ msg: "Debt added successfully!", type: "success" })
+      } catch (error) {
+        setMessage({
+          msg: "Failed to add debt. Please try again.",
+          type: "error",
+        })
+      } finally {
+        setIsSubmitting(false)
+      }
     }
   }
 
@@ -281,8 +303,11 @@ export default function Page() {
                   type="submit"
                   variant="default"
                   className="bg-primary hover:bg-primary ml-auto text-black"
+                  disabled={isSubmitting}
                 >
-                  Update Debt
+                  <Show condition={!debtId} fallback="Update Debt">
+                    Add Debt
+                  </Show>
                 </Button>
               </div>
             </form>

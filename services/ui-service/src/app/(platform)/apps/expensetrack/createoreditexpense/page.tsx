@@ -50,6 +50,7 @@ type MessageType = "success" | "error"
 export default function Page() {
   const [formData, setFormData] = useState<ExpenseFormData>({})
   const searchParams = useSearchParams()
+  const [isSubmitting, setIsSubmitting] = useState(false)
   const expenseId = searchParams.get("id")
   const router = useRouter()
 
@@ -96,9 +97,12 @@ export default function Page() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setMessage({ msg: "", type: "success" })
+
     if (expenseId) {
       try {
-        e.preventDefault()
         await api.put(`${endPoints.expense}/${expenseId}`, {
           json: formData,
         })
@@ -108,10 +112,11 @@ export default function Page() {
           msg: "Failed to update expense. Please try again.",
           type: "error",
         })
+      } finally {
+        setIsSubmitting(false)
       }
     } else {
       try {
-        e.preventDefault()
         await api.post(endPoints.expense, {
           json: formData,
         })
@@ -121,6 +126,8 @@ export default function Page() {
           msg: "Failed to add expense. Please try again.",
           type: "error",
         })
+      } finally {
+        setIsSubmitting(false)
       }
     }
   }
@@ -255,6 +262,7 @@ export default function Page() {
                   type="submit"
                   variant="default"
                   className="bg-primary hover:bg-primary ml-auto text-black"
+                  disabled={isSubmitting}
                 >
                   <Show condition={!expenseId} fallback="Update Expense">
                     Add Expense
