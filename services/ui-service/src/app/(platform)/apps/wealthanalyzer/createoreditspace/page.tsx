@@ -1,6 +1,6 @@
 "use client"
 import type React from "react"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Card,
@@ -14,15 +14,29 @@ import { Label } from "@/shared/components/ui/label"
 import { Package } from "lucide-react"
 import { Space } from "@/shared/constants/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
-import { useRouter } from "nextjs-toploader/app"
+import useQuery from "@/shared/hooks/use-query"
+import HTTPMethods from "@/shared/constants/http-methods"
 import api from "@/shared/lib/ky-api"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
 
 interface SpaceFormData {
   spaceName: string
 }
 
 export default function Page() {
+  const searchParams = useSearchParams()
+  const spaceId = searchParams.get("id")
   const router = useRouter()
+
+  const space = useQuery<Space>({
+    queryKey: ["get-space", spaceId ?? ""],
+    queryUrl: `${endPoints.space}/${spaceId}`,
+    method: HTTPMethods.GET,
+    suspense: false,
+    enabled: !!spaceId,
+  })
+
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [alertMessage, setAlertMessage] = useState("")
   const [formData, setFormData] = useState<SpaceFormData>({
@@ -36,19 +50,30 @@ export default function Page() {
     }))
   }
 
+  useEffect(() => {
+    if (!!space.error || (!space.isLoading && !space.data)) {
+      router.push("/apps/wealthanalyzer/createoreditspace")
+    }
+
+    if (space.data) {
+      setFormData({
+        spaceName: space.data?.spaceName,
+      })
+    }
+  }, [space.data, space.error, space.isLoading])
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
     setAlertMessage("")
 
     try {
-      const space: any = await api.post(endPoints.space, {
+      await api.put(`${endPoints.space}/${spaceId}`, {
         json: formData,
       })
-      router.push(`/apps/wealthanalyzer/space/${(await space.json())._id}`)
-      setAlertMessage("Space created successfully!")
+      setAlertMessage("Space updated successfully!")
     } catch (error) {
-      setAlertMessage("Error creating space")
+      setAlertMessage("Error updating Space")
     } finally {
       setIsSubmitting(false)
     }
@@ -60,12 +85,10 @@ export default function Page() {
         <CardHeader>
           <CardTitle className="text-2xl flex items-center gap-2">
             <Package className="h-5 w-5 text-primary" />
-            Add Space
+            Edit Space
           </CardTitle>
           <CardDescription className="text-sm text-primary">
-            Set up a new space to track your investments and assets. A space is
-            similar to a bank or any financial institution that store or manage
-            assets.
+            Edit your space to track your investments and assets
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -90,7 +113,7 @@ export default function Page() {
                 type="submit"
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Adding..." : "Add Space"}
+                {isSubmitting ? "Updating..." : "Update Space"}
               </Button>
             </div>
           </form>

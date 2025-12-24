@@ -45,7 +45,7 @@ export default function Page() {
   const router = useRouter()
 
   const goal = useQuery<Goal>({
-    queryKey: ["get-goal"],
+    queryKey: ["get-goal", goalId ?? ""],
     queryUrl: `${endPoints.goal}/${goalId}`,
     method: HTTPMethods.GET,
     enabled: !!goalId,
@@ -53,7 +53,7 @@ export default function Page() {
   })
 
   useEffect(() => {
-    if (!!goal.error || !goal.data) {
+    if (!!goal.error || (!goal.isLoading && !goal.data)) {
       router.push("/apps/wealthgoal/createoreditgoal")
     }
 
@@ -64,7 +64,7 @@ export default function Page() {
         goalDate,
       })
     }
-  }, [goal.data, goal.error])
+  }, [goal.data, goal.error, goal.isLoading])
 
   const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
     msg: "",

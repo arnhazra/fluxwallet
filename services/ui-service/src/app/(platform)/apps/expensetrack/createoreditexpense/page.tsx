@@ -60,7 +60,7 @@ export default function Page() {
   })
 
   const expenseDetails = useQuery<Expense>({
-    queryKey: ["get-expense-details"],
+    queryKey: ["get-expense-details", expenseId ?? ""],
     queryUrl: `${endPoints.expense}/${expenseId}`,
     method: HTTPMethods.GET,
     enabled: !!expenseId,
@@ -68,7 +68,10 @@ export default function Page() {
   })
 
   useEffect(() => {
-    if (!!expenseDetails.error || !expenseDetails.data) {
+    if (
+      !!expenseDetails.error ||
+      (!expenseDetails.isLoading && !expenseDetails.data)
+    ) {
       router.push("/apps/expensetrack/createoreditexpense")
     }
 
@@ -78,7 +81,7 @@ export default function Page() {
       expenseDate: expenseDetails.data?.expenseDate,
       title: expenseDetails.data?.title,
     })
-  }, [expenseDetails.data, expenseDetails.error])
+  }, [expenseDetails.data, expenseDetails.error, expenseDetails.isLoading])
 
   const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
     msg: "",

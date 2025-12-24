@@ -1,6 +1,6 @@
 "use client"
 import type React from "react"
-import { use, useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { Button } from "@/shared/components/ui/button"
 import {
   Card,
@@ -51,7 +51,7 @@ export default function Page() {
   })
 
   const debt = useQuery<Debt>({
-    queryKey: ["get-debt"],
+    queryKey: ["get-debt", debtId ?? ""],
     queryUrl: `${endPoints.debt}/${debtId}`,
     method: HTTPMethods.GET,
     enabled: !!debtId,
@@ -81,7 +81,7 @@ export default function Page() {
         interestRate,
       })
     }
-  }, [debt.data, debt.error])
+  }, [debt.data, debt.error, debt.isLoading])
 
   const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
     msg: "",
