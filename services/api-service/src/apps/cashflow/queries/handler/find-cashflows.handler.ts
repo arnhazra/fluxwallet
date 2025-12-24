@@ -14,7 +14,7 @@ export class FindCashflowsQueryHandler implements IQueryHandler<FindCashflowsQue
         now.getUTCFullYear(),
         now.getUTCMonth(),
         now.getUTCDate(),
-        0,
+        12,
         0,
         0,
         0
@@ -26,7 +26,7 @@ export class FindCashflowsQueryHandler implements IQueryHandler<FindCashflowsQue
         now.getUTCFullYear(),
         now.getUTCMonth(),
         now.getUTCDate() + 1,
-        0,
+        12,
         0,
         0,
         0
