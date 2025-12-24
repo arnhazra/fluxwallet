@@ -1,4 +1,4 @@
-name: Daily API Call
+name: Cashflow Cron Job
 
 on:
   schedule:
