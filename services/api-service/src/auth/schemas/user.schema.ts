@@ -31,9 +31,6 @@ export class User extends IdentifiableEntitySchmea {
 
   @EntityProp({ type: Boolean, default: true })
   useIntelligence: boolean
-
-  @EntityProp({ type: Boolean, default: true })
-  hasTrial: boolean
 }
 
 export const UserSchema = createSchemaFromClass(User)

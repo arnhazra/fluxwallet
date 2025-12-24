@@ -17,7 +17,6 @@ import { User } from "./schemas/user.schema"
 import { FindUserByIdQuery } from "./queries/impl/find-user-by-id.query"
 import { CreateUserCommand } from "./commands/impl/create-user.command"
 import { UpdateAttributeCommand } from "./commands/impl/update-attribute.command"
-import { Subscription } from "../platform/subscription/schemas/subscription.schema"
 import { Token } from "./schemas/token.schema"
 import { GoogleOAuthDto } from "./dto/google-oauth.dto"
 import { HttpService } from "@nestjs/axios"
@@ -199,21 +198,7 @@ export class AuthService {
       )
 
       if (user) {
-        const subscriptionRes: Subscription[] =
-          await this.eventEmitter.emitAsync(
-            EventMap.GetSubscriptionDetails,
-            userId
-          )
-
-        let subscription: Subscription | null
-
-        if (!subscriptionRes || !subscriptionRes.length) {
-          subscription = null
-        } else {
-          subscription = subscriptionRes.shift()
-        }
-
-        return { user, subscription }
+        return { user }
       } else {
         throw new Error(statusMessages.invalidUser)
       }

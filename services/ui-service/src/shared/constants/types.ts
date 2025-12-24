@@ -41,24 +41,8 @@ export interface User {
   avatar?: string | null
   reduceCarbonEmissions: boolean
   analyticsData: boolean
-  hasTrial: boolean
   useIntelligence: boolean
   createdAt: string
-}
-
-export interface SubscriptionConfig {
-  price: string
-  features: string[]
-  trialSubscription: string
-}
-
-export interface Subscription {
-  _id: string
-  userId: string
-  price: number
-  createdAt: string
-  endsAt: string
-  isActive: boolean
 }
 
 export interface Thread {

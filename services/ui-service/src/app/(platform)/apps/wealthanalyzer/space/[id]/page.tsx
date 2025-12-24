@@ -83,7 +83,9 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           actionComponents={[
             <Button
               onClick={(): void =>
-                router.push(`/apps/wealthanalyzer/edit/space/${spaceId}`)
+                router.push(
+                  `/apps/wealthanalyzer/createoreditspace?id=${spaceId}`
+                )
               }
               variant="default"
               size="icon"

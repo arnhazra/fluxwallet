@@ -32,6 +32,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select"
+import { normalizeToUTCNoon } from "@/shared/lib/utc-normalize"
 
 interface CashflowFormData {
   description?: string
@@ -235,7 +236,10 @@ export default function Page() {
                       selected={formData.nextExecutionAt}
                       disabled={(date) => date < new Date()}
                       onSelect={(date) =>
-                        handleInputChange("nextExecutionAt", date)
+                        handleInputChange(
+                          "nextExecutionAt",
+                          normalizeToUTCNoon(date)
+                        )
                       }
                       showOutsideDays={false}
                       className="bg-background text-neutral-100"

@@ -70,14 +70,17 @@ export function EntityCard<T extends keyof EntityMap>({
 }: EntityCardProps<T>) {
   const [{ user }] = useUserContext()
   const router = useRouter()
-  const [entityBadgeText, setEnytityBadgeText] = useState("")
   const [articleImageError, setArticleImageError] = useState(false)
-  const [enityTitle, setEntityTitle] = useState("")
   const [entityDescription, setEntityDescription] = useState<string | null>(
     null
   )
-  const [identifier, setIdentifier] = useState("")
-  const [subHeader, setSubHeader] = useState("")
+  const [entityBadgeText, setEnytityBadgeText] = useState("")
+  const [enityTitle, setEntityTitle] = useState("")
+  const [info, setInfo] = useState<{
+    infoHeader: string
+    infoValue: string
+  }>({ infoHeader: "", infoValue: "" })
+
   const [valuation, setValuation] = useState<{
     valuationHeader: string
     valuationAmount: number | null | undefined
@@ -85,6 +88,7 @@ export function EntityCard<T extends keyof EntityMap>({
     valuationHeader: "",
     valuationAmount: 0,
   })
+  const [displayDate, setDisplayDate] = useState("")
 
   const handleArticleImageError = () => {
     setArticleImageError(true)
@@ -95,7 +99,7 @@ export function EntityCard<T extends keyof EntityMap>({
       case EntityType.SPACE:
         setEnytityBadgeText("SPACE")
         setEntityTitle((entity as Space).spaceName)
-        setIdentifier((entity as Space)._id)
+        setInfo({ infoHeader: "Identifier", infoValue: (entity as Space)._id })
         setValuation({
           valuationHeader: "Present Valuation",
           valuationAmount: (entity as Space).presentValuation,
@@ -105,12 +109,15 @@ export function EntityCard<T extends keyof EntityMap>({
               addSuffix: true,
             })
           : null
-        setSubHeader(spaceCreatedAt ?? "")
+        setDisplayDate(spaceCreatedAt ?? "")
         break
       case EntityType.ASSET:
         setEnytityBadgeText((entity as Asset).assetType.replace("_", " "))
         setEntityTitle((entity as Asset).assetName)
-        setIdentifier((entity as Asset).identifier)
+        setInfo({
+          infoHeader: "Identifier",
+          infoValue: (entity as Asset).identifier,
+        })
         setValuation({
           valuationHeader: "Present Valuation",
           valuationAmount: (entity as Asset).presentValuation,
@@ -120,12 +127,15 @@ export function EntityCard<T extends keyof EntityMap>({
               addSuffix: true,
             })
           : null
-        setSubHeader(assetCreatedAt ?? "")
+        setDisplayDate(assetCreatedAt ?? "")
         break
       case EntityType.DEBT:
         setEnytityBadgeText("DEBT")
         setEntityTitle((entity as Debt).debtPurpose)
-        setIdentifier((entity as Debt).identifier)
+        setInfo({
+          infoHeader: "Identifier",
+          infoValue: (entity as Debt).identifier,
+        })
         setValuation({
           valuationHeader: "EMI",
           valuationAmount: (entity as Debt).emi,
@@ -135,12 +145,15 @@ export function EntityCard<T extends keyof EntityMap>({
               addSuffix: true,
             })
           : null
-        setSubHeader(debtCreatedAt ?? "")
+        setDisplayDate(debtCreatedAt ?? "")
         break
       case EntityType.GOAL:
         setEnytityBadgeText("GOAL")
         setEntityTitle(formatDate((entity as Goal).goalDate, false))
-        setIdentifier((entity as Goal)._id)
+        setInfo({
+          infoHeader: "Identifier",
+          infoValue: (entity as Goal)._id,
+        })
         setValuation({
           valuationHeader: "Goal",
           valuationAmount: (entity as Goal).goalAmount,
@@ -150,12 +163,15 @@ export function EntityCard<T extends keyof EntityMap>({
               addSuffix: true,
             })
           : null
-        setSubHeader(goalCreatedAt ?? "")
+        setDisplayDate(goalCreatedAt ?? "")
         break
       case EntityType.CASHFLOW:
         setEnytityBadgeText("CASHFLOW")
         setEntityTitle((entity as Cashflow).description)
-        setIdentifier((entity as Cashflow)._id)
+        setInfo({
+          infoHeader: "Flow Direction",
+          infoValue: (entity as Cashflow).flowDirection,
+        })
         setValuation({
           valuationHeader: "Cashflow Amount",
           valuationAmount: (entity as Cashflow).amount,
@@ -168,7 +184,7 @@ export function EntityCard<T extends keyof EntityMap>({
               }
             )
           : null
-        setSubHeader(cashflowCreatedAt ?? "")
+        setDisplayDate(cashflowCreatedAt ?? "")
         break
       case EntityType.NEWS:
         setEnytityBadgeText((entity as Article).source?.name || "NEWS")
@@ -182,7 +198,7 @@ export function EntityCard<T extends keyof EntityMap>({
               }
             )
           : null
-        setSubHeader(newsPublishedAt ?? "")
+        setDisplayDate(newsPublishedAt ?? "")
         break
       default:
         break
@@ -280,9 +296,11 @@ export function EntityCard<T extends keyof EntityMap>({
         <Show condition={!(entityType === EntityType.NEWS)}>
           <div className="space-y-2">
             <div className="flex justify-between items-center">
-              <span className="text-sm text-neutral-300">Identifier</span>
+              <span className="text-sm text-neutral-300">
+                {info.infoHeader}
+              </span>
               <span className="text-sm font-medium">
-                <MaskText value={identifier} />
+                <MaskText value={info.infoValue} />
               </span>
             </div>
             <div className="flex justify-between items-center">
@@ -300,10 +318,10 @@ export function EntityCard<T extends keyof EntityMap>({
         </Show>
         <div className="flex justify-between items-center mt-4">
           <div className="flex items-center justify-between text-sm text-muted-foreground">
-            {subHeader && (
+            {displayDate && (
               <span className="flex gap-2">
                 <HistoryIcon className="h-3 w-3 mt-1" />
-                {subHeader}
+                {displayDate}
               </span>
             )}
           </div>

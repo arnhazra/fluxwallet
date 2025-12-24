@@ -36,6 +36,7 @@ import { useRouter } from "nextjs-toploader/app"
 import Show from "@/shared/components/show"
 import IconContainer from "@/shared/components/icon-container"
 import api from "@/shared/lib/ky-api"
+import { normalizeToUTCNoon } from "@/shared/lib/utc-normalize"
 
 interface ExpenseFormData {
   title?: string
@@ -49,7 +50,8 @@ type MessageType = "success" | "error"
 export default function Page() {
   const [formData, setFormData] = useState<ExpenseFormData>({})
   const searchParams = useSearchParams()
-  const expenseId = searchParams.get("expenseId")
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const expenseId = searchParams.get("id")
   const router = useRouter()
 
   const expenseCategoryConfig = useQuery<ExpenseCategoryConfig>({
@@ -59,7 +61,7 @@ export default function Page() {
   })
 
   const expenseDetails = useQuery<Expense>({
-    queryKey: ["get-expense-details"],
+    queryKey: ["get-expense-details", expenseId ?? ""],
     queryUrl: `${endPoints.expense}/${expenseId}`,
     method: HTTPMethods.GET,
     enabled: !!expenseId,
@@ -67,7 +69,10 @@ export default function Page() {
   })
 
   useEffect(() => {
-    if (!!expenseDetails.error) {
+    if (
+      !!expenseDetails.error ||
+      (!expenseDetails.isLoading && !expenseDetails.data)
+    ) {
       router.push("/apps/expensetrack/createoreditexpense")
     }
 
@@ -77,7 +82,7 @@ export default function Page() {
       expenseDate: expenseDetails.data?.expenseDate,
       title: expenseDetails.data?.title,
     })
-  }, [expenseDetails.data, expenseDetails.error])
+  }, [expenseDetails.data, expenseDetails.error, expenseDetails.isLoading])
 
   const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
     msg: "",
@@ -92,9 +97,12 @@ export default function Page() {
   }
 
   const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+    setMessage({ msg: "", type: "success" })
+
     if (expenseId) {
       try {
-        e.preventDefault()
         await api.put(`${endPoints.expense}/${expenseId}`, {
           json: formData,
         })
@@ -104,10 +112,11 @@ export default function Page() {
           msg: "Failed to update expense. Please try again.",
           type: "error",
         })
+      } finally {
+        setIsSubmitting(false)
       }
     } else {
       try {
-        e.preventDefault()
         await api.post(endPoints.expense, {
           json: formData,
         })
@@ -117,6 +126,8 @@ export default function Page() {
           msg: "Failed to add expense. Please try again.",
           type: "error",
         })
+      } finally {
+        setIsSubmitting(false)
       }
     }
   }
@@ -213,7 +224,10 @@ export default function Page() {
                       selected={formData.expenseDate}
                       disabled={(date) => date > new Date()}
                       onSelect={(date) =>
-                        handleInputChange("expenseDate", date)
+                        handleInputChange(
+                          "expenseDate",
+                          normalizeToUTCNoon(date)
+                        )
                       }
                       showOutsideDays={false}
                       className="bg-background text-neutral-100"
@@ -248,6 +262,7 @@ export default function Page() {
                   type="submit"
                   variant="default"
                   className="bg-primary hover:bg-primary ml-auto text-black"
+                  disabled={isSubmitting}
                 >
                   <Show condition={!expenseId} fallback="Update Expense">
                     Add Expense

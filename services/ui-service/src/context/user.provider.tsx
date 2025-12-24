@@ -20,11 +20,9 @@ const initialState: UserState = {
     baseCurrency: Currency.USD,
     reduceCarbonEmissions: true,
     role: "",
-    hasTrial: false,
     avatar: null,
     useIntelligence: false,
   },
-  subscription: null,
   searchKeyword: "",
 }
 

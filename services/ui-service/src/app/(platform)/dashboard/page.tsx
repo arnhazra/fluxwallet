@@ -4,7 +4,6 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
 import { AppsConfig } from "@/shared/constants/types"
-import { useSearchParams } from "next/navigation"
 import { useEffect } from "react"
 import { useQueryClient } from "@tanstack/react-query"
 import { useRouter } from "nextjs-toploader/app"
@@ -15,9 +14,7 @@ import { useUserContext } from "@/context/user.provider"
 import api from "@/shared/lib/ky-api"
 
 export default function Page() {
-  const searchParams = useSearchParams()
   const [{ searchKeyword }] = useUserContext()
-  const subscriptionSessionId = searchParams.get("sub_session_id")
   const queryClient = useQueryClient()
   const router = useRouter()
 
@@ -40,26 +37,6 @@ export default function Page() {
       )
       .map((app) => <AppCard key={app.appName} app={app} />)
   }
-
-  const subscribe = async () => {
-    try {
-      await api
-        .get(`${endPoints.subscribe}?sub_session_id=${subscriptionSessionId}`)
-        .json()
-      queryClient.refetchQueries({ queryKey: ["user-details"] })
-      notify(uiConstants.subscriptionSuccess, "success")
-    } catch (error: any) {
-      const errorMessage = (await error.response.json()).message
-      notify(errorMessage, "error")
-    }
-  }
-
-  useEffect(() => {
-    if (!!subscriptionSessionId) {
-      subscribe()
-      router.replace("/dashboard")
-    }
-  }, [subscriptionSessionId])
 
   return (
     <div className="mx-auto grid w-full items-start gap-6">

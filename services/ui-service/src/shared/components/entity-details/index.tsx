@@ -126,7 +126,7 @@ export function EntityDetails({
                 <Button
                   onClick={(): void =>
                     router.push(
-                      `${editEntityUrlMap[entityType as keyof typeof editEntityUrlMap]}/${(entity as Asset | Debt | Goal)._id}`
+                      `${editEntityUrlMap[entityType as keyof typeof editEntityUrlMap]}?id=${(entity as Asset | Debt | Goal)._id}`
                     )
                   }
                   variant="default"

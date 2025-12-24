@@ -7,10 +7,31 @@ export class FindCashflowsQueryHandler implements IQueryHandler<FindCashflowsQue
   constructor(private readonly repository: CashFlowRepository) {}
 
   async execute(query: FindCashflowsQuery) {
-    const start = new Date()
-    start.setHours(0, 0, 0, 0)
-    const end = new Date(start)
-    end.setDate(start.getDate() + 1)
+    const now = new Date()
+
+    const start = new Date(
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate(),
+        0,
+        0,
+        0,
+        0
+      )
+    )
+
+    const end = new Date(
+      Date.UTC(
+        now.getUTCFullYear(),
+        now.getUTCMonth(),
+        now.getUTCDate() + 1,
+        0,
+        0,
+        0,
+        0
+      )
+    )
 
     return this.repository.find({
       nextExecutionAt: { $gte: start, $lt: end },

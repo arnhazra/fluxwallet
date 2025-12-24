@@ -6,13 +6,10 @@ export const endPoints = {
   validateOTP: `${apiHost}/auth/validateotp`,
   googleOAuthLogin: `${apiHost}/auth/googleoauth`,
   userDetails: `${apiHost}/auth/userdetails`,
-  activateTrial: `${apiHost}/auth/activatetrial`,
   refresh: `${apiHost}/auth/refresh`,
   signOut: `${apiHost}/auth/signout`,
   updateAttribute: `${apiHost}/auth/attribute`,
   // Platform Service
-  createCheckoutSession: `${apiHost}/platform/subscription/checkout`,
-  subscribe: `${apiHost}/platform/subscription/subscribe`,
   getConfig: `${apiHost}/platform/config`,
   intelligence: `${apiHost}/platform/intelligence`,
   widgets: `${apiHost}/platform/widgets`,

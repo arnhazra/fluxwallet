@@ -1,5 +1,4 @@
 import { Module } from "@nestjs/common"
-import { SubscriptionModule } from "./subscription/subscription.module"
 import { config } from "src/config"
 import { GeneralDbConnectionMap } from "@/shared/entity/entity-db-connection.map"
 import { AnalyticsModule } from "./analytics/analytics.module"
@@ -16,7 +15,6 @@ import { WidgetModule } from "./widget/widget.module"
       GeneralDbConnectionMap.Platform
     ),
     AnalyticsModule,
-    SubscriptionModule,
     EmailModule,
     ConfigModule,
     IntelligenceModule,

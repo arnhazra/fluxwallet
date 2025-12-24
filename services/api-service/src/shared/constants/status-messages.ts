@@ -6,8 +6,6 @@ export const statusMessages = {
   invalidOTP: "Invalid OTP",
   otpEmail: "Check OTP in Email",
   invalidUser: "Invalid User",
-  trialActivated: "You have already activated your trial",
-  subscriptionFailure: "Failed to activate the subscription",
   accessTokenExpired: "Access token expired",
   accessTokenInvalid: "Invalid access token",
   accessTokenMissing: "Access token missing",

@@ -5,20 +5,13 @@ import { ReactNode, useState } from "react"
 import Cookies from "js-cookie"
 import Show from "@/shared/components/show"
 import AuthProvider from "../auth/auth"
-import {
-  Subscription,
-  SubscriptionConfig,
-  User,
-} from "@/shared/constants/types"
+import { User } from "@/shared/constants/types"
 import Loading from "../loading"
 import { useQuery as useBaseQuery } from "@tanstack/react-query"
 import PlatformHeader from "@/shared/components/platform-header"
 import { useUserContext } from "@/context/user.provider"
 import Intelligence from "@/shared/components/intelligence"
-import { SubscriptionModal } from "@/shared/components/subscription-modal"
 import notify from "@/shared/hooks/use-notify"
-import useQuery from "@/shared/hooks/use-query"
-import HTTPMethods from "@/shared/constants/http-methods"
 import api from "@/shared/lib/ky-api"
 
 export default function AuthLayout({ children }: { children: ReactNode }) {
@@ -33,10 +26,8 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
       try {
         const response: {
           user: User
-          subscription: Subscription | null
         } = await api.get(endPoints.userDetails).json()
         dispatch("setUser", response.user)
-        dispatch("setSubscription", response.subscription)
         setAuthorized(true)
       } catch (error: any) {
         if (error.response) {
@@ -62,13 +53,6 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
     refetchOnMount: true,
   })
 
-  const subscriptionPricing = useQuery<SubscriptionConfig>({
-    queryKey: ["subscription-config"],
-    queryUrl: `${endPoints.getConfig}/subscription-config`,
-    method: HTTPMethods.GET,
-    suspense: false,
-  })
-
   const appLayout = (
     <div className="min-h-screen w-full text-white hero-landing relative">
       <PlatformHeader />
@@ -76,15 +60,11 @@ export default function AuthLayout({ children }: { children: ReactNode }) {
         {children}
       </div>
       <Intelligence />
-      <SubscriptionModal data={subscriptionPricing.data} />
     </div>
   )
 
   return (
-    <Show
-      condition={!isLoading && !isFetching && !subscriptionPricing.isLoading}
-      fallback={<Loading />}
-    >
+    <Show condition={!isLoading && !isFetching} fallback={<Loading />}>
       <Show condition={!isAuthorized} fallback={appLayout}>
         <AuthProvider onAuthorized={(auth: boolean) => setAuthorized(auth)} />
       </Show>

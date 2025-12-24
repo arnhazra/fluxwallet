@@ -4,6 +4,5 @@ export const blockListedAttributes: (keyof User)[] = [
   "_id",
   "role",
   "email",
-  "hasTrial",
   "avatar",
 ]

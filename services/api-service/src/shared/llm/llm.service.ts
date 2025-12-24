@@ -8,13 +8,13 @@ export class LLMService {
 
   getLLM() {
     return new ChatOpenAI({
-      model: config.AZURE_OPENAI_BASE_MODEL,
+      model: config.GPT_OSS_MODEL_NAME,
       temperature: 0.8,
       topP: 0.8,
-      apiKey: config.AZURE_OPENAI_API_KEY,
+      apiKey: config.GPT_OSS_API_KEY,
       configuration: {
-        baseURL: config.AZURE_OPENAI_DEPLOYMENT_URI,
-        apiKey: config.AZURE_OPENAI_API_KEY,
+        baseURL: config.GPT_OSS_DEPLOYMENT_URI,
+        apiKey: config.GPT_OSS_API_KEY,
       },
     })
   }

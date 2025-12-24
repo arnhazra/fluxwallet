@@ -1,11 +1,7 @@
 "use client"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import {
-  AppsConfig,
-  SolutionConfig,
-  SubscriptionConfig,
-} from "@/shared/constants/types"
+import { AppsConfig, SolutionConfig } from "@/shared/constants/types"
 import { platformName, uiConstants } from "@/shared/constants/global-constants"
 import {
   BoxIcon,
@@ -13,6 +9,7 @@ import {
   Coins,
   Lightbulb,
   CircleArrowRight,
+  BookOpenIcon,
 } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/utils"
@@ -27,13 +24,14 @@ import Cookies from "js-cookie"
 import HomePageHeader from "@/shared/components/homepage-header"
 import { Badge } from "@/shared/components/ui/badge"
 import { SolutionCard } from "@/shared/components/solution-card"
+import IconContainer from "@/shared/components/icon-container"
 
 export default function Page() {
   const router = useRouter()
   const [checked, setChecked] = useState(false)
-  const subscriptionPricing = useQuery<SubscriptionConfig>({
-    queryKey: ["subscription-config"],
-    queryUrl: `${endPoints.getConfig}/subscription-config`,
+  const openSourceConfig = useQuery<any>({
+    queryKey: ["open-source-config"],
+    queryUrl: `${endPoints.getConfig}/open-source-config`,
     method: HTTPMethods.GET,
     suspense: false,
   })
@@ -62,7 +60,7 @@ export default function Page() {
           {uiConstants.homeIntro}
         </p>
         <p className="max-w-[35rem] leading-normal text-primary sm:text-lg sm:leading-8 mb-6">
-          {subscriptionPricing.data?.trialSubscription}
+          {uiConstants.openSourceIntro}
         </p>
         <Link
           href="/dashboard"
@@ -131,69 +129,38 @@ export default function Page() {
     </div>
   )
 
-  const renderPricingSection = (
-    <section id="pricing" className="py-8 md:py-12 lg:py-24">
-      <div className="mx-auto max-w-[85rem] px-4 sm:px-6 lg:px-8">
+  const renderOpenSourceSection = (
+    <section id="opensource" className="py-8 md:py-12 lg:py-24">
+      <div className="mx-auto max-w-[50rem] px-4 sm:px-6 lg:px-8">
         <div className="mx-auto flex max-w-[64rem] flex-col items-center justify-center text-center mb-8">
           <Badge className="mb-4 p-2 ps-4 pe-4 text-md bg-background text-primary border border-border rounded-full shadow-md shadow-primary/20">
             <Coins className="h-4 w-4 me-2" />
-            {uiConstants.pricingTitle}
+            {openSourceConfig.data?.title}
           </Badge>
 
           <p className="max-w-[85%] leading-normal sm:text-lg sm:leading-7 mb-2">
-            Your finances deserve both intelligence and protection.{" "}
-            {platformName}
-            combines real-time tracking, smart categorization, and insightful
-            reporting, all built on a privacy-first foundation that respects
-            your data and puts you in charge.
-          </p>
-
-          <p className="max-w-[85%] text-2xl sm:text-lg sm:leading-7 text-primary">
-            {subscriptionPricing.data?.trialSubscription}
+            {openSourceConfig.data?.desc}
           </p>
         </div>
-
-        <div className="grid w-full items-start gap-10 rounded-3xl bg-background border border-border p-10 md:grid-cols-[1fr_200px] hover:shadow-md hover:shadow-primary/20 mx-auto max-w-[64rem]">
-          <>
-            <div className="grid gap-6">
-              <h3 className="text-xl font-bold sm:text-2xl">What's included</h3>
-              <ul className="grid gap-3 text-sm text-muted-foreground sm:grid-cols-2">
-                {subscriptionPricing.data?.features.map((feature) => {
-                  return (
-                    <li className="flex items-center" key={feature}>
-                      <Check className="mr-2 h-4 w-4" /> {feature}
-                    </li>
-                  )
-                })}
-              </ul>
+        <div className="bg-background border border-border p-8 rounded-3xl flex flex-col hover:shadow-lg hover:shadow-primary/20">
+          <div className="flex justify-between items-center mb-12">
+            <div>
+              <p className="text-xl">{platformName}</p>
+              <h2 className="text-2xl">{openSourceConfig.data?.title}</h2>
             </div>
-
-            <div className="flex flex-col gap-4 text-center">
-              <div>
-                <p className="text-sm font-medium text-muted-foreground">
-                  {subscriptionPricing.data?.trialSubscription} and then
-                </p>
-                <h4 className="text-2xl font-bold">
-                  ${subscriptionPricing.data?.price}
-                  <span className="text-base font-normal ml-1">/year</span>
-                </h4>
-              </div>
-
-              <Link
-                href="/dashboard"
-                className={cn(
-                  buttonVariants({
-                    size: "lg",
-                    className:
-                      "bg-primary hover:bg-primary text-black rounded-full",
-                  })
-                )}
-              >
-                {uiConstants.getStartedButton}
-                <CircleArrowRight className="ms-2 h-4 w-4" />
-              </Link>
-            </div>
-          </>
+            <IconContainer>
+              <BookOpenIcon className="h-5 w-5" />
+            </IconContainer>
+          </div>
+          <p className="text-sm leading-relaxed mt-auto">
+            {openSourceConfig.data?.features.map((feature: string) => {
+              return (
+                <li className="flex items-center mb-2" key={feature}>
+                  <Check className="mr-2 h-4 w-4" /> {feature}
+                </li>
+              )
+            })}
+          </p>
         </div>
       </div>
     </section>
@@ -228,9 +195,7 @@ export default function Page() {
   return (
     <Show
       condition={
-        !subscriptionPricing.isLoading &&
-        !apps.isLoading &&
-        !solutions.isLoading
+        !openSourceConfig.isLoading && !apps.isLoading && !solutions.isLoading
       }
       fallback={<Loading />}
     >
@@ -239,7 +204,7 @@ export default function Page() {
         {renderHeroSection}
         {renderAppsSection}
         {renderSolutionsSection}
-        {renderPricingSection}
+        {renderOpenSourceSection}
       </div>
       {renderFooterSection}
     </Show>

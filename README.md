@@ -1,10 +1,10 @@
 ## FluxWallet
 
-This platform helps you organize and manage your entire financial life in one place. Add assets across categories, monitor your net worth, liabilities and gain valuable insights into your financial health. Whether you're planning, growing, or preserving wealth — stay informed and in control with a unified, intuitive experience.
+This is an Open Source AI powered wealth management solution that helps you organize and manage your entire financial life in one place. Add assets across categories, debts, goals, monitor your net worth, and gain valuable insights into your financial health. Whether you're planning, growing, or preserving wealth.
 
 ### What is the cost of using this platform ?
 
-Typically, utilizing this platform incurs no cost. I have implemented a test stripe payment gateway to have a more realistic SaaS experience. But as it is test so you can use test card number 4242-4242-4242-4242 and use it for free.
+Typically, utilizing this platform incurs no cost. This is an open source contribution.
 
 ### Tech Stack
 
