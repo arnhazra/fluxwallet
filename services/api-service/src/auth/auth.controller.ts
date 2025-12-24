@@ -89,15 +89,8 @@ export class AuthController {
   @Get("userdetails")
   async getUserDetails(@Request() request: ModRequest) {
     try {
-      const { user, subscription } = await this.service.getUserDetails(
-        request.user.userId
-      )
-
-      if (user) {
-        return { user, subscription }
-      } else {
-        throw new BadRequestException(statusMessages.invalidUser)
-      }
+      const { user } = await this.service.getUserDetails(request.user.userId)
+      return { user }
     } catch (error) {
       throw new BadRequestException(statusMessages.invalidUser)
     }
@@ -136,29 +129,6 @@ export class AuthController {
       )
     } catch (error) {
       throw new BadRequestException(statusMessages.invalidUser)
-    }
-  }
-
-  @UseGuards(AuthGuard)
-  @Post("activatetrial")
-  async activateTrial(@Request() request: ModRequest) {
-    try {
-      const { user } = await this.service.getUserDetails(request.user.userId)
-
-      if (!user.hasTrial) {
-        throw new Error(statusMessages.trialActivated)
-      }
-
-      await this.eventEmitter.emitAsync(
-        EventMap.ActivateTrial,
-        request.user.userId
-      )
-
-      await this.service.updateAttribute(request.user.userId, "hasTrial", false)
-
-      return { success: true }
-    } catch (error) {
-      throw new BadRequestException(error.message || statusMessages.invalidUser)
     }
   }
 }

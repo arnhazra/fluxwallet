@@ -31,7 +31,7 @@ export const amountKeys = [
 
 export const editEntityUrlMap = {
   asset: "/apps/wealthanalyzer/edit/asset",
-  debt: "/apps/debttrack/editdebt",
+  debt: "/apps/debttrack/createoreditdebt",
   goal: "/apps/wealthgoal/createoreditgoal",
 }
 

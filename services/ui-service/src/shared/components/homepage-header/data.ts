@@ -16,8 +16,8 @@ export const generalUserLinks: LinkData[] = [
     link: "/#solutions",
   },
   {
-    displayName: "Pricing",
-    link: "/#pricing",
+    displayName: "Open Source",
+    link: "/#opensource",
   },
   {
     displayName: "Developer",

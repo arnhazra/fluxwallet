@@ -33,7 +33,7 @@ import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import api from "@/shared/lib/ky-api"
 
 export default function Page() {
-  const [{ user, subscription }, dispatch] = useUserContext()
+  const [{ user }, dispatch] = useUserContext()
   const { prompt } = usePromptContext()
   const { confirm } = useConfirmContext()
 
@@ -244,19 +244,6 @@ export default function Page() {
               }
             />,
           ]}
-        />
-        <SectionPanel
-          icon={
-            <IconContainer>
-              <CalendarClock className="h-4 w-4" />
-            </IconContainer>
-          }
-          title="Your Subscription"
-          content={
-            subscription?.isActive
-              ? `Active till ${formatDate(subscription?.endsAt)}`
-              : "You don't have a subscription"
-          }
         />
         <SectionPanel
           icon={

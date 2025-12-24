@@ -1,35 +1,20 @@
 # Changelog
 
-## Version 3.3.0
-
-- Dependency updates across services
-- Major date bugfix for Cashflow & ExpenseTrack
-
-## Version 3.2.0
-
-- Fix Cashflow create bug
-- Removed analytics fetch for better performance of entities
-- Dependency updates & bug fixes
-
-## Version 3.1.0
-
-- Introduction of cashflow
-- Dependency updates & bug fixes
-
-## Version 3.0.1
-
-- React vulnerability fix & dependency updates
-
 ## Version 3.0.0
 
-- Added dynamic widgets
-- Upgraded tailwind to v4
-- Standardized color palette
-- Dependency updates & bug fixes
-- Added advanced logic for multi device auth
-- Moved from local storage to secure cookies
-- Added logic to refresh tokens and resend failed requests
-- Major refactor acrosss components to match new design system
+- Open sourced the project
+- Eliminated subscription settings to provide full free access
+- Migrated AI models from GPT 4.1 to GPT OSS hosted on Nvidia Cloud which is open-source alternative
+- Introduced dynamic widgets
+- Upgraded Tailwind CSS to version 4
+- Addressed React vulnerabilities and updated dependencies
+- Launched the new cashflow feature
+- Performed comprehensive service dependency updates
+- Resolved critical date issues in Cashflow & ExpenseTrack modules
+- Enhanced multi-device authentication logic
+- Transitioned from local storage to secure cookie management
+- Implemented token refresh and automatic retry for failed requests
+- Refactored components extensively to align with the updated design system
 
 ## Version 2.9.0
 

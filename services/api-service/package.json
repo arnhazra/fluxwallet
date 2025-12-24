@@ -13,7 +13,7 @@
   },
   "dependencies": {
     "@aws-crypto/sha256-js": "^5.2.0",
-    "@langchain/core": "^1.1.7",
+    "@langchain/core": "^1.1.8",
     "@langchain/openai": "^1.2.0",
     "@nestjs/axios": "^4.0.1",
     "@nestjs/common": "^11.1.10",
@@ -31,13 +31,12 @@
     "googleapis": "^169.0.0",
     "ioredis": "^5.8.2",
     "jsonwebtoken": "^9.0.3",
-    "langchain": "^1.2.2",
+    "langchain": "^1.2.3",
     "mongoose": "^8.20.0",
-    "nodemailer": "^7.0.11",
+    "nodemailer": "^7.0.12",
     "pathe": "^2.0.3",
     "reflect-metadata": "^0.2.2",
-    "rxjs": "^7.8.2",
-    "stripe": "^20.1.0"
+    "rxjs": "^7.8.2"
   },
   "devDependencies": {
     "@nestjs/cli": "^11.0.14",

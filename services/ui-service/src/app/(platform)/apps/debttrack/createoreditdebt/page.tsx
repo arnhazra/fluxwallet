@@ -25,6 +25,10 @@ import { Debt } from "@/shared/constants/types"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { formatDate } from "@/shared/lib/format-date"
 import api from "@/shared/lib/ky-api"
+import { useSearchParams } from "next/navigation"
+import { useRouter } from "nextjs-toploader/app"
+import IconContainer from "@/shared/components/icon-container"
+import Show from "@/shared/components/show"
 
 interface DebtFormData {
   debtPurpose: string
@@ -37,20 +41,28 @@ interface DebtFormData {
 
 type MessageType = "success" | "error"
 
-export default function Page({ params }: { params: Promise<{ id: string }> }) {
-  const { id: debtId = "" } = use(params)
+export default function Page() {
+  const searchParams = useSearchParams()
+  const debtId = searchParams.get("id")
+  const router = useRouter()
   const [formData, setFormData] = useState<DebtFormData>({
     debtPurpose: "",
     identifier: "",
   })
 
   const debt = useQuery<Debt>({
-    queryKey: ["get-debt", debtId],
+    queryKey: ["get-debt"],
     queryUrl: `${endPoints.debt}/${debtId}`,
     method: HTTPMethods.GET,
+    enabled: !!debtId,
+    suspense: false,
   })
 
   useEffect(() => {
+    if (!!debt.error || (!debt.isLoading && !debt.data)) {
+      router.push("/apps/debttrack/createoreditdebt")
+    }
+
     if (debt.data) {
       const {
         debtPurpose,
@@ -69,7 +81,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         interestRate,
       })
     }
-  }, [debt.data])
+  }, [debt.data, debt.error])
 
   const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
     msg: "",
@@ -104,8 +116,12 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         <Card className="bg-background border-border">
           <CardHeader className="border-b border-neutral-800">
             <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
-              <BadgeDollarSign className="h-6 w-6 text-primary" />
-              Update Debt
+              <IconContainer>
+                <BadgeDollarSign className="h-4 w-4" />
+              </IconContainer>
+              <Show condition={!debtId} fallback="Update Goal">
+                Add New Debt
+              </Show>
             </CardTitle>
             <CardDescription className="text-primary">
               Fill in the details for your debt.
