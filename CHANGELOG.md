@@ -2,8 +2,6 @@
 
 ## Version 3.0.0
 
-- Open sourced the project
-- Eliminated subscription settings to provide full free access
 - Migrated AI models from GPT 4.1 to GPT OSS hosted on Nvidia Cloud which is open-source alternative
 - Introduced dynamic widgets
 - Upgraded Tailwind CSS to version 4
