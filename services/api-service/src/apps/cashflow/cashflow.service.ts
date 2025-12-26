@@ -14,6 +14,7 @@ import { EventEmitter2 } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { Asset } from "../wealthanalyzer/asset/schemas/asset.schema"
 import { FindCashflowsByUserQuery } from "./queries/impl/find-cashflows-by-user.query"
+import { toDateOnlyUTC } from "./helpers/to-date"
 
 @Injectable()
 export class CashFlowService {
@@ -171,7 +172,7 @@ export class CashFlowService {
             nextExecution = null
         }
         if (nextExecution) {
-          cashflow.nextExecutionAt = nextExecution
+          cashflow.nextExecutionAt = toDateOnlyUTC(nextExecution)
           cashflow.save()
         }
       })

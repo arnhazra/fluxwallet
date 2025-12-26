@@ -18,5 +18,5 @@ export class CreateCashFlowRequestDto {
   frequency: FlowFrequency
 
   @IsDateString()
-  nextExecutionAt?: Date
+  nextExecutionAt?: string
 }
