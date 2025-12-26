@@ -3,10 +3,9 @@
   "version": "3.0.0",
   "description": "An Wealth Management Platform",
   "scripts": {
-    "api-service": "npm run dev --prefix services/api-service",
+    "core-service": "npm run dev --prefix services/core-service",
     "ui-service": "npm run dev --prefix services/ui-service",
-    "dev": "concurrently \"npm run api-service\" \"npm run ui-service\"",
-    "init": "npm install && npm install --prefix services/api-service && npm install --prefix services/ui-service",
+    "dev": "concurrently \"npm run core-service\" \"npm run ui-service\"",
     "publish": "git add . && git commit -m \"Publish App\" && git push",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },

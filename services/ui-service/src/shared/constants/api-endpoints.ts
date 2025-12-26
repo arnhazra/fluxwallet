@@ -1,4 +1,4 @@
-const apiHost = process.env.NEXT_PUBLIC_API_URL!
+const apiHost = process.env.NEXT_PUBLIC_CORE_SERVICE_URL!
 
 export const endPoints = {
   // Auth Service
