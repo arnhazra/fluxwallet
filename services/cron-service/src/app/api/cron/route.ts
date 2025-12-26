@@ -10,15 +10,17 @@ const NO_CACHE_HEADERS = {
 }
 
 export async function GET(request: Request) {
-  const res = await ky.post(`${API_URL}/apps/cashflow/execute`, {
-    headers: NO_CACHE_HEADERS,
-  })
+  function delay(ms: number) {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
 
-  if (!res.ok) {
-    return new Response("Cron execution failed", {
-      status: 500,
+  for (let i = 0; i < 5; i++) {
+    await ky.post(`${API_URL}/apps/cashflow/execute`, {
       headers: NO_CACHE_HEADERS,
     })
+    if (i < 4) {
+      await delay(2000)
+    }
   }
 
   return new Response("Cron executed successfully", {
