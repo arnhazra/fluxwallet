@@ -67,7 +67,7 @@ export class CashFlowController {
     }
   }
 
-  @Get("execute")
+  @Post("execute")
   async executeCashFlows() {
     try {
       return await this.service.executeCashFlows()
