@@ -14,12 +14,12 @@ export async function GET(request: Request) {
     return new Promise((resolve) => setTimeout(resolve, ms))
   }
 
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 2; i++) {
     await ky.post(`${API_URL}/apps/cashflow/execute`, {
       headers: NO_CACHE_HEADERS,
     })
     if (i < 4) {
-      await delay(2000)
+      await delay(5000)
     }
   }
 
