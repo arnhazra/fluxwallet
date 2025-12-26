@@ -9,7 +9,7 @@ const NO_CACHE_HEADERS = {
   "Surrogate-Control": "no-store",
 }
 
-export async function POST(request: Request) {
+export async function GET(request: Request) {
   const res = await ky.post(`${API_URL}/apps/cashflow/execute`, {
     headers: NO_CACHE_HEADERS,
   })
