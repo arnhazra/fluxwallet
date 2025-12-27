@@ -12,11 +12,7 @@
   "author": "Arnab Hazra",
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE",
   "devDependencies": {
-    "@types/js-cookie": "^3.0.6",
     "concurrently": "^9.2.1",
     "prettier": "^3.7.4"
-  },
-  "dependencies": {
-    "js-cookie": "^3.0.5"
   }
 }
