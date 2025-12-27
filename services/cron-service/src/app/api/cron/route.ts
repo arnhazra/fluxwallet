@@ -18,7 +18,7 @@ export async function GET(request: Request) {
     await ky.post(`${API_URL}/apps/cashflow/execute`, {
       headers: NO_CACHE_HEADERS,
     })
-    if (i < 4) {
+    if (i < 5) {
       await delay(5000)
     }
   }

@@ -3,20 +3,16 @@
   "version": "3.0.0",
   "description": "An Wealth Management Platform",
   "scripts": {
-    "core-service": "npm run dev --prefix services/core-service",
-    "ui-service": "npm run dev --prefix services/ui-service",
-    "dev": "concurrently \"npm run core-service\" \"npm run ui-service\"",
+    "dev:core-service": "npm run dev --prefix services/core-service",
+    "dev:ui-service": "npm run dev --prefix services/ui-service",
+    "dev": "concurrently \"npm run dev:core-service\" \"npm run dev:ui-service\"",
     "publish": "git add . && git commit -m \"Publish App\" && git push",
     "pretty": "prettier --write \"./**/*.{js,jsx,mjs,cjs,ts,tsx,json}\""
   },
   "author": "Arnab Hazra",
   "license": "GNU AFFERO GENERAL PUBLIC LICENSE",
   "devDependencies": {
-    "@types/js-cookie": "^3.0.6",
     "concurrently": "^9.2.1",
     "prettier": "^3.7.4"
-  },
-  "dependencies": {
-    "js-cookie": "^3.0.5"
   }
 }
