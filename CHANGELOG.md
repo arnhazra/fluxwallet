@@ -1,9 +1,5 @@
 # Changelog
 
-## Version 3.1.0
-
--
-
 ## Version 3.0.0
 
 - Migrated AI models from GPT 4.1 to GPT OSS hosted on Nvidia Cloud which is open-source alternative

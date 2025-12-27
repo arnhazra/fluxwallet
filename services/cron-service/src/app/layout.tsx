@@ -1,10 +1,9 @@
-import React from "react"
+import { ReactNode } from "react"
+import { Quicksand } from "next/font/google"
 
-export default function RootLayout({
-  children,
-}: {
-  children: React.ReactNode
-}) {
+export const quickSand = Quicksand({ subsets: ["latin"], weight: ["700"] })
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
     <html lang="en">
       <head>
@@ -14,9 +13,10 @@ export default function RootLayout({
           content="width=device-width, initial-scale=1.0, maximum-scale=1.0"
         />
         <meta name="theme-color" content="#121212" />
+        <meta name="description" content="Ok" />
       </head>
-      <body>
-        <main>{children}</main>
+      <body className={quickSand.className}>
+        <main className="min-h-screen w-full bg-main">{children}</main>
       </body>
     </html>
   )
