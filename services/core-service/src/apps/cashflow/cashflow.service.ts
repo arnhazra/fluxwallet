@@ -15,6 +15,7 @@ import { EventMap } from "@/shared/constants/event.map"
 import { Asset } from "../wealthanalyzer/asset/schemas/asset.schema"
 import { FindCashflowsByUserQuery } from "./queries/impl/find-cashflows-by-user.query"
 import { toDateOnlyUTC } from "./helpers/to-date"
+import { computeNextDate } from "./helpers/compute-next-date"
 
 @Injectable()
 export class CashFlowService {
@@ -53,6 +54,36 @@ export class CashFlowService {
     }
   }
 
+  async processCashflow(cashflow: Cashflow) {
+    const targetAsset: Asset = (
+      await this.eventEmitter.emitAsync(
+        EventMap.FindAssetById,
+        String(cashflow.userId),
+        String(cashflow.targetAsset)
+      )
+    ).shift()
+
+    if (!targetAsset) return
+
+    const delta =
+      cashflow.flowDirection === FlowDirection.INWARD
+        ? cashflow.amount
+        : -cashflow.amount
+
+    await this.eventEmitter.emitAsync(
+      EventMap.UpdateAssetById,
+      String(targetAsset.userId),
+      String(targetAsset._id),
+      {
+        spaceId: targetAsset.spaceId,
+        currentValuation: targetAsset.currentValuation + delta,
+      }
+    )
+
+    cashflow.nextExecutionAt = computeNextDate(cashflow)
+    await cashflow.save()
+  }
+
   async executeCashFlows() {
     try {
       const cashflows = await this.queryBus.execute<
@@ -60,124 +91,12 @@ export class CashFlowService {
         Cashflow[]
       >(new FindCashflowsQuery())
 
-      cashflows.map(async (cashflow) => {
-        const targetAsset: Asset = (
-          await this.eventEmitter.emitAsync(
-            EventMap.FindAssetById,
-            String(cashflow.userId),
-            String(cashflow.targetAsset)
-          )
-        ).shift()
+      for (const cashflow of cashflows) {
+        await this.processCashflow(cashflow)
+      }
 
-        let newValuation = 0
-
-        if (cashflow.flowDirection === FlowDirection.INWARD) {
-          newValuation = targetAsset.currentValuation + cashflow.amount
-        }
-
-        if (cashflow.flowDirection === FlowDirection.OUTWARD) {
-          newValuation = targetAsset.currentValuation - cashflow.amount
-        }
-
-        const updateObject = {
-          spaceId: targetAsset.spaceId,
-          currentValuation: newValuation,
-        }
-
-        await this.eventEmitter.emitAsync(
-          EventMap.UpdateAssetById,
-          String(targetAsset.userId),
-          String(targetAsset._id),
-          updateObject
-        )
-
-        const baseDate = cashflow.nextExecutionAt
-          ? new Date(cashflow.nextExecutionAt)
-          : new Date()
-
-        let nextExecution: Date | null = null
-        switch (cashflow.frequency) {
-          case FlowFrequency.DAILY:
-            nextExecution = new Date(baseDate.getTime() + 24 * 60 * 60 * 1000)
-            break
-
-          case FlowFrequency.WEEKLY:
-            nextExecution = new Date(
-              baseDate.getTime() + 7 * 24 * 60 * 60 * 1000
-            )
-            break
-
-          case FlowFrequency.MONTHLY: {
-            const day = baseDate.getDate()
-            const month = baseDate.getMonth()
-            const year = baseDate.getFullYear()
-            let nextMonth = month + 1
-            let nextYear = year
-            if (nextMonth > 11) {
-              nextMonth = 0
-              nextYear++
-            }
-            let nextDate = new Date(
-              nextYear,
-              nextMonth,
-              day,
-              baseDate.getHours(),
-              baseDate.getMinutes(),
-              baseDate.getSeconds(),
-              baseDate.getMilliseconds()
-            )
-            if (nextDate.getMonth() !== nextMonth) {
-              nextDate = new Date(
-                nextYear,
-                nextMonth + 1,
-                0,
-                baseDate.getHours(),
-                baseDate.getMinutes(),
-                baseDate.getSeconds(),
-                baseDate.getMilliseconds()
-              )
-            }
-            nextExecution = nextDate
-            break
-          }
-          case FlowFrequency.YEARLY: {
-            const day = baseDate.getDate()
-            const month = baseDate.getMonth()
-            const year = baseDate.getFullYear()
-            let nextYear = year + 1
-            let nextDate = new Date(
-              nextYear,
-              month,
-              day,
-              baseDate.getHours(),
-              baseDate.getMinutes(),
-              baseDate.getSeconds(),
-              baseDate.getMilliseconds()
-            )
-            if (nextDate.getMonth() !== month) {
-              nextDate = new Date(
-                nextYear,
-                month + 1,
-                0,
-                baseDate.getHours(),
-                baseDate.getMinutes(),
-                baseDate.getSeconds(),
-                baseDate.getMilliseconds()
-              )
-            }
-            nextExecution = nextDate
-            break
-          }
-          default:
-            nextExecution = null
-        }
-        if (nextExecution) {
-          cashflow.nextExecutionAt = toDateOnlyUTC(nextExecution)
-          cashflow.save()
-        }
-      })
       return { success: true }
-    } catch (error) {
+    } catch {
       throw new Error(statusMessages.connectionError)
     }
   }
