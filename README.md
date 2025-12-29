@@ -9,3 +9,10 @@ This is an Open Source AI powered wealth management platform that helps you orga
 - Next JS as a framework on top of React JS for UI
 - Mongo DB as a primary database
 - Redis for config management
+
+### Steps to setup this app in your system locally
+
+- Install nodejs
+- Run "npm run init"
+- Open each .env.example file to understand how you can populate the details and populate details inside your .env.development accordingly.
+- Run the application using "npm run dev"
