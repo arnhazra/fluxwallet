@@ -14,9 +14,9 @@
 - Addressed React vulnerabilities and updated dependencies
 - Transitioned from local storage to secure cookie management
 - Resolved critical date issues in Cashflow & ExpenseTrack modules
+- Migrated AI models from GPT 4.1 to GPT OSS hosted on Nvidia Cloud
 - Implemented token refresh and automatic retry for failed requests
 - Refactored components extensively to align with the updated design system
-- Migrated AI models from GPT 4.1 to GPT OSS hosted on Nvidia Cloud which is open-source alternative
 
 ## Version 2.9.0
 
