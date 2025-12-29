@@ -5,6 +5,7 @@ import { EventEmitter2 } from "@nestjs/event-emitter"
 @Injectable()
 export class WidgetService {
   constructor(private readonly eventEmitter: EventEmitter2) {}
+
   async getWidgets(userId: string) {
     try {
       const wealthData = (
