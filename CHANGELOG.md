@@ -2,7 +2,8 @@
 
 ## Version 3.1.0
 
--
+- Added cashflow agent
+- Code optimization, bug fixes & performance improvements
 
 ## Version 3.0.0
 
