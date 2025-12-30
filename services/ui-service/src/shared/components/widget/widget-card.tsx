@@ -22,18 +22,16 @@ export default function WidgetCard({
 
   return (
     <Card className="bg-background/2 backdrop-blur-sm border border-border rounded-3xl relative overflow-hidden hover:shadow-md hover:shadow-primary/20">
-      <CardContent>
-        <div className="flex items-center justify-between mb-2 -mt-2">
+      <CardContent className="-mt-2 -mb-1">
+        <div className="flex items-center justify-between">
           <span className="text-sm text-neutral-300">{statTitle}</span>
           <IconContainer>{icon}</IconContainer>
         </div>
         <div className="space-y-3">
-          <p className="text-4xl font-bold text-white">
+          <p className="text-2xl font-bold text-white">
             {formatCurrency(statValue, user.baseCurrency)}
           </p>
-          <div className="mt-2">
-            <p className="text-sm text-neutral-300">{additionalInfo}</p>
-          </div>
+          <p className="text-sm text-primary">{additionalInfo}</p>
         </div>
       </CardContent>
     </Card>

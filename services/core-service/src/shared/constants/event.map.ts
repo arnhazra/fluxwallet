@@ -1,19 +1,26 @@
 export enum EventMap {
+  // General Events
   SendEmail = "sendEmail",
   CreateAnalytics = "createAnalytics",
   GetUserDetails = "getUserDetails",
-  GetTotalWealth = "getTotalWealth",
-  GetTotalDebt = "getTotalDebt",
+  // WealthAnalyzer Events
   CreateSpace = "createSpace",
   GetSpaceList = "getSpaceList",
-  GetAssetList = "getAssetList",
-  GetDebtList = "getDebtList",
-  GetGoalList = "getGoalList",
-  GetNearestGoal = "getNearestGoal",
-  CreateDebt = "createDebt",
-  CreateGoal = "createGoal",
-  GetExpenseByMonth = "getExpenseByMonth",
-  CreateExpense = "createExpense",
+  GetTotalWealth = "getTotalWealth",
   FindAssetById = "findAssetbyId",
   UpdateAssetById = "updateAssetById",
+  GetAssetList = "getAssetList",
+  // DebtTrack Events
+  CreateDebt = "createDebt",
+  GetTotalDebt = "getTotalDebt",
+  GetDebtList = "getDebtList",
+  // WealthGoal Events
+  CreateGoal = "createGoal",
+  GetGoalList = "getGoalList",
+  GetNearestGoal = "getNearestGoal",
+  // ExpenseTrack Events
+  GetExpenseByMonth = "getExpenseByMonth",
+  CreateExpense = "createExpense",
+  //CashFlow Events
+  FindCashFlowsByUserId = "findCashFlowsByUserId",
 }

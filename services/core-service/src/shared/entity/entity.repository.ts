@@ -1,7 +1,7 @@
 import {
   Model as EntityModel,
   Document,
-  FilterQuery as QueryFilter,
+  QueryFilter,
   UpdateQuery,
   PipelineStage,
 } from "mongoose"

@@ -18,6 +18,7 @@ import { AssetAgent } from "./agents/asset.agent"
 import { DebtAgent } from "./agents/debt.agent"
 import { ExpenseAgent } from "./agents/expense.agent"
 import { EmailAgent } from "./agents/email.agent"
+import { CashflowAgent } from "./agents/cashflow.agent"
 
 @Module({
   imports: [
@@ -43,6 +44,7 @@ import { EmailAgent } from "./agents/email.agent"
     GoalAgent,
     DebtAgent,
     ExpenseAgent,
+    CashflowAgent,
     EmailAgent,
     CreateThreadCommandHandler,
     FetchThreadByIdQueryHandler,

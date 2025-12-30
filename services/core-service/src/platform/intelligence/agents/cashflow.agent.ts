@@ -1,0 +1,33 @@
+import { EventMap } from "@/shared/constants/event.map"
+import { tool } from "langchain"
+import { Injectable } from "@nestjs/common"
+import { EventEmitter2 } from "@nestjs/event-emitter"
+import { z } from "zod"
+import { Cashflow } from "@/apps/cashflow/schemas/cashflow.schema"
+
+@Injectable()
+export class CashflowAgent {
+  constructor(private readonly eventEmitter: EventEmitter2) {}
+
+  public getCashflowsByUserIdTool = tool(
+    async ({ userId }: { userId: string }) => {
+      try {
+        const spaces: Cashflow[] = await this.eventEmitter.emitAsync(
+          EventMap.FindCashFlowsByUserId,
+          userId
+        )
+
+        return JSON.stringify(spaces)
+      } catch (error) {
+        return "Unable to get the cashflow list"
+      }
+    },
+    {
+      name: "get_cashflows_list",
+      description: "Get list of cashflows for a user",
+      schema: z.object({
+        userId: z.string().describe("user id of the user"),
+      }),
+    }
+  )
+}
