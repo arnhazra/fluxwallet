@@ -1,20 +1,15 @@
 import { Injectable } from "@nestjs/common"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
-import {
-  Cashflow,
-  FlowDirection,
-  FlowFrequency,
-} from "./schemas/cashflow.schema"
+import { Cashflow, FlowDirection } from "./schemas/cashflow.schema"
 import { DeleteCashflowCommand } from "./commands/impl/delete-cashflow.command"
 import { CreateCashFlowCommand } from "./commands/impl/create-cashflow.command"
 import { FindCashflowsQuery } from "./queries/impl/find-cashflows.query"
 import { CreateCashFlowRequestDto } from "./dto/request/create-cashflow.request.dto"
-import { EventEmitter2 } from "@nestjs/event-emitter"
+import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
 import { EventMap } from "@/shared/constants/event.map"
 import { Asset } from "../wealthanalyzer/asset/schemas/asset.schema"
 import { FindCashflowsByUserQuery } from "./queries/impl/find-cashflows-by-user.query"
-import { toDateOnlyUTC } from "./helpers/to-date"
 import { computeNextDate } from "./helpers/compute-next-date"
 
 @Injectable()
@@ -35,6 +30,7 @@ export class CashFlowService {
     }
   }
 
+  @OnEvent(EventMap.FindCashFlowsByUserId)
   async findMyCashflows(userId: string, searchKeyword?: string) {
     try {
       return await this.queryBus.execute<FindCashflowsByUserQuery, Cashflow[]>(
