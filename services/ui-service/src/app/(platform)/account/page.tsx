@@ -248,15 +248,6 @@ export default function Page() {
         <SectionPanel
           icon={
             <IconContainer>
-              <GitCompare className="h-4 w-4" />
-            </IconContainer>
-          }
-          title={`${platformName} Platform Version`}
-          content="3.0.0"
-        />
-        <SectionPanel
-          icon={
-            <IconContainer>
               <CircleArrowRight className="h-4 w-4" />
             </IconContainer>
           }
