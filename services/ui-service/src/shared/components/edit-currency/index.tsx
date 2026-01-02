@@ -65,7 +65,10 @@ export default function EditCurrency({
             This is the currency that will be applied throughout the app
           </p>
         </DialogHeader>
-        <Select onValueChange={(value: Currency) => setValue(value)}>
+        <Select
+          value={value}
+          onValueChange={(value: Currency) => setValue(value)}
+        >
           <SelectTrigger className="bg-background border-border text-white w-full h-12">
             <SelectValue placeholder={value} />
           </SelectTrigger>
