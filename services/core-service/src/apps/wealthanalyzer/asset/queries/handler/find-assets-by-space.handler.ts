@@ -23,6 +23,6 @@ export class FindAssetsBySpaceQueryHandler implements IQueryHandler<FindAssetsBy
       filter.assetName = { $regex: new RegExp(searchKeyword, "i") }
     }
 
-    return await this.repository.find(filter)
+    return await this.repository.find(filter).sort({ assetName: 1 })
   }
 }
