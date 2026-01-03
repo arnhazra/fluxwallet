@@ -22,6 +22,6 @@ export class FindAllSpaceQueryHandler implements IQueryHandler<FindAllSpaceQuery
       filter.spaceName = { $regex: new RegExp(searchKeyword, "i") }
     }
 
-    return await this.repository.find(filter)
+    return await this.repository.find(filter).sort({ spaceName: 1 })
   }
 }

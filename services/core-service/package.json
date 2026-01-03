@@ -32,7 +32,7 @@
     "ioredis": "^5.8.2",
     "jsonwebtoken": "^9.0.3",
     "langchain": "^1.2.3",
-    "mongoose": "^9.1.0",
+    "mongoose": "^9.1.1",
     "nodemailer": "^7.0.12",
     "pathe": "^2.0.3",
     "reflect-metadata": "^0.2.2",
