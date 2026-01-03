@@ -33,7 +33,7 @@ export const entityImageMap = {
   [EntityType.DEBT]: imageUrls.debt,
   [EntityType.GOAL]: imageUrls.goal,
   [EntityType.NEWS]: imageUrls.newsFallback,
-  [EntityType.CASHFLOW]: imageUrls.goal,
+  [EntityType.CASHFLOW]: imageUrls.cashflow,
 }
 
 export const createEntityUrlMap = {

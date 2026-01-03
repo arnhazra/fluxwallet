@@ -29,11 +29,13 @@ export const uiConstants = {
 
 export const imageUrls = {
   newsFallback:
-    "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=512",
+    "https://images.unsplash.com/photo-1444653614773-995cb1ef9efa?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=512",
   asset:
-    "https://images.unsplash.com/photo-1563986768711-b3bde3dc821e?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=512",
+    "https://images.unsplash.com/photo-1615992174118-9b8e9be025e7?q=80&w=512&auto=format&fit=crop&ixlib=rb-4.1.0",
   space:
-    "https://images.unsplash.com/photo-1616803140344-6682afb13cda?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=512",
-  debt: "https://images.unsplash.com/photo-1707157284454-553ef0a4ed0d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=384",
-  goal: "https://images.unsplash.com/photo-1616337865743-bd29011bc36d?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=384",
+    "https://images.unsplash.com/photo-1669251921941-ae3645715017?q=80&w=512&auto=format&fit=crop&ixlib=rb-4.1.0",
+  debt: "https://images.unsplash.com/photo-1707157284454-553ef0a4ed0d?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=384",
+  goal: "https://images.unsplash.com/photo-1616337865743-bd29011bc36d?ixlib=rb-4.1.0&auto=format&fit=crop&q=80&w=384",
+  cashflow:
+    "https://images.unsplash.com/photo-1620365744528-88da1e08ac96?q=80&w=512&auto=format&fit=crop&ixlib=rb-4.1.0",
 }
