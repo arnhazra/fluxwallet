@@ -78,7 +78,7 @@ export default function Page() {
               <IconContainer>
                 <CalendarIcon className="h-4 w-4" />
               </IconContainer>
-              Add New Event
+              Add Event
             </CardTitle>
             <CardDescription className="text-primary">
               Fill in the details for your event
