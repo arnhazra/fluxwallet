@@ -22,4 +22,5 @@ export const endPoints = {
   expense: `${apiHost}/apps/expensetrack/expense`,
   taxAdvisor: `${apiHost}/apps/taxadvisor`,
   cashflow: `${apiHost}/apps/cashflow`,
+  events: `${apiHost}/apps/planner/event`,
 }

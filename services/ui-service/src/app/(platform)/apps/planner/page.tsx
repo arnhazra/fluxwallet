@@ -15,28 +15,21 @@ import {
   isSameMonth,
   isSameDay,
 } from "date-fns"
+import useQuery from "@/shared/hooks/use-query"
+import { PlannerEvent } from "@/shared/constants/types"
+import { endPoints } from "@/shared/constants/api-endpoints"
+import HTTPMethods from "@/shared/constants/http-methods"
+import { toDateOnlyUTC } from "@/shared/lib/to-date-only-utc"
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
 
-  const events = [
-    {
-      date: "2026-01-08",
-      name: "event A",
-      color: "bg-pink-500",
-    },
-    {
-      date: "2026-01-08",
-      name: "event B",
-      color: "bg-blue-500",
-    },
-    {
-      date: "2026-03-18",
-      name: "Team Sync",
-      color: "bg-green-500",
-    },
-  ]
+  const events = useQuery<PlannerEvent[]>({
+    queryKey: ["planner-events"],
+    queryUrl: `${endPoints.events}/`,
+    method: HTTPMethods.GET,
+  })
 
   const nextMonth = () => setCurrentDate(addMonths(currentDate, 1))
   const prevMonth = () => setCurrentDate(subMonths(currentDate, 1))
@@ -103,7 +96,9 @@ export default function CalendarPage() {
           <div className="grid flex-1 grid-cols-7">
             {calendarDays.map((day, i) => {
               const dayIsoString = format(day, "yyyy-MM-dd")
-              const dayEvents = events.filter((e) => e.date === dayIsoString)
+              const dayEvents = events.data?.filter(
+                (e) => toDateOnlyUTC(e.eventDate) === dayIsoString
+              )
               const isToday = isSameDay(day, new Date())
 
               return (
@@ -128,7 +123,7 @@ export default function CalendarPage() {
                   </span>
 
                   <div className="mt-2 space-y-1">
-                    {dayEvents.map((event, idx) => (
+                    {dayEvents?.map((event, idx) => (
                       <div
                         key={idx}
                         className="flex items-center justify-between text-[10px] leading-tight"
@@ -137,11 +132,11 @@ export default function CalendarPage() {
                           <div
                             className={cn(
                               "h-1.5 w-1.5 shrink-0 rounded-full",
-                              event.color
+                              "bg-blue-500"
                             )}
                           />
                           <span className="truncate text-zinc-300">
-                            {event.name}
+                            {event.eventName}
                           </span>
                         </div>
                       </div>

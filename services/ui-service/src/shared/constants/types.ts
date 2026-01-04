@@ -214,3 +214,11 @@ export interface Cashflow {
   nextExecutionAt: string
   createdAt: string
 }
+
+export interface PlannerEvent {
+  _id: string
+  userId: string
+  eventName: string
+  eventDate: string
+  createdAt: string
+}
