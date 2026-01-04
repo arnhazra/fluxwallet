@@ -1,5 +1,4 @@
 "use client"
-
 import { useState } from "react"
 import { Plus, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
@@ -33,17 +32,15 @@ export default function CalendarPage() {
       color: "bg-blue-500",
     },
     {
-      date: "2026-01-18",
+      date: "2026-03-18",
       name: "Team Sync",
       color: "bg-green-500",
     },
   ]
 
-  // Navigation handlers
   const nextMonth = () => setCurrentDate(addMonths(currentDate, 1))
   const prevMonth = () => setCurrentDate(subMonths(currentDate, 1))
 
-  // Calendar generation logic
   const monthStart = startOfMonth(currentDate)
   const monthEnd = endOfMonth(monthStart)
   const startDate = startOfWeek(monthStart)
@@ -95,7 +92,6 @@ export default function CalendarPage() {
         </header>
 
         <main className="flex flex-1 flex-col">
-          {/* Day Headers */}
           <div className="grid grid-cols-7 border-b border-border">
             {daysOfWeek.map((day) => (
               <div key={day} className="py-3 text-center text-sm font-medium">
@@ -104,7 +100,6 @@ export default function CalendarPage() {
             ))}
           </div>
 
-          {/* Calendar Grid */}
           <div className="grid flex-1 grid-cols-7">
             {calendarDays.map((day, i) => {
               const dayIsoString = format(day, "yyyy-MM-dd")
