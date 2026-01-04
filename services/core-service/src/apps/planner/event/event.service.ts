@@ -34,10 +34,16 @@ export class EventService {
 
   async findMyEvents(userId: string) {
     try {
-      const customEvents = await this.queryBus.execute<
+      const events = await this.queryBus.execute<
         FindEventsByUserQuery,
         Event[]
       >(new FindEventsByUserQuery(userId))
+
+      const customEvents = events.map((event) => ({
+        ...event,
+        eventSource: "Custom",
+      }))
+
       const assets: Asset[] = (
         await this.eventEmitter.emitAsync(AppEventMap.GetAssetList, userId)
       ).shift()
@@ -49,6 +55,7 @@ export class EventService {
             userId: asset.userId,
             createdAt: (asset as any).createdAt,
             _id: asset._id,
+            eventSource: "Asset",
           }
         }
       })
@@ -61,6 +68,7 @@ export class EventService {
             userId: asset.userId,
             createdAt: (asset as any).createdAt,
             _id: asset._id,
+            eventSource: "Asset",
           }
         }
       })
@@ -74,6 +82,7 @@ export class EventService {
         userId: goal.userId,
         createdAt: (goal as any).createdAt,
         _id: goal._id,
+        eventSource: "Goal",
       }))
 
       const debts: Debt[] = (
@@ -86,6 +95,7 @@ export class EventService {
         userId: debt.userId,
         createdAt: (debt as any).createdAt,
         _id: debt._id,
+        eventSource: "Debt",
       }))
 
       const debtEndEvents = debts.map((debt) => ({
@@ -94,6 +104,7 @@ export class EventService {
         userId: debt.userId,
         createdAt: (debt as any).createdAt,
         _id: debt._id,
+        eventSource: "Debt",
       }))
 
       const nextEmiDateEvents = debts.map((debt) => ({
@@ -102,6 +113,7 @@ export class EventService {
         userId: debt.userId,
         createdAt: (debt as any).createdAt,
         _id: debt._id,
+        eventSource: "Debt",
       }))
 
       const cashflows: Cashflow[] = (
@@ -116,6 +128,7 @@ export class EventService {
         userId: cashflow.userId,
         createdAt: (cashflow as any).createdAt,
         _id: cashflow._id,
+        eventSource: "Cashflow",
       }))
 
       const allEvents = [

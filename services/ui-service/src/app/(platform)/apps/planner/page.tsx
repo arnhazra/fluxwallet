@@ -27,7 +27,7 @@ export default function CalendarPage() {
 
   const events = useQuery<PlannerEvent[]>({
     queryKey: ["planner-events"],
-    queryUrl: `${endPoints.events}/`,
+    queryUrl: endPoints.events,
     method: HTTPMethods.GET,
   })
 
