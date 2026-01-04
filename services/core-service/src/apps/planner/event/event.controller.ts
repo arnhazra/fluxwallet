@@ -1,0 +1,83 @@
+import {
+  Controller,
+  Post,
+  Get,
+  Delete,
+  UseGuards,
+  Request,
+  Param,
+  Body,
+  Put,
+  BadRequestException,
+} from "@nestjs/common"
+import { EventService } from "./event.service"
+import { statusMessages } from "@/shared/constants/status-messages"
+import { AuthGuard, ModRequest } from "@/auth/auth.guard"
+import { CreateEventRequestDto } from "./dto/request/create-event.request.dto"
+
+@Controller("apps/planner/event")
+export class EventController {
+  constructor(private readonly service: EventService) {}
+
+  @UseGuards(AuthGuard)
+  @Post()
+  async createEvent(
+    @Body() requestBody: CreateEventRequestDto,
+    @Request() request: ModRequest
+  ) {
+    try {
+      return await this.service.createEvent(request.user.userId, requestBody)
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
+    }
+  }
+
+  @UseGuards(AuthGuard)
+  @Get()
+  async findMyEventsByMonth(@Request() request: ModRequest) {
+    try {
+      return await this.service.findMyEvents(request.user.userId)
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
+    }
+  }
+
+  @UseGuards(AuthGuard)
+  @Put(":eventId")
+  async updateEventById(
+    @Body() requestBody: CreateEventRequestDto,
+    @Param("eventId") eventId: string,
+    @Request() request: ModRequest
+  ) {
+    try {
+      return await this.service.updateEventById(
+        request.user.userId,
+        eventId,
+        requestBody
+      )
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
+    }
+  }
+
+  @UseGuards(AuthGuard)
+  @Delete("/:eventId")
+  async deleteEvent(
+    @Request() request: ModRequest,
+    @Param("eventId") eventId: string
+  ) {
+    try {
+      return await this.service.deleteEvent(request.user.userId, eventId)
+    } catch (error) {
+      throw new BadRequestException(
+        error.message || statusMessages.connectionError
+      )
+    }
+  }
+}

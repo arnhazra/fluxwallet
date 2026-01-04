@@ -1,4 +1,4 @@
-import { IsNumber, IsDateString, IsNotEmpty, IsEnum } from "class-validator"
+import { IsNumber, IsNotEmpty, IsEnum, IsDateString } from "class-validator"
 import { FlowDirection, FlowFrequency } from "../../schemas/cashflow.schema"
 
 export class CreateCashFlowRequestDto {
@@ -18,5 +18,5 @@ export class CreateCashFlowRequestDto {
   frequency: FlowFrequency
 
   @IsDateString()
-  nextExecutionAt?: string
+  nextExecutionAt?: Date
 }

@@ -3,6 +3,7 @@
 ## Version 3.3.0
 
 - Dependency updates & performance improvements
+- Added Planner app on the platform
 
 ## Version 3.2.1
 
