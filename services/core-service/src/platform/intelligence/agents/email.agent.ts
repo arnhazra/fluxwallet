@@ -1,4 +1,4 @@
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { tool } from "langchain"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -19,7 +19,7 @@ export class EmailAgent {
       body: string
     }) => {
       try {
-        await this.eventEmitter.emitAsync(EventMap.SendEmail, {
+        await this.eventEmitter.emitAsync(AppEventMap.SendEmail, {
           email,
           subject,
           body,

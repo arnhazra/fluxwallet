@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common"
 import { statusMessages } from "../shared/constants/status-messages"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventMap } from "../shared/constants/event.map"
+import { AppEventMap } from "../shared/constants/app-events.map"
 import { User } from "@/auth/schemas/user.schema"
 import { Request } from "express"
 import { TokenType, verifyToken } from "@/auth/utils/jwt.util"
@@ -35,7 +35,7 @@ export class AuthGuard implements CanActivate {
       const decodedAccessToken = verifyToken(accessToken, TokenType.AccessToken)
       const userId = decodedAccessToken.id
       const userResponse: User[] = await this.eventEmitter.emitAsync(
-        EventMap.GetUserDetails,
+        AppEventMap.GetUserDetails,
         userId
       )
 
@@ -46,7 +46,7 @@ export class AuthGuard implements CanActivate {
       const { analyticsData, role } = userResponse.shift()
       request.user = { userId, role }
       const { method, url: apiUri } = request
-      this.eventEmitter.emit(EventMap.CreateAnalytics, {
+      this.eventEmitter.emit(AppEventMap.CreateAnalytics, {
         userId: analyticsData ? userId : null,
         method,
         apiUri,

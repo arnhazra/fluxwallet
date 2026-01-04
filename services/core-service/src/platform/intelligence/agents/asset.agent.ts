@@ -1,5 +1,5 @@
 import { AssetType } from "@/shared/constants/types"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { tool } from "langchain"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -25,7 +25,7 @@ export class AssetAgent {
     async ({ userId }: { userId: string }) => {
       try {
         const valuation: number = (
-          await this.eventEmitter.emitAsync(EventMap.GetTotalWealth, userId)
+          await this.eventEmitter.emitAsync(AppEventMap.GetTotalWealth, userId)
         ).shift()
         return `Total wealth is ${valuation}`
       } catch (error) {
@@ -45,7 +45,7 @@ export class AssetAgent {
     async ({ userId }: { userId: string }) => {
       try {
         const assets: Asset[] = await this.eventEmitter.emitAsync(
-          EventMap.GetAssetList,
+          AppEventMap.GetAssetList,
           userId
         )
 

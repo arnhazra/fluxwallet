@@ -1,4 +1,4 @@
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { tool } from "langchain"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -28,7 +28,7 @@ export class DebtAgent {
       interestRate: number
     }) => {
       try {
-        await this.eventEmitter.emitAsync(EventMap.CreateDebt, userId, {
+        await this.eventEmitter.emitAsync(AppEventMap.CreateDebt, userId, {
           debtPurpose,
           identifier,
           startDate,
@@ -78,7 +78,7 @@ export class DebtAgent {
     }) => {
       try {
         const debts: Debt[] = await this.eventEmitter.emitAsync(
-          EventMap.GetDebtList,
+          AppEventMap.GetDebtList,
           userId,
           searchKeyword
         )
@@ -104,7 +104,7 @@ export class DebtAgent {
     async ({ userId }: { userId: string }) => {
       try {
         const valuation = (
-          await this.eventEmitter.emitAsync(EventMap.GetTotalDebt, userId)
+          await this.eventEmitter.emitAsync(AppEventMap.GetTotalDebt, userId)
         ).shift()
         return `Total debt details is ${JSON.stringify(valuation)}`
       } catch (error) {

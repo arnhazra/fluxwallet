@@ -3,7 +3,7 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { ChatDto } from "./dto/chat.dto"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import { User } from "@/auth/schemas/user.schema"
@@ -52,7 +52,7 @@ export class IntelligenceService {
       const thread = await this.getThreadById(threadId, !chatDto.threadId)
 
       const user: User = (
-        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, userId)
+        await this.eventEmitter.emitAsync(AppEventMap.GetUserDetails, userId)
       ).shift()
 
       const args: ChatArgs = {
@@ -76,7 +76,7 @@ export class IntelligenceService {
       const { entityType, entityDetails } = summarizeDto
 
       const user: User = (
-        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, userId)
+        await this.eventEmitter.emitAsync(AppEventMap.GetUserDetails, userId)
       ).shift()
 
       const args: SummarizeArgs = {

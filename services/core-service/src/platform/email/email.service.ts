@@ -6,11 +6,11 @@ import { config } from "../../config"
 import SMTPTransport from "nodemailer/lib/smtp-transport"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 
 @Injectable()
 export class EmailService {
-  @OnEvent(EventMap.SendEmail)
+  @OnEvent(AppEventMap.SendEmail)
   async sendEmail(sendEmailDto: SendEmailDto) {
     try {
       const { email, subject, body } = sendEmailDto

@@ -7,7 +7,7 @@ import { CreateCashFlowCommand } from "./commands/impl/create-cashflow.command"
 import { FindCashflowsQuery } from "./queries/impl/find-cashflows.query"
 import { CreateCashFlowRequestDto } from "./dto/request/create-cashflow.request.dto"
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { Asset } from "../wealthanalyzer/asset/schemas/asset.schema"
 import { FindCashflowsByUserQuery } from "./queries/impl/find-cashflows-by-user.query"
 import { computeNextDate } from "./helpers/compute-next-date"
@@ -30,7 +30,7 @@ export class CashFlowService {
     }
   }
 
-  @OnEvent(EventMap.FindCashFlowsByUserId)
+  @OnEvent(AppEventMap.FindCashFlowsByUserId)
   async findMyCashflows(userId: string, searchKeyword?: string) {
     try {
       return await this.queryBus.execute<FindCashflowsByUserQuery, Cashflow[]>(
@@ -53,7 +53,7 @@ export class CashFlowService {
   async processCashflow(cashflow: Cashflow) {
     const targetAsset: Asset = (
       await this.eventEmitter.emitAsync(
-        EventMap.FindAssetById,
+        AppEventMap.FindAssetById,
         String(cashflow.userId),
         String(cashflow.targetAsset)
       )
@@ -67,7 +67,7 @@ export class CashFlowService {
         : -cashflow.amount
 
     await this.eventEmitter.emitAsync(
-      EventMap.UpdateAssetById,
+      AppEventMap.UpdateAssetById,
       String(targetAsset.userId),
       String(targetAsset._id),
       {

@@ -3,7 +3,7 @@ import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { CreateThreadCommand } from "./commands/impl/create-thread.command"
 import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { AIGenerationDto } from "./dto/ai-generate.dto"
 import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
 import {
@@ -56,7 +56,7 @@ export class TaxAdvisorService {
       )
 
       const user: User = (
-        await this.eventEmitter.emitAsync(EventMap.GetUserDetails, userId)
+        await this.eventEmitter.emitAsync(AppEventMap.GetUserDetails, userId)
       ).shift()
 
       const args: TaxAdvisorStrategyType = {

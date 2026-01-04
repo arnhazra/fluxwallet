@@ -10,7 +10,7 @@ import {
 } from "./utils/otp.util"
 import { statusMessages } from "@/shared/constants/status-messages"
 import { EventEmitter2, OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
 import { FindUserByEmailQuery } from "./queries/impl/find-user-by-email.query"
 import { User } from "./schemas/user.schema"
@@ -117,7 +117,7 @@ export class AuthService {
       const { fullHash: hash, otp } = requestOTP(email)
       const subject: string = requestOTPEmailSubject()
       const body: string = requestOTPEmailBody(otp)
-      await this.eventEmitter.emitAsync(EventMap.SendEmail, {
+      await this.eventEmitter.emitAsync(AppEventMap.SendEmail, {
         email,
         subject,
         body,
@@ -233,7 +233,7 @@ export class AuthService {
     }
   }
 
-  @OnEvent(EventMap.GetUserDetails)
+  @OnEvent(AppEventMap.GetUserDetails)
   async findUser(userId: string): Promise<User | null> {
     try {
       return await this.queryBus.execute<FindUserByIdQuery, User>(

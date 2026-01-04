@@ -10,7 +10,7 @@ import { FindGoalsByUserQuery } from "./queries/impl/find-goal-by-user.query"
 import { FindGoalByIdQuery } from "./queries/impl/find-goal-by-id.query"
 import { FindNearestGoalQuery } from "./queries/impl/find-nearest-goal.query"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 
 @Injectable()
 export class GoalService {
@@ -19,7 +19,7 @@ export class GoalService {
     private readonly commandBus: CommandBus
   ) {}
 
-  @OnEvent(EventMap.CreateGoal)
+  @OnEvent(AppEventMap.CreateGoal)
   async createGoal(userId: string, requestBody: CreateGoalRequestDto) {
     try {
       return await this.commandBus.execute<CreateGoalCommand, Goal>(
@@ -30,7 +30,7 @@ export class GoalService {
     }
   }
 
-  @OnEvent(EventMap.GetGoalList)
+  @OnEvent(AppEventMap.GetGoalList)
   async findMyGoals(userId: string) {
     try {
       return await this.queryBus.execute<FindGoalsByUserQuery, Goal[]>(
@@ -41,7 +41,7 @@ export class GoalService {
     }
   }
 
-  @OnEvent(EventMap.GetNearestGoal)
+  @OnEvent(AppEventMap.GetNearestGoal)
   async findNearestGoal(userId: string) {
     try {
       const goal = await this.queryBus.execute<FindNearestGoalQuery, Goal>(

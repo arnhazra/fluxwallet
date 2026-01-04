@@ -1,4 +1,4 @@
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 
@@ -9,16 +9,16 @@ export class WidgetService {
   async getWidgets(userId: string) {
     try {
       const wealthData = (
-        await this.eventEmitter.emitAsync(EventMap.GetTotalWealth, userId)
+        await this.eventEmitter.emitAsync(AppEventMap.GetTotalWealth, userId)
       ).shift()
       const debtData = (
-        await this.eventEmitter.emitAsync(EventMap.GetTotalDebt, userId)
+        await this.eventEmitter.emitAsync(AppEventMap.GetTotalDebt, userId)
       ).shift()
       const goalData = (
-        await this.eventEmitter.emitAsync(EventMap.GetNearestGoal, userId)
+        await this.eventEmitter.emitAsync(AppEventMap.GetNearestGoal, userId)
       ).shift()
       const expenseData = (
-        await this.eventEmitter.emitAsync(EventMap.GetExpenseByMonth, userId)
+        await this.eventEmitter.emitAsync(AppEventMap.GetExpenseByMonth, userId)
       ).shift()
 
       const goalPercentage =

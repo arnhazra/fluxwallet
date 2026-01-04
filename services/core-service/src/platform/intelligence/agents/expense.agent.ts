@@ -1,5 +1,5 @@
 import { ExpenseCategory } from "@/shared/constants/types"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { tool } from "langchain"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -20,7 +20,7 @@ export class ExpenseAgent {
     }) => {
       try {
         const expenses: Expense[] = await this.eventEmitter.emitAsync(
-          EventMap.GetExpenseByMonth,
+          AppEventMap.GetExpenseByMonth,
           userId,
           expenseMonth
         )
@@ -59,7 +59,7 @@ export class ExpenseAgent {
       expenseDate: Date
     }) => {
       try {
-        await this.eventEmitter.emitAsync(EventMap.CreateExpense, userId, {
+        await this.eventEmitter.emitAsync(AppEventMap.CreateExpense, userId, {
           title,
           expenseAmount,
           expenseCategory,
