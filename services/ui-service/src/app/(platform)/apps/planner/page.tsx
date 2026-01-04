@@ -185,9 +185,9 @@ export default function CalendarPage() {
         onOpenChange={(open) => {
           setIsModalOpen(open)
           if (!open) setSelectedDate(null)
+          events.refetch()
         }}
         events={selectedDateEvents || []}
-        date={selectedDate ?? new Date()}
       />
     </div>
   )

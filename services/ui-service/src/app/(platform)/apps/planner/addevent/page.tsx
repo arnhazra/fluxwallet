@@ -24,6 +24,7 @@ import { formatDate } from "@/shared/lib/format-date"
 import api from "@/shared/lib/ky-api"
 import { normalizeToUTCNoon } from "@/shared/lib/utc-normalize"
 import IconContainer from "@/shared/components/icon-container"
+import { useRouter } from "nextjs-toploader/app"
 
 interface EventFormData {
   eventDate?: Date
@@ -35,6 +36,7 @@ type MessageType = "success" | "error"
 export default function Page() {
   const [formData, setFormData] = useState<EventFormData>({})
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const router = useRouter()
 
   const [message, setMessage] = useState<{ msg: string; type: MessageType }>({
     msg: "",
@@ -58,6 +60,7 @@ export default function Page() {
         json: formData,
       })
       setMessage({ msg: "Event added successfully!", type: "success" })
+      router.push("/apps/planner")
     } catch (error) {
       setMessage({
         msg: "Failed to add event. Please try again.",
