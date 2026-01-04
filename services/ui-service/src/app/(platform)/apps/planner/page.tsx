@@ -19,19 +19,18 @@ import useQuery from "@/shared/hooks/use-query"
 import { PlannerEvent } from "@/shared/constants/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { toDateOnlyUTC } from "@/shared/lib/to-date-only-utc"
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null)
+  const [isModalOpen, setIsModalOpen] = useState(false)
   const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
   const [selectedMonth, setSelectedMonth] = useState(
-    `${new Date(currentDate).getFullYear()}-${String(new Date(currentDate).getMonth() + 1).padStart(2, "0")}`
+    `${format(currentDate, "yyyy-MM")}`
   )
 
   useEffect(() => {
-    setSelectedMonth(
-      `${new Date(currentDate).getFullYear()}-${String(new Date(currentDate).getMonth() + 1).padStart(2, "0")}`
-    )
+    setSelectedMonth(`${format(currentDate, "yyyy-MM")}`)
   }, [currentDate])
 
   const events = useQuery<PlannerEvent[]>({
@@ -52,6 +51,25 @@ export default function CalendarPage() {
     start: startDate,
     end: endDate,
   })
+
+  const handleDateClick = (date: Date) => {
+    setSelectedDate(date)
+    setIsModalOpen(true)
+  }
+
+  const closeModal = () => {
+    setIsModalOpen(false)
+    setSelectedDate(null)
+  }
+
+  const selectedDateIso = selectedDate
+    ? format(selectedDate, "yyyy-MM-dd")
+    : null
+  const selectedDateEvents = selectedDateIso
+    ? events.data?.filter(
+        (e) => format(e.eventDate, "yyyy-MM-dd") === selectedDateIso
+      )
+    : []
 
   return (
     <div className="flex h-screen flex-col pb-4 text-zinc-400">
@@ -106,7 +124,7 @@ export default function CalendarPage() {
             {calendarDays.map((day, i) => {
               const dayIsoString = format(day, "yyyy-MM-dd")
               const dayEvents = events.data?.filter(
-                (e) => toDateOnlyUTC(e.eventDate) === dayIsoString
+                (e) => format(e.eventDate, "yyyy-MM-dd") === dayIsoString
               )
               const isToday = isSameDay(day, new Date())
 
@@ -114,10 +132,11 @@ export default function CalendarPage() {
                 <div
                   key={day.toString()}
                   className={cn(
-                    "group relative border-b border-r border-border p-2 transition-colors hover:bg-zinc-900/50",
+                    "group relative border-b border-r border-border p-2 transition-colors hover:bg-zinc-900/50 cursor-pointer",
                     i % 7 === 6 && "border-r-0",
                     i >= calendarDays.length - 7 && "border-b-0"
                   )}
+                  onClick={() => handleDateClick(day)}
                 >
                   <span
                     className={cn(
@@ -157,6 +176,39 @@ export default function CalendarPage() {
           </div>
         </main>
       </div>
+      {/* Modal for selected date events */}
+      {isModalOpen && selectedDate && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
+          <div className="bg-zinc-900 rounded-lg shadow-lg p-6 min-w-[320px] max-w-[90vw] relative">
+            <button
+              className="absolute top-2 right-2 text-zinc-400 hover:text-zinc-100"
+              onClick={closeModal}
+              aria-label="Close"
+            >
+              ×
+            </button>
+            <h2 className="text-lg font-semibold mb-2 text-zinc-100">
+              Events for {format(selectedDate, "PPP")}
+            </h2>
+            {selectedDateEvents && selectedDateEvents.length > 0 ? (
+              <ul className="space-y-2">
+                {selectedDateEvents.map((event, idx) => (
+                  <li key={idx} className="flex items-center gap-2">
+                    <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
+                    <span className="text-zinc-200 text-sm">
+                      {event.eventName}
+                    </span>
+                  </li>
+                ))}
+              </ul>
+            ) : (
+              <div className="text-zinc-400 text-sm">
+                No events for this date.
+              </div>
+            )}
+          </div>
+        </div>
+      )}
     </div>
   )
 }

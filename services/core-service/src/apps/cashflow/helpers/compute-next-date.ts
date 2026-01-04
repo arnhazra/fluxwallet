@@ -1,5 +1,5 @@
 import { Cashflow, FlowFrequency } from "../schemas/cashflow.schema"
-import { toDateOnlyUTC } from "./to-date"
+import { format } from "date-fns"
 
 export function computeNextDate(cashflow: Cashflow): string {
   const baseDate = cashflow.nextExecutionAt
@@ -81,5 +81,5 @@ export function computeNextDate(cashflow: Cashflow): string {
       nextExecution = null
   }
 
-  return toDateOnlyUTC(nextExecution)
+  return format(nextExecution, "yyyy-MM-dd")
 }

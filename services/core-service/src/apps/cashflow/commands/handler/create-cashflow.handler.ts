@@ -2,7 +2,7 @@ import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { CreateCashFlowCommand } from "../impl/create-cashflow.command"
 import { CashFlowRepository } from "../../cashflow.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
-import { toDateOnlyUTC } from "../../helpers/to-date"
+import { format } from "date-fns"
 
 @CommandHandler(CreateCashFlowCommand)
 export class CreateCashflowCommandHandler implements ICommandHandler<CreateCashFlowCommand> {
@@ -16,7 +16,7 @@ export class CreateCashflowCommandHandler implements ICommandHandler<CreateCashF
     return await this.repository.create({
       userId: createOrConvertObjectId(userId),
       targetAsset: createOrConvertObjectId(targetAsset),
-      nextExecutionAt: toDateOnlyUTC(nextExecutionAt),
+      nextExecutionAt: format(nextExecutionAt, "yyyy-MM-dd"),
       ...otherFields,
     })
   }
