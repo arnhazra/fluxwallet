@@ -5,7 +5,6 @@ import { Event } from "./schemas/event.schema"
 import { DeleteEventCommand } from "./commands/impl/delete-event.command"
 import { CreateEventCommand } from "./commands/impl/create-event.command"
 import { CreateEventRequestDto } from "./dto/request/create-event.request.dto"
-import { UpdateEventCommand } from "./commands/impl/update-event.command"
 import { FindEventsByUserQuery } from "./queries/impl/find-event-by-user.query"
 import { EventEmitter2 } from "@nestjs/event-emitter"
 import { AppEventMap } from "@/shared/constants/app-events.map"
@@ -161,20 +160,6 @@ export class EventService {
       ].filter((event) => !!event)
 
       return allEvents
-    } catch (error) {
-      throw new Error(statusMessages.connectionError)
-    }
-  }
-
-  async updateEventById(
-    userId: string,
-    eventId: string,
-    requestBody: CreateEventRequestDto
-  ) {
-    try {
-      return await this.commandBus.execute<UpdateEventCommand, Event>(
-        new UpdateEventCommand(userId, eventId, requestBody)
-      )
     } catch (error) {
       throw new Error(statusMessages.connectionError)
     }

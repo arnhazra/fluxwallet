@@ -19,11 +19,13 @@ import useQuery from "@/shared/hooks/use-query"
 import { PlannerEvent } from "@/shared/constants/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
+import { useRouter } from "nextjs-toploader/app"
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
+  const router = useRouter()
   const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
   const [selectedMonth, setSelectedMonth] = useState(
     `${format(currentDate, "yyyy-MM")}`
@@ -102,8 +104,9 @@ export default function CalendarPage() {
             </div>
             <Button
               size="sm"
-              variant="outline"
-              className="gap-2 border-zinc-700 bg-transparent text-zinc-100 hover:bg-zinc-800"
+              variant="default"
+              className="gap-2 border-zinc-700 bg-primary text-black hover:bg-primary/90"
+              onClick={(): void => router.push(`/apps/planner/addevent`)}
             >
               <Plus className="h-4 w-4" />
               Add Event

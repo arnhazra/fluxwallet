@@ -7,7 +7,6 @@ import {
   Request,
   Param,
   Body,
-  Put,
   BadRequestException,
 } from "@nestjs/common"
 import { EventService } from "./event.service"
@@ -44,26 +43,6 @@ export class EventController {
       return await this.service.findMyEventsByMonth(
         request.user.userId,
         selectedMonth
-      )
-    } catch (error) {
-      throw new BadRequestException(
-        error.message || statusMessages.connectionError
-      )
-    }
-  }
-
-  @UseGuards(AuthGuard)
-  @Put(":eventId")
-  async updateEventById(
-    @Body() requestBody: CreateEventRequestDto,
-    @Param("eventId") eventId: string,
-    @Request() request: ModRequest
-  ) {
-    try {
-      return await this.service.updateEventById(
-        request.user.userId,
-        eventId,
-        requestBody
       )
     } catch (error) {
       throw new BadRequestException(

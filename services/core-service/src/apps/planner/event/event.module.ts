@@ -8,7 +8,6 @@ import { EventRepository } from "./event.repository"
 import { CreateEventCommandHandler } from "./commands/handler/create-event.handler"
 import { DeleteEventCommandHandler } from "./commands/handler/delete-event.handler"
 import { EntityModule } from "@/shared/entity/entity.module"
-import { UpdateEventCommandHandler } from "./commands/handler/update-event.handler"
 import { FindEventsByUserQueryHandler } from "./queries/handler/find-event-by-user.handler"
 
 @Module({
@@ -24,7 +23,6 @@ import { FindEventsByUserQueryHandler } from "./queries/handler/find-event-by-us
     EventService,
     EventRepository,
     CreateEventCommandHandler,
-    UpdateEventCommandHandler,
     DeleteEventCommandHandler,
     FindEventsByUserQueryHandler,
   ],
