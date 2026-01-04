@@ -2,7 +2,6 @@ import { ICommandHandler, CommandHandler } from "@nestjs/cqrs"
 import { EventRepository } from "../../event.repository"
 import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
 import { UpdateEventCommand } from "../impl/update-event.command"
-import { toDateOnlyUTC } from "@/apps/cashflow/helpers/to-date"
 
 @CommandHandler(UpdateEventCommand)
 export class UpdateEventCommandHandler implements ICommandHandler<UpdateEventCommand> {
@@ -17,7 +16,7 @@ export class UpdateEventCommandHandler implements ICommandHandler<UpdateEventCom
       { _id: createOrConvertObjectId(eventId) },
       {
         eventName,
-        eventDate: toDateOnlyUTC(eventDate),
+        eventDate,
       }
     )
   }
