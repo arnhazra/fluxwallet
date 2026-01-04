@@ -131,8 +131,8 @@ export default function CalendarPage() {
                         <div className="flex items-center gap-1.5 overflow-hidden">
                           <div
                             className={cn(
-                              "h-1.5 w-1.5 shrink-0 rounded-full",
-                              "bg-blue-500"
+                              "h-3 w-3 shrink-0 rounded-full",
+                              `bg-${event.color}-500`
                             )}
                           />
                           <span className="truncate text-zinc-300">
