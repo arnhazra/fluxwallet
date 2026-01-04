@@ -1,4 +1,4 @@
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { tool } from "langchain"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -12,7 +12,7 @@ export class SpaceAgent {
   public createSpaceTool = tool(
     async ({ userId, spaceName }: { userId: string; spaceName: string }) => {
       try {
-        await this.eventEmitter.emitAsync(EventMap.CreateSpace, userId, {
+        await this.eventEmitter.emitAsync(AppEventMap.CreateSpace, userId, {
           spaceName,
         })
         return "Space created successfully"
@@ -40,7 +40,7 @@ export class SpaceAgent {
     }) => {
       try {
         const spaces: Space[] = await this.eventEmitter.emitAsync(
-          EventMap.GetSpaceList,
+          AppEventMap.GetSpaceList,
           userId,
           searchKeyword
         )
@@ -69,7 +69,7 @@ export class SpaceAgent {
       try {
         const space: any = (
           await this.eventEmitter.emitAsync(
-            EventMap.GetSpaceList,
+            AppEventMap.GetSpaceList,
             userId,
             spaceName
           )

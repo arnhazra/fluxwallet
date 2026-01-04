@@ -5,7 +5,7 @@ import { CreateAnalyticsCommand } from "./commands/impl/create-analytics.command
 import { Analytics } from "./schemas/analytics.schema"
 import { GetAnalyticsQuery } from "./queries/impl/get-analytics-count.query"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 
 @Injectable()
 export class AnalyticsService {
@@ -14,7 +14,7 @@ export class AnalyticsService {
     private readonly queryBus: QueryBus
   ) {}
 
-  @OnEvent(EventMap.CreateAnalytics)
+  @OnEvent(AppEventMap.CreateAnalytics)
   createAnalytics(createAnalyticsDto: CreateAnalyticsDto) {
     try {
       this.commandBus.execute<CreateAnalyticsCommand, Analytics>(

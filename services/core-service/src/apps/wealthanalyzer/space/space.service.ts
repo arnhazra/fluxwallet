@@ -9,7 +9,7 @@ import { CreateSpaceCommand } from "./commands/impl/create-space.command"
 import { CreateSpaceRequestDto } from "./dto/request/create-space.request.dto"
 import { UpdateSpaceCommand } from "./commands/impl/update-space.command"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { AssetService } from "../asset/asset.service"
 
 @Injectable()
@@ -20,7 +20,7 @@ export class SpaceService {
     private readonly assetService: AssetService
   ) {}
 
-  @OnEvent(EventMap.CreateSpace)
+  @OnEvent(AppEventMap.CreateSpace)
   async createSpace(userId: string, requestBody: CreateSpaceRequestDto) {
     try {
       return await this.commandBus.execute<CreateSpaceCommand, Space>(
@@ -31,7 +31,7 @@ export class SpaceService {
     }
   }
 
-  @OnEvent(EventMap.GetSpaceList)
+  @OnEvent(AppEventMap.GetSpaceList)
   async findMySpaces(userId: string, searchKeyword?: string) {
     const spaces = await this.queryBus.execute<FindAllSpaceQuery, Space[]>(
       new FindAllSpaceQuery(userId, searchKeyword)

@@ -1,4 +1,4 @@
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { tool } from "langchain"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -20,7 +20,7 @@ export class GoalAgent {
       goalAmount: number
     }) => {
       try {
-        await this.eventEmitter.emitAsync(EventMap.CreateGoal, userId, {
+        await this.eventEmitter.emitAsync(AppEventMap.CreateGoal, userId, {
           goalDate,
           goalAmount,
         })
@@ -48,7 +48,7 @@ export class GoalAgent {
     async ({ userId }: { userId: string }) => {
       try {
         const goals: Goal[] = await this.eventEmitter.emitAsync(
-          EventMap.GetGoalList,
+          AppEventMap.GetGoalList,
           userId
         )
 
@@ -70,7 +70,7 @@ export class GoalAgent {
     async ({ userId }: { userId: string }) => {
       try {
         const goal: Goal = (
-          await this.eventEmitter.emitAsync(EventMap.GetNearestGoal, userId)
+          await this.eventEmitter.emitAsync(AppEventMap.GetNearestGoal, userId)
         ).shift()
 
         return JSON.stringify(goal)

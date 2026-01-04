@@ -9,7 +9,7 @@ import { UpdateDebtCommand } from "./commands/impl/update-debt.command"
 import { FindDebtsByUserQuery } from "./queries/impl/find-debt-by-user.query"
 import { FindDebtByIdQuery } from "./queries/impl/find-debt-by-id.query"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { calculateDebtDetails } from "./helpers/calculate-debt"
 
 @Injectable()
@@ -19,7 +19,7 @@ export class DebtService {
     private readonly commandBus: CommandBus
   ) {}
 
-  @OnEvent(EventMap.CreateDebt)
+  @OnEvent(AppEventMap.CreateDebt)
   async createDebt(userId: string, requestBody: CreateDebtRequestDto) {
     try {
       return await this.commandBus.execute<CreateDebtCommand, Debt>(
@@ -30,7 +30,7 @@ export class DebtService {
     }
   }
 
-  @OnEvent(EventMap.GetDebtList)
+  @OnEvent(AppEventMap.GetDebtList)
   async findMyDebts(userId: string, searchKeyword?: string) {
     try {
       const debts = await this.queryBus.execute<FindDebtsByUserQuery, Debt[]>(
@@ -90,7 +90,7 @@ export class DebtService {
     }
   }
 
-  @OnEvent(EventMap.GetTotalDebt)
+  @OnEvent(AppEventMap.GetTotalDebt)
   async calculateTotalDebt(reqUserId: string) {
     try {
       const debts = await this.findMyDebts(reqUserId)

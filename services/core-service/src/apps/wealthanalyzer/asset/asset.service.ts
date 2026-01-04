@@ -10,7 +10,7 @@ import { CreateAssetRequestDto } from "./dto/request/create-asset.request.dto"
 import { UpdateAssetCommand } from "./commands/impl/update-asset.command"
 import { FindAssetsByUserQuery } from "./queries/impl/find-assets-by-user.query"
 import { OnEvent } from "@nestjs/event-emitter"
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { AssetType } from "@/shared/constants/types"
 import calculateComplexValuation from "./lib/calculate-complex-valuation"
 import calculateRecurringValuation from "./lib/calculate-recurring-valuation"
@@ -72,7 +72,7 @@ export class AssetService {
     }
   }
 
-  @OnEvent(EventMap.GetAssetList)
+  @OnEvent(AppEventMap.GetAssetList)
   async findAllMyAssets(userId: string) {
     try {
       const assets = await this.queryBus.execute<
@@ -97,7 +97,7 @@ export class AssetService {
     }
   }
 
-  @OnEvent(EventMap.FindAssetById)
+  @OnEvent(AppEventMap.FindAssetById)
   async findAssetById(reqUserId: string, assetId: string) {
     try {
       const asset = await this.queryBus.execute<FindAssetByIdQuery, Asset>(
@@ -117,7 +117,7 @@ export class AssetService {
     }
   }
 
-  @OnEvent(EventMap.UpdateAssetById)
+  @OnEvent(AppEventMap.UpdateAssetById)
   async updateAssetById(
     userId: string,
     assetId: string,
@@ -211,7 +211,7 @@ export class AssetService {
     }
   }
 
-  @OnEvent(EventMap.GetTotalWealth)
+  @OnEvent(AppEventMap.GetTotalWealth)
   async calculateTotalWealth(reqUserId: string) {
     try {
       const assets = await this.queryBus.execute<

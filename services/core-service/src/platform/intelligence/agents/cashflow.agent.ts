@@ -1,4 +1,4 @@
-import { EventMap } from "@/shared/constants/event.map"
+import { AppEventMap } from "@/shared/constants/app-events.map"
 import { tool } from "langchain"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
@@ -13,7 +13,7 @@ export class CashflowAgent {
     async ({ userId }: { userId: string }) => {
       try {
         const spaces: Cashflow[] = await this.eventEmitter.emitAsync(
-          EventMap.FindCashFlowsByUserId,
+          AppEventMap.FindCashFlowsByUserId,
           userId
         )
 

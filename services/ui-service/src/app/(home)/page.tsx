@@ -10,10 +10,11 @@ import {
   Lightbulb,
   CircleArrowRight,
   BookOpenIcon,
+  Github,
 } from "lucide-react"
 import Link from "next/link"
 import { cn } from "@/shared/lib/utils"
-import { buttonVariants } from "@/shared/components/ui/button"
+import { Button, buttonVariants } from "@/shared/components/ui/button"
 import Show from "@/shared/components/show"
 import Loading from "../loading"
 import useQuery from "@/shared/hooks/use-query"
@@ -161,6 +162,22 @@ export default function Page() {
               )
             })}
           </p>
+          <div className="mt-8 flex justify-end">
+            <Button
+              variant="default"
+              className="rounded-full bg-primary/10 hover:bg-primary/20 border-primary text-primary"
+              asChild
+            >
+              <a
+                href="https://github.com/arnhazra/fluxwallet"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                View Source Code
+                <Github />
+              </a>
+            </Button>
+          </div>
         </div>
       </div>
     </section>

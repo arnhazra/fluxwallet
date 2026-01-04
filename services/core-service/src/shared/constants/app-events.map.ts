@@ -1,4 +1,4 @@
-export enum EventMap {
+export enum AppEventMap {
   // General Events
   SendEmail = "sendEmail",
   CreateAnalytics = "createAnalytics",
