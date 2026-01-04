@@ -5,7 +5,7 @@ This is an Open Source AI powered wealth management platform that helps you orga
 ### Tech Stack
 
 - LangChain as data framework to connect with LLM & create agentic workflows
-- Nest as a framework on top of Node JS for API
+- Nest JS as a framework on top of Node JS for API
 - Next JS as a framework on top of React JS for UI
 - Mongo DB as a primary database
 - Redis for config management
