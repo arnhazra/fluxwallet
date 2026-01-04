@@ -13,6 +13,7 @@ import { Asset } from "@/apps/wealthanalyzer/asset/schemas/asset.schema"
 import { Goal } from "@/apps/wealthgoal/goal/schemas/goal.schema"
 import { Debt } from "@/apps/debttrack/debt/schemas/debt.schema"
 import { Cashflow } from "@/apps/cashflow/schemas/cashflow.schema"
+import { Expense } from "@/apps/expensetrack/expense/schemas/expense.schema"
 
 @Injectable()
 export class EventService {
@@ -32,7 +33,7 @@ export class EventService {
     }
   }
 
-  async findMyEvents(userId: string) {
+  async findMyEventsByMonth(userId: string, selectedMonth: string) {
     try {
       const events = await this.queryBus.execute<
         FindEventsByUserQuery,
@@ -42,7 +43,6 @@ export class EventService {
       const customEvents = events.map((event) => ({
         ...event,
         eventSource: "Custom",
-        color: "blue",
       }))
 
       const assets: Asset[] = (
@@ -57,7 +57,6 @@ export class EventService {
             createdAt: (asset as any).createdAt,
             _id: asset._id,
             eventSource: "Asset",
-            color: "green",
           }
         }
       })
@@ -71,7 +70,6 @@ export class EventService {
             createdAt: (asset as any).createdAt,
             _id: asset._id,
             eventSource: "Asset",
-            color: "green",
           }
         }
       })
@@ -86,7 +84,6 @@ export class EventService {
         createdAt: (goal as any).createdAt,
         _id: goal._id,
         eventSource: "Goal",
-        color: "amber",
       }))
 
       const debts: Debt[] = (
@@ -100,7 +97,6 @@ export class EventService {
         createdAt: (debt as any).createdAt,
         _id: debt._id,
         eventSource: "Debt",
-        color: "red",
       }))
 
       const debtEndEvents = debts.map((debt) => ({
@@ -110,7 +106,6 @@ export class EventService {
         createdAt: (debt as any).createdAt,
         _id: debt._id,
         eventSource: "Debt",
-        color: "red",
       }))
 
       const nextEmiDateEvents = debts.map((debt) => ({
@@ -120,7 +115,6 @@ export class EventService {
         createdAt: (debt as any).createdAt,
         _id: debt._id,
         eventSource: "Debt",
-        color: "orange",
       }))
 
       const cashflows: Cashflow[] = (
@@ -136,7 +130,22 @@ export class EventService {
         createdAt: (cashflow as any).createdAt,
         _id: cashflow._id,
         eventSource: "Cashflow",
-        color: "pink",
+      }))
+
+      const expenses = (
+        await this.eventEmitter.emitAsync(
+          AppEventMap.GetExpenseByMonth,
+          userId,
+          selectedMonth
+        )
+      ).shift()
+      const expensesEvents = expenses.expenses.map((expense: Expense) => ({
+        eventDate: expense.expenseDate,
+        eventName: `Expense of ${expense.expenseAmount} for ${expense.expenseCategory}`,
+        userId: expense.userId,
+        createdAt: (expense as any).createdAt,
+        _id: expense._id,
+        eventSource: "Expense",
       }))
 
       const allEvents = [
@@ -148,6 +157,7 @@ export class EventService {
         ...nextEmiDateEvents,
         ...assetStartDateEvents,
         ...assetMaturityDateEvents,
+        ...expensesEvents,
       ].filter((event) => !!event)
 
       return allEvents

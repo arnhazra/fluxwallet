@@ -35,10 +35,16 @@ export class EventController {
   }
 
   @UseGuards(AuthGuard)
-  @Get()
-  async findMyEventsByMonth(@Request() request: ModRequest) {
+  @Get("/:selectedMonth")
+  async findMyEventsByMonth(
+    @Request() request: ModRequest,
+    @Param("selectedMonth") selectedMonth: string
+  ) {
     try {
-      return await this.service.findMyEvents(request.user.userId)
+      return await this.service.findMyEventsByMonth(
+        request.user.userId,
+        selectedMonth
+      )
     } catch (error) {
       throw new BadRequestException(
         error.message || statusMessages.connectionError

@@ -222,5 +222,4 @@ export interface PlannerEvent {
   eventDate: string
   createdAt: string
   eventSource: string
-  color: string
 }

@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Plus, ChevronLeft, ChevronRight } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import { cn } from "@/shared/lib/utils"
@@ -24,10 +24,19 @@ import { toDateOnlyUTC } from "@/shared/lib/to-date-only-utc"
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+  const [selectedMonth, setSelectedMonth] = useState(
+    `${new Date(currentDate).getFullYear()}-${String(new Date(currentDate).getMonth() + 1).padStart(2, "0")}`
+  )
+
+  useEffect(() => {
+    setSelectedMonth(
+      `${new Date(currentDate).getFullYear()}-${String(new Date(currentDate).getMonth() + 1).padStart(2, "0")}`
+    )
+  }, [currentDate])
 
   const events = useQuery<PlannerEvent[]>({
-    queryKey: ["planner-events"],
-    queryUrl: endPoints.events,
+    queryKey: ["planner-events", selectedMonth],
+    queryUrl: `${endPoints.events}/${selectedMonth}`,
     method: HTTPMethods.GET,
   })
 
@@ -132,7 +141,7 @@ export default function CalendarPage() {
                           <div
                             className={cn(
                               "h-3 w-3 shrink-0 rounded-full",
-                              `bg-${event.color}-500`
+                              `bg-green-500`
                             )}
                           />
                           <span className="truncate text-zinc-300">
