@@ -20,6 +20,7 @@ import { PlannerEvent } from "@/shared/constants/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { useRouter } from "nextjs-toploader/app"
+import { EventModal } from "@/shared/components/event-modal"
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
@@ -179,39 +180,15 @@ export default function CalendarPage() {
           </div>
         </main>
       </div>
-      {/* Modal for selected date events */}
-      {isModalOpen && selectedDate && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/60">
-          <div className="bg-zinc-900 rounded-lg shadow-lg p-6 min-w-[320px] max-w-[90vw] relative">
-            <button
-              className="absolute top-2 right-2 text-zinc-400 hover:text-zinc-100"
-              onClick={closeModal}
-              aria-label="Close"
-            >
-              ×
-            </button>
-            <h2 className="text-lg font-semibold mb-2 text-zinc-100">
-              Events for {format(selectedDate, "PPP")}
-            </h2>
-            {selectedDateEvents && selectedDateEvents.length > 0 ? (
-              <ul className="space-y-2">
-                {selectedDateEvents.map((event, idx) => (
-                  <li key={idx} className="flex items-center gap-2">
-                    <span className="inline-block h-2 w-2 rounded-full bg-green-500" />
-                    <span className="text-zinc-200 text-sm">
-                      {event.eventName}
-                    </span>
-                  </li>
-                ))}
-              </ul>
-            ) : (
-              <div className="text-zinc-400 text-sm">
-                No events for this date.
-              </div>
-            )}
-          </div>
-        </div>
-      )}
+      <EventModal
+        open={isModalOpen && !!selectedDate}
+        onOpenChange={(open) => {
+          setIsModalOpen(open)
+          if (!open) setSelectedDate(null)
+        }}
+        events={selectedDateEvents || []}
+        date={selectedDate ?? new Date()}
+      />
     </div>
   )
 }

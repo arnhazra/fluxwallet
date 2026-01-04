@@ -24,7 +24,6 @@ import { formatDate } from "@/shared/lib/format-date"
 import api from "@/shared/lib/ky-api"
 import { normalizeToUTCNoon } from "@/shared/lib/utc-normalize"
 import IconContainer from "@/shared/components/icon-container"
-import Show from "@/shared/components/show"
 
 interface EventFormData {
   eventDate?: Date
