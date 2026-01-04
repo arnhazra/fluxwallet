@@ -26,7 +26,7 @@ export default function CalendarPage() {
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
   const router = useRouter()
-  const daysOfWeek = ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"]
+  const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   const [selectedMonth, setSelectedMonth] = useState(
     `${format(currentDate, "yyyy-MM")}`
   )
@@ -106,7 +106,7 @@ export default function CalendarPage() {
               size="sm"
               variant="default"
               className="gap-2 border-zinc-700 bg-primary text-black hover:bg-primary/90"
-              onClick={(): void => router.push(`/apps/planner/addevent`)}
+              onClick={(): void => router.push("/apps/planner/addevent")}
             >
               <Plus className="h-4 w-4" />
               Add Event
