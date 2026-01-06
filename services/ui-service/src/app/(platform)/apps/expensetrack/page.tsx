@@ -40,13 +40,12 @@ import {
 } from "@/shared/lib/generate-month-list"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
 import { useQueryClient } from "@tanstack/react-query"
-import { useRouter } from "nextjs-toploader/app"
 import { useState } from "react"
 import * as Icons from "lucide-react"
 import api from "@/shared/lib/ky-api"
+import Link from "next/link"
 
 export default function Page() {
-  const router = useRouter()
   const { confirm } = useConfirmContext()
   const [{ searchKeyword, user }] = useUserContext()
   const queryClient = useQueryClient()
@@ -137,17 +136,14 @@ export default function Page() {
             </div>
           }
           actionComponents={[
-            <Button
-              className="bg-primary hover:bg-primary"
-              size="icon"
-              onClick={() =>
-                router.replace(
-                  `/apps/expensetrack/createoreditexpense?id=${expense._id}`
-                )
-              }
+            <Link
+              key={expense._id}
+              href={`/apps/expensetrack/createoreditexpense?id=${expense._id}`}
             >
-              <Icons.Pen className="h-4 w-4 text-black" />
-            </Button>,
+              <Button className="bg-primary hover:bg-primary" size="icon">
+                <Icons.Pen className="h-4 w-4 text-black" />
+              </Button>
+            </Link>,
             <Button
               className="bg-secondary hover:bg-secondary"
               size="icon"
@@ -220,16 +216,15 @@ export default function Page() {
             </Show>
           </div>
           <div className="flex gap-3">
-            <Button
-              size="icon"
-              variant="default"
-              className="bg-primary hover:bg-primary"
-              onClick={(): void =>
-                router.push(`/apps/expensetrack/createoreditexpense`)
-              }
-            >
-              <Icons.Plus className="h-4 w-4 text-black" />
-            </Button>
+            <Link href="/apps/expensetrack/createoreditexpense">
+              <Button
+                size="icon"
+                variant="default"
+                className="bg-primary hover:bg-primary"
+              >
+                <Icons.Plus className="h-4 w-4 text-black" />
+              </Button>
+            </Link>
             <EntitySummarizer
               entityType={EntityType.EXPENSE}
               entityDetails={`${getNameFromMonthValue(selectedMonth)} - ${JSON.stringify(expenses.data)}`}

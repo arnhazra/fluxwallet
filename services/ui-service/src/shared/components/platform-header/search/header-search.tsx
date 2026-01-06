@@ -7,13 +7,12 @@ import { useUserContext } from "@/context/user.provider"
 import { searchMapByUrl, getSearchLabel } from "./data"
 import Show from "../../show"
 import { Button } from "../../ui/button"
-import { useRouter } from "nextjs-toploader/app"
+import Link from "next/link"
 
 export default function HeaderSearch() {
   const pathName = usePathname()
   const [, dispatch] = useUserContext()
   const debounceRef = useRef<number | null>(null)
-  const router = useRouter()
 
   useEffect(() => {
     dispatch("setSearchKeyword", "")
@@ -52,14 +51,15 @@ export default function HeaderSearch() {
               : "flex justify-center"
           )}
         >
-          <Button
-            variant="default"
-            size="icon"
-            className="bg-neutral-800 hover:bg-neutral-700 rounded-full h-10 w-10"
-            onClick={(): void => router.replace("/dashboard")}
-          >
-            <HomeIcon className="h-4 w-4" />
-          </Button>
+          <Link href="/dashboard">
+            <Button
+              variant="default"
+              size="icon"
+              className="bg-neutral-800 hover:bg-neutral-700 rounded-full h-10 w-10"
+            >
+              <HomeIcon className="h-4 w-4" />
+            </Button>
+          </Link>
         </div>
         <Show
           condition={Object.keys(searchMapByUrl).some((path) =>

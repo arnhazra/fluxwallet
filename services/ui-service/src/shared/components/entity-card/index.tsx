@@ -40,7 +40,6 @@ import { Button } from "@/shared/components/ui/button"
 import { useEffect, useState } from "react"
 import { formatDate } from "@/shared/lib/format-date"
 import { EntityDetails } from "../entity-details"
-import { useRouter } from "nextjs-toploader/app"
 import { EntityTypeForDetailModal } from "../entity-details/data"
 import { createEntityUrlMap, EntityMap, EntityType } from "./data"
 import EntitySummarizer from "../entity-summarizer"
@@ -65,7 +64,6 @@ export function EntityCard<T extends keyof EntityMap>({
   entity,
 }: EntityCardProps<T>) {
   const [{ user }] = useUserContext()
-  const router = useRouter()
   const [articleImageError, setArticleImageError] = useState(false)
   const [entityDescription, setEntityDescription] = useState<string | null>(
     null
@@ -340,16 +338,15 @@ export function EntityCard<T extends keyof EntityMap>({
           )}
         </Show>
         <Show condition={entityType === EntityType.SPACE}>
-          <Button
-            variant="default"
-            className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
-            onClick={(): void =>
-              router.push(`/apps/wealthanalyzer/space/${(entity as Space)._id}`)
-            }
-          >
-            View Assets
-            <Eye className="h-4 w-4" />
-          </Button>
+          <Link href={`/apps/wealthanalyzer/space/${(entity as Space)._id}`}>
+            <Button
+              variant="default"
+              className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
+            >
+              View Assets
+              <Eye className="h-4 w-4" />
+            </Button>
+          </Link>
         </Show>
         <Show
           condition={

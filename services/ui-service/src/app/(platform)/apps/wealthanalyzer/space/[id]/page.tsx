@@ -17,6 +17,7 @@ import { EntityType } from "@/shared/components/entity-card/data"
 import { useUserContext } from "@/context/user.provider"
 import { buildQueryUrl } from "@/shared/lib/build-url"
 import api from "@/shared/lib/ky-api"
+import Link from "next/link"
 
 export default function Page({ params }: { params: Promise<{ id: string }> }) {
   const { id: spaceId = "" } = use(params)
@@ -81,18 +82,15 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
           title={space.data?.spaceName || ""}
           content="SPACE"
           actionComponents={[
-            <Button
-              onClick={(): void =>
-                router.push(
-                  `/apps/wealthanalyzer/createoreditspace?id=${spaceId}`
-                )
-              }
-              variant="default"
-              size="icon"
-              className="p-2 bg-primary hover:bg-primary text-black"
-            >
-              <Pen className="h-4 w-4" />
-            </Button>,
+            <Link href={`/apps/wealthanalyzer/createoreditspace?id=${spaceId}`}>
+              <Button
+                variant="default"
+                size="icon"
+                className="p-2 bg-primary hover:bg-primary text-black"
+              >
+                <Pen className="h-4 w-4" />
+              </Button>
+            </Link>,
             <Button onClick={handleDeleteSpace} variant="secondary" size="icon">
               <Trash className="h-4 w-4" />
             </Button>,

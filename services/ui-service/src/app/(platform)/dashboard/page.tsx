@@ -4,19 +4,11 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import useQuery from "@/shared/hooks/use-query"
 import { AppsConfig } from "@/shared/constants/types"
-import { useEffect } from "react"
-import { useQueryClient } from "@tanstack/react-query"
-import { useRouter } from "nextjs-toploader/app"
-import { uiConstants } from "@/shared/constants/global-constants"
-import notify from "@/shared/hooks/use-notify"
 import WidgetStack from "@/shared/components/widget/widget-stack"
 import { useUserContext } from "@/context/user.provider"
-import api from "@/shared/lib/ky-api"
 
 export default function Page() {
   const [{ searchKeyword }] = useUserContext()
-  const queryClient = useQueryClient()
-  const router = useRouter()
 
   const { data } = useQuery<AppsConfig>({
     queryKey: ["app-config"],
