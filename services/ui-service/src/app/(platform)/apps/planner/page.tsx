@@ -188,6 +188,7 @@ export default function CalendarPage() {
           events.refetch()
         }}
         events={selectedDateEvents || []}
+        selectedDate={selectedDate}
       />
     </div>
   )

@@ -22,10 +22,12 @@ export function EventModal({
   open,
   onOpenChange,
   events,
+  selectedDate,
 }: {
   open: boolean
   onOpenChange: (open: boolean) => void
   events: PlannerEvent[]
+  selectedDate: Date | null
 }) {
   const deleteEvent = async (eventId: string): Promise<void> => {
     try {
@@ -41,7 +43,21 @@ export function EventModal({
     <AlertDialog open={open} onOpenChange={onOpenChange}>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle className="text-white">Events</AlertDialogTitle>
+          <div className="flex items-center justify-between gap-4">
+            <AlertDialogTitle className="text-white">Events</AlertDialogTitle>
+
+            <Link
+              href={`/apps/planner/addevent?selectedDate=${selectedDate ? selectedDate.toISOString() : ""}`}
+            >
+              <Button
+                size="sm"
+                className="bg-primary text-black hover:bg-primary/90 gap-1"
+              >
+                <Plus className="h-4 w-4" />
+                Add Event
+              </Button>
+            </Link>
+          </div>
         </AlertDialogHeader>
         {events && events.length > 0 ? (
           <ul className="space-y-2">
@@ -70,20 +86,7 @@ export function EventModal({
             ))}
           </ul>
         ) : (
-          <>
-            <div className="text-zinc-400 text-sm">
-              No events for this date.
-            </div>
-            <Link href="/apps/planner/addevent">
-              <Button
-                variant="default"
-                className=" bg-primary text-black hover:bg-primary/90"
-              >
-                <Plus className="h-4 w-4" />
-                Add Event
-              </Button>
-            </Link>
-          </>
+          <div className="text-zinc-400 text-sm">No events for this date.</div>
         )}
         <AlertDialogFooter>
           <AlertDialogCancel onClick={(): void => onOpenChange(false)}>

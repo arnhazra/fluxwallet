@@ -25,6 +25,7 @@ import api from "@/shared/lib/ky-api"
 import { normalizeToUTCNoon } from "@/shared/lib/utc-normalize"
 import IconContainer from "@/shared/components/icon-container"
 import { useRouter } from "nextjs-toploader/app"
+import { useSearchParams } from "next/navigation"
 
 interface EventFormData {
   eventDate?: Date
@@ -34,7 +35,12 @@ interface EventFormData {
 type MessageType = "success" | "error"
 
 export default function Page() {
-  const [formData, setFormData] = useState<EventFormData>({})
+  const searchParams = useSearchParams()
+  const selectedDateParam = searchParams.get("selectedDate")
+  const [formData, setFormData] = useState<EventFormData>({
+    eventDate: selectedDateParam ? new Date(selectedDateParam) : undefined,
+    eventName: "",
+  })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const router = useRouter()
 
