@@ -290,10 +290,10 @@ export function EntityCard<T extends keyof EntityMap>({
         }
         className="bg-background/2 border h-[15rem] backdrop-blur-sm border-border p-2 rounded-3xl hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
       >
-        <CardHeader className="flex justify-between mt-6 items-center">
-          <div className="flex gap-2">
-            <h2 className="text-xl">{enityTitle}</h2>
-            <div className="mt-1">
+        <CardHeader className="flex mt-6 items-start gap-2">
+          <div className="flex min-w-0 flex-1 gap-2">
+            <h2 className=" text-xl truncate break-all">{enityTitle}</h2>
+            <div className="mt-1 shrink-0">
               <Show
                 condition={
                   (entityType === EntityType.ASSET &&
@@ -329,7 +329,9 @@ export function EntityCard<T extends keyof EntityMap>({
               </Show>
             </div>
           </div>
-          <IconContainer>{entityIconMap[entityType]}</IconContainer>
+          <div className="shrink-0">
+            <IconContainer>{entityIconMap[entityType]}</IconContainer>
+          </div>
         </CardHeader>
         <CardContent>
           <div className="space-y-2">
