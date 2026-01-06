@@ -229,9 +229,12 @@ export function EntityCard<T extends keyof EntityMap>({
             <IconContainer>{entityIconMap[entityType]}</IconContainer>
           </div>
         </div>
-        <CardHeader className="flex-grow">
-          <div className="flex items-center justify-between">
-            <CardTitle className="text-xl font-semibold text-white truncate max-w-full">
+        <CardHeader className="flex-grow min-w-0">
+          <div className="flex min-w-0">
+            <CardTitle
+              className="text-xl font-semibold text-white truncate"
+              title={enityTitle}
+            >
               {enityTitle}
             </CardTitle>
           </div>
