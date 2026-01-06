@@ -14,7 +14,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import { CalendarIcon, ArrowDownCircle } from "lucide-react"
+import { CalendarIcon, Workflow } from "lucide-react"
 import {
   Popover,
   PopoverContent,
@@ -33,6 +33,7 @@ import {
   SelectValue,
 } from "@/shared/components/ui/select"
 import { normalizeToUTCNoon } from "@/shared/lib/utc-normalize"
+import IconContainer from "@/shared/components/icon-container"
 
 interface CashflowFormData {
   description?: string
@@ -88,8 +89,10 @@ export default function Page() {
         <Card className="bg-background border-border">
           <CardHeader className="border-b border-neutral-800">
             <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
-              <ArrowDownCircle className="h-6 w-6 text-primary" />
-              Add New Cashflow
+              <IconContainer>
+                <Workflow className="h-4 w-4" />
+              </IconContainer>
+              Add Cashflow
             </CardTitle>
             <CardDescription className="text-primary">
               Fill in the details for your cashflow.
