@@ -13,13 +13,21 @@ import { Goal } from "@/apps/wealthgoal/goal/schemas/goal.schema"
 import { Debt } from "@/apps/debttrack/debt/schemas/debt.schema"
 import { Cashflow } from "@/apps/cashflow/schemas/cashflow.schema"
 import { Expense } from "@/apps/expensetrack/expense/schemas/expense.schema"
+import { User } from "@/auth/schemas/user.schema"
+import { formatCurrency } from "@/platform/widget/lib/format-currency"
+import { RedisService } from "@/shared/redis/redis.service"
+import {
+  ExpenseCategory,
+  ExpenseCategoryConfig,
+} from "@/shared/constants/types"
 
 @Injectable()
 export class EventService {
   constructor(
     private readonly queryBus: QueryBus,
     private readonly commandBus: CommandBus,
-    private readonly eventEmitter: EventEmitter2
+    private readonly eventEmitter: EventEmitter2,
+    private readonly redisService: RedisService
   ) {}
 
   async createEvent(userId: string, requestBody: CreateEventRequestDto) {
@@ -38,11 +46,22 @@ export class EventService {
         FindEventsByUserQuery,
         Event[]
       >(new FindEventsByUserQuery(userId))
+      const expenseCategoryConfig = await this.redisService.get(
+        "expense-category-config"
+      )
+
+      const parsedExpenseCategories: ExpenseCategoryConfig = JSON.parse(
+        expenseCategoryConfig
+      )
 
       const customEvents = events.map((event) => ({
         ...event,
         eventSource: "Custom",
       }))
+
+      const user: User = (
+        await this.eventEmitter.emitAsync(AppEventMap.GetUserDetails, userId)
+      ).shift()
 
       const assets: Asset[] = (
         await this.eventEmitter.emitAsync(AppEventMap.GetAssetList, userId)
@@ -51,7 +70,7 @@ export class EventService {
         if (asset.startDate) {
           return {
             eventDate: asset.startDate,
-            eventName: `Asset Start: ${asset.assetName}`,
+            eventName: `Start date of asset - ${asset.assetName}`,
             userId: asset.userId,
             createdAt: (asset as any).createdAt,
             _id: asset._id,
@@ -64,7 +83,7 @@ export class EventService {
         if (asset.maturityDate) {
           return {
             eventDate: asset.maturityDate,
-            eventName: `Asset Maturity: ${asset.assetName}`,
+            eventName: `Maturity date of asset - ${asset.assetName}`,
             userId: asset.userId,
             createdAt: (asset as any).createdAt,
             _id: asset._id,
@@ -78,7 +97,7 @@ export class EventService {
       ).shift()
       const goalEvents = goals.map((goal) => ({
         eventDate: goal.goalDate,
-        eventName: `Goal of ${goal.goalAmount}`,
+        eventName: `Goal of ${formatCurrency(goal.goalAmount, user.baseCurrency)}`,
         userId: goal.userId,
         createdAt: (goal as any).createdAt,
         _id: goal._id,
@@ -91,7 +110,7 @@ export class EventService {
 
       const debtStartEvents = debts.map((debt) => ({
         eventDate: debt.startDate,
-        eventName: `Start Debt: ${debt.debtPurpose}`,
+        eventName: `Start date of debt - ${debt.debtPurpose}`,
         userId: debt.userId,
         createdAt: (debt as any).createdAt,
         _id: debt._id,
@@ -100,7 +119,7 @@ export class EventService {
 
       const debtEndEvents = debts.map((debt) => ({
         eventDate: debt.endDate,
-        eventName: `End Debt: ${debt.debtPurpose}`,
+        eventName: `End date of Debt - ${debt.debtPurpose}`,
         userId: debt.userId,
         createdAt: (debt as any).createdAt,
         _id: debt._id,
@@ -109,7 +128,7 @@ export class EventService {
 
       const nextEmiDateEvents = debts.map((debt) => ({
         eventDate: (debt as any).nextEmiDate,
-        eventName: `EMI for Debt: ${debt.debtPurpose}`,
+        eventName: `EMI date for debt - ${debt.debtPurpose}`,
         userId: debt.userId,
         createdAt: (debt as any).createdAt,
         _id: debt._id,
@@ -138,14 +157,21 @@ export class EventService {
           selectedMonth
         )
       ).shift()
-      const expensesEvents = expenses.expenses.map((expense: Expense) => ({
-        eventDate: expense.expenseDate,
-        eventName: `Expense of ${expense.expenseAmount} for ${expense.expenseCategory}`,
-        userId: expense.userId,
-        createdAt: (expense as any).createdAt,
-        _id: expense._id,
-        eventSource: "Expense",
-      }))
+      const expensesEvents = expenses.expenses.map((expense: Expense) => {
+        const expenseCategoryDisplayName =
+          parsedExpenseCategories.expenseCategories.find(
+            (cat) => cat.value === expense.expenseCategory
+          ).displayName
+
+        return {
+          eventDate: expense.expenseDate,
+          eventName: `Expense of ${formatCurrency(expense.expenseAmount, user.baseCurrency)} for ${expenseCategoryDisplayName}`,
+          userId: expense.userId,
+          createdAt: (expense as any).createdAt,
+          _id: expense._id,
+          eventSource: "Expense",
+        }
+      })
 
       const allEvents = [
         ...customEvents,
