@@ -169,7 +169,7 @@ export default function Page() {
               asChild
             >
               <a
-                href="https://github.com/arnhazra/fluxwallet"
+                href={`https://github.com/arnhazra/${platformName.toLowerCase()}`}
                 target="_blank"
                 rel="noopener noreferrer"
               >
