@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select"
-import { TrendingUp, CalendarIcon, BadgeDollarSign } from "lucide-react"
+import { TrendingUp, CalendarIcon, Banknote } from "lucide-react"
 import {
   Popover,
   PopoverContent,
@@ -31,6 +31,7 @@ import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
 import { formatDate } from "@/shared/lib/format-date"
 import api from "@/shared/lib/ky-api"
+import IconContainer from "@/shared/components/icon-container"
 
 interface AssetFormData {
   spaceId: string
@@ -166,8 +167,10 @@ export default function Page() {
         <Card className="bg-background border-border">
           <CardHeader className="border-b border-neutral-800">
             <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
-              <BadgeDollarSign className="h-6 w-6 text-primary" />
-              Add New Asset
+              <IconContainer>
+                <Banknote className="h-4 w-4" />
+              </IconContainer>
+              Add Asset
             </CardTitle>
             <CardDescription className="text-primary">
               Fill in the details for your new asset. Fields will appear based

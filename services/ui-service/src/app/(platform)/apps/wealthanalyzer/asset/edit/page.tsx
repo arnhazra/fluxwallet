@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/shared/components/ui/select"
-import { TrendingUp, CalendarIcon, BadgeDollarSign } from "lucide-react"
+import { TrendingUp, CalendarIcon, Banknote } from "lucide-react"
 import {
   Popover,
   PopoverContent,
@@ -39,6 +39,7 @@ import { formatDate } from "@/shared/lib/format-date"
 import api from "@/shared/lib/ky-api"
 import { useRouter } from "nextjs-toploader/app"
 import { useSearchParams } from "next/navigation"
+import IconContainer from "@/shared/components/icon-container"
 
 interface AssetFormData {
   spaceId: string
@@ -204,8 +205,10 @@ export default function Page() {
         <Card className="bg-neutral-900 border-neutral-800">
           <CardHeader className="border-b border-neutral-800">
             <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
-              <BadgeDollarSign className="h-6 w-6 text-primary" />
-              Update Asset
+              <IconContainer>
+                <Banknote className="h-4 w-4" />
+              </IconContainer>
+              Edit Asset
             </CardTitle>
             <CardDescription className="text-primary">
               Fill in the details to update your asset.

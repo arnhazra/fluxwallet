@@ -141,8 +141,8 @@ export default function Page() {
               <IconContainer>
                 <HandCoins className="h-4 w-4" />
               </IconContainer>
-              <Show condition={!expenseId} fallback="Update Expense">
-                Add New Expense
+              <Show condition={!expenseId} fallback="Edit Expense">
+                Add Expense
               </Show>
             </CardTitle>
             <CardDescription className="text-primary">

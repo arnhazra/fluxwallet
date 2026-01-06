@@ -125,7 +125,7 @@ export default function Page() {
                 <GoalIcon className="h-4 w-4" />
               </IconContainer>
               <Show condition={!goalId} fallback="Edit Goal">
-                Add New Goal
+                Add Goal
               </Show>
             </CardTitle>
             <CardDescription className="text-primary">

@@ -16,11 +16,11 @@ import {
 } from "@/shared/constants/types"
 import {
   Banknote,
-  Building,
   CreditCard,
   ExternalLink,
   GoalIcon,
   HistoryIcon,
+  Layers2,
   Newspaper,
   OctagonAlert,
   Plus,
@@ -46,7 +46,7 @@ import { useRouter } from "nextjs-toploader/app"
 
 const entityIconMap = {
   [EntityType.ASSET]: <Banknote className="h-5 w-5" />,
-  [EntityType.SPACE]: <Building className="h-5 w-5" />,
+  [EntityType.SPACE]: <Layers2 className="h-5 w-5" />,
   [EntityType.DEBT]: <CreditCard className="h-5 w-5" />,
   [EntityType.GOAL]: <GoalIcon className="h-5 w-5" />,
   [EntityType.NEWS]: <Newspaper className="h-5 w-5" />,

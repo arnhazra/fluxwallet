@@ -5,7 +5,7 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import { use } from "react"
 import { Asset, Space } from "@/shared/constants/types"
 import SectionPanel from "@/shared/components/section-panel"
-import { Building, Pen, Trash } from "lucide-react"
+import { Layers2, Pen, Trash } from "lucide-react"
 import { Button } from "@/shared/components/ui/button"
 import { useRouter } from "nextjs-toploader/app"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
@@ -76,7 +76,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
         <SectionPanel
           icon={
             <IconContainer>
-              <Building className="h-4 w-4" />
+              <Layers2 className="h-4 w-4" />
             </IconContainer>
           }
           title={space.data?.spaceName || ""}
