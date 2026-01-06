@@ -96,7 +96,7 @@ export default function Page({ params }: { params: Promise<{ id: string }> }) {
             </Button>,
           ]}
         />
-        <div className="grid grid-cols-[repeat(auto-fill,minmax(16rem,1fr))] gap-4 py-4">
+        <div className="mx-auto grid justify-center gap-4 xs:grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mb-4 mt-4">
           <AddEntityCard entityType={EntityType.ASSET} />
           {renderAssets}
         </div>

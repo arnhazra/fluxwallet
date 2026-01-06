@@ -28,6 +28,8 @@ import {
 import api from "@/shared/lib/ky-api"
 import Show from "../show"
 import Link from "next/link"
+import { EntityType } from "../entity-card/data"
+import { useRouter } from "nextjs-toploader/app"
 
 type EntityDetailsProps = {
   entityType: EntityTypeForDetailModal
@@ -53,6 +55,7 @@ export function EntityDetails({
   const { confirm } = useConfirmContext()
   const [entityBadgeText, setEnytityBadgeText] = useState("")
   const [displayName, setDisplayName] = useState("")
+  const router = useRouter()
 
   useEffect(() => {
     switch (entityType) {
@@ -102,6 +105,10 @@ export function EntityDetails({
   }
 
   const isAmount = (key: keyof Asset): boolean => amountKeys.includes(key)
+
+  if ((entityType as unknown as EntityType) === EntityType.SPACE) {
+    return <>{children}</>
+  }
 
   return (
     <Dialog open={open}>
