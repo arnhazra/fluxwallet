@@ -8,13 +8,6 @@ import Show from "@/shared/components/show"
 import { Badge } from "@/shared/components/ui/badge"
 import { Button } from "@/shared/components/ui/button"
 import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/shared/components/ui/card"
-import {
   Select,
   SelectContent,
   SelectItem,
@@ -111,54 +104,52 @@ export default function Page() {
       (Icons as any)[expenseCategory?.icon || ""] || Icons.HandCoins
 
     return (
-      <div className="mb-2" key={expense._id}>
-        <SectionPanel
-          key={expense._id}
-          icon={
-            <IconContainer>
-              <ExpenseCategoryIcon className="h-4 w-4" />
-            </IconContainer>
-          }
-          title={expense.title || "Untitled Expense"}
-          content={
-            <div className="block">
-              <div className="mb-1">
-                <span className="text-primary">
-                  {formatCurrency(expense.expenseAmount, user.baseCurrency)}{" "}
-                  on{" "}
-                </span>
+      <SectionPanel
+        key={expense._id}
+        icon={
+          <IconContainer>
+            <ExpenseCategoryIcon className="h-4 w-4" />
+          </IconContainer>
+        }
+        title={expense.title || "Untitled Expense"}
+        content={
+          <div className="block">
+            <div className="mb-1">
+              <span className="text-primary">
+                {formatCurrency(expense.expenseAmount, user.baseCurrency)}{" "}
+                on{" "}
+              </span>
 
-                {formatDate(expense.expenseDate, true, false)}
-              </div>
-              <Badge className="bg-primary text-black hover:bg-primary">
-                {expenseCategory?.displayName}
-              </Badge>
+              {formatDate(expense.expenseDate, true, false)}
             </div>
-          }
-          actionComponents={[
-            <Link
-              key={expense._id}
-              href={`/apps/expensetrack/createoreditexpense?id=${expense._id}`}
-            >
-              <Button className="bg-primary hover:bg-primary" size="icon">
-                <Icons.Pen className="h-4 w-4 text-black" />
-              </Button>
-            </Link>,
-            <Button
-              className="bg-secondary hover:bg-secondary"
-              size="icon"
-              onClick={() => deleteExpense(expense._id)}
-            >
-              <Icons.Trash className="h-4 w-4" />
-            </Button>,
-          ]}
-        />
-      </div>
+            <Badge className="bg-primary text-black hover:bg-primary">
+              {expenseCategory?.displayName}
+            </Badge>
+          </div>
+        }
+        actionComponents={[
+          <Link
+            key={expense._id}
+            href={`/apps/expensetrack/createoreditexpense?id=${expense._id}`}
+          >
+            <Button className="bg-primary hover:bg-primary" size="icon">
+              <Icons.Pen className="h-4 w-4 text-black" />
+            </Button>
+          </Link>,
+          <Button
+            className="bg-secondary hover:bg-secondary"
+            size="icon"
+            onClick={() => deleteExpense(expense._id)}
+          >
+            <Icons.Trash className="h-4 w-4" />
+          </Button>,
+        ]}
+      />
     )
   })
 
   return (
-    <div className="mx-auto grid w-full items-start gap-6">
+    <div className="mx-auto grid w-full items-start gap-3">
       <div className="flex gap-4">
         <Select value={category} onValueChange={setSelectedCategory}>
           <SelectTrigger className="w-40 bg-neutral-800 text-white border border-border rounded-lg">
@@ -196,54 +187,57 @@ export default function Page() {
           </SelectContent>
         </Select>
       </div>
-      <Card className="bg-background text-white border border-border mb-4">
-        <CardHeader className="flex flex-row items-center justify-between space-y-0">
-          <div className="space-y-2">
-            <CardTitle>Your {getNameFromMonthValue(selectedMonth)}</CardTitle>
-            <CardDescription className="text-primary">
+      <SectionPanel
+        icon={
+          <IconContainer>
+            <Icons.LayoutDashboard className="h-4 w-4" />
+          </IconContainer>
+        }
+        content={
+          <>
+            <p className="text-primary">
               Total expense:{" "}
               {formatCurrency(totalExpense.data?.total ?? 0, user.baseCurrency)}
-            </CardDescription>
+            </p>
             <Show condition={!category || category !== "all"}>
-              <CardDescription className="text-primary">
+              <p className="text-primary">
                 {
                   expenseCategoryConfig.data?.expenseCategories.find(
                     (item) => item.value === category
                   )?.displayName
                 }
                 : {formatCurrency(expenses.data?.total ?? 0, user.baseCurrency)}
-              </CardDescription>
-            </Show>
-          </div>
-          <div className="flex gap-3">
-            <Link href="/apps/expensetrack/createoreditexpense">
-              <Button
-                size="icon"
-                variant="default"
-                className="bg-primary hover:bg-primary"
-              >
-                <Icons.Plus className="h-4 w-4 text-black" />
-              </Button>
-            </Link>
-            <EntitySummarizer
-              entityType={EntityType.EXPENSE}
-              entityDetails={`${getNameFromMonthValue(selectedMonth)} - ${JSON.stringify(expenses.data)}`}
-            />
-          </div>
-        </CardHeader>
-        <CardContent>
-          <Show
-            condition={!!expenses.data?.expenses?.length}
-            fallback={
-              <p className="text-center text-secondary">
-                No recorded expenses to show
               </p>
-            }
-          >
-            {renderExpenses}
-          </Show>
-        </CardContent>
-      </Card>
+            </Show>
+          </>
+        }
+        actionComponents={[
+          <Link href="/apps/expensetrack/createoreditexpense">
+            <Button
+              size="icon"
+              variant="default"
+              className="bg-primary hover:bg-primary"
+            >
+              <Icons.Plus className="h-4 w-4 text-black" />
+            </Button>
+          </Link>,
+          <EntitySummarizer
+            entityType={EntityType.EXPENSE}
+            entityDetails={`${getNameFromMonthValue(selectedMonth)} - ${JSON.stringify(expenses.data)}`}
+          />,
+        ]}
+        title={`Your ${getNameFromMonthValue(selectedMonth)}`}
+      />
+      <Show
+        condition={!!expenses.data?.expenses?.length}
+        fallback={
+          <p className="text-center text-secondary">
+            No recorded expenses to show
+          </p>
+        }
+      >
+        {renderExpenses}
+      </Show>
     </div>
   )
 }
