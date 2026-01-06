@@ -359,18 +359,17 @@ export function EntityCard<T extends keyof EntityMap>({
             </div>
           </div>
         </CardContent>
-        <CardFooter
-          className="flex justify-between"
-          onClick={(e) => e.stopPropagation()}
-        >
+        <CardFooter className="flex justify-between">
           <span className="flex gap-2">
             <HistoryIcon className="h-4 w-4" />
             <p className="text-xs">{displayDate}</p>
           </span>
-          <EntitySummarizer
-            entityDetails={JSON.stringify(entity)}
-            entityType={entityType}
-          />
+          <div onClick={(e) => e.stopPropagation()}>
+            <EntitySummarizer
+              entityDetails={JSON.stringify(entity)}
+              entityType={entityType}
+            />
+          </div>
         </CardFooter>
       </Card>
     </EntityDetails>
