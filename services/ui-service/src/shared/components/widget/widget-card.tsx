@@ -5,7 +5,7 @@ import { formatCurrency } from "@/shared/lib/format-currency"
 import IconContainer from "../icon-container"
 import { ReactNode } from "react"
 
-interface StatCardProps {
+interface WidgetCardProps {
   icon: ReactNode
   statTitle: string
   statValue: number
@@ -17,7 +17,7 @@ export default function WidgetCard({
   statTitle,
   statValue,
   additionalInfo,
-}: StatCardProps) {
+}: WidgetCardProps) {
   const [{ user }] = useUserContext()
 
   return (
