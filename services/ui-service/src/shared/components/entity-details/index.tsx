@@ -120,7 +120,10 @@ export function EntityDetails({
           <div className="flex justify-between">
             <div>
               <DialogTitle>{displayName}</DialogTitle>
-              <Badge variant="outline" className="w-fit text-white mt-2">
+              <Badge
+                variant="default"
+                className="bg-primary w-fit text-black mt-2"
+              >
                 {entityBadgeText}
               </Badge>
               <DialogDescription></DialogDescription>
