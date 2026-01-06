@@ -27,7 +27,6 @@ import {
   Workflow,
 } from "lucide-react"
 import Link from "next/link"
-import MaskText from "../mask"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { useUserContext } from "@/context/user.provider"
 import Show from "../show"
@@ -43,6 +42,7 @@ import { createEntityUrlMap, EntityMap, EntityType } from "./data"
 import EntitySummarizer from "../entity-summarizer"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { useRouter } from "nextjs-toploader/app"
+import MaskText from "../mask"
 
 const entityIconMap = {
   [EntityType.ASSET]: <Banknote className="h-5 w-5" />,
@@ -127,8 +127,8 @@ export function EntityCard<T extends keyof EntityMap>({
       case EntityType.DEBT:
         setEntityTitle((entity as Debt).debtPurpose)
         setInfo({
-          infoHeader: "Identifier",
-          infoValue: (entity as Debt).identifier,
+          infoHeader: "Next EMI Date",
+          infoValue: formatDate((entity as Debt).nextEmiDate),
         })
         setValuation({
           valuationHeader: "EMI",
@@ -144,8 +144,8 @@ export function EntityCard<T extends keyof EntityMap>({
       case EntityType.GOAL:
         setEntityTitle(formatDate((entity as Goal).goalDate, false))
         setInfo({
-          infoHeader: "Identifier",
-          infoValue: (entity as Goal)._id,
+          infoHeader: "Goal Date",
+          infoValue: formatDate((entity as Goal).goalDate, true),
         })
         setValuation({
           valuationHeader: "Goal",
@@ -338,7 +338,12 @@ export function EntityCard<T extends keyof EntityMap>({
                 {info.infoHeader}
               </span>
               <span className="text-sm font-medium">
-                <MaskText value={info.infoValue} />
+                <Show
+                  condition={entityType === EntityType.ASSET}
+                  fallback={info.infoValue}
+                >
+                  <MaskText value={info.infoValue} />
+                </Show>
               </span>
             </div>
             <div className="flex justify-between items-center">
