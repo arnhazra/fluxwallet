@@ -11,7 +11,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import { Package } from "lucide-react"
+import { Layers2 } from "lucide-react"
 import { Space } from "@/shared/constants/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import useQuery from "@/shared/hooks/use-query"
@@ -19,6 +19,8 @@ import HTTPMethods from "@/shared/constants/http-methods"
 import api from "@/shared/lib/ky-api"
 import { useSearchParams } from "next/navigation"
 import { useRouter } from "nextjs-toploader/app"
+import Show from "@/shared/components/show"
+import IconContainer from "@/shared/components/icon-container"
 
 interface SpaceFormData {
   spaceName: string
@@ -103,8 +105,12 @@ export default function Page() {
       <Card className="bg-background text-white border-border">
         <CardHeader>
           <CardTitle className="text-2xl flex items-center gap-2">
-            <Package className="h-5 w-5 text-primary" />
-            Edit Space
+            <IconContainer>
+              <Layers2 className="h-4 w-4" />
+            </IconContainer>
+            <Show condition={!spaceId} fallback="Edit Space">
+              Add Space
+            </Show>
           </CardTitle>
           <CardDescription className="text-sm text-primary">
             Edit your space to track your investments and assets

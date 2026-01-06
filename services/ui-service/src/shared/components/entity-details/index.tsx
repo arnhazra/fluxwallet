@@ -14,7 +14,6 @@ import { Pen, Trash } from "lucide-react"
 import notify from "@/shared/hooks/use-notify"
 import { uiConstants } from "@/shared/constants/global-constants"
 import { useConfirmContext } from "@/shared/providers/confirm.provider"
-import { useRouter } from "nextjs-toploader/app"
 import { Button } from "../ui/button"
 import { useUserContext } from "@/context/user.provider"
 import { useQueryClient } from "@tanstack/react-query"
@@ -28,6 +27,9 @@ import {
 } from "./data"
 import api from "@/shared/lib/ky-api"
 import Show from "../show"
+import Link from "next/link"
+import { EntityType } from "../entity-card/data"
+import { useRouter } from "nextjs-toploader/app"
 
 type EntityDetailsProps = {
   entityType: EntityTypeForDetailModal
@@ -49,11 +51,11 @@ export function EntityDetails({
 }: EntityDetailsProps) {
   const [{ user }] = useUserContext()
   const [open, setOpen] = useState(false)
-  const router = useRouter()
   const queryClient = useQueryClient()
   const { confirm } = useConfirmContext()
   const [entityBadgeText, setEnytityBadgeText] = useState("")
   const [displayName, setDisplayName] = useState("")
+  const router = useRouter()
 
   useEffect(() => {
     switch (entityType) {
@@ -104,6 +106,10 @@ export function EntityDetails({
 
   const isAmount = (key: keyof Asset): boolean => amountKeys.includes(key)
 
+  if ((entityType as unknown as EntityType) === EntityType.SPACE) {
+    return <>{children}</>
+  }
+
   return (
     <Dialog open={open}>
       <DialogTrigger asChild onClick={() => setOpen(true)}>
@@ -114,7 +120,10 @@ export function EntityDetails({
           <div className="flex justify-between">
             <div>
               <DialogTitle>{displayName}</DialogTitle>
-              <Badge variant="outline" className="w-fit text-white mt-2">
+              <Badge
+                variant="default"
+                className="bg-primary w-fit text-black mt-2"
+              >
                 {entityBadgeText}
               </Badge>
               <DialogDescription></DialogDescription>
@@ -123,18 +132,17 @@ export function EntityDetails({
               <Show
                 condition={entityType !== EntityTypeForDetailModal.CASHFLOW}
               >
-                <Button
-                  onClick={(): void =>
-                    router.push(
-                      `${editEntityUrlMap[entityType as keyof typeof editEntityUrlMap]}?id=${(entity as Asset | Debt | Goal)._id}`
-                    )
-                  }
-                  variant="default"
-                  size="icon"
-                  className="p-2 bg-primary hover:bg-primary"
+                <Link
+                  href={`${editEntityUrlMap[entityType as keyof typeof editEntityUrlMap]}?id=${(entity as Asset | Debt | Goal)._id}`}
                 >
-                  <Pen className="text-black h-4 w-4" />
-                </Button>
+                  <Button
+                    variant="default"
+                    size="icon"
+                    className="p-2 bg-primary hover:bg-primary"
+                  >
+                    <Pen className="text-black h-4 w-4" />
+                  </Button>
+                </Link>
               </Show>
               <Button onClick={deleteEntity} variant="secondary" size="icon">
                 <Trash className="h-4 w-4" />

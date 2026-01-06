@@ -19,14 +19,13 @@ import useQuery from "@/shared/hooks/use-query"
 import { PlannerEvent } from "@/shared/constants/types"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import HTTPMethods from "@/shared/constants/http-methods"
-import { useRouter } from "nextjs-toploader/app"
 import { EventModal } from "@/shared/components/event-modal"
+import Link from "next/link"
 
 export default function CalendarPage() {
   const [currentDate, setCurrentDate] = useState(new Date())
   const [selectedDate, setSelectedDate] = useState<Date | null>(null)
   const [isModalOpen, setIsModalOpen] = useState(false)
-  const router = useRouter()
   const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"]
   const [selectedMonth, setSelectedMonth] = useState(
     `${format(currentDate, "yyyy-MM")}`
@@ -103,15 +102,16 @@ export default function CalendarPage() {
                 <span className="sr-only">Next month</span>
               </Button>
             </div>
-            <Button
-              size="sm"
-              variant="default"
-              className="gap-2 border-zinc-700 bg-primary text-black hover:bg-primary/90"
-              onClick={(): void => router.push("/apps/planner/addevent")}
-            >
-              <Plus className="h-4 w-4" />
-              Add Event
-            </Button>
+            <Link href="/apps/planner/addevent">
+              <Button
+                size="sm"
+                variant="default"
+                className="gap-2 border-zinc-700 bg-primary text-black hover:bg-primary/90"
+              >
+                <Plus className="h-4 w-4" />
+                Add Event
+              </Button>
+            </Link>
           </div>
         </header>
 
@@ -188,6 +188,7 @@ export default function CalendarPage() {
           events.refetch()
         }}
         events={selectedDateEvents || []}
+        selectedDate={selectedDate}
       />
     </div>
   )

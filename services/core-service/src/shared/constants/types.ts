@@ -29,3 +29,11 @@ export enum ExpenseCategory {
   DEBT_INSTALLMENT = "DEBT_INSTALLMENT",
   MISCELLANEOUS = "MISCELLANEOUS",
 }
+
+export interface ExpenseCategoryConfig {
+  expenseCategories: {
+    displayName: string
+    value: ExpenseCategory
+    icon: string
+  }[]
+}

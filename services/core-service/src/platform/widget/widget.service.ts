@@ -1,6 +1,9 @@
+import { User } from "@/auth/schemas/user.schema"
 import { AppEventMap } from "@/shared/constants/app-events.map"
 import { Injectable } from "@nestjs/common"
 import { EventEmitter2 } from "@nestjs/event-emitter"
+import { format } from "date-fns"
+import { formatCurrency } from "./lib/format-currency"
 
 @Injectable()
 export class WidgetService {
@@ -21,32 +24,39 @@ export class WidgetService {
         await this.eventEmitter.emitAsync(AppEventMap.GetExpenseByMonth, userId)
       ).shift()
 
+      const user: User = (
+        await this.eventEmitter.emitAsync(AppEventMap.GetUserDetails, userId)
+      ).shift()
+
       const goalPercentage =
         ((wealthData ?? 0) * 100) / (goalData?.goalAmount ?? 0) || 0
       const widgets = [
         {
           icon: "Banknote",
           title: "Total Assets",
-          value: Number(wealthData),
+          value: formatCurrency(Number(wealthData), user.baseCurrency),
           additionalInfo: "Sum of all assets",
         },
         {
           icon: "HandCoins",
           title: "Current Month Expense",
-          value: Number(expenseData.total),
-          additionalInfo: `Expense for ${String(new Date().getMonth() + 1).padStart(2, "0")}-${new Date().getFullYear()}`,
+          value: formatCurrency(Number(expenseData.total), user.baseCurrency),
+          additionalInfo: `Expense for ${format(new Date(), "MMM, yyyy")}`,
         },
         {
           icon: "GoalIcon",
           title: "Goal Progress",
-          value: Number(goalData.goalAmount),
+          value: formatCurrency(Number(goalData.goalAmount), user.baseCurrency),
           additionalInfo: `${goalPercentage >= 100 ? 100 : goalPercentage.toFixed(0)}% Complete`,
         },
         {
           icon: "CreditCard",
           title: "Current Liabilities",
-          value: Number(debtData.remainingDebt),
-          additionalInfo: `EMI: ${Number(debtData.totalEMI).toFixed(0)}`,
+          value: formatCurrency(
+            Number(debtData.remainingDebt),
+            user.baseCurrency
+          ),
+          additionalInfo: `EMI is ${formatCurrency(debtData.totalEMI, user.baseCurrency)}`,
         },
       ]
       return widgets

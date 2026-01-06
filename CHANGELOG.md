@@ -1,11 +1,16 @@
 # Changelog
 
-## Version 3.3.0
+## Version 3.5.0
+
+- UI Changes, Performance improvements
+- Bug fixes & dependency updates
+
+## Version 3.4.0
 
 - Dependency updates & performance improvements
 - Added Planner app on the platform
 
-## Version 3.2.1
+## Version 3.3.0
 
 - Dependency updates & performance improvements
 

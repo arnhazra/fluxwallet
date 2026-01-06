@@ -11,7 +11,7 @@ import {
 } from "@/shared/components/ui/card"
 import { Input } from "@/shared/components/ui/input"
 import { Label } from "@/shared/components/ui/label"
-import { CalendarIcon, BadgeDollarSign } from "lucide-react"
+import { CalendarIcon, CreditCard } from "lucide-react"
 import {
   Popover,
   PopoverContent,
@@ -139,10 +139,10 @@ export default function Page() {
           <CardHeader className="border-b border-neutral-800">
             <CardTitle className="text-2xl flex items-center gap-2 text-neutral-100">
               <IconContainer>
-                <BadgeDollarSign className="h-4 w-4" />
+                <CreditCard className="h-4 w-4" />
               </IconContainer>
-              <Show condition={!debtId} fallback="Update Goal">
-                Add New Debt
+              <Show condition={!debtId} fallback="Edit Debt">
+                Add Debt
               </Show>
             </CardTitle>
             <CardDescription className="text-primary">

@@ -16,20 +16,17 @@ import {
 } from "@/shared/constants/types"
 import {
   Banknote,
-  Building,
   CreditCard,
   ExternalLink,
-  Eye,
-  EyeIcon,
   GoalIcon,
   HistoryIcon,
+  Layers2,
   Newspaper,
   OctagonAlert,
   Plus,
   Workflow,
 } from "lucide-react"
 import Link from "next/link"
-import MaskText from "../mask"
 import { formatCurrency } from "@/shared/lib/format-currency"
 import { useUserContext } from "@/context/user.provider"
 import Show from "../show"
@@ -40,23 +37,20 @@ import { Button } from "@/shared/components/ui/button"
 import { useEffect, useState } from "react"
 import { formatDate } from "@/shared/lib/format-date"
 import { EntityDetails } from "../entity-details"
-import { useRouter } from "nextjs-toploader/app"
 import { EntityTypeForDetailModal } from "../entity-details/data"
-import {
-  createEntityUrlMap,
-  entityImageMap,
-  EntityMap,
-  EntityType,
-} from "./data"
+import { createEntityUrlMap, EntityMap, EntityType } from "./data"
 import EntitySummarizer from "../entity-summarizer"
+import { uiConstants } from "@/shared/constants/global-constants"
+import { useRouter } from "nextjs-toploader/app"
+import MaskText from "../mask"
 
 const entityIconMap = {
-  [EntityType.ASSET]: <Banknote className="h-4 w-4" />,
-  [EntityType.SPACE]: <Building className="h-4 w-4" />,
-  [EntityType.DEBT]: <CreditCard className="h-4 w-4" />,
-  [EntityType.GOAL]: <GoalIcon className="h-4 w-4" />,
-  [EntityType.NEWS]: <Newspaper className="h-4 w-4" />,
-  [EntityType.CASHFLOW]: <Workflow className="h-4 w-4" />,
+  [EntityType.ASSET]: <Banknote className="h-5 w-5" />,
+  [EntityType.SPACE]: <Layers2 className="h-5 w-5" />,
+  [EntityType.DEBT]: <CreditCard className="h-5 w-5" />,
+  [EntityType.GOAL]: <GoalIcon className="h-5 w-5" />,
+  [EntityType.NEWS]: <Newspaper className="h-5 w-5" />,
+  [EntityType.CASHFLOW]: <Workflow className="h-5 w-5" />,
 }
 
 type EntityCardProps<T extends keyof EntityMap> = {
@@ -97,11 +91,13 @@ export function EntityCard<T extends keyof EntityMap>({
   useEffect(() => {
     switch (entityType) {
       case EntityType.SPACE:
-        setEnytityBadgeText("SPACE")
         setEntityTitle((entity as Space).spaceName)
-        setInfo({ infoHeader: "Identifier", infoValue: (entity as Space)._id })
+        setInfo({
+          infoHeader: "Assets",
+          infoValue: (entity as Space).assetCount?.toString() || "0",
+        })
         setValuation({
-          valuationHeader: "Present Valuation",
+          valuationHeader: "Net Valuation",
           valuationAmount: (entity as Space).presentValuation,
         })
         const spaceCreatedAt = (entity as Space).createdAt
@@ -112,7 +108,6 @@ export function EntityCard<T extends keyof EntityMap>({
         setDisplayDate(spaceCreatedAt ?? "")
         break
       case EntityType.ASSET:
-        setEnytityBadgeText((entity as Asset).assetType.replace("_", " "))
         setEntityTitle((entity as Asset).assetName)
         setInfo({
           infoHeader: "Identifier",
@@ -130,11 +125,10 @@ export function EntityCard<T extends keyof EntityMap>({
         setDisplayDate(assetCreatedAt ?? "")
         break
       case EntityType.DEBT:
-        setEnytityBadgeText("DEBT")
         setEntityTitle((entity as Debt).debtPurpose)
         setInfo({
-          infoHeader: "Identifier",
-          infoValue: (entity as Debt).identifier,
+          infoHeader: "Next EMI Date",
+          infoValue: formatDate((entity as Debt).nextEmiDate),
         })
         setValuation({
           valuationHeader: "EMI",
@@ -148,11 +142,10 @@ export function EntityCard<T extends keyof EntityMap>({
         setDisplayDate(debtCreatedAt ?? "")
         break
       case EntityType.GOAL:
-        setEnytityBadgeText("GOAL")
         setEntityTitle(formatDate((entity as Goal).goalDate, false))
         setInfo({
-          infoHeader: "Identifier",
-          infoValue: (entity as Goal)._id,
+          infoHeader: "Goal Date",
+          infoValue: formatDate((entity as Goal).goalDate, true),
         })
         setValuation({
           valuationHeader: "Goal",
@@ -166,7 +159,6 @@ export function EntityCard<T extends keyof EntityMap>({
         setDisplayDate(goalCreatedAt ?? "")
         break
       case EntityType.CASHFLOW:
-        setEnytityBadgeText("CASHFLOW")
         setEntityTitle((entity as Cashflow).description)
         setInfo({
           infoHeader: "Flow Direction",
@@ -205,15 +197,15 @@ export function EntityCard<T extends keyof EntityMap>({
     }
   }, [entityType, entity])
 
-  return (
-    <Card className="w-full max-w-xs mx-auto h-[22rem] flex flex-col relative hover:shadow-md transition-shadow bg-background border-border text-white pt-0 overflow-hidden">
-      <div className="relative aspect-video overflow-hidden bg-muted rounded-t-3xl">
-        <Show condition={entityType === EntityType.NEWS}>
+  if (entityType === EntityType.NEWS) {
+    return (
+      <Card className="w-full max-w-xs mx-auto h-[22rem] flex flex-col relative hover:shadow-md transition-shadow bg-background border-border text-white pt-0 overflow-hidden">
+        <div className="relative aspect-video overflow-hidden bg-muted rounded-t-3xl">
           <Show
             condition={!!(entity as Article).urlToImage && !articleImageError}
             fallback={
               <img
-                src={entityImageMap[EntityType.NEWS]}
+                src={uiConstants.newsFallbackImageUrl}
                 alt="News image"
                 className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-t-3xl"
               />
@@ -222,117 +214,51 @@ export function EntityCard<T extends keyof EntityMap>({
             <img
               src={
                 (entity as Article).urlToImage ??
-                entityImageMap[EntityType.NEWS]
+                uiConstants.newsFallbackImageUrl
               }
               alt={(entity as Article).title || "News image"}
               className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-t-3xl"
               onError={handleArticleImageError}
             />
           </Show>
-        </Show>
-        <Show condition={!(entityType === EntityType.NEWS)}>
-          <img
-            src={entityImageMap[entityType]}
-            alt={entityType}
-            className="object-cover w-full h-full transition-transform duration-300 rounded-t-3xl"
-          />
-        </Show>
-        <div className="absolute inset-0 bg-gradient-to-t from-background to-background/60" />
-        <Badge className="absolute top-2 left-2 bg-primary/90 hover:bg-primary text-black">
-          {entityBadgeText}
-        </Badge>
-        <div className="absolute top-2 right-2">
-          <IconContainer>{entityIconMap[entityType]}</IconContainer>
-        </div>
-      </div>
-      <CardHeader className="flex-grow">
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-xl font-semibold text-white truncate max-w-full">
-            {enityTitle}
-          </CardTitle>
-          <div className="flex items-center justify-between">
-            <Show
-              condition={
-                (entityType === EntityType.ASSET &&
-                  (entity as Asset).isMatured) ||
-                (entityType === EntityType.DEBT && (entity as Debt).isMatured)
-              }
-            >
-              <Tooltip>
-                <TooltipTrigger>
-                  <OctagonAlert className="h-4 w-4 text-secondary" />
-                </TooltipTrigger>
-                <TooltipContent className="bg-background text-white border-border">
-                  This {entityType} is matured
-                </TooltipContent>
-              </Tooltip>
-            </Show>
-            <Show
-              condition={
-                (entityType === EntityType.ASSET &&
-                  (entity as Asset).isMaturityApproaching) ||
-                (entityType === EntityType.DEBT &&
-                  (entity as Debt).isMaturityApproaching)
-              }
-            >
-              <Tooltip>
-                <TooltipTrigger>
-                  <OctagonAlert className="h-4 w-4 text-amber-400" />
-                </TooltipTrigger>
-                <TooltipContent className="bg-background text-white border-border">
-                  This {entityType} is about to mature
-                </TooltipContent>
-              </Tooltip>
-            </Show>
+          <div className="absolute inset-0 bg-gradient-to-t from-background to-background/60" />
+          <Badge className="absolute top-2 left-2 bg-primary/90 hover:bg-primary text-black">
+            {entityBadgeText}
+          </Badge>
+          <div className="absolute top-2 right-2">
+            <IconContainer>{entityIconMap[entityType]}</IconContainer>
           </div>
         </div>
-      </CardHeader>
-      <CardContent>
-        <Show condition={entityType === EntityType.NEWS}>
+        <CardHeader className="flex-grow min-w-0">
+          <div className="flex min-w-0">
+            <CardTitle
+              className="text-xl font-semibold text-white truncate"
+              title={enityTitle}
+            >
+              {enityTitle}
+            </CardTitle>
+          </div>
+        </CardHeader>
+        <CardContent>
           <p className="text-sm line-clamp-3 mt-2 text-neutral-300">
             {entityDescription || "No description available"}
           </p>
-        </Show>
-        <Show condition={!(entityType === EntityType.NEWS)}>
-          <div className="space-y-2">
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-neutral-300">
-                {info.infoHeader}
-              </span>
-              <span className="text-sm font-medium">
-                <MaskText value={info.infoValue} />
-              </span>
+          <div className="flex justify-between items-center mt-4">
+            <div className="flex items-center justify-between text-sm text-muted-foreground">
+              {displayDate && (
+                <span className="flex gap-2">
+                  <HistoryIcon className="h-3 w-3 mt-1" />
+                  {displayDate}
+                </span>
+              )}
             </div>
-            <div className="flex justify-between items-center">
-              <span className="text-sm text-neutral-300">
-                {valuation.valuationHeader}
-              </span>
-              <span className="text-lg font-bold text-white">
-                {formatCurrency(
-                  valuation.valuationAmount ?? 0,
-                  user.baseCurrency
-                )}
-              </span>
-            </div>
+            <EntitySummarizer
+              entityDetails={JSON.stringify(entity)}
+              entityType={entityType}
+            />
           </div>
-        </Show>
-        <div className="flex justify-between items-center mt-4">
-          <div className="flex items-center justify-between text-sm text-muted-foreground">
-            {displayDate && (
-              <span className="flex gap-2">
-                <HistoryIcon className="h-3 w-3 mt-1" />
-                {displayDate}
-              </span>
-            )}
-          </div>
-          <EntitySummarizer
-            entityDetails={JSON.stringify(entity)}
-            entityType={entityType}
-          />
-        </div>
-      </CardContent>
-      <CardFooter className="pt-0">
-        <Show condition={entityType === EntityType.NEWS}>
+        </CardContent>
+        <CardFooter className="pt-0">
           {(entity as Article).url && (
             <Button
               variant="default"
@@ -349,53 +275,120 @@ export function EntityCard<T extends keyof EntityMap>({
               </Link>
             </Button>
           )}
-        </Show>
-        <Show condition={entityType === EntityType.SPACE}>
-          <Button
-            variant="default"
-            className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
-            onClick={(): void =>
-              router.push(`/apps/wealthanalyzer/space/${(entity as Space)._id}`)
-            }
-          >
-            View Assets
-            <Eye className="h-4 w-4" />
-          </Button>
-        </Show>
-        <Show
-          condition={
-            entityType === EntityType.ASSET ||
-            entityType === EntityType.DEBT ||
-            entityType === EntityType.GOAL ||
-            entityType === EntityType.CASHFLOW
-          }
-        >
-          <EntityDetails
-            entityType={entityType as unknown as EntityTypeForDetailModal}
-            entity={entity as unknown as Asset | Debt | Goal | Cashflow}
-          >
-            <Button
-              variant="default"
-              className="w-full gap-2 bg-border hover:bg-border bg-neutral-800 hover:bg-neutral-800/90"
-            >
-              View Details
-              <Eye className="h-4 w-4" />
-            </Button>
-          </EntityDetails>
-        </Show>
-      </CardFooter>
-    </Card>
+        </CardFooter>
+      </Card>
+    )
+  }
+
+  return (
+    <EntityDetails
+      entityType={entityType as unknown as EntityTypeForDetailModal}
+      entity={entity as unknown as Asset | Debt | Goal | Cashflow}
+    >
+      <Card
+        onClick={(): void =>
+          entityType === EntityType.SPACE
+            ? router.push(`/apps/wealthanalyzer/space/${(entity as Space)._id}`)
+            : undefined
+        }
+        className="bg-background/2 border h-[15rem] backdrop-blur-sm border-border p-2 rounded-3xl hover:shadow-lg hover:shadow-primary/20 cursor-pointer"
+      >
+        <CardHeader className="flex mt-6 items-start gap-2">
+          <div className="flex min-w-0 flex-1 gap-2">
+            <h2 className=" text-xl truncate break-all">{enityTitle}</h2>
+            <div className="mt-1 shrink-0">
+              <Show
+                condition={
+                  (entityType === EntityType.ASSET &&
+                    (entity as Asset).isMatured) ||
+                  (entityType === EntityType.DEBT && (entity as Debt).isMatured)
+                }
+              >
+                <Tooltip>
+                  <TooltipTrigger>
+                    <OctagonAlert className="h-4 w-4 text-secondary" />
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-background text-white border-border">
+                    This {entityType} is matured
+                  </TooltipContent>
+                </Tooltip>
+              </Show>
+              <Show
+                condition={
+                  (entityType === EntityType.ASSET &&
+                    (entity as Asset).isMaturityApproaching) ||
+                  (entityType === EntityType.DEBT &&
+                    (entity as Debt).isMaturityApproaching)
+                }
+              >
+                <Tooltip>
+                  <TooltipTrigger>
+                    <OctagonAlert className="h-4 w-4 text-amber-400" />
+                  </TooltipTrigger>
+                  <TooltipContent className="bg-background text-white border-border">
+                    This {entityType} is about to mature
+                  </TooltipContent>
+                </Tooltip>
+              </Show>
+            </div>
+          </div>
+          <div className="shrink-0">
+            <IconContainer>{entityIconMap[entityType]}</IconContainer>
+          </div>
+        </CardHeader>
+        <CardContent>
+          <div className="space-y-2">
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-neutral-300">
+                {info.infoHeader}
+              </span>
+              <span className="text-sm font-medium">
+                <Show
+                  condition={entityType === EntityType.ASSET}
+                  fallback={info.infoValue}
+                >
+                  <MaskText value={info.infoValue} />
+                </Show>
+              </span>
+            </div>
+            <div className="flex justify-between items-center">
+              <span className="text-sm text-neutral-300">
+                {valuation.valuationHeader}
+              </span>
+              <span className="text-lg font-bold text-white">
+                {formatCurrency(
+                  valuation.valuationAmount ?? 0,
+                  user.baseCurrency
+                )}
+              </span>
+            </div>
+          </div>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <span className="flex gap-2">
+            <HistoryIcon className="h-4 w-4" />
+            <p className="text-xs">{displayDate}</p>
+          </span>
+          <div onClick={(e) => e.stopPropagation()}>
+            <EntitySummarizer
+              entityDetails={JSON.stringify(entity)}
+              entityType={entityType}
+            />
+          </div>
+        </CardFooter>
+      </Card>
+    </EntityDetails>
   )
 }
 
 export function AddEntityCard({ entityType }: { entityType: EntityType }) {
   return (
     <Link href={createEntityUrlMap[entityType]}>
-      <Card className="w-full max-w-xs mx-auto h-[22rem] flex flex-row items-center justify-center gap-1 bg-background border border-border text-white hover:shadow-md hover:shadow-primary/20 duration-400">
+      <Card className="bg-background/2 flex flex-row h-[15rem] items-center justify-center backdrop-blur-sm border border-border rounded-3xl relative overflow-hidden hover:shadow-md hover:shadow-primary/20">
         <IconContainer>
           <Plus className="w-4 h-4" />
         </IconContainer>
-        <p className="ms-2 text-lg font-medium capitalize">Add {entityType}</p>
+        <p className="text-lg font-medium capitalize">Add {entityType}</p>
       </Card>
     </Link>
   )
