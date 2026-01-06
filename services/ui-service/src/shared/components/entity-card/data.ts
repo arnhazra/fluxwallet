@@ -1,4 +1,3 @@
-import { imageUrls } from "@/shared/constants/global-constants"
 import {
   Article,
   Asset,
@@ -25,15 +24,6 @@ export type EntityMap = {
   [EntityType.GOAL]: Goal
   [EntityType.NEWS]: Article
   [EntityType.CASHFLOW]: Cashflow
-}
-
-export const entityImageMap = {
-  [EntityType.ASSET]: imageUrls.asset,
-  [EntityType.SPACE]: imageUrls.space,
-  [EntityType.DEBT]: imageUrls.debt,
-  [EntityType.GOAL]: imageUrls.goal,
-  [EntityType.NEWS]: imageUrls.newsFallback,
-  [EntityType.CASHFLOW]: imageUrls.cashflow,
 }
 
 export const createEntityUrlMap = {

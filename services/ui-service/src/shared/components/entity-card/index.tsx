@@ -42,13 +42,9 @@ import { formatDate } from "@/shared/lib/format-date"
 import { EntityDetails } from "../entity-details"
 import { useRouter } from "nextjs-toploader/app"
 import { EntityTypeForDetailModal } from "../entity-details/data"
-import {
-  createEntityUrlMap,
-  entityImageMap,
-  EntityMap,
-  EntityType,
-} from "./data"
+import { createEntityUrlMap, EntityMap, EntityType } from "./data"
 import EntitySummarizer from "../entity-summarizer"
+import { uiConstants } from "@/shared/constants/global-constants"
 
 const entityIconMap = {
   [EntityType.ASSET]: <Banknote className="h-4 w-4" />,
@@ -213,7 +209,7 @@ export function EntityCard<T extends keyof EntityMap>({
             condition={!!(entity as Article).urlToImage && !articleImageError}
             fallback={
               <img
-                src={entityImageMap[EntityType.NEWS]}
+                src={uiConstants.newsFallbackImageUrl}
                 alt="News image"
                 className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-t-3xl"
               />
@@ -222,20 +218,13 @@ export function EntityCard<T extends keyof EntityMap>({
             <img
               src={
                 (entity as Article).urlToImage ??
-                entityImageMap[EntityType.NEWS]
+                uiConstants.newsFallbackImageUrl
               }
               alt={(entity as Article).title || "News image"}
               className="object-cover w-full h-full transition-transform duration-300 hover:scale-105 rounded-t-3xl"
               onError={handleArticleImageError}
             />
           </Show>
-        </Show>
-        <Show condition={!(entityType === EntityType.NEWS)}>
-          <img
-            src={entityImageMap[entityType]}
-            alt={entityType}
-            className="object-cover w-full h-full transition-transform duration-300 rounded-t-3xl"
-          />
         </Show>
         <div className="absolute inset-0 bg-gradient-to-t from-background to-background/60" />
         <Badge className="absolute top-2 left-2 bg-primary/90 hover:bg-primary text-black">
