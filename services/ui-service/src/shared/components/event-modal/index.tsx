@@ -79,7 +79,8 @@ export function EventModal({
                 variant="default"
                 className=" bg-primary text-black hover:bg-primary/90"
               >
-                Add Event <Plus className="h-4 w-4" />
+                <Plus className="h-4 w-4" />
+                Add Event
               </Button>
             </Link>
           </>
