@@ -1,5 +1,6 @@
 "use client"
 
+import { endPoints } from "@/shared/constants/api-endpoints"
 import { useState } from "react"
 
 export default function Page() {
@@ -22,7 +23,7 @@ export default function Page() {
       formData.append("base", baseBlob, "base1.png")
       formData.append("actual", actualBlob, "actual1.png")
 
-      const res = await fetch("/api/upload", {
+      const res = await fetch(endPoints.sscompare, {
         method: "POST",
         body: formData,
       })
