@@ -53,13 +53,10 @@ export class TaxAdvisorController {
       )
     }
   }
-  /**
-   * Accepts two screenshots (base, actual) as files from the frontend
-   */
+
   @Post("upload")
   @UseInterceptors(AnyFilesInterceptor())
   async uploadScreenshots(@UploadedFiles() files: MulterFile[]) {
-    // Expecting files with fieldnames 'base' and 'actual'
     const base = files.find((f) => f.fieldname === "base")
     const actual = files.find((f) => f.fieldname === "actual")
     if (!base || !actual) {
@@ -67,19 +64,6 @@ export class TaxAdvisorController {
         "Both base and actual screenshots are required."
       )
     }
-    // Here you can process, store, or analyze the files as needed
-    // For now, just return their original names and mimetypes
-    return {
-      base: {
-        originalname: base.originalname,
-        mimetype: base.mimetype,
-        size: base.size,
-      },
-      actual: {
-        originalname: actual.originalname,
-        mimetype: actual.mimetype,
-        size: actual.size,
-      },
-    }
+    return await this.service.compareScreenshots(base, actual)
   }
 }

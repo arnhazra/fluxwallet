@@ -77,4 +77,32 @@ export class TaxAdvisorService {
       throw error
     }
   }
+
+  /**
+   * Compares two screenshots using LangChain and OpenAI API
+   * @param baseScreenshot - the base design screenshot file
+   * @param actualScreenshot - the actual app screenshot file
+   */
+  async compareScreenshots(
+    baseScreenshot: Express.Multer.File,
+    actualScreenshot: Express.Multer.File
+  ) {
+    try {
+      // Convert image buffers to base64
+      const base64Base = baseScreenshot.buffer.toString("base64")
+      const base64Actual = actualScreenshot.buffer.toString("base64")
+      console.log(base64Base)
+
+      // Compose a prompt for the LLM
+      const prompt = `You are an expert UI reviewer. Compare the following two screenshots and provide a detailed analysis of the differences, similarities, and any issues you notice.\n\nBase Design Screenshot (base64): ${base64Base}\n\nActual App Screenshot (base64): ${base64Actual}`
+
+      // Call the LLM using LangChain
+      const llm = this.strategy["llmService"].getLLM()
+      const response = await llm.invoke(prompt)
+
+      return { response }
+    } catch (error) {
+      throw error
+    }
+  }
 }
