@@ -1,19 +1,10 @@
 import { Injectable } from "@nestjs/common"
-import { CommandBus, QueryBus } from "@nestjs/cqrs"
-import { EventEmitter2 } from "@nestjs/event-emitter"
-import { TaxAdvisorStrategy } from "./sscompare.strategy"
 import { HumanMessage } from "langchain"
 import { LLMService } from "@/shared/llm/llm.service"
 
 @Injectable()
 export class TaxAdvisorService {
-  constructor(
-    private readonly commandBus: CommandBus,
-    private readonly queryBus: QueryBus,
-    private readonly strategy: TaxAdvisorStrategy,
-    private readonly eventEmitter: EventEmitter2,
-    private readonly llmService: LLMService
-  ) {}
+  constructor(private readonly llmService: LLMService) {}
 
   async compareScreenshots(
     baseScreenshot: Express.Multer.File,

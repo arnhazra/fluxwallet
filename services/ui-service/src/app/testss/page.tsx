@@ -28,7 +28,8 @@ export default function Page() {
         body: formData,
       })
       if (res.ok) {
-        setMessage("Upload successful!")
+        const data = await res.json()
+        setMessage(data.response)
       } else {
         setMessage("Upload failed.")
       }
