@@ -1,17 +1,9 @@
 import { Injectable } from "@nestjs/common"
 import { CommandBus, QueryBus } from "@nestjs/cqrs"
-import { CreateThreadCommand } from "./commands/impl/create-thread.command"
-import { Thread } from "./schemas/thread.schema"
 import { EventEmitter2 } from "@nestjs/event-emitter"
-import { AppEventMap } from "@/shared/constants/app-events.map"
-import { AIGenerationDto } from "./dto/ai-generate.dto"
-import { FetchThreadByIdQuery } from "./queries/impl/fetch-thread-by-id.query"
-import {
-  TaxAdvisorStrategy,
-  TaxAdvisorStrategyType,
-} from "./sscompare.strategy"
-import { User } from "@/auth/schemas/user.schema"
-import { createOrConvertObjectId } from "@/shared/entity/entity.schema"
+import { TaxAdvisorStrategy } from "./sscompare.strategy"
+import { HumanMessage } from "langchain"
+import { LLMService } from "@/shared/llm/llm.service"
 
 @Injectable()
 export class TaxAdvisorService {
@@ -19,88 +11,42 @@ export class TaxAdvisorService {
     private readonly commandBus: CommandBus,
     private readonly queryBus: QueryBus,
     private readonly strategy: TaxAdvisorStrategy,
-    private readonly eventEmitter: EventEmitter2
+    private readonly eventEmitter: EventEmitter2,
+    private readonly llmService: LLMService
   ) {}
 
-  async getThreadById(threadId: string, isFirstMessage: boolean) {
-    try {
-      if (isFirstMessage) {
-        return []
-      }
-
-      const thread = await this.queryBus.execute<
-        FetchThreadByIdQuery,
-        Thread[]
-      >(new FetchThreadByIdQuery(threadId))
-      if (!!thread && thread.length) {
-        return thread
-      } else {
-        throw new Error("Thread not found")
-      }
-    } catch (error) {
-      throw error
-    }
-  }
-
-  async generateRecommendation(
-    aiGenerationDto: AIGenerationDto,
-    userId: string
-  ) {
-    try {
-      const { prompt } = aiGenerationDto
-      const threadId =
-        aiGenerationDto.threadId ?? createOrConvertObjectId().toString()
-      const thread = await this.getThreadById(
-        threadId,
-        !aiGenerationDto.threadId
-      )
-
-      const user: User = (
-        await this.eventEmitter.emitAsync(AppEventMap.GetUserDetails, userId)
-      ).shift()
-
-      const args: TaxAdvisorStrategyType = {
-        temperature: 0.8,
-        topP: 0.8,
-        thread,
-        prompt,
-        threadId,
-        user,
-      }
-
-      const { response } = await this.strategy.advise(args)
-      await this.commandBus.execute<CreateThreadCommand, Thread>(
-        new CreateThreadCommand(String(user._id), threadId, prompt, response)
-      )
-      return { response, threadId }
-    } catch (error) {
-      throw error
-    }
-  }
-
-  /**
-   * Compares two screenshots using LangChain and OpenAI API
-   * @param baseScreenshot - the base design screenshot file
-   * @param actualScreenshot - the actual app screenshot file
-   */
   async compareScreenshots(
     baseScreenshot: Express.Multer.File,
     actualScreenshot: Express.Multer.File
   ) {
     try {
-      // Convert image buffers to base64
-      const base64Base = baseScreenshot.buffer.toString("base64")
-      const base64Actual = actualScreenshot.buffer.toString("base64")
-      console.log(base64Base)
+      const prompt = `You are an expert UI reviewer. Compare the following two screenshots and provide a detailed analysis of the differences, similarities, and any issues you notice.`
 
-      // Compose a prompt for the LLM
-      const prompt = `You are an expert UI reviewer. Compare the following two screenshots and provide a detailed analysis of the differences, similarities, and any issues you notice.\n\nBase Design Screenshot (base64): ${base64Base}\n\nActual App Screenshot (base64): ${base64Actual}`
+      const messages = [
+        new HumanMessage({
+          content: [
+            { type: "text", text: prompt },
+            {
+              type: "image_url",
+              image_url: {
+                url: `data:${baseScreenshot.mimetype};base64,${baseScreenshot.buffer.toString("base64")}`,
+              },
+            },
+            {
+              type: "image_url",
+              image_url: {
+                url: `data:${actualScreenshot.mimetype};base64,${actualScreenshot.buffer.toString("base64")}`,
+              },
+            },
+          ],
+        }),
+      ]
 
-      // Call the LLM using LangChain
-      const llm = this.strategy["llmService"].getLLM()
-      const response = await llm.invoke(prompt)
+      const llm = this.llmService.getLLM()
 
-      return { response }
+      const response = await llm.invoke(messages)
+
+      return { response: response.content }
     } catch (error) {
       throw error
     }
