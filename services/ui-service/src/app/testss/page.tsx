@@ -1,5 +1,6 @@
 "use client"
-
+import MarkdownRenderer from "@/shared/components/markdown"
+import { Button } from "@/shared/components/ui/button"
 import { endPoints } from "@/shared/constants/api-endpoints"
 import { useState } from "react"
 
@@ -42,12 +43,13 @@ export default function Page() {
 
   return (
     <div style={{ padding: "2rem" }}>
-      <h2>Screenshot Comparison Table</h2>
+      <h2>Comparison Table</h2>
       <table
         style={{
           width: "100%",
           borderCollapse: "collapse",
           marginBottom: "2rem",
+          color: "#fff",
         }}
       >
         <thead>
@@ -101,19 +103,19 @@ export default function Page() {
           ))}
         </tbody>
       </table>
-      <button
+      <Button
+        variant="default"
         onClick={handleUpload}
         disabled={uploading}
-        style={{
-          padding: "10px 24px",
-          fontSize: "16px",
-          borderRadius: "6px",
-          cursor: uploading ? "not-allowed" : "pointer",
-        }}
+        className="text-black"
       >
         {uploading ? "Uploading..." : "Upload"}
-      </button>
-      {message && <div style={{ marginTop: "1rem" }}>{message}</div>}
+      </Button>
+      {message && (
+        <div style={{ marginTop: "1rem", color: "#fff" }}>
+          <MarkdownRenderer markdown={message} />
+        </div>
+      )}
     </div>
   )
 }
