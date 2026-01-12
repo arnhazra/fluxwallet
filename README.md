@@ -8,4 +8,4 @@ This is an Open Source AI powered wealth management platform that helps you orga
 - Nest JS as a framework on top of Node JS for API
 - Next JS as a framework on top of React JS for UI
 - Mongo DB as a primary database
-- Redis for config management
+- Redis for platform config management
