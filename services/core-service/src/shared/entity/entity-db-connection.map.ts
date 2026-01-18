@@ -11,5 +11,4 @@ export enum AppsDbConnectionMap {
   TaxAdvisor = "taxadvisor",
   CashFlow = "cashflow",
   Planner = "planner",
-  SSCompare = "sscompare",
 }

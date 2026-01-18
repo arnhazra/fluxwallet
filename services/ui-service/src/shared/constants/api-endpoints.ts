@@ -23,5 +23,4 @@ export const endPoints = {
   taxAdvisor: `${apiHost}/apps/taxadvisor`,
   cashflow: `${apiHost}/apps/cashflow`,
   events: `${apiHost}/apps/planner/event`,
-  sscompare: `${apiHost}/sscompare/upload`,
 }

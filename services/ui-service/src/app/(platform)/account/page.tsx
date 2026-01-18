@@ -12,9 +12,7 @@ import {
   Globe,
   Pen,
   Leaf,
-  CalendarClock,
   PieChart,
-  GitCompare,
   Sparkles,
 } from "lucide-react"
 import EditCurrency from "@/shared/components/edit-currency"

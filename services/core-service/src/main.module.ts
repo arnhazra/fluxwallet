@@ -7,7 +7,6 @@ import { AppsModule } from "./apps/apps.module"
 import { SharedModule } from "./shared/shared.module"
 import { RedisModule } from "./shared/redis/redis.module"
 import { LLMModule } from "./shared/llm/llm.module"
-import { SSCompareModule } from "./sscompare/sscompare.module"
 
 @Module({
   imports: [
@@ -18,7 +17,6 @@ import { SSCompareModule } from "./sscompare/sscompare.module"
     PlatformModule,
     AppsModule,
     SharedModule,
-    SSCompareModule,
   ],
   controllers: [MainController],
   providers: [],
