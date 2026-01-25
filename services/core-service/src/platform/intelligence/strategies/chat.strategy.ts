@@ -74,6 +74,7 @@ export class ChatStrategy {
         this.cashflowAgent.getCashflowsByUserIdTool,
         this.emailAgent.sendEmailTool,
       ],
+      stateSchema: undefined,
     })
 
     const chatHistory = thread.flatMap((t) => [
@@ -89,7 +90,10 @@ export class ChatStrategy {
       ],
     })
 
-    return messages[messages.length - 1]?.content.toString()
+    return (
+      messages[messages.length - 1]?.content?.toString?.() ??
+      messages[messages.length - 1]?.content
+    )
   }
 
   async chat(args: ChatArgs) {

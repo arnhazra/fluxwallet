@@ -1,7 +1,7 @@
 import { Injectable } from "@nestjs/common"
 import { Thread } from "./schemas/thread.schema"
 import { config } from "@/config"
-import { createAgent } from "langchain"
+import { AIMessage, createAgent, HumanMessage, SystemMessage } from "langchain"
 import { User } from "@/auth/schemas/user.schema"
 import { RedisService } from "@/shared/redis/redis.service"
 import { TaxAdvisorAgent } from "./agents/taxadvisor.agent"
@@ -44,18 +44,19 @@ export class TaxAdvisorStrategy {
     const agent = createAgent({
       model: llm,
       tools: [this.taxAdvisorAgent.sendEmailTool],
+      stateSchema: undefined,
     })
 
     const chatHistory = thread.flatMap((t) => [
-      { role: "user", content: t.prompt },
-      { role: "assistant", content: t.response },
+      new HumanMessage(t.prompt),
+      new AIMessage(t.response),
     ])
 
     const { messages } = await agent.invoke({
       messages: [
-        { role: "system", content: systemInstruction },
+        new SystemMessage(systemInstruction),
         ...chatHistory,
-        { role: "user", content: prompt },
+        new HumanMessage(prompt),
       ],
     })
 

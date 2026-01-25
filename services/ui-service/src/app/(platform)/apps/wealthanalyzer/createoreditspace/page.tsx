@@ -113,7 +113,7 @@ export default function Page() {
             </Show>
           </CardTitle>
           <CardDescription className="text-sm text-primary">
-            Edit your space to track your investments and assets
+            Fill in the details of your space to track your assets
           </CardDescription>
         </CardHeader>
         <CardContent>
